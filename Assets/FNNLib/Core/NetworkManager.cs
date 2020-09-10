@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using FNNLib.Messaging;
+using FNNLib.SceneManagement;
 using FNNLib.Transports;
 using UnityEngine;
 
@@ -7,18 +10,20 @@ namespace FNNLib.Core {
     /// <summary>
     /// The network manager drives the NetworkClient and NetworkServer systems.
     ///
-    /// TODO: Add a way of bulk adding packets to either client or server based on config.
+    /// TODO: Make more of this virtual so that custom network managers could be made? Do we actually need this given its functionality/openness?
     /// </summary>
+    [AddComponentMenu("Networking/Network Manager")]
     public class NetworkManager : MonoBehaviour {
         /// <summary>
         /// The game's NetworkManager.
         /// </summary>
         public static NetworkManager Instance;
-        
+
         /// <summary>
-        /// The selected transport to be used by the client and server.
+        /// The list of scenes that the server is permitted to send the client to.
+        /// Used for security purposes if you opt to use the NetworkSceneManager (recommended).
         /// </summary>
-        public Transport transport;
+        public List<string> permittedScenes = new List<string>();
         
         /// <summary>
         /// Whether or not the game should run clientside code.
@@ -41,24 +46,50 @@ namespace FNNLib.Core {
         public int localClientID => isServer ? transport.serverClientID : _client.localClientID;
         
         /// <summary>
+        /// The selected transport to be used by the client and server.
+        /// </summary>
+        public Transport transport;
+        
+        // TODO: Move a lot of the configuration for networking into its own serializable struct so it can be passed to transports. So these paramters arent on every transport.
+        
+        /// <summary>
+        /// The protocol version of the client and server.
+        /// Use this to stop old and new clients/servers interacting.
+        /// </summary>
+        public int protocolVersion;
+        
+        /// <summary>
+        /// This enables the NetworkSceneManager and will register its packets in the relevant places.
+        /// </summary>
+        public bool useSceneManagement = true;
+
+        /// <summary>
         /// The server we are controlling.
         /// This can be accessed when the Server is running with NetworkServer.Instance.
         /// </summary>
-        private NetworkServer _server = new NetworkServer();
+        private NetworkServer _server;
         
         /// <summary>
         /// The client we are controlling.
         /// This can be accessed when the Client is running with NetworkClient.Instance.
         /// </summary>
-        private NetworkClient _client = new NetworkClient();
-
+        private NetworkClient _client;
+        
         private void Awake() {
+            // Instance manager
             if (Instance != null && Instance == this) {
                 Debug.LogError("Only one NetworkManager may exist. Destroying.");
                 Destroy(this);
             } else if (Instance == null) Instance = this;
 
-            // TODO: Add packets for the features I add, such as RPCs and Networked Variables etc.
+            // Add packets for features (if enabled)
+            if (useSceneManagement) {
+                _client.RegisterPacketHandler<SceneChangePacket>(NetworkSceneManager.ClientHandleSceneChangePacket);
+            }
+            
+            // Create client and server using protocol version
+            _server = new NetworkServer(protocolVersion);
+            _client = new NetworkClient(protocolVersion);
         }
 
         private void OnDestroy() {
@@ -73,7 +104,13 @@ namespace FNNLib.Core {
         
         #region Client
 
-        public void StartClient(string hostname) {
+        /// <summary>
+        /// Start the manager in client mode.
+        /// </summary>
+        /// <param name="hostname">The hostname of the server to connect to.</param>
+        /// <param name="connectionRequestData">Connection request data used for the approval stage.</param>
+        /// <exception cref="NotSupportedException"></exception>
+        public void StartClient(string hostname, byte[] connectionRequestData = null) {
             // Ensure manager isn't running.
             if (isHost)
                 throw new NotSupportedException("The network manager is already running in host mode!");
@@ -87,7 +124,7 @@ namespace FNNLib.Core {
 
             // Start client
             isClient = true;
-            _client.Connect(hostname);
+            _client.Connect(hostname, connectionRequestData);
         }
 
         /// <summary>
@@ -174,6 +211,7 @@ namespace FNNLib.Core {
                 throw new NotSupportedException("Host mode is already running!");
             
             // TODO: Host mode implementation
+            // TODO: Host will be able to skip the whole connection approval process... we need to implement this.
         }
 
         public void StopHost() {
@@ -224,11 +262,11 @@ namespace FNNLib.Core {
         /// <typeparam name="T"></typeparam>
         public void RegisterPacketHandler<T>(Action<int, T> handler) where T : IPacket, new() {
             if (PacketUtils.IsClientPacket<T>()) {
-                _client.RegisterPacketHandler<T>(handler);
+                _client.RegisterPacketHandler(handler);
             }
             
             if (PacketUtils.IsServerPacket<T>()) {
-                _server.RegisterPacketHandler<T>(handler);
+                _server.RegisterPacketHandler(handler);
             }
         }
         

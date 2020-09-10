@@ -49,11 +49,12 @@ namespace FNNLib.Core {
         public class Client {
             public int clientID { get; internal set; }
             public uint currentScene { get; internal set; }
+            public uint playerObject { get; internal set; }
         }
 
-        private readonly Dictionary<int, int> _clients;
+        private readonly Dictionary<int, Client> _clients;
         
-        public NetworkServer() {
+        public NetworkServer(int protocolVersion) {
             // Register the common handlers. These are required across *all* servers.
             RegisterInternalPackets();
         }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Numerics;
-using UnityEditor;
-using UnityEngine.Experimental.AI;
+using UnityEngine;
 
 namespace FNNLib.Serialization {
     /// <summary>

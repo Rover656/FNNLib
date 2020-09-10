@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using FNNLib.Core;
-using FNNLib.Messaging;
-using FNNLib.Serialization;
+﻿using FNNLib.Core;
 using FNNLib.Transports;
-using TMPro;
-// using FNNLib.Transports;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,8 +15,9 @@ namespace DefaultNamespace {
                 
                 // TODO: Pass through events to the server, client and even manager.
                 Transport.currentTransport.onClientConnected.AddListener(() => {
-                                                                             var test = new TestPacket();
-                                                                             test.text = "Hello from the client!";
+                                                                             var test = new TestPacket {
+                                                                                 text = "Hello from the client!"
+                                                                             };
                                                                              NetworkManager.Instance.Send(0, test);
                                                                          });
             } else {

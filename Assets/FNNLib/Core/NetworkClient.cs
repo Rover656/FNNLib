@@ -26,16 +26,25 @@ namespace FNNLib.Core {
         /// </summary>
         protected override bool isServerContext => false;
 
+        public NetworkClient(int protocolVersion) {
+            // TODO: Protocol version as part of the connection process...
+        }
+
         #region Client Control
 
-        public void Connect(string hostname) {
+        private byte[] _connectionRequestData;
+
+        public void Connect(string hostname, byte[] connectionRequestData = null) {
             Instance = this;
             Transport.currentTransport.StartClient(hostname);
             // TODO: Hook connect, disconnect events etc. and hook up the connection request system.
             RegisterInternalPackets();
-            
+
             // Hook events
             HookEvents();
+
+            // Save the data for use in the connection request phase
+            _connectionRequestData = connectionRequestData;
         }
 
         public void BeginHost() {
@@ -48,9 +57,9 @@ namespace FNNLib.Core {
 
         private void ClientConnected() {
             Debug.Log("Connected to server! Sending connection request.");
-            
+
             // Send connection request
-            var request = new ConnectionRequestPacket();
+            var request = new ConnectionRequestPacket {connectionData = _connectionRequestData};
             Send(request);
         }
 
@@ -85,7 +94,7 @@ namespace FNNLib.Core {
         public void Send<T>(T packet) where T : IPacket, new() {
             if (!PacketUtils.IsServerPacket<T>())
                 throw new InvalidOperationException("Attempted to send non-server packet to server!");
-            
+
             // Write data
             using (var writer = NetworkWriterPool.GetWriter()) {
                 writer.WriteInt32(PacketUtils.GetID<T>());

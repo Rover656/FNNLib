@@ -153,7 +153,8 @@ namespace FNNLib.Transports.TCP {
                 // Unity did this, ignore
             }
             catch (SocketException ex) {
-                // Happens on disconnect, ignore
+                // Happens on disconnect or when the server bind fails, ignore
+                Debug.LogWarning("Server listener thread SocketException: " + ex);
             }
             catch (Exception ex) {
                 // Finally, an actual issue

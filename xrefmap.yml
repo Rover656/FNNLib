@@ -782,19 +782,19 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkServer.isServerContext
   nameWithType: NetworkServer.isServerContext
-- uid: FNNLib.NetworkServer.IsServerRunning
-  name: IsServerRunning
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_IsServerRunning
-  commentId: P:FNNLib.NetworkServer.IsServerRunning
-  fullName: FNNLib.NetworkServer.IsServerRunning
-  nameWithType: NetworkServer.IsServerRunning
-- uid: FNNLib.NetworkServer.IsServerRunning*
-  name: IsServerRunning
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_IsServerRunning_
-  commentId: Overload:FNNLib.NetworkServer.IsServerRunning
+- uid: FNNLib.NetworkServer.isServerRunning
+  name: isServerRunning
+  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_isServerRunning
+  commentId: P:FNNLib.NetworkServer.isServerRunning
+  fullName: FNNLib.NetworkServer.isServerRunning
+  nameWithType: NetworkServer.isServerRunning
+- uid: FNNLib.NetworkServer.isServerRunning*
+  name: isServerRunning
+  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_isServerRunning_
+  commentId: Overload:FNNLib.NetworkServer.isServerRunning
   isSpec: "True"
-  fullName: FNNLib.NetworkServer.IsServerRunning
-  nameWithType: NetworkServer.IsServerRunning
+  fullName: FNNLib.NetworkServer.isServerRunning
+  nameWithType: NetworkServer.isServerRunning
 - uid: FNNLib.NetworkServer.onClientConnected
   name: onClientConnected
   href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_onClientConnected

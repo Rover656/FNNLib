@@ -26,7 +26,7 @@ jobs:
   
       - name: Package
         run: |
-          unity-packer pack FNNLib.unitypackage Assets/FNNLIb Assets/FNNLIb LICENSE Assets/FNNLib/LICENSE
+          unity-packer pack FNNLib.unitypackage Assets/FNNLib Assets/FNNLib LICENSE Assets/FNNLib/LICENSE
       - uses: actions/upload-artifact@v1
         with:
           name: FNNLib.unitypackage

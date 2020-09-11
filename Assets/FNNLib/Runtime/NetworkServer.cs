@@ -10,7 +10,7 @@ using FNNLib.Transports;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace FNNLib.Core {
+namespace FNNLib {
     /// <summary>
     /// The NetworkServer class manages sending data to the clients.
     /// This is normally controlled by the NetworkManager and most games won't access this at all.

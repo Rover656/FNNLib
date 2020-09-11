@@ -1,0 +1,45 @@
+name: CI
+
+# Don't build if docs change.
+on: 
+  push:
+    paths-ignore:
+      - 'Documentation/**'
+      - '*.md'
+  
+jobs:
+  Build:
+    runs-on: windows-latest
+    needs: CI
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+        
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.100'
+  
+      - name: Install unity-packer
+        run: dotnet tool install -g unity-packer
+  
+      - name: Package
+        run: |
+          unity-packer pack FNNLib.unitypackage Assets/FNNLIb Assets/FNNLIb LICENSE Assets/FNNLib/LICENSE
+      - uses: actions/upload-artifact@v1
+        with:
+          name: FNNLib.unitypackage
+          path: FNNLib.unitypackage
+
+      # - name: Release
+      #   uses: cycjimmy/semantic-release-action@v2
+      #   with:
+      #     extra_plugins: |
+      #       @semantic-release/exec
+      #       @semantic-release/changelog
+      #       @semantic-release/git
+      #     branch: master
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

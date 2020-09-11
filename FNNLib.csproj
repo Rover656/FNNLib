@@ -12,10 +12,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{d09500f1-43ce-2c19-edd2-f390f2bc316a}</ProjectGuid>
+    <ProjectGuid>{fdd853f5-a145-d2c8-d665-b9397e406457}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>FNNLib</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -50,88 +50,42 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\TransportTest.cs" />
-     <Compile Include="Assets\Scripts\TestPacket.cs" />
- <Reference Include="Unity.Timeline.Editor">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Animation.Runtime">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.PixelPerfect.Editor">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.VSCode.Editor">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.SpriteShape.Editor">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.2D.SpriteShape.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Path.Editor">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.2D.Path.Editor.dll</HintPath>
+     <Compile Include="Assets\FNNLib\Runtime\SceneManagement\SceneChangeCompletedPacket.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\SceneManagement\SceneChangePacket.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Messaging\PacketUtils.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Serialization\NetworkReader.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\SceneManagement\NetworkSceneManager.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\SceneManagement\NetworkScene.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Serialization\NetworkWriter.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Utilities\StringHash.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Serialization\NetworkWriterPool.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Transports\TCP\NetworkStreamExtensions.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Transports\TCP\CommonBackend.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Messaging\IPacket.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Transports\TCP\TCPServer.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Transports\Transport.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\NetworkIdentity.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Transports\TCP\Message.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\NetworkClient.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Transports\TCP\TCPClient.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Transports\TCP\SafeQueue.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\NetworkBehaviour.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\SceneManagement\ScenePackingData.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\NetworkServer.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Messaging\Internal\ConnectionRequestPacket.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\NetworkManager.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Messaging\Internal\ConnectionApprovedPacket.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Serialization\NetworkReaderPool.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Messaging\PacketHandler.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Transports\TCPTransport.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Transports\TCP\Utils.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Messaging\Internal\ClientDisconnectPacket.cs" />
+     <None Include="Assets\FNNLib\Runtime\FNNLib.asmdef" />
+ <Reference Include="UnityEditor.UI">
+ <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Timeline">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Animation.Triangle.Runtime">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="PsdPlugin">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/PsdPlugin.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Rider.Editor">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Mathematics">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Psdimporter.Editor">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.2D.Psdimporter.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.InternalAPIEngineBridge.001">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Common.Runtime">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Tilemap.Editor">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.SpriteShape.Runtime">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.2D.SpriteShape.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.PixelPerfect">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Animation.Editor">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.VisualStudio.Editor">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Mathematics.Editor">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Common.Editor">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.InternalAPIEditorBridge.001">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -321,6 +275,24 @@
  </Reference>
  <Reference Include="UnityEditor">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.3f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Graphs">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.3f1/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WebGL.Extensions">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.3f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.OSXStandalone.Extensions">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.3f1/Editor/Data/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.3f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.LinuxStandalone.Extensions">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.3f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UWP.Extensions">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.3f1/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.3f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -667,16 +639,6 @@
  <Reference Include="System.Xml.Serialization">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.3f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="FNNLib.csproj">
-      <Project>{fdd853f5-a145-d2c8-d665-b9397e406457}</Project>
-      <Name>FNNLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="FNNLib.Editor.csproj">
-      <Project>{f73159fd-327b-8320-d364-f81eb6288a56}</Project>
-      <Name>FNNLib.Editor</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

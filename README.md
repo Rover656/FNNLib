@@ -1,5 +1,7 @@
 # Friday Night Networking Library
 
+![Build Documentation](https://github.com/Rover656/FNNLib/workflows/Build%20Documentation/badge.svg)
+
 A *work in progress* networking solution for Unity, with a focus on extensibility and ease of use.
 
 Current goals:

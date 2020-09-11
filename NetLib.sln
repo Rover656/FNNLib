@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNNLib", "FNNLib.csproj", "{fdd853f5-a145-d2c8-d665-b9397e406457}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{d09500f1-43ce-2c19-edd2-f390f2bc316a}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNNLib.Editor", "FNNLib.Editor.csproj", "{f73159fd-327b-8320-d364-f81eb6288a56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{fdd853f5-a145-d2c8-d665-b9397e406457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{fdd853f5-a145-d2c8-d665-b9397e406457}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{fdd853f5-a145-d2c8-d665-b9397e406457}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{fdd853f5-a145-d2c8-d665-b9397e406457}.Release|Any CPU.Build.0 = Release|Any CPU
 		{d09500f1-43ce-2c19-edd2-f390f2bc316a}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{d09500f1-43ce-2c19-edd2-f390f2bc316a}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{d09500f1-43ce-2c19-edd2-f390f2bc316a}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{d09500f1-43ce-2c19-edd2-f390f2bc316a}.Release|Any CPU.Build.0 = Release|Any CPU
+		{f73159fd-327b-8320-d364-f81eb6288a56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{f73159fd-327b-8320-d364-f81eb6288a56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{f73159fd-327b-8320-d364-f81eb6288a56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{f73159fd-327b-8320-d364-f81eb6288a56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

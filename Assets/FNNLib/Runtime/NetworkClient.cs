@@ -6,7 +6,7 @@ using FNNLib.Transports;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace FNNLib.Core {
+namespace FNNLib {
     public class NetworkClient : PacketHandler {
         /// <summary>
         /// The current NetworkClient

@@ -5,7 +5,7 @@ using FNNLib.SceneManagement;
 using FNNLib.Transports;
 using UnityEngine;
 
-namespace FNNLib.Core {
+namespace FNNLib {
     /// <summary>
     /// The network manager drives the NetworkClient and NetworkServer systems.
     ///

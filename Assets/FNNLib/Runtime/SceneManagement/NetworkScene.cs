@@ -1,5 +1,4 @@
-﻿using FNNLib.Core;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace FNNLib.SceneManagement {

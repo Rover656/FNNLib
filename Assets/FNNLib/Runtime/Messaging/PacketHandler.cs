@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DefaultNamespace;
 using FNNLib.Serialization;
 using UnityEngine;
 

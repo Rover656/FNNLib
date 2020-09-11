@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace FNNLib.Core {
+namespace FNNLib {
     // TODO: Devise a way that a developer can implement custom spawning, because currently you are forced to use the NetworkSceneManager.
     //        The solution will likely be public functions that permit the setting of information in the network identity so that an implementation can be made.
     [AddComponentMenu("Networking/Network Identity")]

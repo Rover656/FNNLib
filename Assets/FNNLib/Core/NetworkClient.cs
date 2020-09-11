@@ -28,8 +28,10 @@ namespace FNNLib.Core {
         /// </summary>
         protected override bool isServerContext => false;
 
+        private readonly int _protocolVersion;
+
         public NetworkClient(int protocolVersion) {
-            // TODO: Protocol version as part of the connection process...
+            _protocolVersion = protocolVersion;
         }
 
         #region Client Control
@@ -69,7 +71,7 @@ namespace FNNLib.Core {
             Debug.Log("Connected to server! Sending connection request.");
 
             // Send connection request
-            var request = new ConnectionRequestPacket {connectionData = _connectionRequestData};
+            var request = new ConnectionRequestPacket {connectionData = _connectionRequestData, protocolVersion = _protocolVersion};
             Send(request);
         }
 

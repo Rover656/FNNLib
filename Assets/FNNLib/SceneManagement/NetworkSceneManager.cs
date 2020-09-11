@@ -28,9 +28,9 @@ namespace FNNLib.SceneManagement {
         private static bool _usingSubScenes;
         
         public static void ServerLoadScene(string sceneName) {
-            if (!NetworkManager.Instance.useSceneManagement)
+            if (!NetworkManager.instance.useSceneManagement)
                 throw new NotSupportedException("The NetworkSceneManager is not enabled by the current NetworkManager!");
-            if (!NetworkManager.Instance.isServer)
+            if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("Only the server may load scenes!");
             if (_usingSubScenes)
                 throw new NotSupportedException("Cannot use ServerLoadScene when subscenes are active. Use subscene methods instead!");
@@ -46,9 +46,9 @@ namespace FNNLib.SceneManagement {
         /// </summary>
         /// <param name="sceneName">The scene to be loaded.</param>
         public static void ServerLoadSubScene(string sceneName) {
-            if (!NetworkManager.Instance.useSceneManagement)
+            if (!NetworkManager.instance.useSceneManagement)
                 throw new NotSupportedException("The NetworkSceneManager is not enabled by the current NetworkManager!");
-            if (!NetworkManager.Instance.isServer)
+            if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("Only the server may load scenes!");
             if (!CanSendClientTo(sceneName))
                 throw new NotSupportedException("Cannot send client to this scene. It is not on the permitted scenes list.");
@@ -73,13 +73,13 @@ namespace FNNLib.SceneManagement {
         /// <param name="sceneName"></param>
         /// <param name="fallbackScene"></param>
         public static void ServerUnloadSubScene(string sceneName, uint fallbackScene) {
-            if (!NetworkManager.Instance.useSceneManagement)
+            if (!NetworkManager.instance.useSceneManagement)
                 throw new NotSupportedException("The NetworkSceneManager is not enabled by the current NetworkManager!");
             // TODO
         }
 
         public static void SendClientTo(uint clientID, string sceneName) {
-            if (!NetworkManager.Instance.useSceneManagement)
+            if (!NetworkManager.instance.useSceneManagement)
                 throw new NotSupportedException("The NetworkSceneManager is not enabled by the current NetworkManager!");
             // TODO: Will this only be used for subscenes (i.e. games with more than 1 scene at a time). Probably.
             // TODO: Move the client to the scene.
@@ -96,7 +96,7 @@ namespace FNNLib.SceneManagement {
         }
 
         private static bool CanSendClientTo(string sceneName) {
-            return NetworkManager.Instance.permittedScenes.FindIndex((networkableScene) =>
+            return NetworkManager.instance.permittedScenes.FindIndex((networkableScene) =>
                                                                          networkableScene.sceneName == sceneName) != -1;
         }
     }

@@ -11,8 +11,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace FNNLib.Core {
-    public delegate void NetworkServerEventHandler(NetworkServer server);
-    
     /// <summary>
     /// The NetworkServer class manages sending data to the clients.
     /// This is normally controlled by the NetworkManager and most games won't access this at all.
@@ -23,17 +21,17 @@ namespace FNNLib.Core {
         /// The currently running server, if any.
         /// Check if a server is running with the IsServerRunning static property.
         /// </summary>
-        public static NetworkServer Instance;
+        public static NetworkServer instance;
 
         /// <summary>
         /// Whether or not a server is running.
         /// </summary>
-        public static bool IsServerRunning => Instance != null && Instance.running;
+        public static bool IsServerRunning => instance != null && instance.running;
 
         /// <summary>
         /// Whether or not this server is running.
         /// </summary>
-        public bool running => Transport.currentTransport.serverRunning && Instance == this;
+        public bool running => Transport.currentTransport.serverRunning && instance == this;
 
         /// <summary>
         /// Server started event. Raised just after the server is started.
@@ -91,11 +89,11 @@ namespace FNNLib.Core {
         private ConcurrentDictionary<int, ClientInfo> _clients = new ConcurrentDictionary<int, ClientInfo>();
 
         public NetworkServer(int protocolVersion) {
-            // Register the common handlers. These are required across *all* servers.
-            RegisterInternalPackets();
-            
             // Save the protocol version
             _protocolVersion = protocolVersion;
+            
+            // Register the common handlers. These are required across *all* servers.
+            RegisterInternalPackets();
         }
 
         #region Server Control
@@ -105,11 +103,11 @@ namespace FNNLib.Core {
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown if a server is already running.</exception>
         public void Start() {
-            if (Transport.currentTransport.serverRunning || Instance != null)
+            if (Transport.currentTransport.serverRunning || instance != null)
                 throw new NotSupportedException("A server is already running!");
             Transport.currentTransport.StartServer();
             HookTransport();
-            Instance = this;
+            instance = this;
             onServerStarted?.Invoke(this);
         }
 
@@ -120,7 +118,7 @@ namespace FNNLib.Core {
         public void Stop() {
             if (!Transport.currentTransport.serverRunning)
                 throw new NotSupportedException("A server is not running!");
-            if (Instance != this)
+            if (instance != this)
                 throw new NotSupportedException("This instance should not be running a server!");
             PerformStop();
         }
@@ -128,7 +126,7 @@ namespace FNNLib.Core {
         private void PerformStop() {
             Transport.currentTransport.StopServer();
             UnhookTransport();
-            Instance = null;
+            instance = null;
             onServerStopped?.Invoke(this);
         }
 

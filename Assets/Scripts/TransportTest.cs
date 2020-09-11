@@ -11,27 +11,27 @@ namespace DefaultNamespace {
 
         void Start() {
             if ((editorIsClient && Application.isEditor) || (!editorIsClient && !Application.isEditor)) {
-                NetworkManager.Instance.StartClient("127.0.0.1");
+                NetworkManager.instance.StartClient("127.0.0.1");
 
                 // TODO: Pass through events to the NetworkManager too? Or leave the individual events in network client/server
-                NetworkClient.Instance.onConnected.AddListener(() => {
+                NetworkClient.instance.onConnected.AddListener(() => {
                                                                    var test = new TestPacket {
                                                                                   text = "Hello from the client!"
                                                                               };
-                                                                   NetworkClient.Instance.Send(test);
+                                                                   NetworkClient.instance.Send(test);
                                                                });
             }
             else {
-                NetworkManager.Instance.StartServer();
+                NetworkManager.instance.StartServer();
             }
 
             // Register packet on possible targets. In this packets case, itll register on both client and server.
             // If you want to use a separate handler for client or server, use the NetworkServer or Client instead!
-            NetworkManager.Instance.RegisterPacketHandler<TestPacket>(HandleTestPacket);
+            NetworkManager.instance.RegisterPacketHandler<TestPacket>(HandleTestPacket);
         }
 
         void HandleTestPacket(int clientID, TestPacket packet) {
-            if (NetworkManager.Instance.isServer) {
+            if (NetworkManager.instance.isServer) {
                 Debug.Log("Received test packet from " + clientID + "! Text is \"" + packet.text + "\"");
             }
             else {
@@ -41,10 +41,10 @@ namespace DefaultNamespace {
 
         void Update() {
             if ((editorIsClient && Application.isEditor) || (!editorIsClient && !Application.isEditor)) {
-                running.text = NetworkManager.Instance.transport.clientConnected ? "Connected" : "Disconnected";
+                running.text = NetworkManager.instance.transport.clientConnected ? "Connected" : "Disconnected";
             }
             else {
-                running.text = NetworkManager.Instance.transport.serverRunning ? "Running" : "Stopped";
+                running.text = NetworkManager.instance.transport.serverRunning ? "Running" : "Stopped";
             }
         }
     }

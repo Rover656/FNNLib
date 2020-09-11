@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DefaultNamespace;
 using FNNLib.Serialization;
 using UnityEngine;
 
@@ -52,6 +53,26 @@ namespace FNNLib.Messaging {
             if (_packetHandlers.ContainsKey(packetID))
                 throw new InvalidOperationException("A packet with this ID already exists, ensure that you have given it a unique name!");
             _packetHandlers.Add(packetID, PacketUtils.GetPacketHandler(handler));
+        }
+
+        /// <summary>
+        /// Clear the packet handler for a given packet type.
+        /// </summary>
+        /// <typeparam name="T">The packet type to clear.</typeparam>
+        /// <exception cref="InvalidOperationException">Thrown if a handler does not exist for this packet.</exception>
+        public void ClearPacketHandler<T>() where T : IPacket, new() {
+            var id = PacketUtils.GetID<T>();
+            if (!_packetHandlers.ContainsKey(id))
+                throw new InvalidOperationException("No handler exists for this packet!");
+            _packetHandlers.Remove(id);
+        }
+
+        /// <summary>
+        /// Clear the packet handlers.
+        /// Used if you are resetting the handler.
+        /// </summary>
+        internal void ClearPacketHandlers() {
+            _packetHandlers.Clear();
         }
     }
 }

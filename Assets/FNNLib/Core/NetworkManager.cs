@@ -16,14 +16,8 @@ namespace FNNLib.Core {
         /// <summary>
         /// The game's NetworkManager.
         /// </summary>
-        public static NetworkManager Instance;
+        public static NetworkManager instance;
 
-        /// <summary>
-        /// The list of scenes that the server is permitted to send the client to.
-        /// Used for security purposes if you opt to use the NetworkSceneManager (recommended).
-        /// </summary>
-        public List<NetworkableScene> permittedScenes = new List<NetworkableScene>();
-        
         /// <summary>
         /// Whether or not the game should run clientside code.
         /// </summary>
@@ -61,6 +55,12 @@ namespace FNNLib.Core {
         /// This enables the NetworkSceneManager and will register its packets in the relevant places.
         /// </summary>
         public bool useSceneManagement = true;
+        
+        /// <summary>
+        /// The list of scenes that the server is permitted to send the client to.
+        /// Used for security purposes if you opt to use the NetworkSceneManager (recommended).
+        /// </summary>
+        public List<NetworkableScene> permittedScenes = new List<NetworkableScene>();
 
         /// <summary>
         /// The server we are controlling.
@@ -86,10 +86,10 @@ namespace FNNLib.Core {
         
         private void Awake() {
             // Instance manager
-            if (Instance != null && Instance == this) {
+            if (instance != null && instance == this) {
                 Debug.LogError("Only one NetworkManager may exist. Destroying.");
                 Destroy(this);
-            } else if (Instance == null) Instance = this;
+            } else if (instance == null) instance = this;
 
             // Create client and server using protocol version
             _server = new NetworkServer(protocolVersion);

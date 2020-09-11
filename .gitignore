@@ -503,3 +503,9 @@ MigrationBackup/
 
 # End of https://www.toptal.com/developers/gitignore/api/unity,rider,visualstudio,visualstudiocode
 .idea/.idea.NetLib/.idea/discord.xml
+
+# Documentation
+Documentation/api/
+Documentation/index.*
+_site/
+Assets/**/obj*

@@ -11,7 +11,7 @@ namespace FNNLib.Core {
         /// <summary>
         /// The current NetworkClient
         /// </summary>
-        public static NetworkClient Instance;
+        public static NetworkClient instance;
 
         /// <summary>
         /// This client's ID on the server.
@@ -51,7 +51,11 @@ namespace FNNLib.Core {
         /// </summary>
         /// <param name="protocolVersion">Client protocol version.</param>
         public NetworkClient(int protocolVersion) {
+            // Set protocol version
             _protocolVersion = protocolVersion;
+            
+            // Register internal protocol packets
+            RegisterInternalPackets();
         }
 
         #region Client Control
@@ -67,12 +71,13 @@ namespace FNNLib.Core {
         /// <param name="hostname">The server hostname</param>
         /// <param name="connectionRequestData">Additional connection data used by the server approval phase.</param>
         public void Connect(string hostname, byte[] connectionRequestData = null) {
-            // TODO: Security checks.
-            Instance = this;
-            Transport.currentTransport.StartClient(hostname);
+            if (instance != null)
+                throw new NotSupportedException("A client is already running!");
             
-            // Register the internal protocol
-            RegisterInternalPackets();
+            // Start the client.
+            instance = this;
+            _hostMode = false;
+            Transport.currentTransport.StartClient(hostname);
 
             // Hook events
             HookTransport();
@@ -81,13 +86,18 @@ namespace FNNLib.Core {
             _connectionRequestData = connectionRequestData;
         }
 
-        public void BeginHost() {
+        public void ConnectVirtual() {
             // TODO: Begin a virtual client. This will stop any outgoing packets to the server.
         }
 
         public void Disconnect() {
-            // TODO: Security checks.
-            Transport.currentTransport.StopClient(); // Disconnect event is fired by this.
+            if (instance == null)
+                throw new NotSupportedException("The client is not running!");
+            if (instance != this)
+                throw new NotSupportedException("A client is running, however this is not the running client!");
+            
+            // Stop the client.
+            Transport.currentTransport.StopClient();
         }
 
         #endregion
@@ -128,11 +138,21 @@ namespace FNNLib.Core {
             RegisterPacketHandler<ClientDisconnectPacket>(ClientDisconnectHandler);
         }
 
+        /// <summary>
+        /// Once the connection is approved, the game can start running its logic.
+        /// </summary>
+        /// <param name="sender">The sender (the server in this instance).</param>
+        /// <param name="packet">The connection approval packet.</param>
         private void ConnectionApprovedHandler(int sender, ConnectionApprovedPacket packet) {
             localClientID = packet.localClientID;
             onConnected?.Invoke();
         }
 
+        /// <summary>
+        /// When the server disconnects us, we will save the reason for the event and stop the client.
+        /// </summary>
+        /// <param name="sender">The server</param>
+        /// <param name="packet">The disconnection packet.</param>
         private void ClientDisconnectHandler(int sender, ClientDisconnectPacket packet) {
             // Disconnect from the server, storing the disconnect reason for the disconnect callback.
             _disconnectReason = packet.disconnectReason;

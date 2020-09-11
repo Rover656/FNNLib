@@ -16,8 +16,8 @@ namespace FNNLib.Messaging {
         /// <summary>
         /// Determine if this packet is run on the client.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <typeparam name="T">The packet type.</typeparam>
+        /// <returns>Whether the packet can be sent to the client.</returns>
         public static bool IsClientPacket<T>() {
             return typeof(T).GetCustomAttributes(typeof(ClientPacketAttribute), false).Length > 0;
         }
@@ -25,8 +25,8 @@ namespace FNNLib.Messaging {
         /// <summary>
         /// Determine if this packet is run on the server.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <typeparam name="T">The packet type.</typeparam>
+        /// <returns>Whether the packet can be sent to the server.</returns>
         public static bool IsServerPacket<T>() {
             return typeof(T).GetCustomAttributes(typeof(ServerPacketAttribute), false).Length > 0;
         }
@@ -34,9 +34,9 @@ namespace FNNLib.Messaging {
         /// <summary>
         /// Gets a lambda function that will be used by the PacketHandler.
         /// </summary>
-        /// <param name="handler"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <param name="handler">The handler to be called when the packet is recieved.</param>
+        /// <typeparam name="T">The packet the handler is for.</typeparam>
+        /// <returns>The handler for the PacketHandler internal system.</returns>
         internal static NetworkPacketDelegate GetPacketHandler<T>(Action<int, T> handler)
             where T : IPacket, new()
             => (clientID, reader) => {

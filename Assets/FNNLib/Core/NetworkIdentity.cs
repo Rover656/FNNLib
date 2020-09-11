@@ -18,11 +18,11 @@ namespace FNNLib.Core {
         /// <summary>
         /// Is running in a server context?
         /// </summary>
-        public bool isServer => NetworkManager.Instance.isServer;
+        public bool isServer => NetworkManager.instance.isServer;
 
         /// <summary>
         /// Is running in a client context?
         /// </summary>
-        public bool isClient => NetworkManager.Instance.isClient;
+        public bool isClient => NetworkManager.instance.isClient;
     }
 }

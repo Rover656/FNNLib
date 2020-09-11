@@ -26,7 +26,7 @@ namespace FNNLib {
         /// <summary>
         /// Whether or not a server is running.
         /// </summary>
-        public static bool IsServerRunning => instance != null && instance.running;
+        public static bool isServerRunning => instance != null && instance.running;
 
         /// <summary>
         /// Whether or not this server is running.
@@ -188,6 +188,7 @@ namespace FNNLib {
         /// Disconnect a client from the server.
         /// </summary>
         /// <param name="clientID">The client to be disconnected.</param>
+        /// <param name="disconnectReason">The client disconnect reason. Will be provided to the client on disconnect.</param>
         public void Disconnect(int clientID, string disconnectReason) {
             // Don't send multiple disconnects
             var client = _clients[clientID];

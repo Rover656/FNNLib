@@ -179,5 +179,20 @@ namespace FNNLib.Transports.TCP {
             Debug.LogError("Data was too long!");
             return false;
         }
+
+        public void Disconnect(int clientID) {
+            // Get client
+            if (_clients.TryGetValue(clientID, out var client)) {
+                // Clean up connections.
+                client.client.GetStream().Close();
+                client.client.Close();
+                
+                // Disconnect message
+                recieveQueue.Enqueue(new Message(clientID, EventType.Disconnect, null));
+                
+                // Remove from client list.
+                _clients.TryRemove(clientID, out _);
+            }
+        }
     }
 }

@@ -197,6 +197,11 @@ namespace FNNLib.Serialization {
         }
 
         public void WriteBytesWithSize(byte[] values, int offset, int count) {
+            if (values == null) {
+                WriteUInt32(0u);
+                return;
+            }
+            
             WriteSegmentWithSize(new ArraySegment<byte>(values, offset, count));
         }
 

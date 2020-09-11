@@ -28,20 +28,24 @@ namespace FNNLib.Transports {
             Array.Copy(data.Array, data.Offset, copy, 0, data.Count);
             return _server.Send(clientID, copy);
         }
-        
+
+        public override void ServerDisconnectClient(int clientID) {
+            _server.Disconnect(clientID);
+        }
+
         private bool ProcessServerIncoming() {
             if (_server.TryGetMessage(out var msg)) {
                 switch (msg.eventType) {
                     case EventType.Connect:
-                        // onClientConnected.Invoke();
+                        onServerConnected?.Invoke(msg.connectionID);
                         break;
                     case EventType.Data:
                         onServerDataReceived.Invoke(msg.connectionID, new ArraySegment<byte>(msg.data));
                         break;
                     case EventType.Disconnect:
-                    default:
-                        // onClientDisconnected.Invoke();
-                        break; // Error = disconnect, so fire disconnect event!
+                    default: // Error = disconnect, so fire disconnect event!
+                        onServerDisconnected?.Invoke(msg.connectionID);
+                        break;
                 }
 
                 return true;

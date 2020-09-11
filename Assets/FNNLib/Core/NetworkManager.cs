@@ -23,7 +23,7 @@ namespace FNNLib.Core {
         /// The list of scenes that the server is permitted to send the client to.
         /// Used for security purposes if you opt to use the NetworkSceneManager (recommended).
         /// </summary>
-        public List<string> permittedScenes = new List<string>();
+        public List<NetworkableScene> permittedScenes = new List<NetworkableScene>();
         
         /// <summary>
         /// Whether or not the game should run clientside code.
@@ -50,7 +50,7 @@ namespace FNNLib.Core {
         /// </summary>
         public Transport transport;
         
-        // TODO: Move a lot of the configuration for networking into its own serializable struct so it can be passed to transports. So these paramters arent on every transport.
+        // TODO: Move a lot of the configuration for networking into its own serializable struct so it can be passed to transports. So these parameters arent on every transport.
         
         /// <summary>
         /// The protocol version of the client and server.
@@ -65,15 +65,25 @@ namespace FNNLib.Core {
 
         /// <summary>
         /// The server we are controlling.
-        /// This can be accessed when the Server is running with NetworkServer.Instance.
+        /// This can be accessed when the Server is running with NetworkServer.Instance or with the server property.
         /// </summary>
         private NetworkServer _server;
+
+        /// <summary>
+        /// The underlying server.
+        /// </summary>
+        public NetworkServer server => _server;
         
         /// <summary>
         /// The client we are controlling.
-        /// This can be accessed when the Client is running with NetworkClient.Instance.
+        /// This can be accessed when the Client is running with NetworkClient.Instance or with the client property.
         /// </summary>
         private NetworkClient _client;
+
+        /// <summary>
+        /// The underlying client.
+        /// </summary>
+        public NetworkClient client => _client;
         
         private void Awake() {
             // Instance manager
@@ -82,14 +92,14 @@ namespace FNNLib.Core {
                 Destroy(this);
             } else if (Instance == null) Instance = this;
 
+            // Create client and server using protocol version
+            _server = new NetworkServer(protocolVersion);
+            _client = new NetworkClient(protocolVersion);
+            
             // Add packets for features (if enabled)
             if (useSceneManagement) {
                 _client.RegisterPacketHandler<SceneChangePacket>(NetworkSceneManager.ClientHandleSceneChangePacket);
             }
-            
-            // Create client and server using protocol version
-            _server = new NetworkServer(protocolVersion);
-            _client = new NetworkClient(protocolVersion);
         }
 
         private void OnDestroy() {
@@ -170,7 +180,7 @@ namespace FNNLib.Core {
             _server.Start();
             
             // Hook stop event in case it closes.
-            _server.OnServerStopped += OnServerStopped;
+            _server.OnServerStopped.AddListener(OnServerStopped);
         }
         
         /// <summary>
@@ -191,7 +201,7 @@ namespace FNNLib.Core {
 
         private void OnServerStopped(NetworkServer server) {
             // Remove hooks
-            server.OnServerStopped -= OnServerStopped;
+            server.OnServerStopped.RemoveListener(OnServerStopped);
             isServer = false;
             
             // Disable transport

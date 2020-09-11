@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using FNNLib.Messaging;
 using FNNLib.Messaging.Internal;
 using FNNLib.Serialization;
 using FNNLib.Transports;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Experimental.AI;
 
 namespace FNNLib.Core {
     public class NetworkClient : PacketHandler {
@@ -19,7 +19,9 @@ namespace FNNLib.Core {
         /// </summary>
         public int localClientID { get; private set; }
 
-        public event ConnectionApprovedDelegate OnConnectionApproved;
+        public UnityEvent OnConnectionApproved = new UnityEvent();
+        
+        public UnityEvent<string> OnDisconected = new UnityEvent<string>();
 
         /// <summary>
         /// Mark as client context for packet management.
@@ -34,10 +36,17 @@ namespace FNNLib.Core {
 
         private byte[] _connectionRequestData;
 
+        /// <summary>
+        /// Connect the client to a server.
+        /// </summary>
+        /// <param name="hostname">The server hostname</param>
+        /// <param name="connectionRequestData">Additional connection data used by the server approval phase.</param>
         public void Connect(string hostname, byte[] connectionRequestData = null) {
+            // TODO: Security checks.
             Instance = this;
             Transport.currentTransport.StartClient(hostname);
-            // TODO: Hook connect, disconnect events etc. and hook up the connection request system.
+            
+            // Register the internal protocol
             RegisterInternalPackets();
 
             // Hook events
@@ -48,11 +57,12 @@ namespace FNNLib.Core {
         }
 
         public void BeginHost() {
-            // TODO: Begin a virtual client
+            // TODO: Begin a virtual client. This will stop any outgoing packets to the server.
         }
 
         public void Disconnect() {
             Transport.currentTransport.StopClient();
+            OnDisconected.Invoke(null);
         }
 
         private void ClientConnected() {
@@ -111,11 +121,19 @@ namespace FNNLib.Core {
         /// Registers the internal packets for the protocol
         /// </summary>
         private void RegisterInternalPackets() {
-            // Connection approval
-            RegisterPacketHandler<ConnectionApprovedPacket>((serverID, packet) => {
-                                                                localClientID = packet.localClientID;
-                                                                OnConnectionApproved?.Invoke(packet.localClientID);
-                                                            });
+            RegisterPacketHandler<ConnectionApprovedPacket>(ConnectionApprovedHandler);
+            RegisterPacketHandler<ClientDisconnectPacket>(ClientDisconnectHandler);
+        }
+
+        private void ConnectionApprovedHandler(int sender, ConnectionApprovedPacket packet) {
+            localClientID = packet.localClientID;
+            OnConnectionApproved?.Invoke();
+        }
+
+        private void ClientDisconnectHandler(int sender, ClientDisconnectPacket packet) {
+            // Disconnect from the server, then fire the disconnect event with our disconnection reason.
+            Transport.currentTransport.StopClient();
+            OnDisconected?.Invoke(packet.disconnectReason);
         }
 
         #endregion

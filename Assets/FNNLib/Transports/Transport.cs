@@ -102,6 +102,12 @@ namespace FNNLib.Transports {
         /// <param name="data">Data to send.</param>
         /// <returns>Whether the data was sent successfully.</returns>
         public abstract bool ServerSend(int clientID, ArraySegment<byte> data);
+
+        /// <summary>
+        /// Disconnect a client from the server.
+        /// </summary>
+        /// <param name="clientID">The client to disconnect.</param>
+        public abstract void ServerDisconnectClient(int clientID);
         
         #endregion
 

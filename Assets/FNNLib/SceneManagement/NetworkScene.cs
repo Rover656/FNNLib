@@ -5,11 +5,8 @@ using UnityEngine.SceneManagement;
 namespace FNNLib.SceneManagement {
     /// <summary>
     /// NetworkScene controls the scene's network presence, and the presence of its network objects.
-    /// Put this component on *one root* game object in the scene.
-    /// This component does nothing on the client, it only serves as data for the NetworkSceneManager on the serverside.
     /// </summary>
-    [AddComponentMenu("Networking/Network Scene")]
-    public class NetworkScene : MonoBehaviour {
+    public class NetworkScene {
         /// <summary>
         /// The scene packing data for this scene.
         /// </summary>

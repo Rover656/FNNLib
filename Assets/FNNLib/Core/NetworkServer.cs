@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using FNNLib.Messaging;
 using FNNLib.Messaging.Internal;
 using FNNLib.Serialization;
 using FNNLib.Transports;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace FNNLib.Core {
     public delegate void NetworkServerEventHandler(NetworkServer server);
@@ -19,7 +24,7 @@ namespace FNNLib.Core {
         /// The currently running server, if any.
         /// Check if a server is running with the IsServerRunning static property.
         /// </summary>
-        public static NetworkServer Instance = null;
+        public static NetworkServer Instance;
 
         /// <summary>
         /// Whether or not a server is running.
@@ -34,29 +39,69 @@ namespace FNNLib.Core {
         /// <summary>
         /// Server started event. Raised just after the server is started.
         /// </summary>
-        public event NetworkServerEventHandler OnServerStarted;
+        public UnityEvent<NetworkServer> OnServerStarted = new UnityEvent<NetworkServer>();
         
         /// <summary>
         /// Server stopped event. Raised after the server is closed and clients are disconnected.
         /// </summary>
-        public event NetworkServerEventHandler OnServerStopped;
+        public UnityEvent<NetworkServer> OnServerStopped = new UnityEvent<NetworkServer>();
+        
+        /// <summary>
+        /// Fired when a client has connected to the server.
+        /// </summary>
+        public UnityEvent<int> OnClientConnected = new UnityEvent<int>();
+        
+        /// <summary>
+        /// Fired when a client's connection is approved
+        /// </summary>
+        public UnityEvent<int> OnClientApproved = new UnityEvent<int>();
+        
+        /// <summary>
+        /// Fired when a client's connection is denied
+        /// </summary>
+        public UnityEvent<int> OnClientDisconnected = new UnityEvent<int>();
         
         /// <summary>
         /// Mark as server context for packet management.
         /// </summary>
         protected override bool isServerContext => true;
 
-        public class Client {
-            public int clientID { get; internal set; }
-            public uint currentScene { get; internal set; }
-            public uint playerObject { get; internal set; }
-        }
-
-        private readonly Dictionary<int, Client> _clients;
+        /// <summary>
+        /// The server protocol version.
+        /// This stops incompatible client-server interactions.
+        /// </summary>
+        private readonly int _protocolVersion;
         
+        private class ClientInfo {
+            public int clientID = 0;
+            public bool clientApproved = false;
+            public bool disconnectRequested = false;
+
+            // Used for cancelling the timeout tasks.
+            public CancellationTokenSource cancellationSource = new CancellationTokenSource();
+            public Task requestTimeoutTask = null;
+
+            public ClientInfo(int ID) {
+                clientID = ID;
+            }
+
+            public void CancelTimeout() {
+                cancellationSource.Cancel();
+            }
+
+            public void ResetCancellation() {
+                cancellationSource = new CancellationTokenSource();
+            }
+        }
+        
+        private ConcurrentDictionary<int, ClientInfo> _clients = new ConcurrentDictionary<int, ClientInfo>();
+
         public NetworkServer(int protocolVersion) {
             // Register the common handlers. These are required across *all* servers.
             RegisterInternalPackets();
+            
+            // Save the protocol version
+            _protocolVersion = protocolVersion;
         }
 
         #region Server Control
@@ -93,14 +138,6 @@ namespace FNNLib.Core {
             OnServerStopped?.Invoke(this);
         }
 
-        private void HookTransport() {
-            Transport.currentTransport.onServerDataReceived.AddListener(HandlePacket);
-        }
-
-        private void UnHookTransport() {
-            Transport.currentTransport.onServerDataReceived.RemoveListener(HandlePacket);
-        }
-        
         #endregion
         
         #region Sending to Clients
@@ -145,6 +182,106 @@ namespace FNNLib.Core {
         }
         
         #endregion
+        
+        #region Client Management
+
+        /// <summary>
+        /// Disconnect a client from the server.
+        /// </summary>
+        /// <param name="clientID">The client to be disconnected.</param>
+        public void Disconnect(int clientID, string disconnectReason) {
+            // Don't send multiple disconnects
+            var client = _clients[clientID];
+            if (client.disconnectRequested)
+                return;
+            client.disconnectRequested = true;
+
+            // Send disconect packet
+            var disconnect = new ClientDisconnectPacket {disconnectReason = disconnectReason};
+            Send(clientID, disconnect);
+            
+            // Start a timeout task
+            client.ResetCancellation();
+            Task.Run(() => {
+                         // Stop task if cancellation was requested before we started waiting.
+                         client.cancellationSource.Token.ThrowIfCancellationRequested();
+                         Thread.Sleep(20000); // The client has 20 seconds to connect.
+                         
+                         // Throw if cancellation was requested. This would happen if the countdown had started, but the client had connected.
+                         client.cancellationSource.Token.ThrowIfCancellationRequested();
+                         
+                         // Get rid of the client. Its bad.
+                         Debug.Log("Disconnecting client that hasn't disconnected after sending a disconnect packet 20 seconds ago.");
+                         Transport.currentTransport.ServerDisconnectClient(clientID);
+                     }, client.cancellationSource.Token);
+        }
+
+        #endregion
+        
+        #region Underlying Implementation (Transport interactions)
+        
+        /// <summary>
+        /// Hooks transport events for the server.
+        /// </summary>
+        private void HookTransport() {
+            var transport = Transport.currentTransport;
+            transport.onServerDataReceived.AddListener(HandlePacket);
+            transport.onServerConnected.AddListener(ClientConnectionHandler);
+            transport.onServerDisconnected.AddListener(ClientDisconnectionHandler);
+        }
+
+        /// <summary>
+        /// Detaches from the transport for reuse.
+        /// </summary>
+        private void UnHookTransport() {
+            var transport = Transport.currentTransport;
+            transport.onServerDataReceived.RemoveListener(HandlePacket);
+            transport.onServerConnected.RemoveListener(ClientConnectionHandler);
+            transport.onServerDisconnected.RemoveListener(ClientDisconnectionHandler);
+        }
+        
+        private void ClientConnectionHandler(int clientID) {
+            // Fire the on connected event.
+            OnClientConnected?.Invoke(clientID);
+            
+            // Add client to the clients list
+            if (!_clients.TryAdd(clientID, new ClientInfo(clientID)))
+                throw new Exception("Failed to add client to clients list!!");
+
+            var client = _clients[clientID];
+            
+            // Start a timeout task
+            Task.Run(() => {
+                         // Stop task if cancellation was requested before we started waiting.
+                         client.cancellationSource.Token.ThrowIfCancellationRequested();
+                         Thread.Sleep(20000); // The client has 20 seconds to connect.
+                         
+                         // Throw if cancellation was requested. This would happen if the countdown had started, but the client had connected.
+                         client.cancellationSource.Token.ThrowIfCancellationRequested();
+                         
+                         // Get rid of the client. Its bad.
+                         Debug.Log("Disconnecting client that has not sent a connection request after 20 seconds.");
+                         
+                         // We do this nicely so if they do get this packet, they know why they were disconected.
+                         Disconnect(clientID, "Connection request timed out. Please try again.");
+                     }, client.cancellationSource.Token);
+        }
+
+        private void ClientDisconnectionHandler(int clientID) {
+            // Get the client and cancel the timeout task (either they have honoured it, or it has done its job).
+            _clients[clientID].CancelTimeout();
+            
+            // Fire the event.
+            OnClientDisconnected?.Invoke(clientID);
+
+            // TODO: Remove *any* references to this client ID now! Once the pooling system is added, this ID can be reused.
+            
+            // Remove from clients list
+            if (!_clients.TryRemove(clientID, out _))
+                throw new Exception("Failed to remove client from the list!!");
+        }
+        
+        #endregion
 
         #region Packet Handlers
 
@@ -153,11 +290,28 @@ namespace FNNLib.Core {
         }
 
         private void HandleConnectionRequest(int clientID, ConnectionRequestPacket packet) {
-            // TODO: When a client connects, immediately start a thread that disconnects them after X seconds of inactivity to prevent clients connecting and not requesting connection.
-            // TODO: Allow the developer to use the custom data sent in the packet to decide if the connection is accepted.
-            //  For now I will just send an accept packet
+            // Client has requested connection. We can stop the timeout thread.
+            _clients[clientID].CancelTimeout();
+            
+            // Check protocol version
+            if (packet.protocolVersion < _protocolVersion) {
+                Disconnect(clientID, "Client is outdated.");
+            } else if (packet.protocolVersion > _protocolVersion) {
+                Disconnect(clientID, "Client is newer than the server.");
+            }
+
+            // TODO: Add a delegate that will use the extra data sent with the request to approve or deny the connection.
+            //  For now, we just accept if the protocol version matches.
+            
+            // Send the acceptance packet
             var accept = new ConnectionApprovedPacket {localClientID = clientID};
             Send(clientID, accept);
+            
+            // Mark as approved in clients list
+            _clients[clientID].clientApproved = true;
+            
+            // Fire the approval event
+            OnClientApproved?.Invoke(clientID);
         }
 
         #endregion

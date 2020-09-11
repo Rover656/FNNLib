@@ -4,6 +4,12 @@ using FNNLib.Core;
 using UnityEngine.SceneManagement;
 
 namespace FNNLib.SceneManagement {
+    [Serializable]
+    public struct NetworkableScene {
+        public string sceneName;
+        public ScenePackingData scenePackingData;
+    }
+    
     /// <summary>
     /// This manages the scenes across the network.
     /// You can only change the scene using the server.
@@ -19,9 +25,7 @@ namespace FNNLib.SceneManagement {
         /// <summary>
         /// Whether or not sub scenes are being used.
         /// </summary>
-        private static bool _usingSubScenes = false;
-        
-        // TODO: Store subscene positions etc.
+        private static bool _usingSubScenes;
         
         public static void ServerLoadScene(string sceneName) {
             if (!NetworkManager.Instance.useSceneManagement)
@@ -30,7 +34,7 @@ namespace FNNLib.SceneManagement {
                 throw new NotSupportedException("Only the server may load scenes!");
             if (_usingSubScenes)
                 throw new NotSupportedException("Cannot use ServerLoadScene when subscenes are active. Use subscene methods instead!");
-            if (!NetworkManager.Instance.permittedScenes.Contains(sceneName))
+            if (!CanSendClientTo(sceneName))
                 throw new NotSupportedException("Cannot send client to this scene. It is not on the permitted scenes list.");
             // TODO: Load the scene and send clients to it.
         }
@@ -46,8 +50,10 @@ namespace FNNLib.SceneManagement {
                 throw new NotSupportedException("The NetworkSceneManager is not enabled by the current NetworkManager!");
             if (!NetworkManager.Instance.isServer)
                 throw new NotSupportedException("Only the server may load scenes!");
-            if (!NetworkManager.Instance.permittedScenes.Contains(sceneName))
+            if (!CanSendClientTo(sceneName))
                 throw new NotSupportedException("Cannot send client to this scene. It is not on the permitted scenes list.");
+            
+            throw new NotImplementedException("Subscenes will be revisited once the regular scene system works. This is so I can ensure the system works before adding more advanced features...");
             
             // We are now entering subscene mode TODO: Deal with the existing scene... need to work out if its the "host" or "root" scene.
             _usingSubScenes = true;
@@ -58,9 +64,6 @@ namespace FNNLib.SceneManagement {
             
             // TODO: Offset all of these objects to the room position
             var rootObjects = scene.GetRootGameObjects();
-            // TODO: Get the bounds from the ScenePackingData
-            
-            // TODO: Send scene change packet.
         }
 
         /// <summary>
@@ -90,6 +93,11 @@ namespace FNNLib.SceneManagement {
              * - Change scene first (we don't have to save networked objects, because they will be spawned by the server once we confirm the scene change was successful)
              * - Once the scene has changed, tell the server that the scene change was successful, then the server will begin sending us networked objects.
              */
+        }
+
+        private static bool CanSendClientTo(string sceneName) {
+            return NetworkManager.Instance.permittedScenes.FindIndex((networkableScene) =>
+                                                                         networkableScene.sceneName == sceneName) != -1;
         }
     }
 }

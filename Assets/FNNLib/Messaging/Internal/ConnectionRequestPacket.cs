@@ -1,5 +1,4 @@
-﻿using System.IO;
-using FNNLib.Serialization;
+﻿using FNNLib.Serialization;
 
 namespace FNNLib.Messaging.Internal {
     [ServerPacket]

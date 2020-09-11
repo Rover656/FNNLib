@@ -1,10 +1,6 @@
-﻿using System.IO;
-using FNNLib.Serialization;
+﻿using FNNLib.Serialization;
 
 namespace FNNLib.Messaging.Internal {
-    // Delegate used for the event in NetworkClient.
-    public delegate void ConnectionApprovedDelegate(int localClientID);
-    
     [ClientPacket]
     public class ConnectionApprovedPacket : IPacket {
         public int localClientID;

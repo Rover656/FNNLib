@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using FNNLib.Serialization;
-using UnityEngine;
 
 namespace FNNLib.Messaging {
     /// <summary>

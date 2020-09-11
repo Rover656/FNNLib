@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using FNNLib.Messaging;
 using FNNLib.SceneManagement;
@@ -180,7 +179,7 @@ namespace FNNLib.Core {
             _server.Start();
             
             // Hook stop event in case it closes.
-            _server.OnServerStopped.AddListener(OnServerStopped);
+            _server.onServerStopped.AddListener(OnServerStopped);
         }
         
         /// <summary>
@@ -201,7 +200,7 @@ namespace FNNLib.Core {
 
         private void OnServerStopped(NetworkServer server) {
             // Remove hooks
-            server.OnServerStopped.RemoveListener(OnServerStopped);
+            server.onServerStopped.RemoveListener(OnServerStopped);
             isServer = false;
             
             // Disable transport
@@ -243,26 +242,7 @@ namespace FNNLib.Core {
         //        It wouldn't take much because host already deals with the propogation of events around the virtual client, we just need to turn off the networked side completely. 
         
         #endregion
-        
-        #region Sending Data
-        
-        /// <summary>
-        /// Send data through the network manager.
-        /// </summary>
-        /// <param name="clientID">Target client ID. Ignored if running as client.</param>
-        /// <param name="packet">The packet to send.</param>
-        /// <typeparam name="T">The packet type.</typeparam>
-        public void Send<T>(int clientID, T packet) where T : IPacket, new() {
-            // Don't send if we are running in host mode.
-            if (isServer && clientID == Transport.currentTransport.serverClientID)
-                return;
-            if (isServer)
-                _server.Send(clientID, packet);
-            else _client.Send(packet);
-        }
-        
-        #endregion
-        
+
         #region Registering Packets
 
         /// <summary>

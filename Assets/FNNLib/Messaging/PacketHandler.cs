@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using FNNLib.Serialization;
-using FNNLib.Utilities;
 using UnityEngine;
 
 namespace FNNLib.Messaging {

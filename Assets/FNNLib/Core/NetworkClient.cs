@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using FNNLib.Messaging;
 using FNNLib.Messaging.Internal;
 using FNNLib.Serialization;
@@ -19,23 +18,47 @@ namespace FNNLib.Core {
         /// </summary>
         public int localClientID { get; private set; }
 
-        public UnityEvent OnConnectionApproved = new UnityEvent();
+        /// <summary>
+        /// Fired when the client is approved by the server.
+        /// </summary>
+        public UnityEvent onConnected = new UnityEvent();
         
-        public UnityEvent<string> OnDisconected = new UnityEvent<string>();
+        /// <summary>
+        /// Fired when the client is disconnected from the server, either by choice or by the server.
+        /// If disconnected by choice, reason is null.
+        /// Comes with a reason parameter.
+        /// </summary>
+        public UnityEvent<string> onDisconnected = new UnityEvent<string>();
 
         /// <summary>
         /// Mark as client context for packet management.
         /// </summary>
         protected override bool isServerContext => false;
 
+        /// <summary>
+        /// The protocol version of the client.
+        /// </summary>
         private readonly int _protocolVersion;
 
+        /// <summary>
+        /// If running in host mode, we don't send packets to the server.
+        /// Systems are supposed to account for host mode (for example RPC calls will directly route instead of going via packets).
+        /// </summary>
+        private bool _hostMode;
+
+        /// <summary>
+        /// Creates a network client with the given protocol version.
+        /// </summary>
+        /// <param name="protocolVersion">Client protocol version.</param>
         public NetworkClient(int protocolVersion) {
             _protocolVersion = protocolVersion;
         }
 
         #region Client Control
 
+        /// <summary>
+        /// The data to be sent with the connection request.
+        /// </summary>
         private byte[] _connectionRequestData;
 
         /// <summary>
@@ -52,7 +75,7 @@ namespace FNNLib.Core {
             RegisterInternalPackets();
 
             // Hook events
-            HookEvents();
+            HookTransport();
 
             // Save the data for use in the connection request phase
             _connectionRequestData = connectionRequestData;
@@ -63,34 +86,8 @@ namespace FNNLib.Core {
         }
 
         public void Disconnect() {
-            Transport.currentTransport.StopClient();
-            OnDisconected.Invoke(null);
-        }
-
-        private void ClientConnected() {
-            Debug.Log("Connected to server! Sending connection request.");
-
-            // Send connection request
-            var request = new ConnectionRequestPacket {connectionData = _connectionRequestData, protocolVersion = _protocolVersion};
-            Send(request);
-        }
-
-        private void HookEvents() {
-            Transport.currentTransport.onClientConnected.AddListener(ClientConnected);
-            Transport.currentTransport.onClientDataReceived.AddListener(HandlePacket);
-        }
-
-        private void UnhookEvents() {
-            Transport.currentTransport.onClientConnected.RemoveListener(ClientConnected);
-            Transport.currentTransport.onClientDataReceived.RemoveListener(HandlePacket);
-        }
-
-        /// <summary>
-        /// Passthrough which uses the server client ID.
-        /// </summary>
-        /// <param name="data">The data packet.</param>
-        private void HandlePacket(ArraySegment<byte> data) {
-            HandlePacket(Transport.currentTransport.serverClientID, data);
+            // TODO: Security checks.
+            Transport.currentTransport.StopClient(); // Disconnect event is fired by this.
         }
 
         #endregion
@@ -106,6 +103,10 @@ namespace FNNLib.Core {
         public void Send<T>(T packet) where T : IPacket, new() {
             if (!PacketUtils.IsServerPacket<T>())
                 throw new InvalidOperationException("Attempted to send non-server packet to server!");
+            
+            // In host mode, we don't send packets to the server.
+            if (_hostMode)
+                return;
 
             // Write data
             using (var writer = NetworkWriterPool.GetWriter()) {
@@ -117,7 +118,7 @@ namespace FNNLib.Core {
 
         #endregion
 
-        #region Packet Handlers
+        #region Packet Handlers (Internal Protocol)
 
         /// <summary>
         /// Registers the internal packets for the protocol
@@ -129,15 +130,77 @@ namespace FNNLib.Core {
 
         private void ConnectionApprovedHandler(int sender, ConnectionApprovedPacket packet) {
             localClientID = packet.localClientID;
-            OnConnectionApproved?.Invoke();
+            onConnected?.Invoke();
         }
 
         private void ClientDisconnectHandler(int sender, ClientDisconnectPacket packet) {
-            // Disconnect from the server, then fire the disconnect event with our disconnection reason.
+            // Disconnect from the server, storing the disconnect reason for the disconnect callback.
+            _disconnectReason = packet.disconnectReason;
             Transport.currentTransport.StopClient();
-            OnDisconected?.Invoke(packet.disconnectReason);
         }
 
+        #endregion
+        
+        #region Underlying Implementation (Transport interactions)
+
+        /// <summary>
+        /// The disconnect reason.
+        /// This is reset when the client is created (in HookEvents).
+        /// Then this is set if a reason is received by the disconnect handler
+        /// </summary>
+        private string _disconnectReason;
+        
+        /// <summary>
+        /// Attach to the transport ready for use.
+        /// </summary>
+        private void HookTransport() {
+            Transport.currentTransport.onClientDataReceived.AddListener(HandlePacket);
+            Transport.currentTransport.onClientConnected.AddListener(ClientConnected);
+            Transport.currentTransport.onClientDisconnected.AddListener(ClientDisconnected);
+            
+            // Also reset the disconnect reason because this is a new connection.
+            _disconnectReason = null;
+        }
+
+        /// <summary>
+        /// Disconnect from the transport so it can be reused
+        /// </summary>
+        private void UnhookTransport() {
+            Transport.currentTransport.onClientDataReceived.RemoveListener(HandlePacket);
+            Transport.currentTransport.onClientConnected.RemoveListener(ClientConnected);
+            Transport.currentTransport.onClientDisconnected.RemoveListener(ClientDisconnected);
+        }
+
+        /// <summary>
+        /// Passthrough which uses the server client ID.
+        /// </summary>
+        /// <param name="data">The data packet.</param>
+        private void HandlePacket(ArraySegment<byte> data) {
+            HandlePacket(Transport.currentTransport.serverClientID, data);
+        }
+        
+        /// <summary>
+        /// Client connection actions.
+        /// </summary>
+        private void ClientConnected() {
+            Debug.Log("Connected to server! Sending connection request.");
+
+            // Send connection request
+            var request = new ConnectionRequestPacket {connectionData = _connectionRequestData, protocolVersion = _protocolVersion};
+            Send(request);
+        }
+
+        /// <summary>
+        /// Client disconnection actions.
+        /// </summary>
+        private void ClientDisconnected() {
+            // Fire disconnect
+            onDisconnected?.Invoke(_disconnectReason);
+            
+            // Unhook from the transport.
+            UnhookTransport();
+        }
+        
         #endregion
     }
 }

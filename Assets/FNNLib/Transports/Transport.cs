@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Net;
-using FNNLib.Core;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 namespace FNNLib.Transports {
     public delegate void TransportClientConnected();
@@ -11,6 +8,7 @@ namespace FNNLib.Transports {
     /// <summary>
     /// A transport contains the underlying implementation of a network connection.
     /// TODO: Implement channels for UDP support.
+    /// TODO: Make this transport just have a create method for an internal client and server? I think I prefer that to a mess of methods and fields in one object.
     /// </summary>
     public abstract class Transport : MonoBehaviour {
         /// <summary>
@@ -66,6 +64,10 @@ namespace FNNLib.Transports {
         }
         
         #region Server
+        
+        // TODO: Implement these, it will help tidy NetworkServer.
+        public UnityEvent onServerStarted = new UnityEvent();
+        public UnityEvent onServerStopped = new UnityEvent();
 
         /// <summary>
         /// Fired when a client connects to the server.
@@ -74,17 +76,17 @@ namespace FNNLib.Transports {
         public UnityEvent<int> onServerConnected = new UnityEvent<int>();
         
         /// <summary>
-        /// Fired when the server recieves data from a client.
-        /// Parameters: clientID, data
-        /// </summary>
-        public UnityEvent<int, ArraySegment<byte>> onServerDataReceived = new UnityEvent<int, ArraySegment<byte>>();
-        
-        /// <summary>
         /// Fired when a client disconnects from the server.
         /// Parameters: clientID
         /// </summary>
         public UnityEvent<int> onServerDisconnected = new UnityEvent<int>();
         
+        /// <summary>
+        /// Fired when the server recieves data from a client.
+        /// Parameters: clientID, data
+        /// </summary>
+        public UnityEvent<int, ArraySegment<byte>> onServerDataReceived = new UnityEvent<int, ArraySegment<byte>>();
+
         /// <summary>
         /// Start a server using this transport.
         /// </summary>

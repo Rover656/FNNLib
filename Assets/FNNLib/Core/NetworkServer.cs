@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using FNNLib.Messaging;
@@ -39,27 +38,22 @@ namespace FNNLib.Core {
         /// <summary>
         /// Server started event. Raised just after the server is started.
         /// </summary>
-        public UnityEvent<NetworkServer> OnServerStarted = new UnityEvent<NetworkServer>();
+        public UnityEvent<NetworkServer> onServerStarted = new UnityEvent<NetworkServer>();
         
         /// <summary>
         /// Server stopped event. Raised after the server is closed and clients are disconnected.
         /// </summary>
-        public UnityEvent<NetworkServer> OnServerStopped = new UnityEvent<NetworkServer>();
+        public UnityEvent<NetworkServer> onServerStopped = new UnityEvent<NetworkServer>();
         
         /// <summary>
-        /// Fired when a client has connected to the server.
+        /// Fired when a client's connection to the server has been accepted.
         /// </summary>
-        public UnityEvent<int> OnClientConnected = new UnityEvent<int>();
-        
-        /// <summary>
-        /// Fired when a client's connection is approved
-        /// </summary>
-        public UnityEvent<int> OnClientApproved = new UnityEvent<int>();
-        
+        public UnityEvent<int> onClientConnected = new UnityEvent<int>();
+
         /// <summary>
         /// Fired when a client's connection is denied
         /// </summary>
-        public UnityEvent<int> OnClientDisconnected = new UnityEvent<int>();
+        public UnityEvent<int> onClientDisconnected = new UnityEvent<int>();
         
         /// <summary>
         /// Mark as server context for packet management.
@@ -116,7 +110,7 @@ namespace FNNLib.Core {
             Transport.currentTransport.StartServer();
             HookTransport();
             Instance = this;
-            OnServerStarted?.Invoke(this);
+            onServerStarted?.Invoke(this);
         }
 
         /// <summary>
@@ -133,9 +127,9 @@ namespace FNNLib.Core {
 
         private void PerformStop() {
             Transport.currentTransport.StopServer();
-            UnHookTransport();
+            UnhookTransport();
             Instance = null;
-            OnServerStopped?.Invoke(this);
+            onServerStopped?.Invoke(this);
         }
 
         #endregion
@@ -152,6 +146,9 @@ namespace FNNLib.Core {
         public void Send<T>(int clientID, T packet) where T : IPacket {
             if (!PacketUtils.IsClientPacket<T>())
                 throw new InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
+            // Don't send to ourselves.
+            if (clientID == Transport.currentTransport.serverClientID)
+                return;
             
             // Write data
             using (var writer = NetworkWriterPool.GetWriter()) {
@@ -176,8 +173,12 @@ namespace FNNLib.Core {
             using (var writer = NetworkWriterPool.GetWriter()) {
                 writer.WriteInt32(PacketUtils.GetID<T>());
                 packet.Serialize(writer);
-                foreach (var client in clients)
+                foreach (var client in clients) {
+                    // Don't send to ourselves.
+                    if (client == Transport.currentTransport.serverClientID)
+                        return;
                     Transport.currentTransport.ServerSend(client, writer.ToArraySegment());
+                }
             }
         }
         
@@ -218,6 +219,47 @@ namespace FNNLib.Core {
 
         #endregion
         
+        #region Packet Handlers (Internal Protocol)
+
+        /// <summary>
+        /// Register internal server packets.
+        /// </summary>
+        private void RegisterInternalPackets() {
+            RegisterPacketHandler<ConnectionRequestPacket>(HandleConnectionRequest);
+        }
+
+        /// <summary>
+        /// Handle a client connection request.
+        /// </summary>
+        /// <param name="clientID">The client requesting connection</param>
+        /// <param name="packet">The request packet.</param>
+        private void HandleConnectionRequest(int clientID, ConnectionRequestPacket packet) {
+            // Client has requested connection. We can stop the timeout thread.
+            _clients[clientID].CancelTimeout();
+            
+            // Check protocol version
+            if (packet.protocolVersion < _protocolVersion) {
+                Disconnect(clientID, "Client is outdated.");
+            } else if (packet.protocolVersion > _protocolVersion) {
+                Disconnect(clientID, "Client is newer than the server.");
+            }
+
+            // TODO: Add a delegate that will use the extra data sent with the request to approve or deny the connection.
+            //  For now, we just accept if the protocol version matches.
+            
+            // Send the acceptance packet
+            var accept = new ConnectionApprovedPacket {localClientID = clientID};
+            Send(clientID, accept);
+            
+            // Mark as approved in clients list
+            _clients[clientID].clientApproved = true;
+            
+            // Fire the connected event.
+            onClientConnected?.Invoke(clientID);
+        }
+
+        #endregion
+        
         #region Underlying Implementation (Transport interactions)
         
         /// <summary>
@@ -233,7 +275,7 @@ namespace FNNLib.Core {
         /// <summary>
         /// Detaches from the transport for reuse.
         /// </summary>
-        private void UnHookTransport() {
+        private void UnhookTransport() {
             var transport = Transport.currentTransport;
             transport.onServerDataReceived.RemoveListener(HandlePacket);
             transport.onServerConnected.RemoveListener(ClientConnectionHandler);
@@ -241,9 +283,6 @@ namespace FNNLib.Core {
         }
         
         private void ClientConnectionHandler(int clientID) {
-            // Fire the on connected event.
-            OnClientConnected?.Invoke(clientID);
-            
             // Add client to the clients list
             if (!_clients.TryAdd(clientID, new ClientInfo(clientID)))
                 throw new Exception("Failed to add client to clients list!!");
@@ -270,50 +309,17 @@ namespace FNNLib.Core {
         private void ClientDisconnectionHandler(int clientID) {
             // Get the client and cancel the timeout task (either they have honoured it, or it has done its job).
             _clients[clientID].CancelTimeout();
-            
-            // Fire the event.
-            OnClientDisconnected?.Invoke(clientID);
 
             // TODO: Remove *any* references to this client ID now! Once the pooling system is added, this ID can be reused.
             
             // Remove from clients list
             if (!_clients.TryRemove(clientID, out _))
                 throw new Exception("Failed to remove client from the list!!");
+            
+            // Fire the event.
+            onClientDisconnected?.Invoke(clientID);
         }
         
-        #endregion
-
-        #region Packet Handlers
-
-        private void RegisterInternalPackets() {
-            RegisterPacketHandler<ConnectionRequestPacket>(HandleConnectionRequest);
-        }
-
-        private void HandleConnectionRequest(int clientID, ConnectionRequestPacket packet) {
-            // Client has requested connection. We can stop the timeout thread.
-            _clients[clientID].CancelTimeout();
-            
-            // Check protocol version
-            if (packet.protocolVersion < _protocolVersion) {
-                Disconnect(clientID, "Client is outdated.");
-            } else if (packet.protocolVersion > _protocolVersion) {
-                Disconnect(clientID, "Client is newer than the server.");
-            }
-
-            // TODO: Add a delegate that will use the extra data sent with the request to approve or deny the connection.
-            //  For now, we just accept if the protocol version matches.
-            
-            // Send the acceptance packet
-            var accept = new ConnectionApprovedPacket {localClientID = clientID};
-            Send(clientID, accept);
-            
-            // Mark as approved in clients list
-            _clients[clientID].clientApproved = true;
-            
-            // Fire the approval event
-            OnClientApproved?.Invoke(clientID);
-        }
-
         #endregion
     }
 }

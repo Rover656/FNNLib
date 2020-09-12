@@ -539,6 +539,19 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkManager.client
   nameWithType: NetworkManager.client
+- uid: FNNLib.NetworkManager.ConfigureServerFramerate
+  name: ConfigureServerFramerate()
+  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_ConfigureServerFramerate
+  commentId: M:FNNLib.NetworkManager.ConfigureServerFramerate
+  fullName: FNNLib.NetworkManager.ConfigureServerFramerate()
+  nameWithType: NetworkManager.ConfigureServerFramerate()
+- uid: FNNLib.NetworkManager.ConfigureServerFramerate*
+  name: ConfigureServerFramerate
+  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_ConfigureServerFramerate_
+  commentId: Overload:FNNLib.NetworkManager.ConfigureServerFramerate
+  isSpec: "True"
+  fullName: FNNLib.NetworkManager.ConfigureServerFramerate
+  nameWithType: NetworkManager.ConfigureServerFramerate
 - uid: FNNLib.NetworkManager.instance
   name: instance
   href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_instance
@@ -638,6 +651,12 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkManager.server
   nameWithType: NetworkManager.server
+- uid: FNNLib.NetworkManager.serverTickRate
+  name: serverTickRate
+  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_serverTickRate
+  commentId: F:FNNLib.NetworkManager.serverTickRate
+  fullName: FNNLib.NetworkManager.serverTickRate
+  nameWithType: NetworkManager.serverTickRate
 - uid: FNNLib.NetworkManager.StartClient(System.String,System.Byte[])
   name: StartClient(String, Byte[])
   href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_StartClient_System_String_System_Byte___
@@ -750,19 +769,6 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkServer.NetworkServer
   nameWithType: NetworkServer.NetworkServer
-- uid: FNNLib.NetworkServer.ConfigureServerFramerate
-  name: ConfigureServerFramerate()
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_ConfigureServerFramerate
-  commentId: M:FNNLib.NetworkServer.ConfigureServerFramerate
-  fullName: FNNLib.NetworkServer.ConfigureServerFramerate()
-  nameWithType: NetworkServer.ConfigureServerFramerate()
-- uid: FNNLib.NetworkServer.ConfigureServerFramerate*
-  name: ConfigureServerFramerate
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_ConfigureServerFramerate_
-  commentId: Overload:FNNLib.NetworkServer.ConfigureServerFramerate
-  isSpec: "True"
-  fullName: FNNLib.NetworkServer.ConfigureServerFramerate
-  nameWithType: NetworkServer.ConfigureServerFramerate
 - uid: FNNLib.NetworkServer.Disconnect(System.UInt64,System.String)
   name: Disconnect(UInt64, String)
   href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Disconnect_System_UInt64_System_String_
@@ -870,12 +876,22 @@ references:
   fullName.vb: FNNLib.NetworkServer.Send(Of T)(System.UInt64, T)
   nameWithType: NetworkServer.Send<T>(UInt64, T)
   nameWithType.vb: NetworkServer.Send(Of T)(UInt64, T)
-- uid: FNNLib.NetworkServer.serverTickRate
-  name: serverTickRate
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_serverTickRate
-  commentId: F:FNNLib.NetworkServer.serverTickRate
-  fullName: FNNLib.NetworkServer.serverTickRate
-  nameWithType: NetworkServer.serverTickRate
+- uid: FNNLib.NetworkServer.SendToAll*
+  name: SendToAll
+  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_SendToAll_
+  commentId: Overload:FNNLib.NetworkServer.SendToAll
+  isSpec: "True"
+  fullName: FNNLib.NetworkServer.SendToAll
+  nameWithType: NetworkServer.SendToAll
+- uid: FNNLib.NetworkServer.SendToAll``1(``0)
+  name: SendToAll<T>(T)
+  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_SendToAll__1___0_
+  commentId: M:FNNLib.NetworkServer.SendToAll``1(``0)
+  name.vb: SendToAll(Of T)(T)
+  fullName: FNNLib.NetworkServer.SendToAll<T>(T)
+  fullName.vb: FNNLib.NetworkServer.SendToAll(Of T)(T)
+  nameWithType: NetworkServer.SendToAll<T>(T)
+  nameWithType.vb: NetworkServer.SendToAll(Of T)(T)
 - uid: FNNLib.NetworkServer.Start(FNNLib.Transports.Transport)
   name: Start(Transport)
   href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Start_FNNLib_Transports_Transport_
@@ -932,12 +948,6 @@ references:
   commentId: T:FNNLib.SceneManagement.NetworkScene
   fullName: FNNLib.SceneManagement.NetworkScene
   nameWithType: NetworkScene
-- uid: FNNLib.SceneManagement.NetworkScene.data
-  name: data
-  href: api/FNNLib.SceneManagement.NetworkScene.html#FNNLib_SceneManagement_NetworkScene_data
-  commentId: F:FNNLib.SceneManagement.NetworkScene.data
-  fullName: FNNLib.SceneManagement.NetworkScene.data
-  nameWithType: NetworkScene.data
 - uid: FNNLib.SceneManagement.NetworkScene.packingOffset
   name: packingOffset
   href: api/FNNLib.SceneManagement.NetworkScene.html#FNNLib_SceneManagement_NetworkScene_packingOffset
@@ -977,19 +987,19 @@ references:
   isSpec: "True"
   fullName: FNNLib.SceneManagement.NetworkScene.sceneID
   nameWithType: NetworkScene.sceneID
-- uid: FNNLib.SceneManagement.NetworkScene.Spawn(FNNLib.NetworkIdentity)
-  name: Spawn(NetworkIdentity)
-  href: api/FNNLib.SceneManagement.NetworkScene.html#FNNLib_SceneManagement_NetworkScene_Spawn_FNNLib_NetworkIdentity_
-  commentId: M:FNNLib.SceneManagement.NetworkScene.Spawn(FNNLib.NetworkIdentity)
-  fullName: FNNLib.SceneManagement.NetworkScene.Spawn(FNNLib.NetworkIdentity)
-  nameWithType: NetworkScene.Spawn(NetworkIdentity)
-- uid: FNNLib.SceneManagement.NetworkScene.Spawn*
-  name: Spawn
-  href: api/FNNLib.SceneManagement.NetworkScene.html#FNNLib_SceneManagement_NetworkScene_Spawn_
-  commentId: Overload:FNNLib.SceneManagement.NetworkScene.Spawn
+- uid: FNNLib.SceneManagement.NetworkScene.sceneName
+  name: sceneName
+  href: api/FNNLib.SceneManagement.NetworkScene.html#FNNLib_SceneManagement_NetworkScene_sceneName
+  commentId: P:FNNLib.SceneManagement.NetworkScene.sceneName
+  fullName: FNNLib.SceneManagement.NetworkScene.sceneName
+  nameWithType: NetworkScene.sceneName
+- uid: FNNLib.SceneManagement.NetworkScene.sceneName*
+  name: sceneName
+  href: api/FNNLib.SceneManagement.NetworkScene.html#FNNLib_SceneManagement_NetworkScene_sceneName_
+  commentId: Overload:FNNLib.SceneManagement.NetworkScene.sceneName
   isSpec: "True"
-  fullName: FNNLib.SceneManagement.NetworkScene.Spawn
-  nameWithType: NetworkScene.Spawn
+  fullName: FNNLib.SceneManagement.NetworkScene.sceneName
+  nameWithType: NetworkScene.sceneName
 - uid: FNNLib.SceneManagement.NetworkSceneManager
   name: NetworkSceneManager
   href: api/FNNLib.SceneManagement.NetworkSceneManager.html
@@ -1105,6 +1115,12 @@ references:
   commentId: F:FNNLib.SceneManagement.SceneChangePacket.sceneIndex
   fullName: FNNLib.SceneManagement.SceneChangePacket.sceneIndex
   nameWithType: SceneChangePacket.sceneIndex
+- uid: FNNLib.SceneManagement.SceneChangePacket.sceneNetID
+  name: sceneNetID
+  href: api/FNNLib.SceneManagement.SceneChangePacket.html#FNNLib_SceneManagement_SceneChangePacket_sceneNetID
+  commentId: F:FNNLib.SceneManagement.SceneChangePacket.sceneNetID
+  fullName: FNNLib.SceneManagement.SceneChangePacket.sceneNetID
+  nameWithType: SceneChangePacket.sceneNetID
 - uid: FNNLib.SceneManagement.SceneChangePacket.sceneOffset
   name: sceneOffset
   href: api/FNNLib.SceneManagement.SceneChangePacket.html#FNNLib_SceneManagement_SceneChangePacket_sceneOffset

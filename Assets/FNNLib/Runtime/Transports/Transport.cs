@@ -1,116 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace FNNLib.Transports {
-    public delegate void TransportClientConnected();
-    
     /// <summary>
-    /// A transport contains the underlying implementation of a network connection.
-    /// TODO: Implement channels for UDP support.
-    /// TODO: Make this transport just have a create method for an internal client and server? I think I prefer that to a mess of methods and fields in one object.
+    /// This is the prototype API for the new style transports.
+    /// Will have channeling support for RUDP transports.
+    ///
+    /// TODO: Decide if we go down event polling instead of an event when data is recieved.
+    /// TODO: Adding transport doc describing the best practices.
     /// </summary>
     public abstract class Transport : MonoBehaviour {
+        #region General
+
         /// <summary>
-        /// The transport currently in use.
-        /// </summary>
-        public static Transport currentTransport = null;
-        
-        /// <summary>
-        /// The client ID that represents the server.
-        /// </summary>
-        public virtual int serverClientID => 0;
-        
-        /// <summary>
-        /// Whether or not the transport is supported on this platform.
+        /// Whether or not the transport is supported on this target platform.
         /// </summary>
         public abstract bool supported { get; }
-        
-        /// <summary>
-        /// Whether or not the client is connected.
-        /// </summary>
-        public abstract bool clientConnected { get; }
-        
-        /// <summary>
-        /// Whether or not the server is running
-        /// </summary>
-        public abstract bool serverRunning { get; }
-        
-        /// <summary>
-        /// Start using this transport.
-        /// Only one transport can be in use at once.
-        /// </summary>
-        /// <exception cref="NotSupportedException">Thrown if a transport is already in use.</exception>
-        public void StartUsing() {
-            if (currentTransport != null)
-                throw new NotSupportedException("A transport is already in use!");
-            currentTransport = this;
-        }
 
-        /// <summary>
-        /// Stop using this transport.
-        /// Only one transport may be in use at once, use this to stop using it.
-        /// Must not be running a client or server.
-        /// </summary>
-        /// <exception cref="NotSupportedException">Thrown if the transport is not in use, a client is still connected or a server is still running.</exception>
-        public void StopUsing() {
-            if (currentTransport != this)
-                throw new NotSupportedException("This transport is not in use!");
-            if (clientConnected)
-                throw new NotSupportedException("You must disconnect the client before stopping this transport!");
-            if (serverRunning)
-                throw new NotSupportedException("You must stop the server before stopping this transport!");
-            currentTransport = null;
-        }
-        
-        #region Server
-        
-        // TODO: Implement these, it will help tidy NetworkServer.
-        public UnityEvent onServerStarted = new UnityEvent();
-        public UnityEvent onServerStopped = new UnityEvent();
-
-        /// <summary>
-        /// Fired when a client connects to the server.
-        /// Parameters: clientID
-        /// </summary>
-        public UnityEvent<int> onServerConnected = new UnityEvent<int>();
-        
-        /// <summary>
-        /// Fired when a client disconnects from the server.
-        /// Parameters: clientID
-        /// </summary>
-        public UnityEvent<int> onServerDisconnected = new UnityEvent<int>();
-        
-        /// <summary>
-        /// Fired when the server recieves data from a client.
-        /// Parameters: clientID, data
-        /// </summary>
-        public UnityEvent<int, ArraySegment<byte>> onServerDataReceived = new UnityEvent<int, ArraySegment<byte>>();
-
-        /// <summary>
-        /// Start a server using this transport.
-        /// </summary>
-        public abstract void StartServer();
-        
-        /// <summary>
-        /// Stop a server using this transport.
-        /// </summary>
-        public abstract void StopServer();
-        
-        /// <summary>
-        /// Send data through the server.
-        /// </summary>
-        /// <param name="clientID">Destination client.</param>
-        /// <param name="data">Data to send.</param>
-        /// <returns>Whether the data was sent successfully.</returns>
-        public abstract bool ServerSend(int clientID, ArraySegment<byte> data);
-
-        /// <summary>
-        /// Disconnect a client from the server.
-        /// </summary>
-        /// <param name="clientID">The client to disconnect.</param>
-        public abstract void ServerDisconnectClient(int clientID);
-        
         #endregion
 
         #region Client
@@ -118,36 +26,120 @@ namespace FNNLib.Transports {
         /// <summary>
         /// Fired when the client connects to the server.
         /// </summary>
-        public UnityEvent onClientConnected = new UnityEvent();
-        
+        [HideInInspector] public UnityEvent onClientConnected = new UnityEvent();
+
         /// <summary>
         /// Fired when receiving data from the server.
         /// </summary>
+        [HideInInspector]
         public UnityEvent<ArraySegment<byte>> onClientDataReceived = new UnityEvent<ArraySegment<byte>>();
 
         /// <summary>
         /// Fired when the client disconnects from the server.
         /// </summary>
-        public UnityEvent onClientDisconnected = new UnityEvent();
+        [HideInInspector] public UnityEvent onClientDisconnected = new UnityEvent();
 
         /// <summary>
-        /// Start a client and connect to the server.
+        /// Whether the client is connected to the server.
+        /// </summary>
+        public abstract bool clientConnected { get; }
+
+        /// <summary>
+        /// Connect the client to the server.
         /// </summary>
         /// <param name="hostname">The server's hostname</param>
-        public abstract void StartClient(string hostname);
-        
-        /// <summary>
-        /// Stop the client (disconnect from the server).
-        /// </summary>
-        public abstract void StopClient();
-        
+        public abstract void ClientConnect(string hostname);
+
         /// <summary>
         /// Send data to the server.
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public abstract bool ClientSend(ArraySegment<byte> data);
-        
+        /// <param name="data">The data to send.</param>
+        /// <param name="channel">The channel to send the data down. Default = 0. Ignored on Transports that don't support channelling.</param>
+        /// <returns>Whether the data was sent/queued to send.</returns>
+        public abstract bool ClientSend(ArraySegment<byte> data, int channel = 0);
+
+        /// <summary>
+        /// Disconnect the client from the server.
+        /// </summary>
+        public abstract void ClientDisconnect();
+
+        #endregion
+
+        #region Server
+
+        // TODO: Implement these, it will help tidy NetworkServer.
+        [HideInInspector] public UnityEvent onServerStarted = new UnityEvent();
+        [HideInInspector] public UnityEvent onServerStopped = new UnityEvent();
+
+        /// <summary>
+        /// Fired when a client connects to the server.
+        /// Parameters: clientID
+        /// </summary>
+        [HideInInspector] public UnityEvent<ulong> onServerConnected = new UnityEvent<ulong>();
+
+        /// <summary>
+        /// Fired when a client disconnects from the server.
+        /// Parameters: clientID
+        /// </summary>
+        [HideInInspector] public UnityEvent<ulong> onServerDisconnected = new UnityEvent<ulong>();
+
+        /// <summary>
+        /// Fired when the server recieves data from a client.
+        /// Parameters: clientID, data
+        /// </summary>
+        [HideInInspector]
+        public UnityEvent<ulong, ArraySegment<byte>> onServerDataReceived = new UnityEvent<ulong, ArraySegment<byte>>();
+
+        /// <summary>
+        /// Whether the server is running.
+        /// </summary>
+        public abstract bool serverRunning { get; }
+
+        /// <summary>
+        /// Start the server.
+        /// </summary>
+        public abstract void StartServer();
+
+        // TODO: StartServer overloads which support custom bind and port. Should override any transport config.
+
+        /// <summary>
+        /// Send data to clients.
+        /// </summary>
+        /// <param name="clients">The clients to send to.</param>
+        /// <param name="data">The data to send.</param>
+        /// <param name="channel">The channel to send the data down. Default = 0. Ignored on Transports that don't support channelling.</param>
+        /// <returns>Whether the data could be sent.</returns>
+        public abstract bool ServerSend(List<ulong> clients, ArraySegment<byte> data, int channel = 0);
+
+        /// <summary>
+        /// Force disconnect client.
+        /// </summary>
+        /// <remarks>
+        /// You should use the higher level NetworkServer disconnect system, as that allows disconnection reasons.
+        /// This is a last resort which is used by NetworkServer disconnect if the client doesn't honour it.
+        /// </remarks>
+        /// <param name="clientID">Client to force disconnect.</param>
+        public abstract void ServerDisconnect(ulong clientID);
+
+        /// <summary>
+        /// Stop the server.
+        /// </summary>
+        public abstract void StopServer();
+
+        #endregion
+
+        #region Lifecycle
+
+        /// <summary>
+        /// Shutdown both client and server.
+        /// </summary>
+        public abstract void Shutdown();
+
+        private void OnApplicationQuit() {
+            // Shutdown to prevent threads from continuing running in the editor.
+            Shutdown();
+        }
+
         #endregion
     }
 }

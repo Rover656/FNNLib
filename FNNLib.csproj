@@ -63,7 +63,8 @@
      <Compile Include="Assets\FNNLib\Runtime\Transports\TCP\CommonBackend.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Messaging\IPacket.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Transports\TCP\TCPServer.cs" />
-     <Compile Include="Assets\FNNLib\Runtime\Transports\Transport.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Transports\LegacyTransport.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Messaging\Internal\ClientDisconnectPacket.cs" />
      <Compile Include="Assets\FNNLib\Runtime\NetworkIdentity.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Transports\TCP\Message.cs" />
      <Compile Include="Assets\FNNLib\Runtime\NetworkClient.cs" />
@@ -79,7 +80,10 @@
      <Compile Include="Assets\FNNLib\Runtime\Messaging\PacketHandler.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Transports\TCPTransport.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Transports\TCP\Utils.cs" />
-     <Compile Include="Assets\FNNLib\Runtime\Messaging\Internal\ClientDisconnectPacket.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Transports\Transport.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Transports\ChannelType.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Transports\RufflesTransport.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Transports\MultiplexTransport.cs" />
      <None Include="Assets\FNNLib\Runtime\FNNLib.asmdef" />
  <Reference Include="UnityEditor.UI">
  <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>

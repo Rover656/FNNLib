@@ -15,6 +15,8 @@ namespace FNNLib {
     /// The NetworkServer class manages sending data to the clients.
     /// This is normally controlled by the NetworkManager and most games won't access this at all.
     /// This is only accessed if you wish to register custom packet types.
+    ///
+    /// TODO: Clean this messy pile of spaghetti
     /// </summary>
     public class NetworkServer : PacketHandler {
         /// <summary>
@@ -31,7 +33,12 @@ namespace FNNLib {
         /// <summary>
         /// Whether or not this server is running.
         /// </summary>
-        public bool running => Transport.currentTransport.serverRunning && instance == this;
+        public bool running => LegacyTransport.currentTransport.serverRunning && instance == this;
+
+        /// <summary>
+        /// (Dedicated) server update frequency.
+        /// </summary>
+        public int serverTickRate = 30;
 
         /// <summary>
         /// Server started event. Raised just after the server is started.
@@ -103,12 +110,14 @@ namespace FNNLib {
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown if a server is already running.</exception>
         public void Start() {
-            if (Transport.currentTransport.serverRunning || instance != null)
+            if (LegacyTransport.currentTransport.serverRunning || instance != null)
                 throw new NotSupportedException("A server is already running!");
-            Transport.currentTransport.StartServer();
+            LegacyTransport.currentTransport.StartServer();
             HookTransport();
             instance = this;
             onServerStarted?.Invoke(this);
+
+            ConfigureServerFramerate();
         }
 
         /// <summary>
@@ -116,7 +125,7 @@ namespace FNNLib {
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown if a server is not running.</exception>
         public void Stop() {
-            if (!Transport.currentTransport.serverRunning)
+            if (!LegacyTransport.currentTransport.serverRunning)
                 throw new NotSupportedException("A server is not running!");
             if (instance != this)
                 throw new NotSupportedException("This instance should not be running a server!");
@@ -124,10 +133,17 @@ namespace FNNLib {
         }
 
         private void PerformStop() {
-            Transport.currentTransport.StopServer();
+            LegacyTransport.currentTransport.StopServer();
             UnhookTransport();
             instance = null;
             onServerStopped?.Invoke(this);
+        }
+
+        protected virtual void ConfigureServerFramerate() {
+            // Unity server, unless stopped uses a stupidly high framerate
+            #if UNITY_SERVER
+            Application.targetFrameRate = serverTickRate;
+            #endif
         }
 
         #endregion
@@ -145,14 +161,14 @@ namespace FNNLib {
             if (!PacketUtils.IsClientPacket<T>())
                 throw new InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
             // Don't send to ourselves.
-            if (clientID == Transport.currentTransport.serverClientID)
+            if (clientID == LegacyTransport.currentTransport.serverClientID)
                 return;
             
             // Write data
             using (var writer = NetworkWriterPool.GetWriter()) {
                 writer.WriteInt32(PacketUtils.GetID<T>());
                 packet.Serialize(writer);
-                Transport.currentTransport.ServerSend(clientID, writer.ToArraySegment());
+                LegacyTransport.currentTransport.ServerSend(clientID, writer.ToArraySegment());
             }
         }
 
@@ -173,9 +189,9 @@ namespace FNNLib {
                 packet.Serialize(writer);
                 foreach (var client in clients) {
                     // Don't send to ourselves.
-                    if (client == Transport.currentTransport.serverClientID)
+                    if (client == LegacyTransport.currentTransport.serverClientID)
                         return;
-                    Transport.currentTransport.ServerSend(client, writer.ToArraySegment());
+                    LegacyTransport.currentTransport.ServerSend(client, writer.ToArraySegment());
                 }
             }
         }
@@ -212,7 +228,7 @@ namespace FNNLib {
                          
                          // Get rid of the client. Its bad.
                          Debug.Log("Disconnecting client that hasn't disconnected after sending a disconnect packet 20 seconds ago.");
-                         Transport.currentTransport.ServerDisconnectClient(clientID);
+                         LegacyTransport.currentTransport.ServerDisconnectClient(clientID);
                      }, client.cancellationSource.Token);
         }
 
@@ -265,7 +281,7 @@ namespace FNNLib {
         /// Hooks transport events for the server.
         /// </summary>
         private void HookTransport() {
-            var transport = Transport.currentTransport;
+            var transport = LegacyTransport.currentTransport;
             transport.onServerDataReceived.AddListener(HandlePacket);
             transport.onServerConnected.AddListener(ClientConnectionHandler);
             transport.onServerDisconnected.AddListener(ClientDisconnectionHandler);
@@ -275,7 +291,7 @@ namespace FNNLib {
         /// Detaches from the transport for reuse.
         /// </summary>
         private void UnhookTransport() {
-            var transport = Transport.currentTransport;
+            var transport = LegacyTransport.currentTransport;
             transport.onServerDataReceived.RemoveListener(HandlePacket);
             transport.onServerConnected.RemoveListener(ClientConnectionHandler);
             transport.onServerDisconnected.RemoveListener(ClientDisconnectionHandler);

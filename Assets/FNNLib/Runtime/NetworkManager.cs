@@ -41,7 +41,7 @@ namespace FNNLib {
         /// <summary>
         /// The selected transport to be used by the client and server.
         /// </summary>
-        public Transport transport;
+        public LegacyTransport transport;
         
         // TODO: Move a lot of the configuration for networking into its own serializable struct so it can be passed to transports. So these parameters arent on every transport.
         

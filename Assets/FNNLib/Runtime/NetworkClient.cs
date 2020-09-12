@@ -77,7 +77,7 @@ namespace FNNLib {
             // Start the client.
             instance = this;
             _hostMode = false;
-            Transport.currentTransport.StartClient(hostname);
+            LegacyTransport.currentTransport.StartClient(hostname);
 
             // Hook events
             HookTransport();
@@ -97,7 +97,7 @@ namespace FNNLib {
                 throw new NotSupportedException("A client is running, however this is not the running client!");
             
             // Stop the client.
-            Transport.currentTransport.StopClient();
+            LegacyTransport.currentTransport.StopClient();
         }
 
         #endregion
@@ -122,7 +122,7 @@ namespace FNNLib {
             using (var writer = NetworkWriterPool.GetWriter()) {
                 writer.WriteInt32(PacketUtils.GetID<T>());
                 packet.Serialize(writer);
-                Transport.currentTransport.ClientSend(writer.ToArraySegment());
+                LegacyTransport.currentTransport.ClientSend(writer.ToArraySegment());
             }
         }
 
@@ -156,7 +156,7 @@ namespace FNNLib {
         private void ClientDisconnectHandler(int sender, ClientDisconnectPacket packet) {
             // Disconnect from the server, storing the disconnect reason for the disconnect callback.
             _disconnectReason = packet.disconnectReason;
-            Transport.currentTransport.StopClient();
+            LegacyTransport.currentTransport.StopClient();
         }
 
         #endregion
@@ -174,9 +174,9 @@ namespace FNNLib {
         /// Attach to the transport ready for use.
         /// </summary>
         private void HookTransport() {
-            Transport.currentTransport.onClientDataReceived.AddListener(HandlePacket);
-            Transport.currentTransport.onClientConnected.AddListener(ClientConnected);
-            Transport.currentTransport.onClientDisconnected.AddListener(ClientDisconnected);
+            LegacyTransport.currentTransport.onClientDataReceived.AddListener(HandlePacket);
+            LegacyTransport.currentTransport.onClientConnected.AddListener(ClientConnected);
+            LegacyTransport.currentTransport.onClientDisconnected.AddListener(ClientDisconnected);
             
             // Also reset the disconnect reason because this is a new connection.
             _disconnectReason = null;
@@ -186,9 +186,9 @@ namespace FNNLib {
         /// Disconnect from the transport so it can be reused
         /// </summary>
         private void UnhookTransport() {
-            Transport.currentTransport.onClientDataReceived.RemoveListener(HandlePacket);
-            Transport.currentTransport.onClientConnected.RemoveListener(ClientConnected);
-            Transport.currentTransport.onClientDisconnected.RemoveListener(ClientDisconnected);
+            LegacyTransport.currentTransport.onClientDataReceived.RemoveListener(HandlePacket);
+            LegacyTransport.currentTransport.onClientConnected.RemoveListener(ClientConnected);
+            LegacyTransport.currentTransport.onClientDisconnected.RemoveListener(ClientDisconnected);
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace FNNLib {
         /// </summary>
         /// <param name="data">The data packet.</param>
         private void HandlePacket(ArraySegment<byte> data) {
-            HandlePacket(Transport.currentTransport.serverClientID, data);
+            HandlePacket(LegacyTransport.currentTransport.serverClientID, data);
         }
         
         /// <summary>

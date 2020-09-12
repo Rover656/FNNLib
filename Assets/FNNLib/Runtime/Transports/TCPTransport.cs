@@ -5,7 +5,8 @@ using UnityEngine;
 using EventType = FNNLib.Transports.TCP.EventType;
 
 namespace FNNLib.Transports {
-    public class TCPTransport : Transport {
+    // TODO: Migrate to new Transport system and rename the TCP Transport to something else? (Might wait until TCP rewrite however before naming)
+    public class TCPTransport : LegacyTransport {
         public override bool supported => Application.platform != RuntimePlatform.WebGLPlayer;
         public override bool clientConnected => _client.Connected;
         public override bool serverRunning => _server.running;

@@ -36,11 +36,6 @@ namespace FNNLib {
         public bool running => _transport != null && _transport.serverRunning && instance == this;
 
         /// <summary>
-        /// (Dedicated) server update frequency.
-        /// </summary>
-        public int serverTickRate = 30;
-
-        /// <summary>
         /// Server started event. Raised just after the server is started.
         /// </summary>
         public UnityEvent<NetworkServer> onServerStarted = new UnityEvent<NetworkServer>();
@@ -81,7 +76,7 @@ namespace FNNLib {
         /// Saves on allocations
         /// </summary>
         private readonly List<ulong> _singleSenderList = new List<ulong> { 0 };
-        
+
         private class ClientInfo {
             public ulong clientID = 0;
             public bool clientApproved = false;
@@ -105,6 +100,8 @@ namespace FNNLib {
         }
         
         private ConcurrentDictionary<ulong, ClientInfo> _clients = new ConcurrentDictionary<ulong, ClientInfo>();
+        
+        private readonly List<ulong> _allClientIDs = new List<ulong>();
 
         public NetworkServer(int protocolVersion) {
             // Save the protocol version
@@ -135,7 +132,6 @@ namespace FNNLib {
             // Save as the current server and fire start events
             instance = this;
             onServerStarted?.Invoke(this);
-            ConfigureServerFramerate();
         }
 
         /// <summary>
@@ -155,13 +151,6 @@ namespace FNNLib {
             UnhookTransport();
             instance = null;
             onServerStopped?.Invoke(this);
-        }
-
-        protected virtual void ConfigureServerFramerate() {
-            // Unity server, unless stopped uses a stupidly high framerate
-            #if UNITY_SERVER
-            Application.targetFrameRate = serverTickRate;
-            #endif
         }
 
         #endregion
@@ -209,6 +198,24 @@ namespace FNNLib {
                 writer.WriteInt32(PacketUtils.GetID<T>());
                 packet.Serialize(writer);
                 _transport.ServerSend(clients, writer.ToArraySegment());
+            }
+        }
+        
+        /// <summary>
+        /// Broadcast a packet to every connected client.
+        /// </summary>
+        /// <param name="packet">The packet to broadcast.</param>
+        /// <typeparam name="T"></typeparam>
+        /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ClientPacket.</exception>
+        public void SendToAll<T>(T packet) where T : IPacket {
+            if (!PacketUtils.IsClientPacket<T>())
+                throw new InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
+            
+            // Write data
+            using (var writer = NetworkWriterPool.GetWriter()) {
+                writer.WriteInt32(PacketUtils.GetID<T>());
+                packet.Serialize(writer);
+                _transport.ServerSend(_allClientIDs, writer.ToArraySegment());
             }
         }
         
@@ -315,6 +322,7 @@ namespace FNNLib {
             // Add client to the clients list
             if (!_clients.TryAdd(clientID, new ClientInfo(clientID)))
                 throw new Exception("Failed to add client to clients list!!");
+            _allClientIDs.Add(clientID);
 
             var client = _clients[clientID];
             
@@ -344,6 +352,7 @@ namespace FNNLib {
             // Remove from clients list
             if (!_clients.TryRemove(clientID, out _))
                 throw new Exception("Failed to remove client from the list!!");
+            _allClientIDs.Remove(clientID);
             
             // Fire the event.
             onClientDisconnected?.Invoke(clientID);

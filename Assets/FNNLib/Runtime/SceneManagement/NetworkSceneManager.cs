@@ -17,15 +17,20 @@ namespace FNNLib.SceneManagement {
     /// </summary>
     public static class NetworkSceneManager {
         /// <summary>
-        /// List of currently active networked scenes.
+        /// The current scene (if not using subscenes).
         /// </summary>
-        private static ConcurrentDictionary<uint, NetworkScene> _networkedScenes;
+        private static NetworkScene _serverCurrentScene;
 
         /// <summary>
         /// Whether or not sub scenes are being used.
         /// </summary>
         private static bool _usingSubScenes;
         
+        /// <summary>
+        /// List of currently active networked scenes (if using subscenes).
+        /// </summary>
+        private static ConcurrentDictionary<uint, NetworkScene> _networkedScenes;
+
         public static void ServerLoadScene(string sceneName) {
             if (!NetworkManager.instance.useSceneManagement)
                 throw new NotSupportedException("The NetworkSceneManager is not enabled by the current NetworkManager!");
@@ -35,9 +40,23 @@ namespace FNNLib.SceneManagement {
                 throw new NotSupportedException("Cannot use ServerLoadScene when subscenes are active. Use subscene methods instead!");
             if (!CanSendClientTo(sceneName))
                 throw new NotSupportedException("Cannot send client to this scene. It is not on the permitted scenes list.");
-            // TODO: Load the scene and send clients to it.
+            
+            // Load the scene on the server
+            SceneManager.LoadScene(sceneName);
+            var scene = SceneManager.GetActiveScene();
+            
+            // Get network ID (we use build indices for network IDs in this mode as the same scene cannot be duplicated. This is to stop old packets spawning stuff into the world.)
+            // TODO: Maybe make it so you explicitly enable subscenes instead of enabling when you load one so ID problems don't occur.
+            var netID = Convert.ToUInt32(scene.buildIndex);
+            
+            // Set the current scene
+            _serverCurrentScene = new NetworkScene {scene = scene, sceneID = netID, sceneName = sceneName};
+            
+            // Send the scene change packet
+            var changePacket = new SceneChangePacket {sceneIndex = GetSceneIndex(sceneName), sceneNetID = netID};
+            NetworkServer.instance.SendToAll(changePacket);
         }
-
+        
         /// <summary>
         /// Load a sub scene on the server side ready for accepting clients.
         /// This will use the packing data in the networked scene to spawn it in a free location.
@@ -88,17 +107,44 @@ namespace FNNLib.SceneManagement {
             return NetworkManager.instance.permittedScenes.FindIndex((networkableScene) =>
                                                                          networkableScene.sceneName == sceneName) != -1;
         }
+
+        private static int GetSceneIndex(string sceneName) {
+            return NetworkManager.instance.permittedScenes.FindIndex((networkableScene) =>
+                                                                         networkableScene.sceneName == sceneName);
+        }
+
+        private static ScenePackingData GetScenePackingData(string sceneName) {
+            return NetworkManager.instance.permittedScenes.Find((networkableScene) =>
+                                                                    networkableScene.sceneName == sceneName)
+                                 .scenePackingData;
+        }
         
         #region Client Handlers
-        
+
         internal static void ClientHandleSceneChangePacket(ulong sender, SceneChangePacket packet) {
             // TODO: Change scene
             /*
              * The process:
+             * - If we're already on the scene, simply clear any networked objects so we don't duplicate any.
              * - Start a transition period (some form of waiting state where the game doesn't freeze, but nothing is happening)
              * - Change scene first (we don't have to save networked objects, because they will be spawned by the server once we confirm the scene change was successful)
              * - Once the scene has changed, tell the server that the scene change was successful, then the server will begin sending us networked objects.
              */
+        }
+        
+        #endregion
+        
+        #region Server Handlers
+
+        internal static void OnClientConnected(ulong clientID) {
+            return; // TODO: We need to get the current scene first.
+            if (_usingSubScenes) {
+                // TODO: We need starting scene config
+            } else {
+                // Send to the current scene.
+                var changePacket = new SceneChangePacket {sceneIndex = GetSceneIndex(_serverCurrentScene.sceneName), sceneNetID = Convert.ToUInt32(_serverCurrentScene.scene.buildIndex)};
+                NetworkServer.instance.Send(clientID, changePacket);
+            }
         }
         
         #endregion

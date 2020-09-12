@@ -302,7 +302,6 @@ GameObject:
   - component: {fileID: 528291242}
   - component: {fileID: 528291241}
   - component: {fileID: 528291246}
-  - component: {fileID: 528291247}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -447,44 +446,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   running: {fileID: 1517152541}
   editorIsClient: 0
---- !u!114 &528291247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 528291240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d10297825459414f83d9aadf741bc327, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onClientConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  onClientDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  onClientDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerStopped:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  transports:
-  - {fileID: 528291241}
 --- !u!1 &1517152539
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,7 +43,10 @@ namespace FNNLib {
         /// </summary>
         public Transport transport;
         
-        // TODO: Move a lot of the configuration for networking into its own serializable struct so it can be passed to transports. So these parameters arent on every transport.
+        /// <summary>
+        /// (Dedicated) server update frequency.
+        /// </summary>
+        public int serverTickRate = 30;
         
         /// <summary>
         /// The protocol version of the client and server.
@@ -95,9 +98,11 @@ namespace FNNLib {
             _server = new NetworkServer(protocolVersion);
             _client = new NetworkClient(protocolVersion);
             
-            // Add packets for features (if enabled)
+            // Register scene management events.
+            // TODO: Should this be put elsewhere?
             if (useSceneManagement) {
                 _client.RegisterPacketHandler<SceneChangePacket>(NetworkSceneManager.ClientHandleSceneChangePacket);
+                _server.onClientConnected.AddListener(NetworkSceneManager.OnClientConnected);
             }
         }
         
@@ -169,6 +174,9 @@ namespace FNNLib {
             
             // Hook stop event in case it closes.
             _server.onServerStopped.AddListener(OnServerStopped);
+            
+            // Server fps fix
+            ConfigureServerFramerate();
         }
         
         /// <summary>
@@ -191,6 +199,13 @@ namespace FNNLib {
             // Remove hooks
             server.onServerStopped.RemoveListener(OnServerStopped);
             isServer = false;
+        }
+        
+        protected virtual void ConfigureServerFramerate() {
+            // Unity server, unless stopped uses a stupidly high framerate
+            #if UNITY_SERVER
+            Application.targetFrameRate = serverTickRate;
+            #endif
         }
         
         #endregion

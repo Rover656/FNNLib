@@ -87,13 +87,28 @@
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">Classes
   </h3>
-      <h4><a class="xref" href="FNNLib.Transports.TCPTransport.html">TCPTransport</a></h4>
-      <section></section>
-      <h4><a class="xref" href="FNNLib.Transports.Transport.html">Transport</a></h4>
+      <h4><a class="xref" href="FNNLib.Transports.LegacyTransport.html">LegacyTransport</a></h4>
       <section><p>A transport contains the underlying implementation of a network connection.
 TODO: Implement channels for UDP support.
 TODO: Make this transport just have a create method for an internal client and server? I think I prefer that to a mess of methods and fields in one object.</p>
 </section>
+      <h4><a class="xref" href="FNNLib.Transports.MultiplexTransport.html">MultiplexTransport</a></h4>
+      <section></section>
+      <h4><a class="xref" href="FNNLib.Transports.RufflesTransport.html">RufflesTransport</a></h4>
+      <section><p>TODO: Actually implement. This is simply an example of how a RUDP transport would work.</p>
+</section>
+      <h4><a class="xref" href="FNNLib.Transports.TCPTransport.html">TCPTransport</a></h4>
+      <section></section>
+      <h4><a class="xref" href="FNNLib.Transports.Transport.html">Transport</a></h4>
+      <section><p>This is the prototype API for the new style transports.
+Will have channeling support for RUDP transports.</p>
+<p>TODO: Decide if we go down event polling instead of an event when data is recieved.
+TODO: Adding transport doc describing the best practices.</p>
+</section>
+    <h3 id="enums">Enums
+  </h3>
+      <h4><a class="xref" href="FNNLib.Transports.ChannelType.html">ChannelType</a></h4>
+      <section></section>
     <h3 id="delegates">Delegates
   </h3>
       <h4><a class="xref" href="FNNLib.Transports.TransportClientConnected.html">TransportClientConnected</a></h4>

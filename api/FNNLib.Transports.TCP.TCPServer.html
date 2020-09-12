@@ -191,7 +191,7 @@
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_TCP_TCPServer_Disconnect_System_Int32_.md&amp;value=---%0Auid%3A%20FNNLib.Transports.TCP.TCPServer.Disconnect(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/TCP/TCPServer.cs/#L183">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/TCP/TCPServer.cs/#L187">View Source</a>
   </span>
   <a id="FNNLib_Transports_TCP_TCPServer_Disconnect_" data-uid="FNNLib.Transports.TCP.TCPServer.Disconnect*"></a>
   <h4 id="FNNLib_Transports_TCP_TCPServer_Disconnect_System_Int32_" data-uid="FNNLib.Transports.TCP.TCPServer.Disconnect(System.Int32)">Disconnect(Int32)</h4>
@@ -199,7 +199,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Disconnect(int clientID)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Disconnect(int connectionID)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -213,37 +213,7 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">clientID</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_TCP_TCPServer_NextConnectionID.md&amp;value=---%0Auid%3A%20FNNLib.Transports.TCP.TCPServer.NextConnectionID%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/TCP/TCPServer.cs/#L57">View Source</a>
-  </span>
-  <a id="FNNLib_Transports_TCP_TCPServer_NextConnectionID_" data-uid="FNNLib.Transports.TCP.TCPServer.NextConnectionID*"></a>
-  <h4 id="FNNLib_Transports_TCP_TCPServer_NextConnectionID" data-uid="FNNLib.Transports.TCP.TCPServer.NextConnectionID">NextConnectionID()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int NextConnectionID()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">connectionID</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -253,7 +223,7 @@
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_TCP_TCPServer_Send_System_Int32_System_Byte___.md&amp;value=---%0Auid%3A%20FNNLib.Transports.TCP.TCPServer.Send(System.Int32%2CSystem.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/TCP/TCPServer.cs/#L165">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/TCP/TCPServer.cs/#L169">View Source</a>
   </span>
   <a id="FNNLib_Transports_TCP_TCPServer_Send_" data-uid="FNNLib.Transports.TCP.TCPServer.Send*"></a>
   <h4 id="FNNLib_Transports_TCP_TCPServer_Send_System_Int32_System_Byte___" data-uid="FNNLib.Transports.TCP.TCPServer.Send(System.Int32,System.Byte[])">Send(Int32, Byte[])</h4>
@@ -261,7 +231,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Send(int clientID, byte[] data)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool Send(int connectionID, byte[] data)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -275,7 +245,7 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">clientID</span></td>
+        <td><span class="parametername">connectionID</span></td>
         <td></td>
       </tr>
       <tr>
@@ -342,7 +312,7 @@
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_TCP_TCPServer_Stop.md&amp;value=---%0Auid%3A%20FNNLib.Transports.TCP.TCPServer.Stop%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/TCP/TCPServer.cs/#L74">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/TCP/TCPServer.cs/#L72">View Source</a>
   </span>
   <a id="FNNLib_Transports_TCP_TCPServer_Stop_" data-uid="FNNLib.Transports.TCP.TCPServer.Stop*"></a>
   <h4 id="FNNLib_Transports_TCP_TCPServer_Stop" data-uid="FNNLib.Transports.TCP.TCPServer.Stop">Stop()</h4>

@@ -329,7 +329,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected static void SendThread(int clientID, TcpClient client, SafeQueue&lt;byte[]&gt; dataQueue, ManualResetEvent dataPending)</code></pre>
+    <pre><code class="lang-csharp hljs">protected static void SendThread(int connectionID, TcpClient client, SafeQueue&lt;byte[]&gt; dataQueue, ManualResetEvent dataPending)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -343,7 +343,7 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">clientID</span></td>
+        <td><span class="parametername">connectionID</span></td>
         <td></td>
       </tr>
       <tr>

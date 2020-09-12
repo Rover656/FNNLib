@@ -98,10 +98,10 @@ This is only accessed if you wish to register custom packet types.</p>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="FNNLib.Messaging.PacketHandler.html#FNNLib_Messaging_PacketHandler_HandlePacket_System_Int32_System_ArraySegment_System_Byte__">PacketHandler.HandlePacket(Int32, ArraySegment&lt;Byte&gt;)</a>
+      <a class="xref" href="FNNLib.Messaging.PacketHandler.html#FNNLib_Messaging_PacketHandler_HandlePacket_System_UInt64_System_ArraySegment_System_Byte__">PacketHandler.HandlePacket(UInt64, ArraySegment&lt;Byte&gt;)</a>
     </div>
     <div>
-      <a class="xref" href="FNNLib.Messaging.PacketHandler.html#FNNLib_Messaging_PacketHandler_RegisterPacketHandler__1_System_Action_System_Int32___0__">PacketHandler.RegisterPacketHandler&lt;T&gt;(Action&lt;Int32, T&gt;)</a>
+      <a class="xref" href="FNNLib.Messaging.PacketHandler.html#FNNLib_Messaging_PacketHandler_RegisterPacketHandler__1_System_Action_System_UInt64___0__">PacketHandler.RegisterPacketHandler&lt;T&gt;(Action&lt;UInt64, T&gt;)</a>
     </div>
     <div>
       <a class="xref" href="FNNLib.Messaging.PacketHandler.html#FNNLib_Messaging_PacketHandler_ClearPacketHandler__1">PacketHandler.ClearPacketHandler&lt;T&gt;()</a>
@@ -120,7 +120,7 @@ This is only accessed if you wish to register custom packet types.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkServer__ctor_System_Int32_.md&amp;value=---%0Auid%3A%20FNNLib.NetworkServer.%23ctor(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkServer.cs/#L98">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkServer.cs/#L109">View Source</a>
   </span>
   <a id="FNNLib_NetworkServer__ctor_" data-uid="FNNLib.NetworkServer.#ctor*"></a>
   <h4 id="FNNLib_NetworkServer__ctor_System_Int32_" data-uid="FNNLib.NetworkServer.#ctor(System.Int32)">NetworkServer(Int32)</h4>
@@ -193,7 +193,7 @@ Check if a server is running with the IsServerRunning static property.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UnityEvent&lt;int&gt; onClientConnected</code></pre>
+    <pre><code class="lang-csharp hljs">public UnityEvent&lt;ulong&gt; onClientConnected</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -205,7 +205,7 @@ Check if a server is running with the IsServerRunning static property.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEvent</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><span class="xref">UnityEvent</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -223,7 +223,7 @@ Check if a server is running with the IsServerRunning static property.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UnityEvent&lt;int&gt; onClientDisconnected</code></pre>
+    <pre><code class="lang-csharp hljs">public UnityEvent&lt;ulong&gt; onClientDisconnected</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -235,7 +235,7 @@ Check if a server is running with the IsServerRunning static property.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEvent</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><span class="xref">UnityEvent</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -434,7 +434,7 @@ Check if a server is running with the IsServerRunning static property.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkServer_ConfigureServerFramerate.md&amp;value=---%0Auid%3A%20FNNLib.NetworkServer.ConfigureServerFramerate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkServer.cs/#L142">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkServer.cs/#L160">View Source</a>
   </span>
   <a id="FNNLib_NetworkServer_ConfigureServerFramerate_" data-uid="FNNLib.NetworkServer.ConfigureServerFramerate*"></a>
   <h4 id="FNNLib_NetworkServer_ConfigureServerFramerate" data-uid="FNNLib.NetworkServer.ConfigureServerFramerate">ConfigureServerFramerate()</h4>
@@ -446,19 +446,19 @@ Check if a server is running with the IsServerRunning static property.</p>
   </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkServer_Disconnect_System_Int32_System_String_.md&amp;value=---%0Auid%3A%20FNNLib.NetworkServer.Disconnect(System.Int32%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkServer_Disconnect_System_UInt64_System_String_.md&amp;value=---%0Auid%3A%20FNNLib.NetworkServer.Disconnect(System.UInt64%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkServer.cs/#L208">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkServer.cs/#L224">View Source</a>
   </span>
   <a id="FNNLib_NetworkServer_Disconnect_" data-uid="FNNLib.NetworkServer.Disconnect*"></a>
-  <h4 id="FNNLib_NetworkServer_Disconnect_System_Int32_System_String_" data-uid="FNNLib.NetworkServer.Disconnect(System.Int32,System.String)">Disconnect(Int32, String)</h4>
+  <h4 id="FNNLib_NetworkServer_Disconnect_System_UInt64_System_String_" data-uid="FNNLib.NetworkServer.Disconnect(System.UInt64,System.String)">Disconnect(UInt64, String)</h4>
   <div class="markdown level1 summary"><p>Disconnect a client from the server.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Disconnect(int clientID, string disconnectReason)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Disconnect(ulong clientID, string disconnectReason)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -471,7 +471,7 @@ Check if a server is running with the IsServerRunning static property.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
         <td><span class="parametername">clientID</span></td>
         <td><p>The client to be disconnected.</p>
 </td>
@@ -486,19 +486,19 @@ Check if a server is running with the IsServerRunning static property.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkServer_Send__1_System_Collections_Generic_IEnumerable_System_Int32____0_.md&amp;value=---%0Auid%3A%20FNNLib.NetworkServer.Send%60%601(System.Collections.Generic.IEnumerable%7BSystem.Int32%7D%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkServer_Send__1_System_Collections_Generic_List_System_UInt64____0_.md&amp;value=---%0Auid%3A%20FNNLib.NetworkServer.Send%60%601(System.Collections.Generic.List%7BSystem.UInt64%7D%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkServer.cs/#L182">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkServer.cs/#L203">View Source</a>
   </span>
   <a id="FNNLib_NetworkServer_Send_" data-uid="FNNLib.NetworkServer.Send*"></a>
-  <h4 id="FNNLib_NetworkServer_Send__1_System_Collections_Generic_IEnumerable_System_Int32____0_" data-uid="FNNLib.NetworkServer.Send``1(System.Collections.Generic.IEnumerable{System.Int32},``0)">Send&lt;T&gt;(IEnumerable&lt;Int32&gt;, T)</h4>
+  <h4 id="FNNLib_NetworkServer_Send__1_System_Collections_Generic_List_System_UInt64____0_" data-uid="FNNLib.NetworkServer.Send``1(System.Collections.Generic.List{System.UInt64},``0)">Send&lt;T&gt;(List&lt;UInt64&gt;, T)</h4>
   <div class="markdown level1 summary"><p>Broadcast a packet to a list of clients.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Send&lt;T&gt;(IEnumerable&lt;int&gt; clients, T packet)
+    <pre><code class="lang-csharp hljs">public void Send&lt;T&gt;(List&lt;ulong&gt; clients, T packet)
     where T : IPacket</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -512,7 +512,7 @@ Check if a server is running with the IsServerRunning static property.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</td>
         <td><span class="parametername">clients</span></td>
         <td><p>Clients to receive the packet.</p>
 </td>
@@ -558,19 +558,19 @@ Check if a server is running with the IsServerRunning static property.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkServer_Send__1_System_Int32___0_.md&amp;value=---%0Auid%3A%20FNNLib.NetworkServer.Send%60%601(System.Int32%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkServer_Send__1_System_UInt64___0_.md&amp;value=---%0Auid%3A%20FNNLib.NetworkServer.Send%60%601(System.UInt64%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkServer.cs/#L160">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkServer.cs/#L178">View Source</a>
   </span>
   <a id="FNNLib_NetworkServer_Send_" data-uid="FNNLib.NetworkServer.Send*"></a>
-  <h4 id="FNNLib_NetworkServer_Send__1_System_Int32___0_" data-uid="FNNLib.NetworkServer.Send``1(System.Int32,``0)">Send&lt;T&gt;(Int32, T)</h4>
+  <h4 id="FNNLib_NetworkServer_Send__1_System_UInt64___0_" data-uid="FNNLib.NetworkServer.Send``1(System.UInt64,``0)">Send&lt;T&gt;(UInt64, T)</h4>
   <div class="markdown level1 summary"><p>Send a packet to a specific client.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Send&lt;T&gt;(int clientID, T packet)
+    <pre><code class="lang-csharp hljs">public void Send&lt;T&gt;(ulong clientID, T packet)
     where T : IPacket</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -584,7 +584,7 @@ Check if a server is running with the IsServerRunning static property.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
         <td><span class="parametername">clientID</span></td>
         <td><p>Target client</p>
 </td>
@@ -630,20 +630,37 @@ Check if a server is running with the IsServerRunning static property.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkServer_Start.md&amp;value=---%0Auid%3A%20FNNLib.NetworkServer.Start%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkServer_Start_FNNLib_Transports_Transport_.md&amp;value=---%0Auid%3A%20FNNLib.NetworkServer.Start(FNNLib.Transports.Transport)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkServer.cs/#L112">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkServer.cs/#L123">View Source</a>
   </span>
   <a id="FNNLib_NetworkServer_Start_" data-uid="FNNLib.NetworkServer.Start*"></a>
-  <h4 id="FNNLib_NetworkServer_Start" data-uid="FNNLib.NetworkServer.Start">Start()</h4>
+  <h4 id="FNNLib_NetworkServer_Start_FNNLib_Transports_Transport_" data-uid="FNNLib.NetworkServer.Start(FNNLib.Transports.Transport)">Start(Transport)</h4>
   <div class="markdown level1 summary"><p>Start the server.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Start()</code></pre>
+    <pre><code class="lang-csharp hljs">public void Start(Transport transport)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FNNLib.Transports.Transport.html">Transport</a></td>
+        <td><span class="parametername">transport</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="exceptions">Exceptions</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -665,7 +682,7 @@ Check if a server is running with the IsServerRunning static property.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkServer_Stop.md&amp;value=---%0Auid%3A%20FNNLib.NetworkServer.Stop%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkServer.cs/#L127">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkServer.cs/#L145">View Source</a>
   </span>
   <a id="FNNLib_NetworkServer_Stop_" data-uid="FNNLib.NetworkServer.Stop*"></a>
   <h4 id="FNNLib_NetworkServer_Stop" data-uid="FNNLib.NetworkServer.Stop">Stop()</h4>

@@ -89,7 +89,7 @@
   <h6><strong>Assembly</strong>: FNNLib.dll</h6>
   <h5 id="FNNLib_Messaging_NetworkPacketDelegate_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public delegate void NetworkPacketDelegate(int clientID, NetworkReader reader);</code></pre>
+    <pre><code class="lang-csharp hljs">public delegate void NetworkPacketDelegate(ulong clientID, NetworkReader reader);</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -102,7 +102,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
         <td><span class="parametername">clientID</span></td>
         <td></td>
       </tr>

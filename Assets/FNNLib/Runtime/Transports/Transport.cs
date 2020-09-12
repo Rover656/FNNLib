@@ -98,7 +98,7 @@ namespace FNNLib.Transports {
         /// <summary>
         /// Start the server.
         /// </summary>
-        public abstract void StartServer();
+        public abstract void ServerStart();
 
         // TODO: StartServer overloads which support custom bind and port. Should override any transport config.
 
@@ -124,7 +124,7 @@ namespace FNNLib.Transports {
         /// <summary>
         /// Stop the server.
         /// </summary>
-        public abstract void StopServer();
+        public abstract void ServerShutdown();
 
         #endregion
 

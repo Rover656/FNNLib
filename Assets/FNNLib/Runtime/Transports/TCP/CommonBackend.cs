@@ -110,7 +110,7 @@ namespace FNNLib.Transports.TCP {
             return false;
         }
 
-        protected static void SendThread(int clientID, TcpClient client, SafeQueue<byte[]> dataQueue,
+        protected static void SendThread(int connectionID, TcpClient client, SafeQueue<byte[]> dataQueue,
                                              ManualResetEvent dataPending) {
             // Get stream
             var stream = client.GetStream();
@@ -139,7 +139,7 @@ namespace FNNLib.Transports.TCP {
                 // Happens when thread is interrupted.
             }
             catch (Exception ex) {
-                Debug.LogError("SendThread error: " + ex);
+                Debug.LogError("SendThread error for connection " + connectionID + ": " + ex);
             }
             finally {
                 // Clean up connections

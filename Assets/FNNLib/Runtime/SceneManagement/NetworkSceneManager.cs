@@ -77,14 +77,21 @@ namespace FNNLib.SceneManagement {
             // TODO
         }
 
-        public static void SendClientTo(uint clientID, string sceneName) {
+        public static void SendClientTo(ulong clientID, string sceneName) {
             if (!NetworkManager.instance.useSceneManagement)
                 throw new NotSupportedException("The NetworkSceneManager is not enabled by the current NetworkManager!");
             // TODO: Will this only be used for subscenes (i.e. games with more than 1 scene at a time). Probably.
             // TODO: Move the client to the scene.
         }
 
-        internal static void ClientHandleSceneChangePacket(int sender, SceneChangePacket packet) {
+        private static bool CanSendClientTo(string sceneName) {
+            return NetworkManager.instance.permittedScenes.FindIndex((networkableScene) =>
+                                                                         networkableScene.sceneName == sceneName) != -1;
+        }
+        
+        #region Client Handlers
+        
+        internal static void ClientHandleSceneChangePacket(ulong sender, SceneChangePacket packet) {
             // TODO: Change scene
             /*
              * The process:
@@ -93,10 +100,7 @@ namespace FNNLib.SceneManagement {
              * - Once the scene has changed, tell the server that the scene change was successful, then the server will begin sending us networked objects.
              */
         }
-
-        private static bool CanSendClientTo(string sceneName) {
-            return NetworkManager.instance.permittedScenes.FindIndex((networkableScene) =>
-                                                                         networkableScene.sceneName == sceneName) != -1;
-        }
+        
+        #endregion
     }
 }

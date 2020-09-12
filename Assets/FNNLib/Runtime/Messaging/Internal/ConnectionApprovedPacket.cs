@@ -3,14 +3,14 @@
 namespace FNNLib.Messaging.Internal {
     [ClientPacket]
     public class ConnectionApprovedPacket : IPacket {
-        public int localClientID;
+        public ulong localClientID;
 
         public void Serialize(NetworkWriter writer) {
-            writer.WriteInt32(localClientID);
+            writer.WriteUInt64(localClientID);
         }
 
         public void DeSerialize(NetworkReader reader) {
-            localClientID = reader.ReadInt32();
+            localClientID = reader.ReadUInt64();
         }
     }
 }

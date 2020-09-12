@@ -36,12 +36,12 @@ namespace FNNLib {
         /// <summary>
         /// The local client ID.
         /// </summary>
-        public int localClientID => isServer ? transport.serverClientID : _client.localClientID;
+        public ulong localClientID => isServer ? 0 : _client.localClientID;
         
         /// <summary>
         /// The selected transport to be used by the client and server.
         /// </summary>
-        public LegacyTransport transport;
+        public Transport transport;
         
         // TODO: Move a lot of the configuration for networking into its own serializable struct so it can be passed to transports. So these parameters arent on every transport.
         
@@ -100,16 +100,6 @@ namespace FNNLib {
                 _client.RegisterPacketHandler<SceneChangePacket>(NetworkSceneManager.ClientHandleSceneChangePacket);
             }
         }
-
-        private void OnDestroy() {
-            // Close host/server/client on destroy!
-            if (isHost)
-                StopHost();
-            else if (isServer)
-                StopServer();
-            else if (isClient)
-                StopClient();
-        }
         
         #region Client
 
@@ -120,6 +110,10 @@ namespace FNNLib {
         /// <param name="connectionRequestData">Connection request data used for the approval stage.</param>
         /// <exception cref="NotSupportedException"></exception>
         public void StartClient(string hostname, byte[] connectionRequestData = null) {
+            // Check that the transport is set.
+            if (transport == null)
+                throw new InvalidOperationException("The NetworkManager must be provided with a transport!");
+            
             // Ensure manager isn't running.
             if (isHost)
                 throw new NotSupportedException("The network manager is already running in host mode!");
@@ -127,13 +121,10 @@ namespace FNNLib {
                 throw new NotSupportedException("The network manager is already running in server mode!");
             if (isClient)
                 throw new NotSupportedException("A client is already running!");
-            
-            // Activate transport
-            transport.StartUsing();
 
             // Start client
             isClient = true;
-            _client.Connect(hostname, connectionRequestData);
+            _client.Connect(transport, hostname, connectionRequestData);
         }
 
         /// <summary>
@@ -151,9 +142,6 @@ namespace FNNLib {
             // Disconnect
             _client.Disconnect();
             isClient = false;
-            
-            // Deactivate transport
-            transport.StopUsing();
         }
         
         #endregion
@@ -164,6 +152,10 @@ namespace FNNLib {
         /// Starts the manager in server mode.
         /// </summary>
         public void StartServer() {
+            // Check that the transport is set.
+            if (transport == null)
+                throw new InvalidOperationException("The NetworkManager must be provided with a transport!");
+            
             if (isHost)
                 throw new NotSupportedException("The network manager is already running in host mode!");
             if (isClient)
@@ -171,12 +163,9 @@ namespace FNNLib {
             if (isServer)
                 throw new NotSupportedException("A server is already running!");
 
-            // Start transport
-            transport.StartUsing();
-            
             // Start server.
             isServer = true;
-            _server.Start();
+            _server.Start(transport);
             
             // Hook stop event in case it closes.
             _server.onServerStopped.AddListener(OnServerStopped);
@@ -202,9 +191,6 @@ namespace FNNLib {
             // Remove hooks
             server.onServerStopped.RemoveListener(OnServerStopped);
             isServer = false;
-            
-            // Disable transport
-            transport.StopUsing();
         }
         
         #endregion
@@ -212,6 +198,10 @@ namespace FNNLib {
         #region Host
 
         public void StartHost() {
+            // Check that the transport is set.
+            if (transport == null)
+                throw new InvalidOperationException("The NetworkManager must be provided with a transport!");
+            
             if (isClient && !isServer)
                 throw new NotSupportedException("The network manager is already running in client mode!");
             if (isServer && !isClient)
@@ -250,7 +240,7 @@ namespace FNNLib {
         /// </summary>
         /// <param name="handler"></param>
         /// <typeparam name="T"></typeparam>
-        public void RegisterPacketHandler<T>(Action<int, T> handler) where T : IPacket, new() {
+        public void RegisterPacketHandler<T>(Action<ulong, T> handler) where T : IPacket, new() {
             if (PacketUtils.IsClientPacket<T>()) {
                 _client.RegisterPacketHandler(handler);
             }

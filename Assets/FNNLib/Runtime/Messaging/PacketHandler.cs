@@ -4,7 +4,7 @@ using FNNLib.Serialization;
 using UnityEngine;
 
 namespace FNNLib.Messaging {
-    public delegate void NetworkPacketDelegate(int clientID, NetworkReader reader);
+    public delegate void NetworkPacketDelegate(ulong clientID, NetworkReader reader);
     
     public abstract class PacketHandler {
         /// <summary>
@@ -24,7 +24,7 @@ namespace FNNLib.Messaging {
         /// </summary>
         /// <param name="sender">The senders ID (0 for server).</param>
         /// <param name="data">The data containing the packet.</param>
-        protected void HandlePacket(int sender, ArraySegment<byte> data) {
+        protected void HandlePacket(ulong sender, ArraySegment<byte> data) {
             // TODO: A non-allocating reader/writer like Mirror.
             using (var reader = NetworkReaderPool.GetReader(data)) {
                 var packetID = reader.ReadInt32();
@@ -42,7 +42,7 @@ namespace FNNLib.Messaging {
         /// <param name="handler">The handler to control this packet</param>
         /// <typeparam name="T">The packet type to be handled.</typeparam>
         /// <exception cref="InvalidOperationException">Thrown if a packet name/hash conflict occurs.</exception>
-        public void RegisterPacketHandler<T>(Action<int, T> handler) where T : IPacket, new() {
+        public void RegisterPacketHandler<T>(Action<ulong, T> handler) where T : IPacket, new() {
             if (isServerContext && !PacketUtils.IsServerPacket<T>())
                 throw new InvalidOperationException("To register a packet on the server, it must have the ServerPacket attribute.");
             if (!isServerContext && !PacketUtils.IsClientPacket<T>())

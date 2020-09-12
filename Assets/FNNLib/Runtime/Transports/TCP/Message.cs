@@ -31,12 +31,12 @@ namespace FNNLib.Transports.TCP {
         Disconnect
     }
     public struct Message {
-        public readonly int connectionID;
+        public readonly int clientID;
         public readonly EventType eventType;
         public readonly byte[] data;
 
-        public Message(int connectionID, EventType eventType, byte[] data) {
-            this.connectionID = connectionID;
+        public Message(int clientID, EventType eventType, byte[] data) {
+            this.clientID = clientID;
             this.eventType = eventType;
             this.data = data;
         }

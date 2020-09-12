@@ -37,7 +37,7 @@ namespace FNNLib.Messaging {
         /// <param name="handler">The handler to be called when the packet is recieved.</param>
         /// <typeparam name="T">The packet the handler is for.</typeparam>
         /// <returns>The handler for the PacketHandler internal system.</returns>
-        internal static NetworkPacketDelegate GetPacketHandler<T>(Action<int, T> handler)
+        internal static NetworkPacketDelegate GetPacketHandler<T>(Action<ulong, T> handler)
             where T : IPacket, new()
             => (clientID, reader) => {
                    // Handle the incoming packet

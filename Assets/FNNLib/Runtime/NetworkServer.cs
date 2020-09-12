@@ -33,7 +33,7 @@ namespace FNNLib {
         /// <summary>
         /// Whether or not this server is running.
         /// </summary>
-        public bool running => LegacyTransport.currentTransport.serverRunning && instance == this;
+        public bool running => _transport != null && _transport.serverRunning && instance == this;
 
         /// <summary>
         /// (Dedicated) server update frequency.
@@ -53,12 +53,12 @@ namespace FNNLib {
         /// <summary>
         /// Fired when a client's connection to the server has been accepted.
         /// </summary>
-        public UnityEvent<int> onClientConnected = new UnityEvent<int>();
+        public UnityEvent<ulong> onClientConnected = new UnityEvent<ulong>();
 
         /// <summary>
         /// Fired when a client's connection is denied
         /// </summary>
-        public UnityEvent<int> onClientDisconnected = new UnityEvent<int>();
+        public UnityEvent<ulong> onClientDisconnected = new UnityEvent<ulong>();
         
         /// <summary>
         /// Mark as server context for packet management.
@@ -66,13 +66,24 @@ namespace FNNLib {
         protected override bool isServerContext => true;
 
         /// <summary>
+        /// The transport the server is using.
+        /// </summary>
+        private Transport _transport;
+
+        /// <summary>
         /// The server protocol version.
         /// This stops incompatible client-server interactions.
         /// </summary>
         private readonly int _protocolVersion;
+
+        /// <summary>
+        /// Sender list for sending data to an individual client.
+        /// Saves on allocations
+        /// </summary>
+        private readonly List<ulong> _singleSenderList = new List<ulong> { 0 };
         
         private class ClientInfo {
-            public int clientID = 0;
+            public ulong clientID = 0;
             public bool clientApproved = false;
             public bool disconnectRequested = false;
 
@@ -80,7 +91,7 @@ namespace FNNLib {
             public CancellationTokenSource cancellationSource = new CancellationTokenSource();
             public Task requestTimeoutTask = null;
 
-            public ClientInfo(int ID) {
+            public ClientInfo(ulong ID) {
                 clientID = ID;
             }
 
@@ -93,7 +104,7 @@ namespace FNNLib {
             }
         }
         
-        private ConcurrentDictionary<int, ClientInfo> _clients = new ConcurrentDictionary<int, ClientInfo>();
+        private ConcurrentDictionary<ulong, ClientInfo> _clients = new ConcurrentDictionary<ulong, ClientInfo>();
 
         public NetworkServer(int protocolVersion) {
             // Save the protocol version
@@ -109,14 +120,21 @@ namespace FNNLib {
         /// Start the server.
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown if a server is already running.</exception>
-        public void Start() {
-            if (LegacyTransport.currentTransport.serverRunning || instance != null)
+        public void Start(Transport transport) {
+            // Check that the transport isn't running, or if a network server already exists.
+            if (transport.serverRunning || instance != null)
                 throw new NotSupportedException("A server is already running!");
-            LegacyTransport.currentTransport.StartServer();
+            
+            // Save transport and start it
+            _transport = transport;
+            _transport.ServerStart();
+            
+            // Hook transport events
             HookTransport();
+            
+            // Save as the current server and fire start events
             instance = this;
             onServerStarted?.Invoke(this);
-
             ConfigureServerFramerate();
         }
 
@@ -125,7 +143,7 @@ namespace FNNLib {
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown if a server is not running.</exception>
         public void Stop() {
-            if (!LegacyTransport.currentTransport.serverRunning)
+            if (_transport == null || !_transport.serverRunning)
                 throw new NotSupportedException("A server is not running!");
             if (instance != this)
                 throw new NotSupportedException("This instance should not be running a server!");
@@ -133,7 +151,7 @@ namespace FNNLib {
         }
 
         private void PerformStop() {
-            LegacyTransport.currentTransport.StopServer();
+            _transport.ServerShutdown();
             UnhookTransport();
             instance = null;
             onServerStopped?.Invoke(this);
@@ -157,18 +175,21 @@ namespace FNNLib {
         /// <param name="packet">The packet to send</param>
         /// <typeparam name="T"></typeparam>
         /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ClientPacket.</exception>
-        public void Send<T>(int clientID, T packet) where T : IPacket {
+        public void Send<T>(ulong clientID, T packet) where T : IPacket {
             if (!PacketUtils.IsClientPacket<T>())
                 throw new InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
             // Don't send to ourselves.
-            if (clientID == LegacyTransport.currentTransport.serverClientID)
+            if (clientID == 0)
                 return;
             
             // Write data
             using (var writer = NetworkWriterPool.GetWriter()) {
                 writer.WriteInt32(PacketUtils.GetID<T>());
                 packet.Serialize(writer);
-                LegacyTransport.currentTransport.ServerSend(clientID, writer.ToArraySegment());
+                
+                // We reuse the list for server sending
+                _singleSenderList[0] = clientID;
+                _transport.ServerSend(_singleSenderList, writer.ToArraySegment());
             }
         }
 
@@ -179,7 +200,7 @@ namespace FNNLib {
         /// <param name="packet">The packet to broadcast.</param>
         /// <typeparam name="T"></typeparam>
         /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ClientPacket.</exception>
-        public void Send<T>(IEnumerable<int> clients, T packet) where T : IPacket {
+        public void Send<T>(List<ulong> clients, T packet) where T : IPacket {
             if (!PacketUtils.IsClientPacket<T>())
                 throw new InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
             
@@ -187,12 +208,7 @@ namespace FNNLib {
             using (var writer = NetworkWriterPool.GetWriter()) {
                 writer.WriteInt32(PacketUtils.GetID<T>());
                 packet.Serialize(writer);
-                foreach (var client in clients) {
-                    // Don't send to ourselves.
-                    if (client == LegacyTransport.currentTransport.serverClientID)
-                        return;
-                    LegacyTransport.currentTransport.ServerSend(client, writer.ToArraySegment());
-                }
+                _transport.ServerSend(clients, writer.ToArraySegment());
             }
         }
         
@@ -205,7 +221,7 @@ namespace FNNLib {
         /// </summary>
         /// <param name="clientID">The client to be disconnected.</param>
         /// <param name="disconnectReason">The client disconnect reason. Will be provided to the client on disconnect.</param>
-        public void Disconnect(int clientID, string disconnectReason) {
+        public void Disconnect(ulong clientID, string disconnectReason) {
             // Don't send multiple disconnects
             var client = _clients[clientID];
             if (client.disconnectRequested)
@@ -228,7 +244,7 @@ namespace FNNLib {
                          
                          // Get rid of the client. Its bad.
                          Debug.Log("Disconnecting client that hasn't disconnected after sending a disconnect packet 20 seconds ago.");
-                         LegacyTransport.currentTransport.ServerDisconnectClient(clientID);
+                         _transport.ServerDisconnect(clientID);
                      }, client.cancellationSource.Token);
         }
 
@@ -248,7 +264,7 @@ namespace FNNLib {
         /// </summary>
         /// <param name="clientID">The client requesting connection</param>
         /// <param name="packet">The request packet.</param>
-        private void HandleConnectionRequest(int clientID, ConnectionRequestPacket packet) {
+        private void HandleConnectionRequest(ulong clientID, ConnectionRequestPacket packet) {
             // Client has requested connection. We can stop the timeout thread.
             _clients[clientID].CancelTimeout();
             
@@ -281,23 +297,21 @@ namespace FNNLib {
         /// Hooks transport events for the server.
         /// </summary>
         private void HookTransport() {
-            var transport = LegacyTransport.currentTransport;
-            transport.onServerDataReceived.AddListener(HandlePacket);
-            transport.onServerConnected.AddListener(ClientConnectionHandler);
-            transport.onServerDisconnected.AddListener(ClientDisconnectionHandler);
+            _transport.onServerDataReceived.AddListener(HandlePacket);
+            _transport.onServerConnected.AddListener(ClientConnectionHandler);
+            _transport.onServerDisconnected.AddListener(ClientDisconnectionHandler);
         }
 
         /// <summary>
         /// Detaches from the transport for reuse.
         /// </summary>
         private void UnhookTransport() {
-            var transport = LegacyTransport.currentTransport;
-            transport.onServerDataReceived.RemoveListener(HandlePacket);
-            transport.onServerConnected.RemoveListener(ClientConnectionHandler);
-            transport.onServerDisconnected.RemoveListener(ClientDisconnectionHandler);
+            _transport.onServerDataReceived.RemoveListener(HandlePacket);
+            _transport.onServerConnected.RemoveListener(ClientConnectionHandler);
+            _transport.onServerDisconnected.RemoveListener(ClientDisconnectionHandler);
         }
         
-        private void ClientConnectionHandler(int clientID) {
+        private void ClientConnectionHandler(ulong clientID) {
             // Add client to the clients list
             if (!_clients.TryAdd(clientID, new ClientInfo(clientID)))
                 throw new Exception("Failed to add client to clients list!!");
@@ -321,7 +335,7 @@ namespace FNNLib {
                      }, client.cancellationSource.Token);
         }
 
-        private void ClientDisconnectionHandler(int clientID) {
+        private void ClientDisconnectionHandler(ulong clientID) {
             // Get the client and cancel the timeout task (either they have honoured it, or it has done its job).
             _clients[clientID].CancelTimeout();
 

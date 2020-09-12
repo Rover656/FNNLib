@@ -29,7 +29,7 @@ namespace DefaultNamespace {
             NetworkManager.instance.RegisterPacketHandler<TestPacket>(HandleTestPacket);
         }
 
-        void HandleTestPacket(int clientID, TestPacket packet) {
+        void HandleTestPacket(ulong clientID, TestPacket packet) {
             if (NetworkManager.instance.isServer) {
                 Debug.Log("Received test packet from " + clientID + "! Text is \"" + packet.text + "\"");
             }

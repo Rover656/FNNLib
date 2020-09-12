@@ -54,17 +54,15 @@ namespace FNNLib.Transports.TCP {
 
         private int _idCounter;
 
-        public int NextConnectionID() {
-            // TODO: Check for overflowing?
-            int id = Interlocked.Increment(ref _idCounter);
+        private int GetConnectionID() {
+            var id = _idCounter;
+            Interlocked.Increment(ref _idCounter);
             return id;
         }
 
         public void Start(IPAddress address, int port) {
             if (running)
                 throw new NotSupportedException("Server is already running!");
-
-            // TODO: Message queues and shit
 
             _listenerThread = new Thread(() => { ListenThread(address, port); })
                               {IsBackground = true, Priority = ThreadPriority.BelowNormal};
@@ -84,7 +82,11 @@ namespace FNNLib.Transports.TCP {
             foreach (var client in _clients) {
                 var tcpClient = client.Value.client;
 
-                try { tcpClient.GetStream().Close(); } catch { }
+                try {
+                    tcpClient.GetStream().Close();
+                }
+                catch { }
+
                 tcpClient.Close();
             }
 
@@ -95,49 +97,52 @@ namespace FNNLib.Transports.TCP {
             try {
                 // Start listener
                 listener = new TcpListener(address, port);
-                listener.Start();
+                try {
+                    listener.Start();
+                }
+                catch (Exception ex) {
+                    Debug.LogError("Failed to start server: " + ex);
+                    return;
+                }
 
                 // Accept new clients.
                 while (true) {
                     // Accept a new client
                     var tcpClient = listener.AcceptTcpClient();
 
-                    // TODO: Socket options
-
-                    // Generate connection ID
-                    var clientID = NextConnectionID();
+                    // Get client ID
+                    var connectionID = GetConnectionID();
 
                     // Add to clients dictionary
                     var client = new Client(tcpClient);
-                    _clients[clientID] = client;
-
-                    Debug.Log("Client connected!");
+                    _clients[connectionID] = client;
 
                     // Spawn send thread
-                    Thread sendThread = new Thread(() => {
-                                                       try {
-                                                           SendThread(clientID, client.client, client.dataQueue,
-                                                                          client.dataPending);
-                                                       }
-                                                       catch (ThreadAbortException) {
-                                                           // Do nothing
-                                                       }
-                                                       catch (Exception ex) {
-                                                           Debug.LogError("Send thread exception: " + ex);
-                                                       }
-                                                   });
+                    var sendThread = new Thread(() => {
+                                                    try {
+                                                        SendThread(connectionID, client.client, client.dataQueue,
+                                                                   client.dataPending);
+                                                    }
+                                                    catch (ThreadAbortException) {
+                                                        // Do nothing
+                                                    }
+                                                    catch (Exception ex) {
+                                                        Debug.LogError("Send thread exception: " + ex);
+                                                    }
+                                                });
                     sendThread.IsBackground = true;
                     sendThread.Start();
-                    
+
                     // Spawn recieve thread.
                     var receiveThread = new Thread(() => {
                                                        try {
                                                            // Run recieve loop
-                                                           ReceiveThread(clientID, client.client, recieveQueue, MaxMessageSize);
-                                                           
+                                                           ReceiveThread(connectionID, client.client, recieveQueue,
+                                                                         MaxMessageSize);
+
                                                            // Remove from client list.
-                                                           _clients.TryRemove(clientID, out var _);
-                                                           
+                                                           _clients.TryRemove(connectionID, out var _);
+
                                                            // Stop send thread.
                                                            sendThread.Interrupt();
                                                        }
@@ -152,9 +157,8 @@ namespace FNNLib.Transports.TCP {
             catch (ThreadAbortException) {
                 // Unity did this, ignore
             }
-            catch (SocketException ex) {
-                // Happens on disconnect or when the server bind fails, ignore
-                Debug.LogWarning("Server listener thread SocketException: " + ex);
+            catch (SocketException) {
+                // Happens on disconnect, ignore
             }
             catch (Exception ex) {
                 // Finally, an actual issue
@@ -162,11 +166,11 @@ namespace FNNLib.Transports.TCP {
             }
         }
 
-        public bool Send(int clientID, byte[] data) {
+        public bool Send(int connectionID, byte[] data) {
             if (data.Length < MaxMessageSize) {
                 // Get the client
                 Client client;
-                if (_clients.TryGetValue(clientID, out client)) {
+                if (_clients.TryGetValue(connectionID, out client)) {
                     // Add to data queue and interrupt sending thread for this client
                     client.dataQueue.Enqueue(data);
                     client.dataPending.Set();
@@ -180,18 +184,18 @@ namespace FNNLib.Transports.TCP {
             return false;
         }
 
-        public void Disconnect(int clientID) {
+        public void Disconnect(int connectionID) {
             // Get client
-            if (_clients.TryGetValue(clientID, out var client)) {
+            if (_clients.TryGetValue(connectionID, out var client)) {
                 // Clean up connections.
                 client.client.GetStream().Close();
                 client.client.Close();
-                
+
                 // Disconnect message
-                recieveQueue.Enqueue(new Message(clientID, EventType.Disconnect, null));
-                
+                recieveQueue.Enqueue(new Message(connectionID, EventType.Disconnect, null));
+
                 // Remove from client list.
-                _clients.TryRemove(clientID, out _);
+                _clients.TryRemove(connectionID, out _);
             }
         }
     }

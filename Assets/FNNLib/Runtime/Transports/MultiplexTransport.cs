@@ -28,7 +28,7 @@ namespace FNNLib.Transports {
 
         public override bool serverRunning { get; }
         
-        public override void StartServer() {
+        public override void ServerStart() {
             throw new NotImplementedException();
         }
 
@@ -40,7 +40,7 @@ namespace FNNLib.Transports {
             throw new NotImplementedException();
         }
 
-        public override void StopServer() {
+        public override void ServerShutdown() {
             throw new NotImplementedException();
         }
 

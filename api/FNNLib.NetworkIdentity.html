@@ -100,19 +100,19 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_isClient.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.isClient%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_isLocalPlayer.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.isLocalPlayer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L26">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L50">View Source</a>
   </span>
-  <a id="FNNLib_NetworkIdentity_isClient_" data-uid="FNNLib.NetworkIdentity.isClient*"></a>
-  <h4 id="FNNLib_NetworkIdentity_isClient" data-uid="FNNLib.NetworkIdentity.isClient">isClient</h4>
-  <div class="markdown level1 summary"><p>Is running in a client context?</p>
+  <a id="FNNLib_NetworkIdentity_isLocalPlayer_" data-uid="FNNLib.NetworkIdentity.isLocalPlayer*"></a>
+  <h4 id="FNNLib_NetworkIdentity_isLocalPlayer" data-uid="FNNLib.NetworkIdentity.isLocalPlayer">isLocalPlayer</h4>
+  <div class="markdown level1 summary"><p>Whether or not this is the local player&apos;s player object.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool isClient { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public bool isLocalPlayer { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -131,19 +131,111 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_isServer.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.isServer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_isOwnedByServer.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.isOwnedByServer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L21">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L59">View Source</a>
   </span>
-  <a id="FNNLib_NetworkIdentity_isServer_" data-uid="FNNLib.NetworkIdentity.isServer*"></a>
-  <h4 id="FNNLib_NetworkIdentity_isServer" data-uid="FNNLib.NetworkIdentity.isServer">isServer</h4>
-  <div class="markdown level1 summary"><p>Is running in a server context?</p>
+  <a id="FNNLib_NetworkIdentity_isOwnedByServer_" data-uid="FNNLib.NetworkIdentity.isOwnedByServer*"></a>
+  <h4 id="FNNLib_NetworkIdentity_isOwnedByServer" data-uid="FNNLib.NetworkIdentity.isOwnedByServer">isOwnedByServer</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool isOwnedByServer { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_isOwner.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.isOwner%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L56">View Source</a>
+  </span>
+  <a id="FNNLib_NetworkIdentity_isOwner_" data-uid="FNNLib.NetworkIdentity.isOwner*"></a>
+  <h4 id="FNNLib_NetworkIdentity_isOwner" data-uid="FNNLib.NetworkIdentity.isOwner">isOwner</h4>
+  <div class="markdown level1 summary"><p>Whether or not the local player has ownership over this object.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool isServer { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public bool isOwner { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_isPlayerObject.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.isPlayerObject%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L45">View Source</a>
+  </span>
+  <a id="FNNLib_NetworkIdentity_isPlayerObject_" data-uid="FNNLib.NetworkIdentity.isPlayerObject*"></a>
+  <h4 id="FNNLib_NetworkIdentity_isPlayerObject" data-uid="FNNLib.NetworkIdentity.isPlayerObject">isPlayerObject</h4>
+  <div class="markdown level1 summary"><p>Whether or not this object is the player object for a client.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool isPlayerObject { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_isSpawned.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.isSpawned%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L21">View Source</a>
+  </span>
+  <a id="FNNLib_NetworkIdentity_isSpawned_" data-uid="FNNLib.NetworkIdentity.isSpawned*"></a>
+  <h4 id="FNNLib_NetworkIdentity_isSpawned" data-uid="FNNLib.NetworkIdentity.isSpawned">isSpawned</h4>
+  <div class="markdown level1 summary"><p>Whether or not the object is spawned on the network.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool isSpawned { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -174,7 +266,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public uint networkID { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public ulong networkID { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -186,7 +278,38 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_ownerClientID.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.ownerClientID%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L26">View Source</a>
+  </span>
+  <a id="FNNLib_NetworkIdentity_ownerClientID_" data-uid="FNNLib.NetworkIdentity.ownerClientID*"></a>
+  <h4 id="FNNLib_NetworkIdentity_ownerClientID" data-uid="FNNLib.NetworkIdentity.ownerClientID">ownerClientID</h4>
+  <div class="markdown level1 summary"><p>The client ID of the owner.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ulong ownerClientID { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -200,12 +323,13 @@
   </span>
   <a id="FNNLib_NetworkIdentity_sceneID_" data-uid="FNNLib.NetworkIdentity.sceneID*"></a>
   <h4 id="FNNLib_NetworkIdentity_sceneID" data-uid="FNNLib.NetworkIdentity.sceneID">sceneID</h4>
-  <div class="markdown level1 summary"><p>The scene that this object is in.</p>
+  <div class="markdown level1 summary"><p>The scene that this object is in.
+Will always equal 0 if scene management is disabled.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public uint sceneID { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public ulong sceneID { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -217,11 +341,233 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_AddObserver_System_UInt64_.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.AddObserver(System.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L68">View Source</a>
+  </span>
+  <a id="FNNLib_NetworkIdentity_AddObserver_" data-uid="FNNLib.NetworkIdentity.AddObserver*"></a>
+  <h4 id="FNNLib_NetworkIdentity_AddObserver_System_UInt64_" data-uid="FNNLib.NetworkIdentity.AddObserver(System.UInt64)">AddObserver(UInt64)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddObserver(ulong clientID)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">clientID</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_ChangeOwnership_System_UInt64_.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.ChangeOwnership(System.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L102">View Source</a>
+  </span>
+  <a id="FNNLib_NetworkIdentity_ChangeOwnership_" data-uid="FNNLib.NetworkIdentity.ChangeOwnership*"></a>
+  <h4 id="FNNLib_NetworkIdentity_ChangeOwnership_System_UInt64_" data-uid="FNNLib.NetworkIdentity.ChangeOwnership(System.UInt64)">ChangeOwnership(UInt64)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ChangeOwnership(ulong newOwnerClientID)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">newOwnerClientID</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_IsObserving_System_UInt64_.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.IsObserving(System.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L78">View Source</a>
+  </span>
+  <a id="FNNLib_NetworkIdentity_IsObserving_" data-uid="FNNLib.NetworkIdentity.IsObserving*"></a>
+  <h4 id="FNNLib_NetworkIdentity_IsObserving_System_UInt64_" data-uid="FNNLib.NetworkIdentity.IsObserving(System.UInt64)">IsObserving(UInt64)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsObserving(ulong clientID)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">clientID</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_RemoveObserver_System_UInt64_.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.RemoveObserver(System.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L73">View Source</a>
+  </span>
+  <a id="FNNLib_NetworkIdentity_RemoveObserver_" data-uid="FNNLib.NetworkIdentity.RemoveObserver*"></a>
+  <h4 id="FNNLib_NetworkIdentity_RemoveObserver_System_UInt64_" data-uid="FNNLib.NetworkIdentity.RemoveObserver(System.UInt64)">RemoveObserver(UInt64)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveObserver(ulong clientID)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">clientID</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_RemoveOwnership.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.RemoveOwnership%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L106">View Source</a>
+  </span>
+  <a id="FNNLib_NetworkIdentity_RemoveOwnership_" data-uid="FNNLib.NetworkIdentity.RemoveOwnership*"></a>
+  <h4 id="FNNLib_NetworkIdentity_RemoveOwnership" data-uid="FNNLib.NetworkIdentity.RemoveOwnership">RemoveOwnership()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveOwnership()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_Spawn.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.Spawn%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L86">View Source</a>
+  </span>
+  <a id="FNNLib_NetworkIdentity_Spawn_" data-uid="FNNLib.NetworkIdentity.Spawn*"></a>
+  <h4 id="FNNLib_NetworkIdentity_Spawn" data-uid="FNNLib.NetworkIdentity.Spawn">Spawn()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Spawn()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_SpawnAsPlayerObject_System_UInt64_.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.SpawnAsPlayerObject(System.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L90">View Source</a>
+  </span>
+  <a id="FNNLib_NetworkIdentity_SpawnAsPlayerObject_" data-uid="FNNLib.NetworkIdentity.SpawnAsPlayerObject*"></a>
+  <h4 id="FNNLib_NetworkIdentity_SpawnAsPlayerObject_System_UInt64_" data-uid="FNNLib.NetworkIdentity.SpawnAsPlayerObject(System.UInt64)">SpawnAsPlayerObject(UInt64)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SpawnAsPlayerObject(ulong clientID)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">clientID</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity_UnSpawn.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity.UnSpawn%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L94">View Source</a>
+  </span>
+  <a id="FNNLib_NetworkIdentity_UnSpawn_" data-uid="FNNLib.NetworkIdentity.UnSpawn*"></a>
+  <h4 id="FNNLib_NetworkIdentity_UnSpawn" data-uid="FNNLib.NetworkIdentity.UnSpawn">UnSpawn()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UnSpawn()</code></pre>
+  </div>
 </article>
           </div>
           
@@ -233,7 +579,7 @@
                     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkIdentity.md&amp;value=---%0Auid%3A%20FNNLib.NetworkIdentity%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkIdentity.cs/#L5" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

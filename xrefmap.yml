@@ -7,6 +7,109 @@ references:
   commentId: N:FNNLib
   fullName: FNNLib
   nameWithType: FNNLib
+- uid: FNNLib.Config
+  name: FNNLib.Config
+  href: api/FNNLib.Config.html
+  commentId: N:FNNLib.Config
+  fullName: FNNLib.Config
+  nameWithType: FNNLib.Config
+- uid: FNNLib.Config.HashSize
+  name: HashSize
+  href: api/FNNLib.Config.HashSize.html
+  commentId: T:FNNLib.Config.HashSize
+  fullName: FNNLib.Config.HashSize
+  nameWithType: HashSize
+- uid: FNNLib.Config.HashSize.EightBytes
+  name: EightBytes
+  href: api/FNNLib.Config.HashSize.html#FNNLib_Config_HashSize_EightBytes
+  commentId: F:FNNLib.Config.HashSize.EightBytes
+  fullName: FNNLib.Config.HashSize.EightBytes
+  nameWithType: HashSize.EightBytes
+- uid: FNNLib.Config.HashSize.FourBytes
+  name: FourBytes
+  href: api/FNNLib.Config.HashSize.html#FNNLib_Config_HashSize_FourBytes
+  commentId: F:FNNLib.Config.HashSize.FourBytes
+  fullName: FNNLib.Config.HashSize.FourBytes
+  nameWithType: HashSize.FourBytes
+- uid: FNNLib.Config.HashSize.TwoBytes
+  name: TwoBytes
+  href: api/FNNLib.Config.HashSize.html#FNNLib_Config_HashSize_TwoBytes
+  commentId: F:FNNLib.Config.HashSize.TwoBytes
+  fullName: FNNLib.Config.HashSize.TwoBytes
+  nameWithType: HashSize.TwoBytes
+- uid: FNNLib.Config.NetworkConfig
+  name: NetworkConfig
+  href: api/FNNLib.Config.NetworkConfig.html
+  commentId: T:FNNLib.Config.NetworkConfig
+  fullName: FNNLib.Config.NetworkConfig
+  nameWithType: NetworkConfig
+- uid: FNNLib.Config.NetworkConfig.connectionRequestTimeout
+  name: connectionRequestTimeout
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_connectionRequestTimeout
+  commentId: F:FNNLib.Config.NetworkConfig.connectionRequestTimeout
+  fullName: FNNLib.Config.NetworkConfig.connectionRequestTimeout
+  nameWithType: NetworkConfig.connectionRequestTimeout
+- uid: FNNLib.Config.NetworkConfig.disconnectRequestTimeout
+  name: disconnectRequestTimeout
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_disconnectRequestTimeout
+  commentId: F:FNNLib.Config.NetworkConfig.disconnectRequestTimeout
+  fullName: FNNLib.Config.NetworkConfig.disconnectRequestTimeout
+  nameWithType: NetworkConfig.disconnectRequestTimeout
+- uid: FNNLib.Config.NetworkConfig.GetHash(System.Boolean)
+  name: GetHash(Boolean)
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_GetHash_System_Boolean_
+  commentId: M:FNNLib.Config.NetworkConfig.GetHash(System.Boolean)
+  fullName: FNNLib.Config.NetworkConfig.GetHash(System.Boolean)
+  nameWithType: NetworkConfig.GetHash(Boolean)
+- uid: FNNLib.Config.NetworkConfig.GetHash*
+  name: GetHash
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_GetHash_
+  commentId: Overload:FNNLib.Config.NetworkConfig.GetHash
+  isSpec: "True"
+  fullName: FNNLib.Config.NetworkConfig.GetHash
+  nameWithType: NetworkConfig.GetHash
+- uid: FNNLib.Config.NetworkConfig.hashSize
+  name: hashSize
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_hashSize
+  commentId: F:FNNLib.Config.NetworkConfig.hashSize
+  fullName: FNNLib.Config.NetworkConfig.hashSize
+  nameWithType: NetworkConfig.hashSize
+- uid: FNNLib.Config.NetworkConfig.networkableScenes
+  name: networkableScenes
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_networkableScenes
+  commentId: F:FNNLib.Config.NetworkConfig.networkableScenes
+  fullName: FNNLib.Config.NetworkConfig.networkableScenes
+  nameWithType: NetworkConfig.networkableScenes
+- uid: FNNLib.Config.NetworkConfig.networkedPrefabs
+  name: networkedPrefabs
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_networkedPrefabs
+  commentId: F:FNNLib.Config.NetworkConfig.networkedPrefabs
+  fullName: FNNLib.Config.NetworkConfig.networkedPrefabs
+  nameWithType: NetworkConfig.networkedPrefabs
+- uid: FNNLib.Config.NetworkConfig.protocolVersion
+  name: protocolVersion
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_protocolVersion
+  commentId: F:FNNLib.Config.NetworkConfig.protocolVersion
+  fullName: FNNLib.Config.NetworkConfig.protocolVersion
+  nameWithType: NetworkConfig.protocolVersion
+- uid: FNNLib.Config.NetworkConfig.serverTickRate
+  name: serverTickRate
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_serverTickRate
+  commentId: F:FNNLib.Config.NetworkConfig.serverTickRate
+  fullName: FNNLib.Config.NetworkConfig.serverTickRate
+  nameWithType: NetworkConfig.serverTickRate
+- uid: FNNLib.Config.NetworkConfig.transport
+  name: transport
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_transport
+  commentId: F:FNNLib.Config.NetworkConfig.transport
+  fullName: FNNLib.Config.NetworkConfig.transport
+  nameWithType: NetworkConfig.transport
+- uid: FNNLib.Config.NetworkConfig.useSceneManagement
+  name: useSceneManagement
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_useSceneManagement
+  commentId: F:FNNLib.Config.NetworkConfig.useSceneManagement
+  fullName: FNNLib.Config.NetworkConfig.useSceneManagement
+  nameWithType: NetworkConfig.useSceneManagement
 - uid: FNNLib.Editor
   name: FNNLib.Editor
   href: api/FNNLib.Editor.html
@@ -297,6 +400,54 @@ references:
   fullName.vb: FNNLib.Messaging.PacketUtils.GetID(Of T)()
   nameWithType: PacketUtils.GetID<T>()
   nameWithType.vb: PacketUtils.GetID(Of T)()
+- uid: FNNLib.Messaging.PacketUtils.GetID16*
+  name: GetID16
+  href: api/FNNLib.Messaging.PacketUtils.html#FNNLib_Messaging_PacketUtils_GetID16_
+  commentId: Overload:FNNLib.Messaging.PacketUtils.GetID16
+  isSpec: "True"
+  fullName: FNNLib.Messaging.PacketUtils.GetID16
+  nameWithType: PacketUtils.GetID16
+- uid: FNNLib.Messaging.PacketUtils.GetID16``1
+  name: GetID16<T>()
+  href: api/FNNLib.Messaging.PacketUtils.html#FNNLib_Messaging_PacketUtils_GetID16__1
+  commentId: M:FNNLib.Messaging.PacketUtils.GetID16``1
+  name.vb: GetID16(Of T)()
+  fullName: FNNLib.Messaging.PacketUtils.GetID16<T>()
+  fullName.vb: FNNLib.Messaging.PacketUtils.GetID16(Of T)()
+  nameWithType: PacketUtils.GetID16<T>()
+  nameWithType.vb: PacketUtils.GetID16(Of T)()
+- uid: FNNLib.Messaging.PacketUtils.GetID32*
+  name: GetID32
+  href: api/FNNLib.Messaging.PacketUtils.html#FNNLib_Messaging_PacketUtils_GetID32_
+  commentId: Overload:FNNLib.Messaging.PacketUtils.GetID32
+  isSpec: "True"
+  fullName: FNNLib.Messaging.PacketUtils.GetID32
+  nameWithType: PacketUtils.GetID32
+- uid: FNNLib.Messaging.PacketUtils.GetID32``1
+  name: GetID32<T>()
+  href: api/FNNLib.Messaging.PacketUtils.html#FNNLib_Messaging_PacketUtils_GetID32__1
+  commentId: M:FNNLib.Messaging.PacketUtils.GetID32``1
+  name.vb: GetID32(Of T)()
+  fullName: FNNLib.Messaging.PacketUtils.GetID32<T>()
+  fullName.vb: FNNLib.Messaging.PacketUtils.GetID32(Of T)()
+  nameWithType: PacketUtils.GetID32<T>()
+  nameWithType.vb: PacketUtils.GetID32(Of T)()
+- uid: FNNLib.Messaging.PacketUtils.GetID64*
+  name: GetID64
+  href: api/FNNLib.Messaging.PacketUtils.html#FNNLib_Messaging_PacketUtils_GetID64_
+  commentId: Overload:FNNLib.Messaging.PacketUtils.GetID64
+  isSpec: "True"
+  fullName: FNNLib.Messaging.PacketUtils.GetID64
+  nameWithType: PacketUtils.GetID64
+- uid: FNNLib.Messaging.PacketUtils.GetID64``1
+  name: GetID64<T>()
+  href: api/FNNLib.Messaging.PacketUtils.html#FNNLib_Messaging_PacketUtils_GetID64__1
+  commentId: M:FNNLib.Messaging.PacketUtils.GetID64``1
+  name.vb: GetID64(Of T)()
+  fullName: FNNLib.Messaging.PacketUtils.GetID64<T>()
+  fullName.vb: FNNLib.Messaging.PacketUtils.GetID64(Of T)()
+  nameWithType: PacketUtils.GetID64<T>()
+  nameWithType.vb: PacketUtils.GetID64(Of T)()
 - uid: FNNLib.Messaging.PacketUtils.IsClientPacket*
   name: IsClientPacket
   href: api/FNNLib.Messaging.PacketUtils.html#FNNLib_Messaging_PacketUtils_IsClientPacket_
@@ -341,18 +492,161 @@ references:
   commentId: T:FNNLib.NetworkBehaviour
   fullName: FNNLib.NetworkBehaviour
   nameWithType: NetworkBehaviour
+- uid: FNNLib.NetworkBehaviour.hasIdentity
+  name: hasIdentity
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_hasIdentity
+  commentId: P:FNNLib.NetworkBehaviour.hasIdentity
+  fullName: FNNLib.NetworkBehaviour.hasIdentity
+  nameWithType: NetworkBehaviour.hasIdentity
+- uid: FNNLib.NetworkBehaviour.hasIdentity*
+  name: hasIdentity
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_hasIdentity_
+  commentId: Overload:FNNLib.NetworkBehaviour.hasIdentity
+  isSpec: "True"
+  fullName: FNNLib.NetworkBehaviour.hasIdentity
+  nameWithType: NetworkBehaviour.hasIdentity
+- uid: FNNLib.NetworkBehaviour.identity
+  name: identity
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_identity
+  commentId: P:FNNLib.NetworkBehaviour.identity
+  fullName: FNNLib.NetworkBehaviour.identity
+  nameWithType: NetworkBehaviour.identity
+- uid: FNNLib.NetworkBehaviour.identity*
+  name: identity
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_identity_
+  commentId: Overload:FNNLib.NetworkBehaviour.identity
+  isSpec: "True"
+  fullName: FNNLib.NetworkBehaviour.identity
+  nameWithType: NetworkBehaviour.identity
+- uid: FNNLib.NetworkBehaviour.isClient
+  name: isClient
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_isClient
+  commentId: P:FNNLib.NetworkBehaviour.isClient
+  fullName: FNNLib.NetworkBehaviour.isClient
+  nameWithType: NetworkBehaviour.isClient
+- uid: FNNLib.NetworkBehaviour.isClient*
+  name: isClient
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_isClient_
+  commentId: Overload:FNNLib.NetworkBehaviour.isClient
+  isSpec: "True"
+  fullName: FNNLib.NetworkBehaviour.isClient
+  nameWithType: NetworkBehaviour.isClient
+- uid: FNNLib.NetworkBehaviour.isLocalPlayer
+  name: isLocalPlayer
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_isLocalPlayer
+  commentId: P:FNNLib.NetworkBehaviour.isLocalPlayer
+  fullName: FNNLib.NetworkBehaviour.isLocalPlayer
+  nameWithType: NetworkBehaviour.isLocalPlayer
+- uid: FNNLib.NetworkBehaviour.isLocalPlayer*
+  name: isLocalPlayer
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_isLocalPlayer_
+  commentId: Overload:FNNLib.NetworkBehaviour.isLocalPlayer
+  isSpec: "True"
+  fullName: FNNLib.NetworkBehaviour.isLocalPlayer
+  nameWithType: NetworkBehaviour.isLocalPlayer
+- uid: FNNLib.NetworkBehaviour.isOwnedByServer
+  name: isOwnedByServer
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_isOwnedByServer
+  commentId: P:FNNLib.NetworkBehaviour.isOwnedByServer
+  fullName: FNNLib.NetworkBehaviour.isOwnedByServer
+  nameWithType: NetworkBehaviour.isOwnedByServer
+- uid: FNNLib.NetworkBehaviour.isOwnedByServer*
+  name: isOwnedByServer
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_isOwnedByServer_
+  commentId: Overload:FNNLib.NetworkBehaviour.isOwnedByServer
+  isSpec: "True"
+  fullName: FNNLib.NetworkBehaviour.isOwnedByServer
+  nameWithType: NetworkBehaviour.isOwnedByServer
+- uid: FNNLib.NetworkBehaviour.isOwner
+  name: isOwner
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_isOwner
+  commentId: P:FNNLib.NetworkBehaviour.isOwner
+  fullName: FNNLib.NetworkBehaviour.isOwner
+  nameWithType: NetworkBehaviour.isOwner
+- uid: FNNLib.NetworkBehaviour.isOwner*
+  name: isOwner
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_isOwner_
+  commentId: Overload:FNNLib.NetworkBehaviour.isOwner
+  isSpec: "True"
+  fullName: FNNLib.NetworkBehaviour.isOwner
+  nameWithType: NetworkBehaviour.isOwner
+- uid: FNNLib.NetworkBehaviour.isServer
+  name: isServer
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_isServer
+  commentId: P:FNNLib.NetworkBehaviour.isServer
+  fullName: FNNLib.NetworkBehaviour.isServer
+  nameWithType: NetworkBehaviour.isServer
+- uid: FNNLib.NetworkBehaviour.isServer*
+  name: isServer
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_isServer_
+  commentId: Overload:FNNLib.NetworkBehaviour.isServer
+  isSpec: "True"
+  fullName: FNNLib.NetworkBehaviour.isServer
+  nameWithType: NetworkBehaviour.isServer
+- uid: FNNLib.NetworkBehaviour.isSpawned
+  name: isSpawned
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_isSpawned
+  commentId: P:FNNLib.NetworkBehaviour.isSpawned
+  fullName: FNNLib.NetworkBehaviour.isSpawned
+  nameWithType: NetworkBehaviour.isSpawned
+- uid: FNNLib.NetworkBehaviour.isSpawned*
+  name: isSpawned
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_isSpawned_
+  commentId: Overload:FNNLib.NetworkBehaviour.isSpawned
+  isSpec: "True"
+  fullName: FNNLib.NetworkBehaviour.isSpawned
+  nameWithType: NetworkBehaviour.isSpawned
+- uid: FNNLib.NetworkBehaviour.networkID
+  name: networkID
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_networkID
+  commentId: P:FNNLib.NetworkBehaviour.networkID
+  fullName: FNNLib.NetworkBehaviour.networkID
+  nameWithType: NetworkBehaviour.networkID
+- uid: FNNLib.NetworkBehaviour.networkID*
+  name: networkID
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_networkID_
+  commentId: Overload:FNNLib.NetworkBehaviour.networkID
+  isSpec: "True"
+  fullName: FNNLib.NetworkBehaviour.networkID
+  nameWithType: NetworkBehaviour.networkID
+- uid: FNNLib.NetworkBehaviour.ownerClientID
+  name: ownerClientID
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_ownerClientID
+  commentId: P:FNNLib.NetworkBehaviour.ownerClientID
+  fullName: FNNLib.NetworkBehaviour.ownerClientID
+  nameWithType: NetworkBehaviour.ownerClientID
+- uid: FNNLib.NetworkBehaviour.ownerClientID*
+  name: ownerClientID
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_ownerClientID_
+  commentId: Overload:FNNLib.NetworkBehaviour.ownerClientID
+  isSpec: "True"
+  fullName: FNNLib.NetworkBehaviour.ownerClientID
+  nameWithType: NetworkBehaviour.ownerClientID
+- uid: FNNLib.NetworkBehaviour.sceneID
+  name: sceneID
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_sceneID
+  commentId: P:FNNLib.NetworkBehaviour.sceneID
+  fullName: FNNLib.NetworkBehaviour.sceneID
+  nameWithType: NetworkBehaviour.sceneID
+- uid: FNNLib.NetworkBehaviour.sceneID*
+  name: sceneID
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_sceneID_
+  commentId: Overload:FNNLib.NetworkBehaviour.sceneID
+  isSpec: "True"
+  fullName: FNNLib.NetworkBehaviour.sceneID
+  nameWithType: NetworkBehaviour.sceneID
 - uid: FNNLib.NetworkClient
   name: NetworkClient
   href: api/FNNLib.NetworkClient.html
   commentId: T:FNNLib.NetworkClient
   fullName: FNNLib.NetworkClient
   nameWithType: NetworkClient
-- uid: FNNLib.NetworkClient.#ctor(System.Int32)
-  name: NetworkClient(Int32)
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient__ctor_System_Int32_
-  commentId: M:FNNLib.NetworkClient.#ctor(System.Int32)
-  fullName: FNNLib.NetworkClient.NetworkClient(System.Int32)
-  nameWithType: NetworkClient.NetworkClient(Int32)
+- uid: FNNLib.NetworkClient.#ctor(System.UInt64)
+  name: NetworkClient(UInt64)
+  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient__ctor_System_UInt64_
+  commentId: M:FNNLib.NetworkClient.#ctor(System.UInt64)
+  fullName: FNNLib.NetworkClient.NetworkClient(System.UInt64)
+  nameWithType: NetworkClient.NetworkClient(UInt64)
 - uid: FNNLib.NetworkClient.#ctor*
   name: NetworkClient
   href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient__ctor_
@@ -453,47 +747,125 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkClient.Send
   nameWithType: NetworkClient.Send
-- uid: FNNLib.NetworkClient.Send``1(``0)
-  name: Send<T>(T)
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_Send__1___0_
-  commentId: M:FNNLib.NetworkClient.Send``1(``0)
-  name.vb: Send(Of T)(T)
-  fullName: FNNLib.NetworkClient.Send<T>(T)
-  fullName.vb: FNNLib.NetworkClient.Send(Of T)(T)
-  nameWithType: NetworkClient.Send<T>(T)
-  nameWithType.vb: NetworkClient.Send(Of T)(T)
+- uid: FNNLib.NetworkClient.Send``1(``0,System.Int32)
+  name: Send<T>(T, Int32)
+  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_Send__1___0_System_Int32_
+  commentId: M:FNNLib.NetworkClient.Send``1(``0,System.Int32)
+  name.vb: Send(Of T)(T, Int32)
+  fullName: FNNLib.NetworkClient.Send<T>(T, System.Int32)
+  fullName.vb: FNNLib.NetworkClient.Send(Of T)(T, System.Int32)
+  nameWithType: NetworkClient.Send<T>(T, Int32)
+  nameWithType.vb: NetworkClient.Send(Of T)(T, Int32)
 - uid: FNNLib.NetworkIdentity
   name: NetworkIdentity
   href: api/FNNLib.NetworkIdentity.html
   commentId: T:FNNLib.NetworkIdentity
   fullName: FNNLib.NetworkIdentity
   nameWithType: NetworkIdentity
-- uid: FNNLib.NetworkIdentity.isClient
-  name: isClient
-  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isClient
-  commentId: P:FNNLib.NetworkIdentity.isClient
-  fullName: FNNLib.NetworkIdentity.isClient
-  nameWithType: NetworkIdentity.isClient
-- uid: FNNLib.NetworkIdentity.isClient*
-  name: isClient
-  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isClient_
-  commentId: Overload:FNNLib.NetworkIdentity.isClient
+- uid: FNNLib.NetworkIdentity.AddObserver(System.UInt64)
+  name: AddObserver(UInt64)
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_AddObserver_System_UInt64_
+  commentId: M:FNNLib.NetworkIdentity.AddObserver(System.UInt64)
+  fullName: FNNLib.NetworkIdentity.AddObserver(System.UInt64)
+  nameWithType: NetworkIdentity.AddObserver(UInt64)
+- uid: FNNLib.NetworkIdentity.AddObserver*
+  name: AddObserver
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_AddObserver_
+  commentId: Overload:FNNLib.NetworkIdentity.AddObserver
   isSpec: "True"
-  fullName: FNNLib.NetworkIdentity.isClient
-  nameWithType: NetworkIdentity.isClient
-- uid: FNNLib.NetworkIdentity.isServer
-  name: isServer
-  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isServer
-  commentId: P:FNNLib.NetworkIdentity.isServer
-  fullName: FNNLib.NetworkIdentity.isServer
-  nameWithType: NetworkIdentity.isServer
-- uid: FNNLib.NetworkIdentity.isServer*
-  name: isServer
-  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isServer_
-  commentId: Overload:FNNLib.NetworkIdentity.isServer
+  fullName: FNNLib.NetworkIdentity.AddObserver
+  nameWithType: NetworkIdentity.AddObserver
+- uid: FNNLib.NetworkIdentity.ChangeOwnership(System.UInt64)
+  name: ChangeOwnership(UInt64)
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_ChangeOwnership_System_UInt64_
+  commentId: M:FNNLib.NetworkIdentity.ChangeOwnership(System.UInt64)
+  fullName: FNNLib.NetworkIdentity.ChangeOwnership(System.UInt64)
+  nameWithType: NetworkIdentity.ChangeOwnership(UInt64)
+- uid: FNNLib.NetworkIdentity.ChangeOwnership*
+  name: ChangeOwnership
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_ChangeOwnership_
+  commentId: Overload:FNNLib.NetworkIdentity.ChangeOwnership
   isSpec: "True"
-  fullName: FNNLib.NetworkIdentity.isServer
-  nameWithType: NetworkIdentity.isServer
+  fullName: FNNLib.NetworkIdentity.ChangeOwnership
+  nameWithType: NetworkIdentity.ChangeOwnership
+- uid: FNNLib.NetworkIdentity.isLocalPlayer
+  name: isLocalPlayer
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isLocalPlayer
+  commentId: P:FNNLib.NetworkIdentity.isLocalPlayer
+  fullName: FNNLib.NetworkIdentity.isLocalPlayer
+  nameWithType: NetworkIdentity.isLocalPlayer
+- uid: FNNLib.NetworkIdentity.isLocalPlayer*
+  name: isLocalPlayer
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isLocalPlayer_
+  commentId: Overload:FNNLib.NetworkIdentity.isLocalPlayer
+  isSpec: "True"
+  fullName: FNNLib.NetworkIdentity.isLocalPlayer
+  nameWithType: NetworkIdentity.isLocalPlayer
+- uid: FNNLib.NetworkIdentity.IsObserving(System.UInt64)
+  name: IsObserving(UInt64)
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_IsObserving_System_UInt64_
+  commentId: M:FNNLib.NetworkIdentity.IsObserving(System.UInt64)
+  fullName: FNNLib.NetworkIdentity.IsObserving(System.UInt64)
+  nameWithType: NetworkIdentity.IsObserving(UInt64)
+- uid: FNNLib.NetworkIdentity.IsObserving*
+  name: IsObserving
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_IsObserving_
+  commentId: Overload:FNNLib.NetworkIdentity.IsObserving
+  isSpec: "True"
+  fullName: FNNLib.NetworkIdentity.IsObserving
+  nameWithType: NetworkIdentity.IsObserving
+- uid: FNNLib.NetworkIdentity.isOwnedByServer
+  name: isOwnedByServer
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isOwnedByServer
+  commentId: P:FNNLib.NetworkIdentity.isOwnedByServer
+  fullName: FNNLib.NetworkIdentity.isOwnedByServer
+  nameWithType: NetworkIdentity.isOwnedByServer
+- uid: FNNLib.NetworkIdentity.isOwnedByServer*
+  name: isOwnedByServer
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isOwnedByServer_
+  commentId: Overload:FNNLib.NetworkIdentity.isOwnedByServer
+  isSpec: "True"
+  fullName: FNNLib.NetworkIdentity.isOwnedByServer
+  nameWithType: NetworkIdentity.isOwnedByServer
+- uid: FNNLib.NetworkIdentity.isOwner
+  name: isOwner
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isOwner
+  commentId: P:FNNLib.NetworkIdentity.isOwner
+  fullName: FNNLib.NetworkIdentity.isOwner
+  nameWithType: NetworkIdentity.isOwner
+- uid: FNNLib.NetworkIdentity.isOwner*
+  name: isOwner
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isOwner_
+  commentId: Overload:FNNLib.NetworkIdentity.isOwner
+  isSpec: "True"
+  fullName: FNNLib.NetworkIdentity.isOwner
+  nameWithType: NetworkIdentity.isOwner
+- uid: FNNLib.NetworkIdentity.isPlayerObject
+  name: isPlayerObject
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isPlayerObject
+  commentId: P:FNNLib.NetworkIdentity.isPlayerObject
+  fullName: FNNLib.NetworkIdentity.isPlayerObject
+  nameWithType: NetworkIdentity.isPlayerObject
+- uid: FNNLib.NetworkIdentity.isPlayerObject*
+  name: isPlayerObject
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isPlayerObject_
+  commentId: Overload:FNNLib.NetworkIdentity.isPlayerObject
+  isSpec: "True"
+  fullName: FNNLib.NetworkIdentity.isPlayerObject
+  nameWithType: NetworkIdentity.isPlayerObject
+- uid: FNNLib.NetworkIdentity.isSpawned
+  name: isSpawned
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isSpawned
+  commentId: P:FNNLib.NetworkIdentity.isSpawned
+  fullName: FNNLib.NetworkIdentity.isSpawned
+  nameWithType: NetworkIdentity.isSpawned
+- uid: FNNLib.NetworkIdentity.isSpawned*
+  name: isSpawned
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isSpawned_
+  commentId: Overload:FNNLib.NetworkIdentity.isSpawned
+  isSpec: "True"
+  fullName: FNNLib.NetworkIdentity.isSpawned
+  nameWithType: NetworkIdentity.isSpawned
 - uid: FNNLib.NetworkIdentity.networkID
   name: networkID
   href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_networkID
@@ -507,6 +879,45 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkIdentity.networkID
   nameWithType: NetworkIdentity.networkID
+- uid: FNNLib.NetworkIdentity.ownerClientID
+  name: ownerClientID
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_ownerClientID
+  commentId: P:FNNLib.NetworkIdentity.ownerClientID
+  fullName: FNNLib.NetworkIdentity.ownerClientID
+  nameWithType: NetworkIdentity.ownerClientID
+- uid: FNNLib.NetworkIdentity.ownerClientID*
+  name: ownerClientID
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_ownerClientID_
+  commentId: Overload:FNNLib.NetworkIdentity.ownerClientID
+  isSpec: "True"
+  fullName: FNNLib.NetworkIdentity.ownerClientID
+  nameWithType: NetworkIdentity.ownerClientID
+- uid: FNNLib.NetworkIdentity.RemoveObserver(System.UInt64)
+  name: RemoveObserver(UInt64)
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_RemoveObserver_System_UInt64_
+  commentId: M:FNNLib.NetworkIdentity.RemoveObserver(System.UInt64)
+  fullName: FNNLib.NetworkIdentity.RemoveObserver(System.UInt64)
+  nameWithType: NetworkIdentity.RemoveObserver(UInt64)
+- uid: FNNLib.NetworkIdentity.RemoveObserver*
+  name: RemoveObserver
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_RemoveObserver_
+  commentId: Overload:FNNLib.NetworkIdentity.RemoveObserver
+  isSpec: "True"
+  fullName: FNNLib.NetworkIdentity.RemoveObserver
+  nameWithType: NetworkIdentity.RemoveObserver
+- uid: FNNLib.NetworkIdentity.RemoveOwnership
+  name: RemoveOwnership()
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_RemoveOwnership
+  commentId: M:FNNLib.NetworkIdentity.RemoveOwnership
+  fullName: FNNLib.NetworkIdentity.RemoveOwnership()
+  nameWithType: NetworkIdentity.RemoveOwnership()
+- uid: FNNLib.NetworkIdentity.RemoveOwnership*
+  name: RemoveOwnership
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_RemoveOwnership_
+  commentId: Overload:FNNLib.NetworkIdentity.RemoveOwnership
+  isSpec: "True"
+  fullName: FNNLib.NetworkIdentity.RemoveOwnership
+  nameWithType: NetworkIdentity.RemoveOwnership
 - uid: FNNLib.NetworkIdentity.sceneID
   name: sceneID
   href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_sceneID
@@ -520,25 +931,51 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkIdentity.sceneID
   nameWithType: NetworkIdentity.sceneID
+- uid: FNNLib.NetworkIdentity.Spawn
+  name: Spawn()
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_Spawn
+  commentId: M:FNNLib.NetworkIdentity.Spawn
+  fullName: FNNLib.NetworkIdentity.Spawn()
+  nameWithType: NetworkIdentity.Spawn()
+- uid: FNNLib.NetworkIdentity.Spawn*
+  name: Spawn
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_Spawn_
+  commentId: Overload:FNNLib.NetworkIdentity.Spawn
+  isSpec: "True"
+  fullName: FNNLib.NetworkIdentity.Spawn
+  nameWithType: NetworkIdentity.Spawn
+- uid: FNNLib.NetworkIdentity.SpawnAsPlayerObject(System.UInt64)
+  name: SpawnAsPlayerObject(UInt64)
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_SpawnAsPlayerObject_System_UInt64_
+  commentId: M:FNNLib.NetworkIdentity.SpawnAsPlayerObject(System.UInt64)
+  fullName: FNNLib.NetworkIdentity.SpawnAsPlayerObject(System.UInt64)
+  nameWithType: NetworkIdentity.SpawnAsPlayerObject(UInt64)
+- uid: FNNLib.NetworkIdentity.SpawnAsPlayerObject*
+  name: SpawnAsPlayerObject
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_SpawnAsPlayerObject_
+  commentId: Overload:FNNLib.NetworkIdentity.SpawnAsPlayerObject
+  isSpec: "True"
+  fullName: FNNLib.NetworkIdentity.SpawnAsPlayerObject
+  nameWithType: NetworkIdentity.SpawnAsPlayerObject
+- uid: FNNLib.NetworkIdentity.UnSpawn
+  name: UnSpawn()
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_UnSpawn
+  commentId: M:FNNLib.NetworkIdentity.UnSpawn
+  fullName: FNNLib.NetworkIdentity.UnSpawn()
+  nameWithType: NetworkIdentity.UnSpawn()
+- uid: FNNLib.NetworkIdentity.UnSpawn*
+  name: UnSpawn
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_UnSpawn_
+  commentId: Overload:FNNLib.NetworkIdentity.UnSpawn
+  isSpec: "True"
+  fullName: FNNLib.NetworkIdentity.UnSpawn
+  nameWithType: NetworkIdentity.UnSpawn
 - uid: FNNLib.NetworkManager
   name: NetworkManager
   href: api/FNNLib.NetworkManager.html
   commentId: T:FNNLib.NetworkManager
   fullName: FNNLib.NetworkManager
   nameWithType: NetworkManager
-- uid: FNNLib.NetworkManager.client
-  name: client
-  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_client
-  commentId: P:FNNLib.NetworkManager.client
-  fullName: FNNLib.NetworkManager.client
-  nameWithType: NetworkManager.client
-- uid: FNNLib.NetworkManager.client*
-  name: client
-  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_client_
-  commentId: Overload:FNNLib.NetworkManager.client
-  isSpec: "True"
-  fullName: FNNLib.NetworkManager.client
-  nameWithType: NetworkManager.client
 - uid: FNNLib.NetworkManager.ConfigureServerFramerate
   name: ConfigureServerFramerate()
   href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_ConfigureServerFramerate
@@ -610,18 +1047,12 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkManager.localClientID
   nameWithType: NetworkManager.localClientID
-- uid: FNNLib.NetworkManager.permittedScenes
-  name: permittedScenes
-  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_permittedScenes
-  commentId: F:FNNLib.NetworkManager.permittedScenes
-  fullName: FNNLib.NetworkManager.permittedScenes
-  nameWithType: NetworkManager.permittedScenes
-- uid: FNNLib.NetworkManager.protocolVersion
-  name: protocolVersion
-  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_protocolVersion
-  commentId: F:FNNLib.NetworkManager.protocolVersion
-  fullName: FNNLib.NetworkManager.protocolVersion
-  nameWithType: NetworkManager.protocolVersion
+- uid: FNNLib.NetworkManager.networkConfig
+  name: networkConfig
+  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_networkConfig
+  commentId: F:FNNLib.NetworkManager.networkConfig
+  fullName: FNNLib.NetworkManager.networkConfig
+  nameWithType: NetworkManager.networkConfig
 - uid: FNNLib.NetworkManager.RegisterPacketHandler*
   name: RegisterPacketHandler
   href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_RegisterPacketHandler_
@@ -638,25 +1069,6 @@ references:
   fullName.vb: FNNLib.NetworkManager.RegisterPacketHandler(Of T)(System.Action(Of System.UInt64, T))
   nameWithType: NetworkManager.RegisterPacketHandler<T>(Action<UInt64, T>)
   nameWithType.vb: NetworkManager.RegisterPacketHandler(Of T)(Action(Of UInt64, T))
-- uid: FNNLib.NetworkManager.server
-  name: server
-  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_server
-  commentId: P:FNNLib.NetworkManager.server
-  fullName: FNNLib.NetworkManager.server
-  nameWithType: NetworkManager.server
-- uid: FNNLib.NetworkManager.server*
-  name: server
-  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_server_
-  commentId: Overload:FNNLib.NetworkManager.server
-  isSpec: "True"
-  fullName: FNNLib.NetworkManager.server
-  nameWithType: NetworkManager.server
-- uid: FNNLib.NetworkManager.serverTickRate
-  name: serverTickRate
-  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_serverTickRate
-  commentId: F:FNNLib.NetworkManager.serverTickRate
-  fullName: FNNLib.NetworkManager.serverTickRate
-  nameWithType: NetworkManager.serverTickRate
 - uid: FNNLib.NetworkManager.StartClient(System.String,System.Byte[])
   name: StartClient(String, Byte[])
   href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_StartClient_System_String_System_Byte___
@@ -738,30 +1150,18 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkManager.StopServer
   nameWithType: NetworkManager.StopServer
-- uid: FNNLib.NetworkManager.transport
-  name: transport
-  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_transport
-  commentId: F:FNNLib.NetworkManager.transport
-  fullName: FNNLib.NetworkManager.transport
-  nameWithType: NetworkManager.transport
-- uid: FNNLib.NetworkManager.useSceneManagement
-  name: useSceneManagement
-  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_useSceneManagement
-  commentId: F:FNNLib.NetworkManager.useSceneManagement
-  fullName: FNNLib.NetworkManager.useSceneManagement
-  nameWithType: NetworkManager.useSceneManagement
 - uid: FNNLib.NetworkServer
   name: NetworkServer
   href: api/FNNLib.NetworkServer.html
   commentId: T:FNNLib.NetworkServer
   fullName: FNNLib.NetworkServer
   nameWithType: NetworkServer
-- uid: FNNLib.NetworkServer.#ctor(System.Int32)
-  name: NetworkServer(Int32)
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer__ctor_System_Int32_
-  commentId: M:FNNLib.NetworkServer.#ctor(System.Int32)
-  fullName: FNNLib.NetworkServer.NetworkServer(System.Int32)
-  nameWithType: NetworkServer.NetworkServer(Int32)
+- uid: FNNLib.NetworkServer.#ctor(System.UInt64)
+  name: NetworkServer(UInt64)
+  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer__ctor_System_UInt64_
+  commentId: M:FNNLib.NetworkServer.#ctor(System.UInt64)
+  fullName: FNNLib.NetworkServer.NetworkServer(System.UInt64)
+  nameWithType: NetworkServer.NetworkServer(UInt64)
 - uid: FNNLib.NetworkServer.#ctor*
   name: NetworkServer
   href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer__ctor_
@@ -858,24 +1258,24 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkServer.Send
   nameWithType: NetworkServer.Send
-- uid: FNNLib.NetworkServer.Send``1(System.Collections.Generic.List{System.UInt64},``0)
-  name: Send<T>(List<UInt64>, T)
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Send__1_System_Collections_Generic_List_System_UInt64____0_
-  commentId: M:FNNLib.NetworkServer.Send``1(System.Collections.Generic.List{System.UInt64},``0)
-  name.vb: Send(Of T)(List(Of UInt64), T)
-  fullName: FNNLib.NetworkServer.Send<T>(System.Collections.Generic.List<System.UInt64>, T)
-  fullName.vb: FNNLib.NetworkServer.Send(Of T)(System.Collections.Generic.List(Of System.UInt64), T)
-  nameWithType: NetworkServer.Send<T>(List<UInt64>, T)
-  nameWithType.vb: NetworkServer.Send(Of T)(List(Of UInt64), T)
-- uid: FNNLib.NetworkServer.Send``1(System.UInt64,``0)
-  name: Send<T>(UInt64, T)
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Send__1_System_UInt64___0_
-  commentId: M:FNNLib.NetworkServer.Send``1(System.UInt64,``0)
-  name.vb: Send(Of T)(UInt64, T)
-  fullName: FNNLib.NetworkServer.Send<T>(System.UInt64, T)
-  fullName.vb: FNNLib.NetworkServer.Send(Of T)(System.UInt64, T)
-  nameWithType: NetworkServer.Send<T>(UInt64, T)
-  nameWithType.vb: NetworkServer.Send(Of T)(UInt64, T)
+- uid: FNNLib.NetworkServer.Send``1(System.Collections.Generic.List{System.UInt64},``0,System.Int32)
+  name: Send<T>(List<UInt64>, T, Int32)
+  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Send__1_System_Collections_Generic_List_System_UInt64____0_System_Int32_
+  commentId: M:FNNLib.NetworkServer.Send``1(System.Collections.Generic.List{System.UInt64},``0,System.Int32)
+  name.vb: Send(Of T)(List(Of UInt64), T, Int32)
+  fullName: FNNLib.NetworkServer.Send<T>(System.Collections.Generic.List<System.UInt64>, T, System.Int32)
+  fullName.vb: FNNLib.NetworkServer.Send(Of T)(System.Collections.Generic.List(Of System.UInt64), T, System.Int32)
+  nameWithType: NetworkServer.Send<T>(List<UInt64>, T, Int32)
+  nameWithType.vb: NetworkServer.Send(Of T)(List(Of UInt64), T, Int32)
+- uid: FNNLib.NetworkServer.Send``1(System.UInt64,``0,System.Int32)
+  name: Send<T>(UInt64, T, Int32)
+  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Send__1_System_UInt64___0_System_Int32_
+  commentId: M:FNNLib.NetworkServer.Send``1(System.UInt64,``0,System.Int32)
+  name.vb: Send(Of T)(UInt64, T, Int32)
+  fullName: FNNLib.NetworkServer.Send<T>(System.UInt64, T, System.Int32)
+  fullName.vb: FNNLib.NetworkServer.Send(Of T)(System.UInt64, T, System.Int32)
+  nameWithType: NetworkServer.Send<T>(UInt64, T, Int32)
+  nameWithType.vb: NetworkServer.Send(Of T)(UInt64, T, Int32)
 - uid: FNNLib.NetworkServer.SendToAll*
   name: SendToAll
   href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_SendToAll_
@@ -883,15 +1283,15 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkServer.SendToAll
   nameWithType: NetworkServer.SendToAll
-- uid: FNNLib.NetworkServer.SendToAll``1(``0)
-  name: SendToAll<T>(T)
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_SendToAll__1___0_
-  commentId: M:FNNLib.NetworkServer.SendToAll``1(``0)
-  name.vb: SendToAll(Of T)(T)
-  fullName: FNNLib.NetworkServer.SendToAll<T>(T)
-  fullName.vb: FNNLib.NetworkServer.SendToAll(Of T)(T)
-  nameWithType: NetworkServer.SendToAll<T>(T)
-  nameWithType.vb: NetworkServer.SendToAll(Of T)(T)
+- uid: FNNLib.NetworkServer.SendToAll``1(``0,System.Int32)
+  name: SendToAll<T>(T, Int32)
+  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_SendToAll__1___0_System_Int32_
+  commentId: M:FNNLib.NetworkServer.SendToAll``1(``0,System.Int32)
+  name.vb: SendToAll(Of T)(T, Int32)
+  fullName: FNNLib.NetworkServer.SendToAll<T>(T, System.Int32)
+  fullName.vb: FNNLib.NetworkServer.SendToAll(Of T)(T, System.Int32)
+  nameWithType: NetworkServer.SendToAll<T>(T, Int32)
+  nameWithType.vb: NetworkServer.SendToAll(Of T)(T, Int32)
 - uid: FNNLib.NetworkServer.Start(FNNLib.Transports.Transport)
   name: Start(Transport)
   href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Start_FNNLib_Transports_Transport_
@@ -1208,6 +1608,19 @@ references:
   commentId: F:FNNLib.Serialization.NetworkReader.position
   fullName: FNNLib.Serialization.NetworkReader.position
   nameWithType: NetworkReader.position
+- uid: FNNLib.Serialization.NetworkReader.ReadBool
+  name: ReadBool()
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadBool
+  commentId: M:FNNLib.Serialization.NetworkReader.ReadBool
+  fullName: FNNLib.Serialization.NetworkReader.ReadBool()
+  nameWithType: NetworkReader.ReadBool()
+- uid: FNNLib.Serialization.NetworkReader.ReadBool*
+  name: ReadBool
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadBool_
+  commentId: Overload:FNNLib.Serialization.NetworkReader.ReadBool
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkReader.ReadBool
+  nameWithType: NetworkReader.ReadBool
 - uid: FNNLib.Serialization.NetworkReader.ReadByte
   name: ReadByte()
   href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadByte
@@ -1325,6 +1738,84 @@ references:
   isSpec: "True"
   fullName: FNNLib.Serialization.NetworkReader.ReadInt64
   nameWithType: NetworkReader.ReadInt64
+- uid: FNNLib.Serialization.NetworkReader.ReadPackedInt16
+  name: ReadPackedInt16()
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadPackedInt16
+  commentId: M:FNNLib.Serialization.NetworkReader.ReadPackedInt16
+  fullName: FNNLib.Serialization.NetworkReader.ReadPackedInt16()
+  nameWithType: NetworkReader.ReadPackedInt16()
+- uid: FNNLib.Serialization.NetworkReader.ReadPackedInt16*
+  name: ReadPackedInt16
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadPackedInt16_
+  commentId: Overload:FNNLib.Serialization.NetworkReader.ReadPackedInt16
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkReader.ReadPackedInt16
+  nameWithType: NetworkReader.ReadPackedInt16
+- uid: FNNLib.Serialization.NetworkReader.ReadPackedInt32
+  name: ReadPackedInt32()
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadPackedInt32
+  commentId: M:FNNLib.Serialization.NetworkReader.ReadPackedInt32
+  fullName: FNNLib.Serialization.NetworkReader.ReadPackedInt32()
+  nameWithType: NetworkReader.ReadPackedInt32()
+- uid: FNNLib.Serialization.NetworkReader.ReadPackedInt32*
+  name: ReadPackedInt32
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadPackedInt32_
+  commentId: Overload:FNNLib.Serialization.NetworkReader.ReadPackedInt32
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkReader.ReadPackedInt32
+  nameWithType: NetworkReader.ReadPackedInt32
+- uid: FNNLib.Serialization.NetworkReader.ReadPackedInt64
+  name: ReadPackedInt64()
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadPackedInt64
+  commentId: M:FNNLib.Serialization.NetworkReader.ReadPackedInt64
+  fullName: FNNLib.Serialization.NetworkReader.ReadPackedInt64()
+  nameWithType: NetworkReader.ReadPackedInt64()
+- uid: FNNLib.Serialization.NetworkReader.ReadPackedInt64*
+  name: ReadPackedInt64
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadPackedInt64_
+  commentId: Overload:FNNLib.Serialization.NetworkReader.ReadPackedInt64
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkReader.ReadPackedInt64
+  nameWithType: NetworkReader.ReadPackedInt64
+- uid: FNNLib.Serialization.NetworkReader.ReadPackedUInt16
+  name: ReadPackedUInt16()
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadPackedUInt16
+  commentId: M:FNNLib.Serialization.NetworkReader.ReadPackedUInt16
+  fullName: FNNLib.Serialization.NetworkReader.ReadPackedUInt16()
+  nameWithType: NetworkReader.ReadPackedUInt16()
+- uid: FNNLib.Serialization.NetworkReader.ReadPackedUInt16*
+  name: ReadPackedUInt16
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadPackedUInt16_
+  commentId: Overload:FNNLib.Serialization.NetworkReader.ReadPackedUInt16
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkReader.ReadPackedUInt16
+  nameWithType: NetworkReader.ReadPackedUInt16
+- uid: FNNLib.Serialization.NetworkReader.ReadPackedUInt32
+  name: ReadPackedUInt32()
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadPackedUInt32
+  commentId: M:FNNLib.Serialization.NetworkReader.ReadPackedUInt32
+  fullName: FNNLib.Serialization.NetworkReader.ReadPackedUInt32()
+  nameWithType: NetworkReader.ReadPackedUInt32()
+- uid: FNNLib.Serialization.NetworkReader.ReadPackedUInt32*
+  name: ReadPackedUInt32
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadPackedUInt32_
+  commentId: Overload:FNNLib.Serialization.NetworkReader.ReadPackedUInt32
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkReader.ReadPackedUInt32
+  nameWithType: NetworkReader.ReadPackedUInt32
+- uid: FNNLib.Serialization.NetworkReader.ReadPackedUInt64
+  name: ReadPackedUInt64()
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadPackedUInt64
+  commentId: M:FNNLib.Serialization.NetworkReader.ReadPackedUInt64
+  fullName: FNNLib.Serialization.NetworkReader.ReadPackedUInt64()
+  nameWithType: NetworkReader.ReadPackedUInt64()
+- uid: FNNLib.Serialization.NetworkReader.ReadPackedUInt64*
+  name: ReadPackedUInt64
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadPackedUInt64_
+  commentId: Overload:FNNLib.Serialization.NetworkReader.ReadPackedUInt64
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkReader.ReadPackedUInt64
+  nameWithType: NetworkReader.ReadPackedUInt64
 - uid: FNNLib.Serialization.NetworkReader.ReadSegmentWithSize
   name: ReadSegmentWithSize()
   href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadSegmentWithSize
@@ -1563,6 +2054,19 @@ references:
   isSpec: "True"
   fullName: FNNLib.Serialization.NetworkWriter.ToArraySegment
   nameWithType: NetworkWriter.ToArraySegment
+- uid: FNNLib.Serialization.NetworkWriter.WriteBool(System.Boolean)
+  name: WriteBool(Boolean)
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteBool_System_Boolean_
+  commentId: M:FNNLib.Serialization.NetworkWriter.WriteBool(System.Boolean)
+  fullName: FNNLib.Serialization.NetworkWriter.WriteBool(System.Boolean)
+  nameWithType: NetworkWriter.WriteBool(Boolean)
+- uid: FNNLib.Serialization.NetworkWriter.WriteBool*
+  name: WriteBool
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteBool_
+  commentId: Overload:FNNLib.Serialization.NetworkWriter.WriteBool
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkWriter.WriteBool
+  nameWithType: NetworkWriter.WriteBool
 - uid: FNNLib.Serialization.NetworkWriter.WriteByte(System.Byte)
   name: WriteByte(Byte)
   href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteByte_System_Byte_
@@ -1673,6 +2177,84 @@ references:
   isSpec: "True"
   fullName: FNNLib.Serialization.NetworkWriter.WriteInt64
   nameWithType: NetworkWriter.WriteInt64
+- uid: FNNLib.Serialization.NetworkWriter.WritePackedInt16(System.Int16)
+  name: WritePackedInt16(Int16)
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedInt16_System_Int16_
+  commentId: M:FNNLib.Serialization.NetworkWriter.WritePackedInt16(System.Int16)
+  fullName: FNNLib.Serialization.NetworkWriter.WritePackedInt16(System.Int16)
+  nameWithType: NetworkWriter.WritePackedInt16(Int16)
+- uid: FNNLib.Serialization.NetworkWriter.WritePackedInt16*
+  name: WritePackedInt16
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedInt16_
+  commentId: Overload:FNNLib.Serialization.NetworkWriter.WritePackedInt16
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkWriter.WritePackedInt16
+  nameWithType: NetworkWriter.WritePackedInt16
+- uid: FNNLib.Serialization.NetworkWriter.WritePackedInt32(System.Int32)
+  name: WritePackedInt32(Int32)
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedInt32_System_Int32_
+  commentId: M:FNNLib.Serialization.NetworkWriter.WritePackedInt32(System.Int32)
+  fullName: FNNLib.Serialization.NetworkWriter.WritePackedInt32(System.Int32)
+  nameWithType: NetworkWriter.WritePackedInt32(Int32)
+- uid: FNNLib.Serialization.NetworkWriter.WritePackedInt32*
+  name: WritePackedInt32
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedInt32_
+  commentId: Overload:FNNLib.Serialization.NetworkWriter.WritePackedInt32
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkWriter.WritePackedInt32
+  nameWithType: NetworkWriter.WritePackedInt32
+- uid: FNNLib.Serialization.NetworkWriter.WritePackedInt64(System.Int64)
+  name: WritePackedInt64(Int64)
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedInt64_System_Int64_
+  commentId: M:FNNLib.Serialization.NetworkWriter.WritePackedInt64(System.Int64)
+  fullName: FNNLib.Serialization.NetworkWriter.WritePackedInt64(System.Int64)
+  nameWithType: NetworkWriter.WritePackedInt64(Int64)
+- uid: FNNLib.Serialization.NetworkWriter.WritePackedInt64*
+  name: WritePackedInt64
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedInt64_
+  commentId: Overload:FNNLib.Serialization.NetworkWriter.WritePackedInt64
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkWriter.WritePackedInt64
+  nameWithType: NetworkWriter.WritePackedInt64
+- uid: FNNLib.Serialization.NetworkWriter.WritePackedUInt16(System.UInt16)
+  name: WritePackedUInt16(UInt16)
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedUInt16_System_UInt16_
+  commentId: M:FNNLib.Serialization.NetworkWriter.WritePackedUInt16(System.UInt16)
+  fullName: FNNLib.Serialization.NetworkWriter.WritePackedUInt16(System.UInt16)
+  nameWithType: NetworkWriter.WritePackedUInt16(UInt16)
+- uid: FNNLib.Serialization.NetworkWriter.WritePackedUInt16*
+  name: WritePackedUInt16
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedUInt16_
+  commentId: Overload:FNNLib.Serialization.NetworkWriter.WritePackedUInt16
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkWriter.WritePackedUInt16
+  nameWithType: NetworkWriter.WritePackedUInt16
+- uid: FNNLib.Serialization.NetworkWriter.WritePackedUInt32(System.UInt32)
+  name: WritePackedUInt32(UInt32)
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedUInt32_System_UInt32_
+  commentId: M:FNNLib.Serialization.NetworkWriter.WritePackedUInt32(System.UInt32)
+  fullName: FNNLib.Serialization.NetworkWriter.WritePackedUInt32(System.UInt32)
+  nameWithType: NetworkWriter.WritePackedUInt32(UInt32)
+- uid: FNNLib.Serialization.NetworkWriter.WritePackedUInt32*
+  name: WritePackedUInt32
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedUInt32_
+  commentId: Overload:FNNLib.Serialization.NetworkWriter.WritePackedUInt32
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkWriter.WritePackedUInt32
+  nameWithType: NetworkWriter.WritePackedUInt32
+- uid: FNNLib.Serialization.NetworkWriter.WritePackedUInt64(System.UInt64)
+  name: WritePackedUInt64(UInt64)
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedUInt64_System_UInt64_
+  commentId: M:FNNLib.Serialization.NetworkWriter.WritePackedUInt64(System.UInt64)
+  fullName: FNNLib.Serialization.NetworkWriter.WritePackedUInt64(System.UInt64)
+  nameWithType: NetworkWriter.WritePackedUInt64(UInt64)
+- uid: FNNLib.Serialization.NetworkWriter.WritePackedUInt64*
+  name: WritePackedUInt64
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedUInt64_
+  commentId: Overload:FNNLib.Serialization.NetworkWriter.WritePackedUInt64
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkWriter.WritePackedUInt64
+  nameWithType: NetworkWriter.WritePackedUInt64
 - uid: FNNLib.Serialization.NetworkWriter.WriteSegmentWithSize(System.ArraySegment{System.Byte})
   name: WriteSegmentWithSize(ArraySegment<Byte>)
   href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteSegmentWithSize_System_ArraySegment_System_Byte__
@@ -1863,6 +2445,166 @@ references:
   isSpec: "True"
   fullName: FNNLib.Serialization.PooledNetworkWriter.Dispose
   nameWithType: PooledNetworkWriter.Dispose
+- uid: FNNLib.Spawning
+  name: FNNLib.Spawning
+  href: api/FNNLib.Spawning.html
+  commentId: N:FNNLib.Spawning
+  fullName: FNNLib.Spawning
+  nameWithType: FNNLib.Spawning
+- uid: FNNLib.Spawning.DestroyObjectPacket
+  name: DestroyObjectPacket
+  href: api/FNNLib.Spawning.DestroyObjectPacket.html
+  commentId: T:FNNLib.Spawning.DestroyObjectPacket
+  fullName: FNNLib.Spawning.DestroyObjectPacket
+  nameWithType: DestroyObjectPacket
+- uid: FNNLib.Spawning.DestroyObjectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
+  name: DeSerialize(NetworkReader)
+  href: api/FNNLib.Spawning.DestroyObjectPacket.html#FNNLib_Spawning_DestroyObjectPacket_DeSerialize_FNNLib_Serialization_NetworkReader_
+  commentId: M:FNNLib.Spawning.DestroyObjectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
+  fullName: FNNLib.Spawning.DestroyObjectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
+  nameWithType: DestroyObjectPacket.DeSerialize(NetworkReader)
+- uid: FNNLib.Spawning.DestroyObjectPacket.DeSerialize*
+  name: DeSerialize
+  href: api/FNNLib.Spawning.DestroyObjectPacket.html#FNNLib_Spawning_DestroyObjectPacket_DeSerialize_
+  commentId: Overload:FNNLib.Spawning.DestroyObjectPacket.DeSerialize
+  isSpec: "True"
+  fullName: FNNLib.Spawning.DestroyObjectPacket.DeSerialize
+  nameWithType: DestroyObjectPacket.DeSerialize
+- uid: FNNLib.Spawning.DestroyObjectPacket.networkID
+  name: networkID
+  href: api/FNNLib.Spawning.DestroyObjectPacket.html#FNNLib_Spawning_DestroyObjectPacket_networkID
+  commentId: F:FNNLib.Spawning.DestroyObjectPacket.networkID
+  fullName: FNNLib.Spawning.DestroyObjectPacket.networkID
+  nameWithType: DestroyObjectPacket.networkID
+- uid: FNNLib.Spawning.DestroyObjectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
+  name: Serialize(NetworkWriter)
+  href: api/FNNLib.Spawning.DestroyObjectPacket.html#FNNLib_Spawning_DestroyObjectPacket_Serialize_FNNLib_Serialization_NetworkWriter_
+  commentId: M:FNNLib.Spawning.DestroyObjectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
+  fullName: FNNLib.Spawning.DestroyObjectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
+  nameWithType: DestroyObjectPacket.Serialize(NetworkWriter)
+- uid: FNNLib.Spawning.DestroyObjectPacket.Serialize*
+  name: Serialize
+  href: api/FNNLib.Spawning.DestroyObjectPacket.html#FNNLib_Spawning_DestroyObjectPacket_Serialize_
+  commentId: Overload:FNNLib.Spawning.DestroyObjectPacket.Serialize
+  isSpec: "True"
+  fullName: FNNLib.Spawning.DestroyObjectPacket.Serialize
+  nameWithType: DestroyObjectPacket.Serialize
+- uid: FNNLib.Spawning.SpawnManager
+  name: SpawnManager
+  href: api/FNNLib.Spawning.SpawnManager.html
+  commentId: T:FNNLib.Spawning.SpawnManager
+  fullName: FNNLib.Spawning.SpawnManager
+  nameWithType: SpawnManager
+- uid: FNNLib.Spawning.SpawnManager.spawnedObjects
+  name: spawnedObjects
+  href: api/FNNLib.Spawning.SpawnManager.html#FNNLib_Spawning_SpawnManager_spawnedObjects
+  commentId: F:FNNLib.Spawning.SpawnManager.spawnedObjects
+  fullName: FNNLib.Spawning.SpawnManager.spawnedObjects
+  nameWithType: SpawnManager.spawnedObjects
+- uid: FNNLib.Spawning.SpawnObjectPacket
+  name: SpawnObjectPacket
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html
+  commentId: T:FNNLib.Spawning.SpawnObjectPacket
+  fullName: FNNLib.Spawning.SpawnObjectPacket
+  nameWithType: SpawnObjectPacket
+- uid: FNNLib.Spawning.SpawnObjectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
+  name: DeSerialize(NetworkReader)
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_DeSerialize_FNNLib_Serialization_NetworkReader_
+  commentId: M:FNNLib.Spawning.SpawnObjectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
+  fullName: FNNLib.Spawning.SpawnObjectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
+  nameWithType: SpawnObjectPacket.DeSerialize(NetworkReader)
+- uid: FNNLib.Spawning.SpawnObjectPacket.DeSerialize*
+  name: DeSerialize
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_DeSerialize_
+  commentId: Overload:FNNLib.Spawning.SpawnObjectPacket.DeSerialize
+  isSpec: "True"
+  fullName: FNNLib.Spawning.SpawnObjectPacket.DeSerialize
+  nameWithType: SpawnObjectPacket.DeSerialize
+- uid: FNNLib.Spawning.SpawnObjectPacket.eulerRotation
+  name: eulerRotation
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_eulerRotation
+  commentId: F:FNNLib.Spawning.SpawnObjectPacket.eulerRotation
+  fullName: FNNLib.Spawning.SpawnObjectPacket.eulerRotation
+  nameWithType: SpawnObjectPacket.eulerRotation
+- uid: FNNLib.Spawning.SpawnObjectPacket.hasParent
+  name: hasParent
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_hasParent
+  commentId: F:FNNLib.Spawning.SpawnObjectPacket.hasParent
+  fullName: FNNLib.Spawning.SpawnObjectPacket.hasParent
+  nameWithType: SpawnObjectPacket.hasParent
+- uid: FNNLib.Spawning.SpawnObjectPacket.includesTransform
+  name: includesTransform
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_includesTransform
+  commentId: F:FNNLib.Spawning.SpawnObjectPacket.includesTransform
+  fullName: FNNLib.Spawning.SpawnObjectPacket.includesTransform
+  nameWithType: SpawnObjectPacket.includesTransform
+- uid: FNNLib.Spawning.SpawnObjectPacket.isPlayerObject
+  name: isPlayerObject
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_isPlayerObject
+  commentId: F:FNNLib.Spawning.SpawnObjectPacket.isPlayerObject
+  fullName: FNNLib.Spawning.SpawnObjectPacket.isPlayerObject
+  nameWithType: SpawnObjectPacket.isPlayerObject
+- uid: FNNLib.Spawning.SpawnObjectPacket.isSceneObject
+  name: isSceneObject
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_isSceneObject
+  commentId: F:FNNLib.Spawning.SpawnObjectPacket.isSceneObject
+  fullName: FNNLib.Spawning.SpawnObjectPacket.isSceneObject
+  nameWithType: SpawnObjectPacket.isSceneObject
+- uid: FNNLib.Spawning.SpawnObjectPacket.networkedInstanceID
+  name: networkedInstanceID
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_networkedInstanceID
+  commentId: F:FNNLib.Spawning.SpawnObjectPacket.networkedInstanceID
+  fullName: FNNLib.Spawning.SpawnObjectPacket.networkedInstanceID
+  nameWithType: SpawnObjectPacket.networkedInstanceID
+- uid: FNNLib.Spawning.SpawnObjectPacket.networkID
+  name: networkID
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_networkID
+  commentId: F:FNNLib.Spawning.SpawnObjectPacket.networkID
+  fullName: FNNLib.Spawning.SpawnObjectPacket.networkID
+  nameWithType: SpawnObjectPacket.networkID
+- uid: FNNLib.Spawning.SpawnObjectPacket.ownerClientID
+  name: ownerClientID
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_ownerClientID
+  commentId: F:FNNLib.Spawning.SpawnObjectPacket.ownerClientID
+  fullName: FNNLib.Spawning.SpawnObjectPacket.ownerClientID
+  nameWithType: SpawnObjectPacket.ownerClientID
+- uid: FNNLib.Spawning.SpawnObjectPacket.parentNetID
+  name: parentNetID
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_parentNetID
+  commentId: F:FNNLib.Spawning.SpawnObjectPacket.parentNetID
+  fullName: FNNLib.Spawning.SpawnObjectPacket.parentNetID
+  nameWithType: SpawnObjectPacket.parentNetID
+- uid: FNNLib.Spawning.SpawnObjectPacket.position
+  name: position
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_position
+  commentId: F:FNNLib.Spawning.SpawnObjectPacket.position
+  fullName: FNNLib.Spawning.SpawnObjectPacket.position
+  nameWithType: SpawnObjectPacket.position
+- uid: FNNLib.Spawning.SpawnObjectPacket.prefabHash
+  name: prefabHash
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_prefabHash
+  commentId: F:FNNLib.Spawning.SpawnObjectPacket.prefabHash
+  fullName: FNNLib.Spawning.SpawnObjectPacket.prefabHash
+  nameWithType: SpawnObjectPacket.prefabHash
+- uid: FNNLib.Spawning.SpawnObjectPacket.sceneID
+  name: sceneID
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_sceneID
+  commentId: F:FNNLib.Spawning.SpawnObjectPacket.sceneID
+  fullName: FNNLib.Spawning.SpawnObjectPacket.sceneID
+  nameWithType: SpawnObjectPacket.sceneID
+- uid: FNNLib.Spawning.SpawnObjectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
+  name: Serialize(NetworkWriter)
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_Serialize_FNNLib_Serialization_NetworkWriter_
+  commentId: M:FNNLib.Spawning.SpawnObjectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
+  fullName: FNNLib.Spawning.SpawnObjectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
+  nameWithType: SpawnObjectPacket.Serialize(NetworkWriter)
+- uid: FNNLib.Spawning.SpawnObjectPacket.Serialize*
+  name: Serialize
+  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_Serialize_
+  commentId: Overload:FNNLib.Spawning.SpawnObjectPacket.Serialize
+  isSpec: "True"
+  fullName: FNNLib.Spawning.SpawnObjectPacket.Serialize
+  nameWithType: SpawnObjectPacket.Serialize
 - uid: FNNLib.Transports
   name: FNNLib.Transports
   href: api/FNNLib.Transports.html
@@ -2676,22 +3418,99 @@ references:
   commentId: N:FNNLib.Utilities
   fullName: FNNLib.Utilities
   nameWithType: FNNLib.Utilities
-- uid: FNNLib.Utilities.StringHash
-  name: StringHash
-  href: api/FNNLib.Utilities.StringHash.html
-  commentId: T:FNNLib.Utilities.StringHash
-  fullName: FNNLib.Utilities.StringHash
-  nameWithType: StringHash
-- uid: FNNLib.Utilities.StringHash.GetStableHashCode(System.String)
-  name: GetStableHashCode(String)
-  href: api/FNNLib.Utilities.StringHash.html#FNNLib_Utilities_StringHash_GetStableHashCode_System_String_
-  commentId: M:FNNLib.Utilities.StringHash.GetStableHashCode(System.String)
-  fullName: FNNLib.Utilities.StringHash.GetStableHashCode(System.String)
-  nameWithType: StringHash.GetStableHashCode(String)
-- uid: FNNLib.Utilities.StringHash.GetStableHashCode*
-  name: GetStableHashCode
-  href: api/FNNLib.Utilities.StringHash.html#FNNLib_Utilities_StringHash_GetStableHashCode_
-  commentId: Overload:FNNLib.Utilities.StringHash.GetStableHashCode
+- uid: FNNLib.Utilities.Hashing
+  name: Hashing
+  href: api/FNNLib.Utilities.Hashing.html
+  commentId: T:FNNLib.Utilities.Hashing
+  fullName: FNNLib.Utilities.Hashing
+  nameWithType: Hashing
+- uid: FNNLib.Utilities.Hashing.FNV_offset_basis32
+  name: FNV_offset_basis32
+  href: api/FNNLib.Utilities.Hashing.html#FNNLib_Utilities_Hashing_FNV_offset_basis32
+  commentId: F:FNNLib.Utilities.Hashing.FNV_offset_basis32
+  fullName: FNNLib.Utilities.Hashing.FNV_offset_basis32
+  nameWithType: Hashing.FNV_offset_basis32
+- uid: FNNLib.Utilities.Hashing.FNV_offset_basis64
+  name: FNV_offset_basis64
+  href: api/FNNLib.Utilities.Hashing.html#FNNLib_Utilities_Hashing_FNV_offset_basis64
+  commentId: F:FNNLib.Utilities.Hashing.FNV_offset_basis64
+  fullName: FNNLib.Utilities.Hashing.FNV_offset_basis64
+  nameWithType: Hashing.FNV_offset_basis64
+- uid: FNNLib.Utilities.Hashing.FNV_prime32
+  name: FNV_prime32
+  href: api/FNNLib.Utilities.Hashing.html#FNNLib_Utilities_Hashing_FNV_prime32
+  commentId: F:FNNLib.Utilities.Hashing.FNV_prime32
+  fullName: FNNLib.Utilities.Hashing.FNV_prime32
+  nameWithType: Hashing.FNV_prime32
+- uid: FNNLib.Utilities.Hashing.FNV_prime64
+  name: FNV_prime64
+  href: api/FNNLib.Utilities.Hashing.html#FNNLib_Utilities_Hashing_FNV_prime64
+  commentId: F:FNNLib.Utilities.Hashing.FNV_prime64
+  fullName: FNNLib.Utilities.Hashing.FNV_prime64
+  nameWithType: Hashing.FNV_prime64
+- uid: FNNLib.Utilities.Hashing.GetStableHash16(System.Byte[])
+  name: GetStableHash16(Byte[])
+  href: api/FNNLib.Utilities.Hashing.html#FNNLib_Utilities_Hashing_GetStableHash16_System_Byte___
+  commentId: M:FNNLib.Utilities.Hashing.GetStableHash16(System.Byte[])
+  name.vb: GetStableHash16(Byte())
+  fullName: FNNLib.Utilities.Hashing.GetStableHash16(System.Byte[])
+  fullName.vb: FNNLib.Utilities.Hashing.GetStableHash16(System.Byte())
+  nameWithType: Hashing.GetStableHash16(Byte[])
+  nameWithType.vb: Hashing.GetStableHash16(Byte())
+- uid: FNNLib.Utilities.Hashing.GetStableHash16(System.String)
+  name: GetStableHash16(String)
+  href: api/FNNLib.Utilities.Hashing.html#FNNLib_Utilities_Hashing_GetStableHash16_System_String_
+  commentId: M:FNNLib.Utilities.Hashing.GetStableHash16(System.String)
+  fullName: FNNLib.Utilities.Hashing.GetStableHash16(System.String)
+  nameWithType: Hashing.GetStableHash16(String)
+- uid: FNNLib.Utilities.Hashing.GetStableHash16*
+  name: GetStableHash16
+  href: api/FNNLib.Utilities.Hashing.html#FNNLib_Utilities_Hashing_GetStableHash16_
+  commentId: Overload:FNNLib.Utilities.Hashing.GetStableHash16
   isSpec: "True"
-  fullName: FNNLib.Utilities.StringHash.GetStableHashCode
-  nameWithType: StringHash.GetStableHashCode
+  fullName: FNNLib.Utilities.Hashing.GetStableHash16
+  nameWithType: Hashing.GetStableHash16
+- uid: FNNLib.Utilities.Hashing.GetStableHash32(System.Byte[])
+  name: GetStableHash32(Byte[])
+  href: api/FNNLib.Utilities.Hashing.html#FNNLib_Utilities_Hashing_GetStableHash32_System_Byte___
+  commentId: M:FNNLib.Utilities.Hashing.GetStableHash32(System.Byte[])
+  name.vb: GetStableHash32(Byte())
+  fullName: FNNLib.Utilities.Hashing.GetStableHash32(System.Byte[])
+  fullName.vb: FNNLib.Utilities.Hashing.GetStableHash32(System.Byte())
+  nameWithType: Hashing.GetStableHash32(Byte[])
+  nameWithType.vb: Hashing.GetStableHash32(Byte())
+- uid: FNNLib.Utilities.Hashing.GetStableHash32(System.String)
+  name: GetStableHash32(String)
+  href: api/FNNLib.Utilities.Hashing.html#FNNLib_Utilities_Hashing_GetStableHash32_System_String_
+  commentId: M:FNNLib.Utilities.Hashing.GetStableHash32(System.String)
+  fullName: FNNLib.Utilities.Hashing.GetStableHash32(System.String)
+  nameWithType: Hashing.GetStableHash32(String)
+- uid: FNNLib.Utilities.Hashing.GetStableHash32*
+  name: GetStableHash32
+  href: api/FNNLib.Utilities.Hashing.html#FNNLib_Utilities_Hashing_GetStableHash32_
+  commentId: Overload:FNNLib.Utilities.Hashing.GetStableHash32
+  isSpec: "True"
+  fullName: FNNLib.Utilities.Hashing.GetStableHash32
+  nameWithType: Hashing.GetStableHash32
+- uid: FNNLib.Utilities.Hashing.GetStableHash64(System.Byte[])
+  name: GetStableHash64(Byte[])
+  href: api/FNNLib.Utilities.Hashing.html#FNNLib_Utilities_Hashing_GetStableHash64_System_Byte___
+  commentId: M:FNNLib.Utilities.Hashing.GetStableHash64(System.Byte[])
+  name.vb: GetStableHash64(Byte())
+  fullName: FNNLib.Utilities.Hashing.GetStableHash64(System.Byte[])
+  fullName.vb: FNNLib.Utilities.Hashing.GetStableHash64(System.Byte())
+  nameWithType: Hashing.GetStableHash64(Byte[])
+  nameWithType.vb: Hashing.GetStableHash64(Byte())
+- uid: FNNLib.Utilities.Hashing.GetStableHash64(System.String)
+  name: GetStableHash64(String)
+  href: api/FNNLib.Utilities.Hashing.html#FNNLib_Utilities_Hashing_GetStableHash64_System_String_
+  commentId: M:FNNLib.Utilities.Hashing.GetStableHash64(System.String)
+  fullName: FNNLib.Utilities.Hashing.GetStableHash64(System.String)
+  nameWithType: Hashing.GetStableHash64(String)
+- uid: FNNLib.Utilities.Hashing.GetStableHash64*
+  name: GetStableHash64
+  href: api/FNNLib.Utilities.Hashing.html#FNNLib_Utilities_Hashing_GetStableHash64_
+  commentId: Overload:FNNLib.Utilities.Hashing.GetStableHash64
+  isSpec: "True"
+  fullName: FNNLib.Utilities.Hashing.GetStableHash64
+  nameWithType: Hashing.GetStableHash64

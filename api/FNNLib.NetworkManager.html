@@ -85,6 +85,7 @@
   </h1>
   <div class="markdown level0 summary"><p>The network manager drives the NetworkClient and NetworkServer systems.</p>
 <p>TODO: Make more of this virtual so that custom network managers could be made? Do we actually need this given its functionality/openness?</p>
+<p>TODO: Allow changing hash strength.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -105,7 +106,7 @@
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_instance.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.instance%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L19">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L22">View Source</a>
   </span>
   <h4 id="FNNLib_NetworkManager_instance" data-uid="FNNLib.NetworkManager.instance">instance</h4>
   <div class="markdown level1 summary"><p>The game&apos;s NetworkManager.</p>
@@ -132,19 +133,18 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_permittedScenes.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.permittedScenes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_networkConfig.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.networkConfig%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L66">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L48">View Source</a>
   </span>
-  <h4 id="FNNLib_NetworkManager_permittedScenes" data-uid="FNNLib.NetworkManager.permittedScenes">permittedScenes</h4>
-  <div class="markdown level1 summary"><p>The list of scenes that the server is permitted to send the client to.
-Used for security purposes if you opt to use the NetworkSceneManager (recommended).</p>
+  <h4 id="FNNLib_NetworkManager_networkConfig" data-uid="FNNLib.NetworkManager.networkConfig">networkConfig</h4>
+  <div class="markdown level1 summary"><p>The network config.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;NetworkableScene&gt; permittedScenes</code></pre>
+    <pre><code class="lang-csharp hljs">public NetworkConfig networkConfig</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -156,128 +156,7 @@ Used for security purposes if you opt to use the NetworkSceneManager (recommende
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FNNLib.SceneManagement.NetworkableScene.html">NetworkableScene</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_protocolVersion.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.protocolVersion%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L55">View Source</a>
-  </span>
-  <h4 id="FNNLib_NetworkManager_protocolVersion" data-uid="FNNLib.NetworkManager.protocolVersion">protocolVersion</h4>
-  <div class="markdown level1 summary"><p>The protocol version of the client and server.
-Use this to stop old and new clients/servers interacting.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int protocolVersion</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_serverTickRate.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.serverTickRate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L49">View Source</a>
-  </span>
-  <h4 id="FNNLib_NetworkManager_serverTickRate" data-uid="FNNLib.NetworkManager.serverTickRate">serverTickRate</h4>
-  <div class="markdown level1 summary"><p>(Dedicated) server update frequency.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int serverTickRate</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_transport.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.transport%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L44">View Source</a>
-  </span>
-  <h4 id="FNNLib_NetworkManager_transport" data-uid="FNNLib.NetworkManager.transport">transport</h4>
-  <div class="markdown level1 summary"><p>The selected transport to be used by the client and server.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Transport transport</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="FNNLib.Transports.Transport.html">Transport</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_useSceneManagement.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.useSceneManagement%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L60">View Source</a>
-  </span>
-  <h4 id="FNNLib_NetworkManager_useSceneManagement" data-uid="FNNLib.NetworkManager.useSceneManagement">useSceneManagement</h4>
-  <div class="markdown level1 summary"><p>This enables the NetworkSceneManager and will register its packets in the relevant places.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool useSceneManagement</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><a class="xref" href="FNNLib.Config.NetworkConfig.html">NetworkConfig</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -286,41 +165,10 @@ Use this to stop old and new clients/servers interacting.</p>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_client.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.client%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L88">View Source</a>
-  </span>
-  <a id="FNNLib_NetworkManager_client_" data-uid="FNNLib.NetworkManager.client*"></a>
-  <h4 id="FNNLib_NetworkManager_client" data-uid="FNNLib.NetworkManager.client">client</h4>
-  <div class="markdown level1 summary"><p>The underlying client.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public NetworkClient client { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="FNNLib.NetworkClient.html">NetworkClient</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_isClient.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.isClient%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L24">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L27">View Source</a>
   </span>
   <a id="FNNLib_NetworkManager_isClient_" data-uid="FNNLib.NetworkManager.isClient*"></a>
   <h4 id="FNNLib_NetworkManager_isClient" data-uid="FNNLib.NetworkManager.isClient">isClient</h4>
@@ -351,7 +199,7 @@ Use this to stop old and new clients/servers interacting.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_isHost.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.isHost%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L34">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L37">View Source</a>
   </span>
   <a id="FNNLib_NetworkManager_isHost_" data-uid="FNNLib.NetworkManager.isHost*"></a>
   <h4 id="FNNLib_NetworkManager_isHost" data-uid="FNNLib.NetworkManager.isHost">isHost</h4>
@@ -382,7 +230,7 @@ Use this to stop old and new clients/servers interacting.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_isServer.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.isServer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L29">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L32">View Source</a>
   </span>
   <a id="FNNLib_NetworkManager_isServer_" data-uid="FNNLib.NetworkManager.isServer*"></a>
   <h4 id="FNNLib_NetworkManager_isServer" data-uid="FNNLib.NetworkManager.isServer">isServer</h4>
@@ -413,7 +261,7 @@ Use this to stop old and new clients/servers interacting.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_localClientID.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.localClientID%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L39">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L42">View Source</a>
   </span>
   <a id="FNNLib_NetworkManager_localClientID_" data-uid="FNNLib.NetworkManager.localClientID*"></a>
   <h4 id="FNNLib_NetworkManager_localClientID" data-uid="FNNLib.NetworkManager.localClientID">localClientID</h4>
@@ -439,37 +287,6 @@ Use this to stop old and new clients/servers interacting.</p>
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_server.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.server%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L77">View Source</a>
-  </span>
-  <a id="FNNLib_NetworkManager_server_" data-uid="FNNLib.NetworkManager.server*"></a>
-  <h4 id="FNNLib_NetworkManager_server" data-uid="FNNLib.NetworkManager.server">server</h4>
-  <div class="markdown level1 summary"><p>The underlying server.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public NetworkServer server { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="FNNLib.NetworkServer.html">NetworkServer</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
@@ -477,7 +294,7 @@ Use this to stop old and new clients/servers interacting.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_ConfigureServerFramerate.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.ConfigureServerFramerate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L204">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L176">View Source</a>
   </span>
   <a id="FNNLib_NetworkManager_ConfigureServerFramerate_" data-uid="FNNLib.NetworkManager.ConfigureServerFramerate*"></a>
   <h4 id="FNNLib_NetworkManager_ConfigureServerFramerate" data-uid="FNNLib.NetworkManager.ConfigureServerFramerate">ConfigureServerFramerate()</h4>
@@ -492,7 +309,7 @@ Use this to stop old and new clients/servers interacting.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_RegisterPacketHandler__1_System_Action_System_UInt64___0__.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.RegisterPacketHandler%60%601(System.Action%7BSystem.UInt64%2C%60%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L258">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L230">View Source</a>
   </span>
   <a id="FNNLib_NetworkManager_RegisterPacketHandler_" data-uid="FNNLib.NetworkManager.RegisterPacketHandler*"></a>
   <h4 id="FNNLib_NetworkManager_RegisterPacketHandler__1_System_Action_System_UInt64___0__" data-uid="FNNLib.NetworkManager.RegisterPacketHandler``1(System.Action{System.UInt64,``0})">RegisterPacketHandler&lt;T&gt;(Action&lt;UInt64, T&gt;)</h4>
@@ -541,7 +358,7 @@ Use this to stop old and new clients/servers interacting.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_StartClient_System_String_System_Byte___.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.StartClient(System.String%2CSystem.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L117">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L89">View Source</a>
   </span>
   <a id="FNNLib_NetworkManager_StartClient_" data-uid="FNNLib.NetworkManager.StartClient*"></a>
   <h4 id="FNNLib_NetworkManager_StartClient_System_String_System_Byte___" data-uid="FNNLib.NetworkManager.StartClient(System.String,System.Byte[])">StartClient(String, Byte[])</h4>
@@ -596,7 +413,7 @@ Use this to stop old and new clients/servers interacting.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_StartHost.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.StartHost%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L215">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L187">View Source</a>
   </span>
   <a id="FNNLib_NetworkManager_StartHost_" data-uid="FNNLib.NetworkManager.StartHost*"></a>
   <h4 id="FNNLib_NetworkManager_StartHost" data-uid="FNNLib.NetworkManager.StartHost">StartHost()</h4>
@@ -611,7 +428,7 @@ Use this to stop old and new clients/servers interacting.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_StartServer.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.StartServer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L159">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L131">View Source</a>
   </span>
   <a id="FNNLib_NetworkManager_StartServer_" data-uid="FNNLib.NetworkManager.StartServer*"></a>
   <h4 id="FNNLib_NetworkManager_StartServer" data-uid="FNNLib.NetworkManager.StartServer">StartServer()</h4>
@@ -627,7 +444,7 @@ Use this to stop old and new clients/servers interacting.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_StopClient.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.StopClient%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L139">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L111">View Source</a>
   </span>
   <a id="FNNLib_NetworkManager_StopClient_" data-uid="FNNLib.NetworkManager.StopClient*"></a>
   <h4 id="FNNLib_NetworkManager_StopClient" data-uid="FNNLib.NetworkManager.StopClient">StopClient()</h4>
@@ -659,7 +476,7 @@ Use this to stop old and new clients/servers interacting.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_StopHost.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.StopHost%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L231">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L203">View Source</a>
   </span>
   <a id="FNNLib_NetworkManager_StopHost_" data-uid="FNNLib.NetworkManager.StopHost*"></a>
   <h4 id="FNNLib_NetworkManager_StopHost" data-uid="FNNLib.NetworkManager.StopHost">StopHost()</h4>
@@ -674,7 +491,7 @@ Use this to stop old and new clients/servers interacting.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager_StopServer.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager.StopServer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L186">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L158">View Source</a>
   </span>
   <a id="FNNLib_NetworkManager_StopServer_" data-uid="FNNLib.NetworkManager.StopServer*"></a>
   <h4 id="FNNLib_NetworkManager_StopServer" data-uid="FNNLib.NetworkManager.StopServer">StopServer()</h4>
@@ -711,7 +528,7 @@ Use this to stop old and new clients/servers interacting.</p>
                     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkManager.md&amp;value=---%0Auid%3A%20FNNLib.NetworkManager%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L14" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L17" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

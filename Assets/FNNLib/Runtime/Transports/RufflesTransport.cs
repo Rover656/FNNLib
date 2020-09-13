@@ -10,25 +10,40 @@ namespace FNNLib.Transports {
         /// <summary>
         /// The address to bind the server to.
         /// </summary>
-        [Header("Connection Config")]
-        public string serverBindAddress = "0.0.0.0";
-        
+        [Header("Connection Config")] public string serverBindAddress = "0.0.0.0";
+
         /// <summary>
         /// The default port.
         /// </summary>
         public int port = 7777;
-        
+
         /// <summary>
         /// The channels and their types.
-        /// 0 is default.
+        /// The first 3 channels are reserved as defaults.
         /// </summary>
-        public List<ChannelType> channels = new List<ChannelType> {ChannelType.ReliableSequenced};
+        public ChannelType[] channels = {ChannelType.Reliable, ChannelType.ReliableSequenced, ChannelType.Unreliable};
 
         // Ruffles does not support WebGL
         public override bool supported => Application.platform != RuntimePlatform.WebGLPlayer;
-        
+
+        private void OnValidate() {
+            // Ensure the first 3 channels align with default channels.
+            if (channels == null || channels.Length >= 3) {
+                if (channels[0] != ChannelType.Reliable) channels[0] = ChannelType.Reliable;
+                if (channels[1] != ChannelType.ReliableSequenced) channels[1] = ChannelType.ReliableSequenced;
+                if (channels[2] != ChannelType.Unreliable) channels[2] = ChannelType.Unreliable;
+            }
+            else {
+                channels = new[] {
+                                     ChannelType.ReliableSequenced,
+                                     ChannelType.Reliable,
+                                     ChannelType.Unreliable
+                                 };
+            }
+        }
+
         public override bool clientConnected { get; }
-        
+
         public override void ClientConnect(string hostname) {
             throw new NotImplementedException();
         }
@@ -42,7 +57,7 @@ namespace FNNLib.Transports {
         }
 
         public override bool serverRunning { get; }
-        
+
         public override void ServerStart() {
             throw new NotImplementedException();
         }

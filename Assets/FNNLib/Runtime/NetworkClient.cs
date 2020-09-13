@@ -201,8 +201,8 @@ namespace FNNLib {
         /// Passthrough which uses the server client ID.
         /// </summary>
         /// <param name="data">The data packet.</param>
-        private void HandlePacket(ArraySegment<byte> data) {
-            HandlePacket(0, data);
+        private void HandlePacket(ArraySegment<byte> data, int channelID) {
+            HandlePacket(0, data, channelID);
         }
         
         /// <summary>

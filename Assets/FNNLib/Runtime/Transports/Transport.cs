@@ -30,9 +30,10 @@ namespace FNNLib.Transports {
 
         /// <summary>
         /// Fired when receiving data from the server.
+        /// Parameters: data, channel
         /// </summary>
         [HideInInspector]
-        public UnityEvent<ArraySegment<byte>> onClientDataReceived = new UnityEvent<ArraySegment<byte>>();
+        public UnityEvent<ArraySegment<byte>, int> onClientDataReceived = new UnityEvent<ArraySegment<byte>, int>();
 
         /// <summary>
         /// Fired when the client disconnects from the server.
@@ -85,10 +86,10 @@ namespace FNNLib.Transports {
 
         /// <summary>
         /// Fired when the server recieves data from a client.
-        /// Parameters: clientID, data
+        /// Parameters: clientID, data, channelID
         /// </summary>
         [HideInInspector]
-        public UnityEvent<ulong, ArraySegment<byte>> onServerDataReceived = new UnityEvent<ulong, ArraySegment<byte>>();
+        public UnityEvent<ulong, ArraySegment<byte>, int> onServerDataReceived = new UnityEvent<ulong, ArraySegment<byte>, int>();
 
         /// <summary>
         /// Whether the server is running.
@@ -107,9 +108,9 @@ namespace FNNLib.Transports {
         /// </summary>
         /// <param name="clients">The clients to send to.</param>
         /// <param name="data">The data to send.</param>
-        /// <param name="channel">The channel to send the data down. Default = 0. Ignored on Transports that don't support channelling.</param>
+        /// <param name="channel">The channel to send the data down. Ignored on Transports that don't support channelling.</param>
         /// <returns>Whether the data could be sent.</returns>
-        public abstract bool ServerSend(List<ulong> clients, ArraySegment<byte> data, int channel = 0);
+        public abstract bool ServerSend(List<ulong> clients, ArraySegment<byte> data, int channel = DefaultChannels.Reliable);
 
         /// <summary>
         /// Force disconnect client.

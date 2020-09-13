@@ -1,26 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using FNNLib.Transports.TCP;
 using UnityEngine;
-using EventType = FNNLib.Transports.TCP.EventType;
 
 namespace FNNLib.Transports {
-    // TODO: Migrate to new Transport system and rename the TCP Transport to something else? (Might wait until TCP rewrite however before naming)
-    public class TCPTransport : Transport {
+    /// <summary>
+    /// Transport using vis2k's Telepathy library.
+    /// Currently the default transport for FNNLib. I want to write my own, however to get off the ground, using an existing lib is simpler and more supported.
+    /// </summary>
+    public class TelepathyTransport : Transport {
         #region General
-
-        public override bool supported => Application.platform != RuntimePlatform.WebGLPlayer;
         
-        public string serverListenAddress = "0.0.0.0";
         public ushort port = 7777;
 
-        public int clientMaxReceivesPerUpdate = 1000;
-        public int serverMaxReceivesPerUpdate = 10000;
+        public bool noDelay = true;
         
-        private TCPClient _client = new TCPClient();
-        private TCPServer _server = new TCPServer();
+        public int serverMaxMessageSize = 16 * 1024;
+        
+        public int serverMaxReceivesPerUpdate = 10000;
+
+        public int clientMaxMessageSize = 16 * 1024;
+        
+        public int clientMaxReceivesPerUpdate = 1000;
+
+        private Telepathy.Client _client = new Telepathy.Client();
+        private Telepathy.Server _server = new Telepathy.Server();
+
+        private void Awake() {
+            // Route telepathy logging to Unity
+            Telepathy.Logger.Log = Debug.Log;
+            Telepathy.Logger.LogWarning = Debug.LogWarning;
+            Telepathy.Logger.LogError = Debug.LogError;
+            
+            // Configure
+            _client.NoDelay = noDelay;
+            _client.MaxMessageSize = clientMaxMessageSize;
+            _server.NoDelay = noDelay;
+            _server.MaxMessageSize = serverMaxMessageSize;
+        }
+        
+        public override bool supported => Application.platform != RuntimePlatform.WebGLPlayer;
         
         #endregion
         
@@ -39,14 +58,15 @@ namespace FNNLib.Transports {
         public override void ClientDisconnect() => _client.Disconnect();
 
         private bool ProcessClientIncoming() {
-            if (_client.TryGetMessage(out var msg)) {
+            if (_client.GetNextMessage(out var msg)) {
                 switch (msg.eventType) {
-                    case EventType.Connect:
+                    case Telepathy.EventType.Connected:
                         onClientConnected.Invoke();
                         break;
-                    case EventType.Data:
-                        onClientDataReceived.Invoke(new ArraySegment<byte>(msg.data));
+                    case Telepathy.EventType.Data:
+                        onClientDataReceived.Invoke(new ArraySegment<byte>(msg.data), DefaultChannels.Reliable);
                         break;
+                    case Telepathy.EventType.Disconnected:
                     default:
                         onClientDisconnected.Invoke();
                         break; // Error = disconnect, so fire disconnect event!
@@ -62,12 +82,12 @@ namespace FNNLib.Transports {
 
         #region Server
         
-        public override bool serverRunning => _server.running;
+        public override bool serverRunning => _server.Active;
 
         public override void ServerStart() {
             if (serverRunning)
                 throw new NotSupportedException("Server is already running!");
-            _server.Start(IPAddress.Parse(serverListenAddress), port);
+            _server.Start(port);
         }
 
         public override bool ServerSend(List<ulong> clients, ArraySegment<byte> data, int channel = 0) {
@@ -101,17 +121,17 @@ namespace FNNLib.Transports {
         }
 
         private bool ProcessServerIncoming() {
-            if (_server.TryGetMessage(out var msg)) {
+            if (_server.GetNextMessage(out var msg)) {
                 // Get client ID
-                var clientID = GetFNNClientID(msg.clientID, false);
+                var clientID = GetFNNClientID(msg.connectionId, false);
                 switch (msg.eventType) {
-                    case EventType.Connect:
+                    case Telepathy.EventType.Connected:
                         onServerConnected?.Invoke(clientID);
                         break;
-                    case EventType.Data:
-                        onServerDataReceived.Invoke(clientID, new ArraySegment<byte>(msg.data));
+                    case Telepathy.EventType.Data:
+                        onServerDataReceived.Invoke(clientID, new ArraySegment<byte>(msg.data), DefaultChannels.Reliable);
                         break;
-                    case EventType.Disconnect:
+                    case Telepathy.EventType.Disconnected:
                     default: // Error = disconnect, so fire disconnect event!
                         onServerDisconnected?.Invoke(clientID);
                         break;
@@ -154,13 +174,13 @@ namespace FNNLib.Transports {
         private int GetTCPConnectionID(ulong id) {
             if (id == 0)
                 throw new NotSupportedException("Cannot convert server ID to TCP Client ID!");
-            return (int) (id - 1);
+            return (int) id;
         }
 
         public ulong GetFNNClientID(int id, bool isServer) {
             if (isServer)
                 return 0;
-            return (ulong) (id + 1);
+            return (ulong) id;
         }
         
         #endregion

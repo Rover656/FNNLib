@@ -1,9 +1,6 @@
-﻿// Implemented with strong reference to Mirror, so here's the license:
-/*
-MIT License
+The MIT License (MIT)
 
-Copyright (c) 2015, Unity Technologies
-Copyright (c) 2019, vis2k, Paul and Contributors
+Copyright (c) 2018, vis2k
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,24 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
- */
-
-namespace FNNLib.Transports.TCP {
-    public static class Utils {
-        // More performant non-allocating function to convert int to bytes.
-        public static void IntToBytesBigEndianNonAlloc(int value, byte[] bytes) {
-            bytes[0] = (byte) (value >> 24);
-            bytes[1] = (byte) (value >> 16);
-            bytes[2] = (byte) (value >> 8);
-            bytes[3] = (byte) value;
-        }
-
-        public static int BytesToIntBigEndian(byte[] bytes) {
-            return
-                (bytes[0] << 24) |
-                (bytes[1] << 16) |
-                (bytes[2] << 8) |
-                bytes[3];
-        }
-    }
-}

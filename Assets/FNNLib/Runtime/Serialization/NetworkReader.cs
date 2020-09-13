@@ -30,7 +30,7 @@ namespace FNNLib.Serialization {
         public NetworkReader(ArraySegment<byte> buffer) {
             this.buffer = buffer;
         }
-        
+
         #region Primitive Reads
 
         /// <summary>
@@ -44,6 +44,12 @@ namespace FNNLib.Serialization {
             return buffer.Array[buffer.Offset + position++];
         }
 
+        public bool ReadBool() {
+            if (position + 1 > buffer.Count)
+                throw new EndOfStreamException("ReadBool out of range!");
+            return buffer.Array[buffer.Offset + position++] == 1;
+        }
+
         public byte[] ReadBytes(int count) {
             var data = ReadBytesSegment(count);
             var returnBuffer = new byte[data.Count];
@@ -53,8 +59,10 @@ namespace FNNLib.Serialization {
 
         public ArraySegment<byte> ReadBytesSegment(int count) {
             if (position + count > buffer.Count) {
-                throw new EndOfStreamException("ReadBytesSegment can't read " + count + " bytes because there is not enough data in the stream!");
+                throw new EndOfStreamException("ReadBytesSegment can't read " + count +
+                                               " bytes because there is not enough data in the stream!");
             }
+
             var result = new ArraySegment<byte>(buffer.Array, buffer.Offset + position, count);
             position += count;
             return result;
@@ -98,11 +106,86 @@ namespace FNNLib.Serialization {
             value |= ((ulong) buffer.Array[buffer.Offset + position++] << 56);
             return value;
         }
-
+        
         public long ReadInt64() => (long) ReadUInt64();
 
-        #endregion
+        public ushort ReadPackedUInt16() => (ushort) ReadPackedUInt64();
         
+        public short ReadPackedInt16() {
+            // https://gist.github.com/mfuerstenau/ba870a29e16536fdbaba
+            var value = ReadPackedUInt16();
+            return (short) ((value >> 1) ^ -(value & 1));
+        }
+        
+        public uint ReadPackedUInt32() => (uint) ReadPackedUInt64();
+        
+        public int ReadPackedInt32() {
+            // https://gist.github.com/mfuerstenau/ba870a29e16536fdbaba
+            var value = ReadPackedUInt32();
+            return (int) ((value >> 1) ^ -(value & 1));
+        }
+
+        public ulong ReadPackedUInt64() {
+            // https://sqlite.org/src4/doc/trunk/www/varint.wiki
+            var a0 = ReadByte();
+            if (a0 < 241) {
+                return a0;
+            }
+
+            var a1 = ReadByte();
+            if (a0 >= 241 && a0 <= 248) {
+                return 240 + ((a0 - (ulong) 241) << 8) + a1;
+            }
+
+            var a2 = ReadByte();
+            if (a0 == 249) {
+                return 2288 + ((ulong) a1 << 8) + a2;
+            }
+
+            var a3 = ReadByte();
+            if (a0 == 250) {
+                return a1 + (((ulong) a2) << 8) + (((ulong) a3) << 16);
+            }
+
+            var a4 = ReadByte();
+            if (a0 == 251) {
+                return a1 + (((ulong) a2) << 8) + (((ulong) a3) << 16) + (((ulong) a4) << 24);
+            }
+
+            var a5 = ReadByte();
+            if (a0 == 252) {
+                return a1 + (((ulong) a2) << 8) + (((ulong) a3) << 16) + (((ulong) a4) << 24) + (((ulong) a5) << 32);
+            }
+
+            var a6 = ReadByte();
+            if (a0 == 253) {
+                return a1 + (((ulong) a2) << 8) + (((ulong) a3) << 16) + (((ulong) a4) << 24) + (((ulong) a5) << 32) +
+                       (((ulong) a6) << 40);
+            }
+
+            var a7 = ReadByte();
+            if (a0 == 254) {
+                return a1 + (((ulong) a2) << 8) + (((ulong) a3) << 16) + (((ulong) a4) << 24) + (((ulong) a5) << 32) +
+                       (((ulong) a6) << 40) + (((ulong) a7) << 48);
+            }
+
+            var a8 = ReadByte();
+            if (a0 == 255) {
+                return a1 + (((ulong) a2) << 8) + (((ulong) a3) << 16) + (((ulong) a4) << 24) + (((ulong) a5) << 32) +
+                       (((ulong) a6) << 40) + (((ulong) a7) << 48) + (((ulong) a8) << 56);
+            }
+
+            throw new IndexOutOfRangeException("Invalid packed int! A0 = " + a0);
+        }
+        
+        public long ReadPackedInt64() {
+            // https://gist.github.com/mfuerstenau/ba870a29e16536fdbaba
+            var value = ReadPackedUInt64();
+            return ((long)(value >> 1) ^ -((long)value & 1));
+        }
+
+        #endregion
+
         #region Reads
 
         public float ReadSingle() {
@@ -125,14 +208,15 @@ namespace FNNLib.Serialization {
             // String size
             ushort size = ReadUInt16();
             if (size == 0) return null;
-            
+
             // Get real size
             var realSize = size - 1;
-            
+
             // Check max size
             if (realSize >= NetworkWriter.MaxStringLength)
-                throw new EndOfStreamException("String sent was too long (" + realSize + "). Maximum is " + NetworkWriter.MaxStringLength);
-            
+                throw new EndOfStreamException("String sent was too long (" + realSize + "). Maximum is " +
+                                               NetworkWriter.MaxStringLength);
+
             // Get byte data
             var data = ReadBytesSegment(realSize);
             return NetworkWriter.Encoding.GetString(data.Array, data.Offset, data.Count);
@@ -153,7 +237,8 @@ namespace FNNLib.Serialization {
                 return null;
             var realCount = checked((int) (count - 1u));
             if (position + realCount > buffer.Count)
-                throw new EndOfStreamException("ReadSegmentWithSize can't read " + realCount + " bytes because there is not enough data in the stream!");
+                throw new EndOfStreamException("ReadSegmentWithSize can't read " + realCount +
+                                               " bytes because there is not enough data in the stream!");
 
             var segment = new ArraySegment<byte>(buffer.Array, buffer.Offset + position, realCount);
             position += realCount;

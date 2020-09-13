@@ -23,14 +23,14 @@ namespace FNNLib.SceneManagement {
         public Vector3 sceneOffset;
         
         public void Serialize(NetworkWriter writer) {
-            writer.WriteInt32(sceneIndex);
-            writer.WriteUInt32(sceneNetID);
+            writer.WritePackedInt32(sceneIndex);
+            writer.WritePackedUInt32(sceneNetID);
             writer.WriteVector3(sceneOffset);
         }
 
         public void DeSerialize(NetworkReader reader) {
-            sceneIndex = reader.ReadInt32();
-            sceneNetID = reader.ReadUInt32();
+            sceneIndex = reader.ReadPackedInt32();
+            sceneNetID = reader.ReadPackedUInt32();
             sceneOffset = reader.ReadVector3();
         }
     }

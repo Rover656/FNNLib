@@ -43,7 +43,7 @@ namespace FNNLib {
         /// <summary>
         /// The protocol version of the client.
         /// </summary>
-        private readonly int _protocolVersion;
+        private readonly ulong _protocolVersion;
 
         /// <summary>
         /// If running in host mode, we don't send packets to the server.
@@ -55,7 +55,7 @@ namespace FNNLib {
         /// Creates a network client with the given protocol version.
         /// </summary>
         /// <param name="protocolVersion">Client protocol version.</param>
-        public NetworkClient(int protocolVersion) {
+        public NetworkClient(ulong protocolVersion) {
             // Set protocol version
             _protocolVersion = protocolVersion;
             
@@ -116,7 +116,7 @@ namespace FNNLib {
         /// <param name="packet"></param>
         /// <typeparam name="T"></typeparam>
         /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ServerPacket.</exception>
-        public void Send<T>(T packet) where T : IPacket, new() {
+        public void Send<T>(T packet, int channelID = DefaultChannels.Reliable) where T : IPacket, new() {
             if (!PacketUtils.IsServerPacket<T>())
                 throw new InvalidOperationException("Attempted to send non-server packet to server!");
             
@@ -126,9 +126,9 @@ namespace FNNLib {
 
             // Write data
             using (var writer = NetworkWriterPool.GetWriter()) {
-                writer.WriteInt32(PacketUtils.GetID<T>());
+                writer.WritePackedUInt32(PacketUtils.GetID<T>());
                 packet.Serialize(writer);
-                _transport.ClientSend(writer.ToArraySegment());
+                _transport.ClientSend(writer.ToArraySegment(), channelID);
             }
         }
 

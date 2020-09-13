@@ -17,7 +17,7 @@ namespace FNNLib.Messaging {
         /// <summary>
         /// This contains a list of packet handlers for each packet ID.
         /// </summary>
-        private readonly Dictionary<int, NetworkPacketDelegate> _packetHandlers = new Dictionary<int, NetworkPacketDelegate>();
+        private readonly Dictionary<uint, NetworkPacketDelegate> _packetHandlers = new Dictionary<uint, NetworkPacketDelegate>();
 
         /// <summary>
         /// Handle an incoming packet.
@@ -27,7 +27,7 @@ namespace FNNLib.Messaging {
         protected void HandlePacket(ulong sender, ArraySegment<byte> data, int channelID) {
             // TODO: A non-allocating reader/writer like Mirror.
             using (var reader = NetworkReaderPool.GetReader(data)) {
-                var packetID = reader.ReadInt32();
+                var packetID = reader.ReadPackedUInt32();
                 if (_packetHandlers.TryGetValue(packetID, out var handler)) {
                     handler(sender, reader);
                 } else {

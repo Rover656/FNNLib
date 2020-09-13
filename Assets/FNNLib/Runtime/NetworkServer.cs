@@ -69,7 +69,7 @@ namespace FNNLib {
         /// The server protocol version.
         /// This stops incompatible client-server interactions.
         /// </summary>
-        private readonly int _protocolVersion;
+        private readonly ulong _protocolVersion;
 
         /// <summary>
         /// Sender list for sending data to an individual client.
@@ -103,7 +103,7 @@ namespace FNNLib {
         
         private readonly List<ulong> _allClientIDs = new List<ulong>();
 
-        public NetworkServer(int protocolVersion) {
+        public NetworkServer(ulong protocolVersion) {
             // Save the protocol version
             _protocolVersion = protocolVersion;
             
@@ -162,24 +162,13 @@ namespace FNNLib {
         /// </summary>
         /// <param name="clientID">Target client</param>
         /// <param name="packet">The packet to send</param>
+        /// <param name="channelID">The channel to send the message with.</param>
         /// <typeparam name="T"></typeparam>
         /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ClientPacket.</exception>
-        public void Send<T>(ulong clientID, T packet) where T : IPacket {
-            if (!PacketUtils.IsClientPacket<T>())
-                throw new InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
-            // Don't send to ourselves.
-            if (clientID == 0)
-                return;
-            
-            // Write data
-            using (var writer = NetworkWriterPool.GetWriter()) {
-                writer.WriteInt32(PacketUtils.GetID<T>());
-                packet.Serialize(writer);
-                
-                // We reuse the list for server sending
-                _singleSenderList[0] = clientID;
-                _transport.ServerSend(_singleSenderList, writer.ToArraySegment());
-            }
+        public void Send<T>(ulong clientID, T packet, int channelID = DefaultChannels.Reliable) where T : IPacket {
+            // We reuse the list for server sending
+            _singleSenderList[0] = clientID;
+            Send(_singleSenderList, packet, channelID);
         }
 
         /// <summary>
@@ -187,36 +176,30 @@ namespace FNNLib {
         /// </summary>
         /// <param name="clients">Clients to receive the packet.</param>
         /// <param name="packet">The packet to broadcast.</param>
+        /// <param name="channelID">The channel to send the message with.</param>
         /// <typeparam name="T"></typeparam>
         /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ClientPacket.</exception>
-        public void Send<T>(List<ulong> clients, T packet) where T : IPacket {
+        public void Send<T>(List<ulong> clients, T packet, int channelID = DefaultChannels.Reliable) where T : IPacket {
             if (!PacketUtils.IsClientPacket<T>())
                 throw new InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
             
             // Write data
             using (var writer = NetworkWriterPool.GetWriter()) {
-                writer.WriteInt32(PacketUtils.GetID<T>());
+                writer.WritePackedUInt32(PacketUtils.GetID<T>());
                 packet.Serialize(writer);
-                _transport.ServerSend(clients, writer.ToArraySegment());
+                _transport.ServerSend(clients, writer.ToArraySegment(), channelID);
             }
         }
-        
+
         /// <summary>
         /// Broadcast a packet to every connected client.
         /// </summary>
         /// <param name="packet">The packet to broadcast.</param>
+        /// <param name="channelID">The channel to send the message with.</param>
         /// <typeparam name="T"></typeparam>
         /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ClientPacket.</exception>
-        public void SendToAll<T>(T packet) where T : IPacket {
-            if (!PacketUtils.IsClientPacket<T>())
-                throw new InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
-            
-            // Write data
-            using (var writer = NetworkWriterPool.GetWriter()) {
-                writer.WriteInt32(PacketUtils.GetID<T>());
-                packet.Serialize(writer);
-                _transport.ServerSend(_allClientIDs, writer.ToArraySegment());
-            }
+        public void SendToAll<T>(T packet, int channelID = DefaultChannels.Reliable) where T : IPacket {
+            Send(_allClientIDs, packet, channelID);
         }
         
         #endregion
@@ -250,7 +233,7 @@ namespace FNNLib {
                          client.cancellationSource.Token.ThrowIfCancellationRequested();
                          
                          // Get rid of the client. Its bad.
-                         Debug.Log("Disconnecting client that hasn't disconnected after sending a disconnect packet 20 seconds ago.");
+                         Debug.Log("Disconnecting client that hasn't disconnected after sending a disconnect confirmation packet 20 seconds ago.");
                          _transport.ServerDisconnect(clientID);
                      }, client.cancellationSource.Token);
         }
@@ -276,10 +259,8 @@ namespace FNNLib {
             _clients[clientID].CancelTimeout();
             
             // Check protocol version
-            if (packet.protocolVersion < _protocolVersion) {
-                Disconnect(clientID, "Client is outdated.");
-            } else if (packet.protocolVersion > _protocolVersion) {
-                Disconnect(clientID, "Client is newer than the server.");
+            if (packet.protocolVersion != _protocolVersion) {
+                Disconnect(clientID, "Client version does not match the server's.");
             }
 
             // TODO: Add a delegate that will use the extra data sent with the request to approve or deny the connection.
@@ -339,7 +320,7 @@ namespace FNNLib {
                          Debug.Log("Disconnecting client that has not sent a connection request after 20 seconds.");
                          
                          // We do this nicely so if they do get this packet, they know why they were disconected.
-                         Disconnect(clientID, "Connection request timed out. Please try again.");
+                         Disconnect(clientID, "Connection request time out. Please try to connect again.");
                      }, client.cancellationSource.Token);
         }
 

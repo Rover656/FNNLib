@@ -100,7 +100,7 @@ namespace FNNLib.Transports {
                     continue;
                 }
 
-                var id = GetTCPConnectionID(clientID);
+                var id = GetTelepathyConnectionID(clientID);
                 if (!_server.Send(id, copy))
                     return false;
             }
@@ -111,7 +111,7 @@ namespace FNNLib.Transports {
         public override void ServerDisconnect(ulong clientID) {
             if (clientID == 0)
                 throw new NotSupportedException("You cannot disconnect the server!");
-            _server.Disconnect(GetTCPConnectionID(clientID));
+            _server.Disconnect(GetTelepathyConnectionID(clientID));
         }
 
         public override void ServerShutdown() {
@@ -171,13 +171,13 @@ namespace FNNLib.Transports {
         
         #region Client IDs
 
-        private int GetTCPConnectionID(ulong id) {
+        private static int GetTelepathyConnectionID(ulong id) {
             if (id == 0)
                 throw new NotSupportedException("Cannot convert server ID to TCP Client ID!");
             return (int) id;
         }
 
-        public ulong GetFNNClientID(int id, bool isServer) {
+        public static ulong GetFNNClientID(int id, bool isServer) {
             if (isServer)
                 return 0;
             return (ulong) id;

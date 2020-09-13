@@ -40,10 +40,10 @@ namespace DefaultNamespace {
 
         void Update() {
             if ((editorIsClient && Application.isEditor) || (!editorIsClient && !Application.isEditor)) {
-                running.text = NetworkManager.instance.transport.clientConnected ? "Connected" : "Disconnected";
+                running.text = NetworkManager.instance.networkConfig.transport.clientConnected ? "Connected" : "Disconnected";
             }
             else {
-                running.text = NetworkManager.instance.transport.serverRunning ? "Running" : "Stopped";
+                running.text = NetworkManager.instance.networkConfig.transport.serverRunning ? "Running" : "Stopped";
             }
         }
     }

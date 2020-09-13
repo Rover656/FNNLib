@@ -9,8 +9,21 @@ namespace FNNLib.Messaging {
         /// </summary>
         /// <typeparam name="T">The packet type.</typeparam>
         /// <returns>The packet's ID.</returns>
-        public static int GetID<T>() where T : IPacket {
-            return typeof(T).FullName.GetStableHashCode() & 0xFFFF;
+        [Obsolete("Use GetID32 instead.")]
+        public static uint GetID<T>() where T : IPacket {
+            return typeof(T).FullName.GetStableHash32() & 0xFFFF;
+        }
+
+        public static ushort GetID16<T>() where T : IPacket {
+            return typeof(T).FullName.GetStableHash16();
+        }
+        
+        public static uint GetID32<T>() where T : IPacket {
+            return typeof(T).FullName.GetStableHash32();
+        }
+        
+        public static ulong GetID64<T>() where T : IPacket {
+            return typeof(T).FullName.GetStableHash64();
         }
         
         /// <summary>

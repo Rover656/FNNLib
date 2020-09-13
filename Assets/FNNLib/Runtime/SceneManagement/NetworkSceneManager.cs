@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using FNNLib.Transports;
 using UnityEngine.SceneManagement;
 
 namespace FNNLib.SceneManagement {
@@ -32,7 +33,7 @@ namespace FNNLib.SceneManagement {
         private static ConcurrentDictionary<uint, NetworkScene> _networkedScenes;
 
         public static void ServerLoadScene(string sceneName) {
-            if (!NetworkManager.instance.useSceneManagement)
+            if (!NetworkManager.instance.networkConfig.useSceneManagement)
                 throw new NotSupportedException("The NetworkSceneManager is not enabled by the current NetworkManager!");
             if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("Only the server may load scenes!");
@@ -54,7 +55,7 @@ namespace FNNLib.SceneManagement {
             
             // Send the scene change packet
             var changePacket = new SceneChangePacket {sceneIndex = GetSceneIndex(sceneName), sceneNetID = netID};
-            NetworkServer.instance.SendToAll(changePacket);
+            NetworkServer.instance.SendToAll(changePacket, DefaultChannels.ReliableSequenced);
         }
         
         /// <summary>
@@ -64,7 +65,7 @@ namespace FNNLib.SceneManagement {
         /// </summary>
         /// <param name="sceneName">The scene to be loaded.</param>
         public static void ServerLoadSubScene(string sceneName) {
-            if (!NetworkManager.instance.useSceneManagement)
+            if (!NetworkManager.instance.networkConfig.useSceneManagement)
                 throw new NotSupportedException("The NetworkSceneManager is not enabled by the current NetworkManager!");
             if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("Only the server may load scenes!");
@@ -91,33 +92,33 @@ namespace FNNLib.SceneManagement {
         /// <param name="sceneName"></param>
         /// <param name="fallbackScene"></param>
         public static void ServerUnloadSubScene(string sceneName, uint fallbackScene) {
-            if (!NetworkManager.instance.useSceneManagement)
+            if (!NetworkManager.instance.networkConfig.useSceneManagement)
                 throw new NotSupportedException("The NetworkSceneManager is not enabled by the current NetworkManager!");
             // TODO
         }
 
         public static void SendClientTo(ulong clientID, string sceneName) {
-            if (!NetworkManager.instance.useSceneManagement)
+            if (!NetworkManager.instance.networkConfig.useSceneManagement)
                 throw new NotSupportedException("The NetworkSceneManager is not enabled by the current NetworkManager!");
             // TODO: Will this only be used for subscenes (i.e. games with more than 1 scene at a time). Probably.
             // TODO: Move the client to the scene.
         }
 
         private static bool CanSendClientTo(string sceneName) {
-            return NetworkManager.instance.permittedScenes.FindIndex((networkableScene) =>
+            return NetworkManager.instance.networkConfig.networkableScenes.FindIndex((networkableScene) =>
                                                                          networkableScene.sceneName == sceneName) != -1;
         }
 
         private static int GetSceneIndex(string sceneName) {
-            return NetworkManager.instance.permittedScenes.FindIndex((networkableScene) =>
+            return NetworkManager.instance.networkConfig.networkableScenes.FindIndex((networkableScene) =>
                                                                          networkableScene.sceneName == sceneName);
         }
 
-        private static ScenePackingData GetScenePackingData(string sceneName) {
-            return NetworkManager.instance.permittedScenes.Find((networkableScene) =>
-                                                                    networkableScene.sceneName == sceneName)
-                                 .scenePackingData;
-        }
+        // private static ScenePackingData GetScenePackingData(string sceneName) {
+        //     return NetworkManager.instance.networkConfig.networkableScenes.Find((networkableScene) =>
+        //                                                                             networkableScene.sceneName == sceneName)
+        //                          .scenePackingData;
+        // }
         
         #region Client Handlers
 
@@ -143,7 +144,7 @@ namespace FNNLib.SceneManagement {
             } else {
                 // Send to the current scene.
                 var changePacket = new SceneChangePacket {sceneIndex = GetSceneIndex(_serverCurrentScene.sceneName), sceneNetID = Convert.ToUInt32(_serverCurrentScene.scene.buildIndex)};
-                NetworkServer.instance.Send(clientID, changePacket);
+                NetworkServer.instance.Send(clientID, changePacket, DefaultChannels.ReliableSequenced);
             }
         }
         

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace FNNLib.Transports {
@@ -8,23 +9,45 @@ namespace FNNLib.Transports {
         /// <summary>
         /// The transports that are combined.
         /// </summary>
-        public List<Transport> transports;
-        
-        public override bool supported { get; }
-        
-        public override bool clientConnected { get; }
-        
-        public override void ClientConnect(string hostname) {
-            throw new NotImplementedException();
+        public Transport[] transports;
+
+        public override bool supported => transports.Any(transport => transport.supported);
+
+        private void Awake() {
+            if (transports == null || transports.Length == 0)
+                throw new NotSupportedException("You must provide at least 1 transport to Multiplex Transport!");
+            
         }
 
-        public override bool ClientSend(ArraySegment<byte> data, int channel = 0) {
-            throw new NotImplementedException();
+        #region Client
+        
+        /// <summary>
+        /// The transport that has been selected for the client
+        /// </summary>
+        private Transport _selectedTransport;
+
+        public override bool clientConnected => _selectedTransport != null && _selectedTransport.clientConnected;
+
+        public override void ClientConnect(string hostname) {
+            foreach (var transport in transports) {
+                if (transport.supported) {
+                    _selectedTransport = transport;
+                    transport.ClientConnect(hostname);
+                }
+            }
+            throw new ArgumentException("No suitable transport could be found!");
+        }
+
+        public override bool ClientSend(ArraySegment<byte> data, int channel = DefaultChannels.Reliable) {
+            return _selectedTransport.ClientSend(data, channel);
         }
 
         public override void ClientDisconnect() {
-            throw new NotImplementedException();
+            if (_selectedTransport != null)
+                _selectedTransport.ClientDisconnect();
         }
+        
+        #endregion
 
         public override bool serverRunning { get; }
         

@@ -29,7 +29,7 @@ namespace FNNLib.Serialization {
         /// Maximum length of sent strings.
         /// </summary>
         public const int MaxStringLength = 1024 * 32;
-        
+
         /// <summary>
         /// Writer has its own buffer.
         /// 1500 because normally packets will be smaller than MTU
@@ -57,7 +57,7 @@ namespace FNNLib.Serialization {
         /// String buffer for writing strings.
         /// </summary>
         private readonly byte[] _stringBuffer = new byte[MaxStringLength];
-        
+
         /// <summary>
         /// Cached encoding for string writing
         /// </summary>
@@ -119,6 +119,11 @@ namespace FNNLib.Serialization {
             buffer[_position++] = value;
         }
 
+        public void WriteBool(bool value) {
+            EnsureLength(_position + 1);
+            buffer[_position++] = (byte) (value ? 0 : 1);
+        }
+
         public void WriteBytes(byte[] values, int offset, int count) {
             EnsureLength(_position + count);
             Array.ConstrainedCopy(values, offset, buffer, _position, count);
@@ -140,9 +145,9 @@ namespace FNNLib.Serialization {
             buffer[_position++] = (byte) (value >> 16);
             buffer[_position++] = (byte) (value >> 24);
         }
-        
+
         public void WriteInt32(int value) => WriteUInt32((uint) value);
-        
+
         public void WriteUInt64(ulong value) {
             EnsureLength(_position + 8);
             buffer[_position++] = (byte) value;
@@ -154,8 +159,81 @@ namespace FNNLib.Serialization {
             buffer[_position++] = (byte) (value >> 48);
             buffer[_position++] = (byte) (value >> 56);
         }
-        
+
         public void WriteInt64(int value) => WriteUInt64((ulong) value);
+        
+        public void WritePackedUInt16(ushort value) => WritePackedUInt64(value);
+
+        public void WritePackedInt16(short value) => WritePackedInt64(value);
+
+        public void WritePackedUInt32(uint value) => WritePackedUInt64(value);
+
+        public void WritePackedInt32(int value) => WritePackedInt64(value);
+        
+        public void WritePackedUInt64(ulong value) {
+            // https://sqlite.org/src4/doc/trunk/www/varint.wiki
+            if (value <= 240) {
+                WriteByte((byte) value);
+            } else if (value <= 2287) {
+                WriteByte((byte) (((value - 240) >> 8) + 241));
+                WriteByte((byte) (value - 240));
+            } else if (value <= 67823) {
+                WriteByte(249);
+                WriteByte((byte) ((value - 2288) >> 8));
+                WriteByte((byte) (value - 2288));
+            } else if (value <= 16777215) {
+                WriteByte(250);
+                WriteByte((byte) value);
+                WriteByte((byte) (value >> 8));
+                WriteByte((byte) (value >> 16));
+            } else if (value <= 4294967295) {
+                WriteByte(251);
+                WriteByte((byte) value);
+                WriteByte((byte) (value >> 8));
+                WriteByte((byte) (value >> 16));
+                WriteByte((byte) (value >> 24));
+            } else if (value <= 1099511627775) {
+                WriteByte(252);
+                WriteByte((byte) value);
+                WriteByte((byte) (value >> 8));
+                WriteByte((byte) (value >> 16));
+                WriteByte((byte) (value >> 24));
+                WriteByte((byte) (value >> 32));
+            } else if (value <= 281474976710655) {
+                WriteByte(253);
+                WriteByte((byte) value);
+                WriteByte((byte) (value >> 8));
+                WriteByte((byte) (value >> 16));
+                WriteByte((byte) (value >> 24));
+                WriteByte((byte) (value >> 32));
+                WriteByte((byte) (value >> 40));
+            } else if (value <= 72057594037927935) {
+                WriteByte(254);
+                WriteByte((byte) value);
+                WriteByte((byte) (value >> 8));
+                WriteByte((byte) (value >> 16));
+                WriteByte((byte) (value >> 24));
+                WriteByte((byte) (value >> 32));
+                WriteByte((byte) (value >> 40));
+                WriteByte((byte) (value >> 48));
+            } else {
+                WriteByte(255);
+                WriteByte((byte) value);
+                WriteByte((byte) (value >> 8));
+                WriteByte((byte) (value >> 16));
+                WriteByte((byte) (value >> 24));
+                WriteByte((byte) (value >> 32));
+                WriteByte((byte) (value >> 40));
+                WriteByte((byte) (value >> 48));
+                WriteByte((byte) (value >> 56));
+            }
+        }
+        
+        public void WritePackedInt64(long value) {
+            // https://gist.github.com/mfuerstenau/ba870a29e16536fdbaba
+            var zigzagged = (ulong) ((value >> 63) ^ (value << 1));
+            WritePackedUInt64(zigzagged);
+        }
 
         #endregion
 
@@ -185,12 +263,14 @@ namespace FNNLib.Serialization {
 
             // Write string to buffer.
             int size = Encoding.GetBytes(value, 0, value.Length, _stringBuffer, 0);
-            
+
             // Check string length
             if (size >= MaxStringLength) {
-                throw new ArgumentOutOfRangeException("NetworkWriter.WriteString(string): String too long! String size limit: " + MaxStringLength);
+                throw new
+                    ArgumentOutOfRangeException("NetworkWriter.WriteString(string): String too long! String size limit: " +
+                                                MaxStringLength);
             }
-            
+
             // Write size and bytes
             WriteUInt16(checked((ushort) (size + 1)));
             WriteBytes(_stringBuffer, 0, size);
@@ -201,7 +281,7 @@ namespace FNNLib.Serialization {
                 WriteUInt32(0u);
                 return;
             }
-            
+
             WriteSegmentWithSize(new ArraySegment<byte>(values, offset, count));
         }
 

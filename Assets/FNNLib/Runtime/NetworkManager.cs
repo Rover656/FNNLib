@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FNNLib.Config;
 using FNNLib.Messaging;
 using FNNLib.SceneManagement;
 using FNNLib.Transports;
@@ -10,6 +11,8 @@ namespace FNNLib {
     /// The network manager drives the NetworkClient and NetworkServer systems.
     ///
     /// TODO: Make more of this virtual so that custom network managers could be made? Do we actually need this given its functionality/openness?
+    ///
+    /// TODO: Allow changing hash strength.
     /// </summary>
     [AddComponentMenu("Networking/Network Manager")]
     public class NetworkManager : MonoBehaviour {
@@ -21,12 +24,12 @@ namespace FNNLib {
         /// <summary>
         /// Whether or not the game should run clientside code.
         /// </summary>
-        public bool isClient { get; internal set; }
+        public bool isClient { get; private set; }
         
         /// <summary>
         /// Whether or not the game should run serverside code.
         /// </summary>
-        public bool isServer { get; internal set; }
+        public bool isServer { get; private set; }
         
         /// <summary>
         /// Whether or not the client is a virtual client.
@@ -37,55 +40,24 @@ namespace FNNLib {
         /// The local client ID.
         /// </summary>
         public ulong localClientID => isServer ? 0 : _client.localClientID;
-        
+
         /// <summary>
-        /// The selected transport to be used by the client and server.
+        /// The network config.
         /// </summary>
-        public Transport transport;
-        
-        /// <summary>
-        /// (Dedicated) server update frequency.
-        /// </summary>
-        public int serverTickRate = 30;
-        
-        /// <summary>
-        /// The protocol version of the client and server.
-        /// Use this to stop old and new clients/servers interacting.
-        /// </summary>
-        public int protocolVersion;
-        
-        /// <summary>
-        /// This enables the NetworkSceneManager and will register its packets in the relevant places.
-        /// </summary>
-        public bool useSceneManagement = true;
-        
-        /// <summary>
-        /// The list of scenes that the server is permitted to send the client to.
-        /// Used for security purposes if you opt to use the NetworkSceneManager (recommended).
-        /// </summary>
-        public List<NetworkableScene> permittedScenes = new List<NetworkableScene>();
+        [HideInInspector]
+        public NetworkConfig networkConfig;
 
         /// <summary>
         /// The server we are controlling.
-        /// This can be accessed when the Server is running with NetworkServer.Instance or with the server property.
+        /// This can be accessed when the Server is running with NetworkServer.Instance.
         /// </summary>
         private NetworkServer _server;
-
-        /// <summary>
-        /// The underlying server.
-        /// </summary>
-        public NetworkServer server => _server;
         
         /// <summary>
         /// The client we are controlling.
-        /// This can be accessed when the Client is running with NetworkClient.Instance or with the client property.
+        /// This can be accessed when the Client is running with NetworkClient.Instance.
         /// </summary>
         private NetworkClient _client;
-
-        /// <summary>
-        /// The underlying client.
-        /// </summary>
-        public NetworkClient client => _client;
         
         private void Awake() {
             // Instance manager
@@ -94,13 +66,13 @@ namespace FNNLib {
                 Destroy(this);
             } else if (instance == null) instance = this;
 
-            // Create client and server using protocol version
-            _server = new NetworkServer(protocolVersion);
-            _client = new NetworkClient(protocolVersion);
+            // Create client and server using config hash
+            _server = new NetworkServer(networkConfig.GetHash());
+            _client = new NetworkClient(networkConfig.GetHash());
             
             // Register scene management events.
             // TODO: Should this be put elsewhere?
-            if (useSceneManagement) {
+            if (networkConfig.useSceneManagement) {
                 _client.RegisterPacketHandler<SceneChangePacket>(NetworkSceneManager.ClientHandleSceneChangePacket);
                 _server.onClientConnected.AddListener(NetworkSceneManager.OnClientConnected);
             }
@@ -116,7 +88,7 @@ namespace FNNLib {
         /// <exception cref="NotSupportedException"></exception>
         public void StartClient(string hostname, byte[] connectionRequestData = null) {
             // Check that the transport is set.
-            if (transport == null)
+            if (networkConfig.transport == null)
                 throw new InvalidOperationException("The NetworkManager must be provided with a transport!");
             
             // Ensure manager isn't running.
@@ -129,7 +101,7 @@ namespace FNNLib {
 
             // Start client
             isClient = true;
-            _client.Connect(transport, hostname, connectionRequestData);
+            _client.Connect(networkConfig.transport, hostname, connectionRequestData);
         }
 
         /// <summary>
@@ -158,7 +130,7 @@ namespace FNNLib {
         /// </summary>
         public void StartServer() {
             // Check that the transport is set.
-            if (transport == null)
+            if (networkConfig.transport == null)
                 throw new InvalidOperationException("The NetworkManager must be provided with a transport!");
             
             if (isHost)
@@ -170,7 +142,7 @@ namespace FNNLib {
 
             // Start server.
             isServer = true;
-            _server.Start(transport);
+            _server.Start(networkConfig.transport);
             
             // Hook stop event in case it closes.
             _server.onServerStopped.AddListener(OnServerStopped);
@@ -204,7 +176,7 @@ namespace FNNLib {
         protected virtual void ConfigureServerFramerate() {
             // Unity server, unless stopped uses a stupidly high framerate
             #if UNITY_SERVER
-            Application.targetFrameRate = serverTickRate;
+            Application.targetFrameRate = networkConfig.serverTickRate;
             #endif
         }
         
@@ -214,7 +186,7 @@ namespace FNNLib {
 
         public void StartHost() {
             // Check that the transport is set.
-            if (transport == null)
+            if (networkConfig.transport == null)
                 throw new InvalidOperationException("The NetworkManager must be provided with a transport!");
             
             if (isClient && !isServer)

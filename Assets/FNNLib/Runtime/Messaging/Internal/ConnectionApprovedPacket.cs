@@ -6,11 +6,11 @@ namespace FNNLib.Messaging.Internal {
         public ulong localClientID;
 
         public void Serialize(NetworkWriter writer) {
-            writer.WriteUInt64(localClientID);
+            writer.WritePackedUInt64(localClientID);
         }
 
         public void DeSerialize(NetworkReader reader) {
-            localClientID = reader.ReadUInt64();
+            localClientID = reader.ReadPackedUInt64();
         }
     }
 }

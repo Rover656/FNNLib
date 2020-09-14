@@ -51,6 +51,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\FNNLib\Editor\NetworkManagerEditor.cs" />
+     <Compile Include="Assets\FNNLib\Editor\NetworkIdentityEditor.cs" />
      <None Include="Assets\FNNLib\Editor\FNNLib.Editor.asmdef" />
  <Reference Include="UnityEditor.UI">
  <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>

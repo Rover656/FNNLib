@@ -48,6 +48,11 @@ namespace FNNLib {
         public readonly List<ConnectedClient> connectedClientsList = new List<ConnectedClient>();
 
         /// <summary>
+        /// Whether or not to move the manager to the DontDestroyOnLoad Scene.
+        /// </summary>
+        public bool dontDestroyOnLoad = true;
+        
+        /// <summary>
         /// Whether or not the application should run in the background while networking is running.
         /// Will be reset once the client/server is finished.
         /// </summary>
@@ -79,7 +84,8 @@ namespace FNNLib {
                 Destroy(this);
             } else {
                 instance = this;
-                DontDestroyOnLoad(this); // TODO: Config to disable this
+                if (dontDestroyOnLoad)
+                    DontDestroyOnLoad(this);
             }
 
             // Create client and server using config hash

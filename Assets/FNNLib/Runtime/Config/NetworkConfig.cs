@@ -32,6 +32,20 @@ namespace FNNLib.Config {
         /// TODO: Do we just force use of this?
         /// </summary>
         public bool useSceneManagement = true;
+
+        /// <summary>
+        /// Whether or not subscenes are enabled.
+        /// If they are enabled, all networkable scenes must be given packing data.
+        /// </summary>
+        public bool enableSubScenes = false;
+
+        /// <summary>
+        /// If enabled, new clients will always be moved to the currently active scene.
+        /// If this is not enabled, you will be expected to move the client yourself. I.e the client will not exist in any space until you move it.
+        ///
+        /// Only available if subscenes are enabled.
+        /// </summary>
+        public bool moveNewClientsToActiveScene = true;
         
         /// <summary>
         /// The list of scenes that the server is permitted to send the client to.

@@ -299,9 +299,6 @@ GameObject:
   - component: {fileID: 528291245}
   - component: {fileID: 528291244}
   - component: {fileID: 528291243}
-  - component: {fileID: 528291242}
-  - component: {fileID: 528291241}
-  - component: {fileID: 528291246}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -309,68 +306,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &528291241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 528291240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18de6302a7a09c741949381cba444d47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onClientConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  onClientDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  onClientDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerStopped:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  port: 7777
-  noDelay: 1
-  serverMaxMessageSize: 16384
-  serverMaxReceivesPerUpdate: 10000
-  clientMaxMessageSize: 16384
-  clientMaxReceivesPerUpdate: 1000
---- !u!114 &528291242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 528291240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d3a4ec5b6e44dcb7ee01183240b32f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  networkConfig:
-    protocolVersion: 0
-    transport: {fileID: 528291241}
-    useSceneManagement: 1
-    networkableScenes: []
-    networkedPrefabs: []
-    serverTickRate: 30
-    hashSize: 1
 --- !u!81 &528291243
 AudioListener:
   m_ObjectHideFlags: 0
@@ -436,20 +371,123 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &528291246
+--- !u!1 &786270577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 786270581}
+  - component: {fileID: 786270580}
+  - component: {fileID: 786270579}
+  - component: {fileID: 786270578}
+  m_Layer: 0
+  m_Name: NetworkManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &786270578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 528291240}
+  m_GameObject: {fileID: 786270577}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e7715f80fbe47fba530279d347a0737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   running: {fileID: 1517152541}
-  editorIsClient: 0
+  editorIsClient: 1
+  testPrefab: {fileID: 5101672141092711332, guid: 90fdb134f78ffc047ba089b9aa66b3f0, type: 3}
+--- !u!114 &786270579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786270577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18de6302a7a09c741949381cba444d47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onClientConnected:
+    m_PersistentCalls:
+      m_Calls: []
+  onClientDataReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  onClientDisconnected:
+    m_PersistentCalls:
+      m_Calls: []
+  onServerStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onServerStopped:
+    m_PersistentCalls:
+      m_Calls: []
+  onServerConnected:
+    m_PersistentCalls:
+      m_Calls: []
+  onServerDisconnected:
+    m_PersistentCalls:
+      m_Calls: []
+  onServerDataReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  port: 7777
+  noDelay: 1
+  serverMaxMessageSize: 16384
+  serverMaxReceivesPerUpdate: 10000
+  clientMaxMessageSize: 16384
+  clientMaxReceivesPerUpdate: 1000
+--- !u!114 &786270580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786270577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d3a4ec5b6e44dcb7ee01183240b32f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkConfig:
+    protocolVersion: 0
+    transport: {fileID: 786270579}
+    useSceneManagement: 1
+    networkableScenes:
+    - sceneName: SampleScene
+      scenePackingData: {fileID: 0}
+    - sceneName: Test
+      scenePackingData: {fileID: 0}
+    networkedPrefabs:
+    - prefab: {fileID: 5101672141092711332, guid: 90fdb134f78ffc047ba089b9aa66b3f0, type: 3}
+    serverTickRate: 30
+    connectionRequestTimeout: 15
+    disconnectRequestTimeout: 15
+    hashSize: 1
+--- !u!4 &786270581
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786270577}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1517152539
 GameObject:
   m_ObjectHideFlags: 0

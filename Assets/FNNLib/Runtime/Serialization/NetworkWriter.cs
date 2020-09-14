@@ -121,7 +121,7 @@ namespace FNNLib.Serialization {
 
         public void WriteBool(bool value) {
             EnsureLength(_position + 1);
-            buffer[_position++] = (byte) (value ? 0 : 1);
+            buffer[_position++] = (byte) (value ? 1 : 0);
         }
 
         public void WriteBytes(byte[] values, int offset, int count) {

@@ -1,4 +1,6 @@
 ﻿using FNNLib;
+using FNNLib.Backend;
+using FNNLib.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +10,8 @@ namespace DefaultNamespace {
 
         public bool editorIsClient;
 
+        public GameObject testPrefab;
+        
         void Start() {
             if ((editorIsClient && Application.isEditor) || (!editorIsClient && !Application.isEditor)) {
                 NetworkManager.instance.StartClient("127.0.0.1");
@@ -22,6 +26,11 @@ namespace DefaultNamespace {
             }
             else {
                 NetworkManager.instance.StartServer();
+                NetworkServer.instance.onClientConnected.AddListener((client) => {
+                                                                       // Instantiate(testPrefab, Vector3.zero,
+                                                                       //     Quaternion.identity).GetComponent<NetworkIdentity>().SpawnWithOwnership(client);
+                                                                       NetworkSceneManager.ServerLoadScene("Test");
+                                                                   });
             }
 
             // Register packet on possible targets. In this packets case, itll register on both client and server.
@@ -39,12 +48,12 @@ namespace DefaultNamespace {
         }
 
         void Update() {
-            if ((editorIsClient && Application.isEditor) || (!editorIsClient && !Application.isEditor)) {
-                running.text = NetworkManager.instance.networkConfig.transport.clientConnected ? "Connected" : "Disconnected";
-            }
-            else {
-                running.text = NetworkManager.instance.networkConfig.transport.serverRunning ? "Running" : "Stopped";
-            }
+            // if ((editorIsClient && Application.isEditor) || (!editorIsClient && !Application.isEditor)) {
+            //     running.text = NetworkManager.instance.networkConfig.transport.clientConnected ? "Connected" : "Disconnected";
+            // }
+            // else {
+            //     running.text = NetworkManager.instance.networkConfig.transport.serverRunning ? "Running" : "Stopped";
+            // }
         }
     }
 }

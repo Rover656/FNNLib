@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using FNNLib.Backend;
 using FNNLib.Transports;
 using UnityEngine.SceneManagement;
 
@@ -123,14 +124,18 @@ namespace FNNLib.SceneManagement {
         #region Client Handlers
 
         internal static void ClientHandleSceneChangePacket(ulong sender, SceneChangePacket packet) {
-            // TODO: Change scene
             /*
              * The process:
-             * - If we're already on the scene, simply clear any networked objects so we don't duplicate any.
              * - Start a transition period (some form of waiting state where the game doesn't freeze, but nothing is happening)
              * - Change scene first (we don't have to save networked objects, because they will be spawned by the server once we confirm the scene change was successful)
              * - Once the scene has changed, tell the server that the scene change was successful, then the server will begin sending us networked objects.
              */
+            
+            // Load the scene
+            SceneManager.LoadScene(NetworkManager.instance.networkConfig.networkableScenes[packet.sceneIndex]
+                                                 .sceneName);
+            
+            // TODO: Send scene join packet so that we may be added to the observers list for any applicable network objects.
         }
         
         #endregion
@@ -138,12 +143,19 @@ namespace FNNLib.SceneManagement {
         #region Server Handlers
 
         internal static void OnClientConnected(ulong clientID) {
-            return; // TODO: We need to get the current scene first.
             if (_usingSubScenes) {
                 // TODO: We need starting scene config
             } else {
+                if (_serverCurrentScene == null) {
+                    _serverCurrentScene = new NetworkScene {
+                                                               scene = SceneManager.GetActiveScene(),
+                                                               sceneName = SceneManager.GetActiveScene().name,
+                                                               sceneID = Convert.ToUInt32(SceneManager.GetActiveScene().buildIndex)
+                                                           };
+                }
+                
                 // Send to the current scene.
-                var changePacket = new SceneChangePacket {sceneIndex = GetSceneIndex(_serverCurrentScene.sceneName), sceneNetID = Convert.ToUInt32(_serverCurrentScene.scene.buildIndex)};
+                var changePacket = new SceneChangePacket {sceneIndex = GetSceneIndex(_serverCurrentScene.sceneName), sceneNetID = _serverCurrentScene.sceneID};
                 NetworkServer.instance.Send(clientID, changePacket, DefaultChannels.ReliableSequenced);
             }
         }

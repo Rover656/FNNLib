@@ -90,7 +90,7 @@ namespace FNNLib.Editor {
                                                        true, true, true);
             _networkedPrefabsList.drawElementCallback = (rect, index, isActive, isFocused) => {
                                                             var element = _networkedPrefabsList
-                                                                         .serializedProperty.GetArrayElementAtIndex(index);
+                                                                         .serializedProperty.GetArrayElementAtIndex(index).FindPropertyRelative("prefab");
                                                             EditorGUI.PropertyField(new Rect(rect.x,
                                                                     rect.y,
                                                                     rect.width,

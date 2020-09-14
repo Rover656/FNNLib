@@ -10,7 +10,7 @@ using FNNLib.Transports;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace FNNLib {
+namespace FNNLib.Backend {
     /// <summary>
     /// The NetworkServer class manages sending data to the clients.
     /// This is normally controlled by the NetworkManager and most games won't access this at all.
@@ -76,7 +76,7 @@ namespace FNNLib {
         /// Saves on allocations
         /// </summary>
         private readonly List<ulong> _singleSenderList = new List<ulong> { 0 };
-
+        
         private class ClientInfo {
             public ulong clientID = 0;
             public bool clientApproved = false;
@@ -98,7 +98,7 @@ namespace FNNLib {
                 cancellationSource = new CancellationTokenSource();
             }
         }
-        
+
         private ConcurrentDictionary<ulong, ClientInfo> _clients = new ConcurrentDictionary<ulong, ClientInfo>();
         
         private readonly List<ulong> _allClientIDs = new List<ulong>();

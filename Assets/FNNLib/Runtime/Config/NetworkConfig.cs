@@ -46,7 +46,7 @@ namespace FNNLib.Config {
         /// <summary>
         /// List of all networked prefabs.
         /// </summary>
-        public List<GameObject> networkedPrefabs = new List<GameObject>();
+        public List<NetworkPrefab> networkedPrefabs = new List<NetworkPrefab>();
         
         #endregion
         

@@ -350,6 +350,12 @@ references:
   commentId: F:FNNLib.Config.NetworkConfig.disconnectRequestTimeout
   fullName: FNNLib.Config.NetworkConfig.disconnectRequestTimeout
   nameWithType: NetworkConfig.disconnectRequestTimeout
+- uid: FNNLib.Config.NetworkConfig.enableSubScenes
+  name: enableSubScenes
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_enableSubScenes
+  commentId: F:FNNLib.Config.NetworkConfig.enableSubScenes
+  fullName: FNNLib.Config.NetworkConfig.enableSubScenes
+  nameWithType: NetworkConfig.enableSubScenes
 - uid: FNNLib.Config.NetworkConfig.GetHash(System.Boolean)
   name: GetHash(Boolean)
   href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_GetHash_System_Boolean_
@@ -369,6 +375,12 @@ references:
   commentId: F:FNNLib.Config.NetworkConfig.hashSize
   fullName: FNNLib.Config.NetworkConfig.hashSize
   nameWithType: NetworkConfig.hashSize
+- uid: FNNLib.Config.NetworkConfig.moveNewClientsToActiveScene
+  name: moveNewClientsToActiveScene
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_moveNewClientsToActiveScene
+  commentId: F:FNNLib.Config.NetworkConfig.moveNewClientsToActiveScene
+  fullName: FNNLib.Config.NetworkConfig.moveNewClientsToActiveScene
+  nameWithType: NetworkConfig.moveNewClientsToActiveScene
 - uid: FNNLib.Config.NetworkConfig.networkableScenes
   name: networkableScenes
   href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_networkableScenes
@@ -447,6 +459,25 @@ references:
   commentId: N:FNNLib.Editor
   fullName: FNNLib.Editor
   nameWithType: FNNLib.Editor
+- uid: FNNLib.Editor.NetworkIdentityEditor
+  name: NetworkIdentityEditor
+  href: api/FNNLib.Editor.NetworkIdentityEditor.html
+  commentId: T:FNNLib.Editor.NetworkIdentityEditor
+  fullName: FNNLib.Editor.NetworkIdentityEditor
+  nameWithType: NetworkIdentityEditor
+- uid: FNNLib.Editor.NetworkIdentityEditor.OnInspectorGUI
+  name: OnInspectorGUI()
+  href: api/FNNLib.Editor.NetworkIdentityEditor.html#FNNLib_Editor_NetworkIdentityEditor_OnInspectorGUI
+  commentId: M:FNNLib.Editor.NetworkIdentityEditor.OnInspectorGUI
+  fullName: FNNLib.Editor.NetworkIdentityEditor.OnInspectorGUI()
+  nameWithType: NetworkIdentityEditor.OnInspectorGUI()
+- uid: FNNLib.Editor.NetworkIdentityEditor.OnInspectorGUI*
+  name: OnInspectorGUI
+  href: api/FNNLib.Editor.NetworkIdentityEditor.html#FNNLib_Editor_NetworkIdentityEditor_OnInspectorGUI_
+  commentId: Overload:FNNLib.Editor.NetworkIdentityEditor.OnInspectorGUI
+  isSpec: "True"
+  fullName: FNNLib.Editor.NetworkIdentityEditor.OnInspectorGUI
+  nameWithType: NetworkIdentityEditor.OnInspectorGUI
 - uid: FNNLib.Editor.NetworkManagerEditor
   name: NetworkManagerEditor
   href: api/FNNLib.Editor.NetworkManagerEditor.html
@@ -1236,6 +1267,12 @@ references:
   commentId: F:FNNLib.NetworkManager.connectedClientsList
   fullName: FNNLib.NetworkManager.connectedClientsList
   nameWithType: NetworkManager.connectedClientsList
+- uid: FNNLib.NetworkManager.dontDestroyOnLoad
+  name: dontDestroyOnLoad
+  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_dontDestroyOnLoad
+  commentId: F:FNNLib.NetworkManager.dontDestroyOnLoad
+  fullName: FNNLib.NetworkManager.dontDestroyOnLoad
+  nameWithType: NetworkManager.dontDestroyOnLoad
 - uid: FNNLib.NetworkManager.instance
   name: instance
   href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_instance
@@ -1491,6 +1528,45 @@ references:
   commentId: T:FNNLib.SceneManagement.NetworkSceneManager
   fullName: FNNLib.SceneManagement.NetworkSceneManager
   nameWithType: NetworkSceneManager
+- uid: FNNLib.SceneManagement.NetworkSceneManager.GetNetScene(System.Int32)
+  name: GetNetScene(Int32)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_GetNetScene_System_Int32_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.GetNetScene(System.Int32)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.GetNetScene(System.Int32)
+  nameWithType: NetworkSceneManager.GetNetScene(Int32)
+- uid: FNNLib.SceneManagement.NetworkSceneManager.GetNetScene*
+  name: GetNetScene
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_GetNetScene_
+  commentId: Overload:FNNLib.SceneManagement.NetworkSceneManager.GetNetScene
+  isSpec: "True"
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.GetNetScene
+  nameWithType: NetworkSceneManager.GetNetScene
+- uid: FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex(Scene)
+  name: GetSceneIndex(Scene)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_GetSceneIndex_Scene_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex(Scene)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex(Scene)
+  nameWithType: NetworkSceneManager.GetSceneIndex(Scene)
+- uid: FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex*
+  name: GetSceneIndex
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_GetSceneIndex_
+  commentId: Overload:FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex
+  isSpec: "True"
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex
+  nameWithType: NetworkSceneManager.GetSceneIndex
+- uid: FNNLib.SceneManagement.NetworkSceneManager.GetSceneNetID(Scene)
+  name: GetSceneNetID(Scene)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_GetSceneNetID_Scene_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.GetSceneNetID(Scene)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.GetSceneNetID(Scene)
+  nameWithType: NetworkSceneManager.GetSceneNetID(Scene)
+- uid: FNNLib.SceneManagement.NetworkSceneManager.GetSceneNetID*
+  name: GetSceneNetID
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_GetSceneNetID_
+  commentId: Overload:FNNLib.SceneManagement.NetworkSceneManager.GetSceneNetID
+  isSpec: "True"
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.GetSceneNetID
+  nameWithType: NetworkSceneManager.GetSceneNetID
 - uid: FNNLib.SceneManagement.NetworkSceneManager.SendClientTo(System.UInt64,System.String)
   name: SendClientTo(UInt64, String)
   href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_SendClientTo_System_UInt64_System_String_
@@ -1530,12 +1606,12 @@ references:
   isSpec: "True"
   fullName: FNNLib.SceneManagement.NetworkSceneManager.ServerLoadSubScene
   nameWithType: NetworkSceneManager.ServerLoadSubScene
-- uid: FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.String,System.UInt32)
-  name: ServerUnloadSubScene(String, UInt32)
-  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_ServerUnloadSubScene_System_String_System_UInt32_
-  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.String,System.UInt32)
-  fullName: FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.String, System.UInt32)
-  nameWithType: NetworkSceneManager.ServerUnloadSubScene(String, UInt32)
+- uid: FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.String,System.Int32)
+  name: ServerUnloadSubScene(String, Int32)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_ServerUnloadSubScene_System_String_System_Int32_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.String,System.Int32)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.String, System.Int32)
+  nameWithType: NetworkSceneManager.ServerUnloadSubScene(String, Int32)
 - uid: FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene*
   name: ServerUnloadSubScene
   href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_ServerUnloadSubScene_
@@ -1543,6 +1619,19 @@ references:
   isSpec: "True"
   fullName: FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene
   nameWithType: NetworkSceneManager.ServerUnloadSubScene
+- uid: FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene(System.Int32)
+  name: SetActiveScene(Int32)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_SetActiveScene_System_Int32_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene(System.Int32)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene(System.Int32)
+  nameWithType: NetworkSceneManager.SetActiveScene(Int32)
+- uid: FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene*
+  name: SetActiveScene
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_SetActiveScene_
+  commentId: Overload:FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene
+  isSpec: "True"
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene
+  nameWithType: NetworkSceneManager.SetActiveScene
 - uid: FNNLib.SceneManagement.SceneChangeCompletedPacket
   name: SceneChangeCompletedPacket
   href: api/FNNLib.SceneManagement.SceneChangeCompletedPacket.html

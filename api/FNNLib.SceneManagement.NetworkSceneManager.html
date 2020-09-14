@@ -85,8 +85,9 @@
   </h1>
   <div class="markdown level0 summary"><p>This manages the scenes across the network.
 You can only change the scene using the server.
-On the client, it deals with the scene change packets.
-This is used on </p>
+On the client, it deals with the scene change packets.</p>
+<p>When a client joins the server, it will always join into the active scene.
+If building a party game, ensure the main scene is the lobby.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -104,10 +105,151 @@ This is used on </p>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_NetworkSceneManager_GetNetScene_System_Int32_.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.NetworkSceneManager.GetNetScene(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/NetworkSceneManager.cs/#L268">View Source</a>
+  </span>
+  <a id="FNNLib_SceneManagement_NetworkSceneManager_GetNetScene_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.GetNetScene*"></a>
+  <h4 id="FNNLib_SceneManagement_NetworkSceneManager_GetNetScene_System_Int32_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.GetNetScene(System.Int32)">GetNetScene(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static NetworkScene GetNetScene(int index = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FNNLib.SceneManagement.NetworkScene.html">NetworkScene</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_NetworkSceneManager_GetSceneIndex_Scene_.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex(Scene)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/NetworkSceneManager.cs/#L230">View Source</a>
+  </span>
+  <a id="FNNLib_SceneManagement_NetworkSceneManager_GetSceneIndex_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex*"></a>
+  <h4 id="FNNLib_SceneManagement_NetworkSceneManager_GetSceneIndex_Scene_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex(Scene)">GetSceneIndex(Scene)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int GetSceneIndex(Scene scene)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Scene</span></td>
+        <td><span class="parametername">scene</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_NetworkSceneManager_GetSceneNetID_Scene_.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.NetworkSceneManager.GetSceneNetID(Scene)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/NetworkSceneManager.cs/#L249">View Source</a>
+  </span>
+  <a id="FNNLib_SceneManagement_NetworkSceneManager_GetSceneNetID_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.GetSceneNetID*"></a>
+  <h4 id="FNNLib_SceneManagement_NetworkSceneManager_GetSceneNetID_Scene_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.GetSceneNetID(Scene)">GetSceneNetID(Scene)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static uint GetSceneNetID(Scene scene)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Scene</span></td>
+        <td><span class="parametername">scene</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_NetworkSceneManager_SendClientTo_System_UInt64_System_String_.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.NetworkSceneManager.SendClientTo(System.UInt64%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/NetworkSceneManager.cs/#L101">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/NetworkSceneManager.cs/#L160">View Source</a>
   </span>
   <a id="FNNLib_SceneManagement_NetworkSceneManager_SendClientTo_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.SendClientTo*"></a>
   <h4 id="FNNLib_SceneManagement_NetworkSceneManager_SendClientTo_System_UInt64_System_String_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.SendClientTo(System.UInt64,System.String)">SendClientTo(UInt64, String)</h4>
@@ -144,11 +286,14 @@ This is used on </p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_NetworkSceneManager_ServerLoadScene_System_String_.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.NetworkSceneManager.ServerLoadScene(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/NetworkSceneManager.cs/#L36">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/NetworkSceneManager.cs/#L43">View Source</a>
   </span>
   <a id="FNNLib_SceneManagement_NetworkSceneManager_ServerLoadScene_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.ServerLoadScene*"></a>
   <h4 id="FNNLib_SceneManagement_NetworkSceneManager_ServerLoadScene_System_String_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.ServerLoadScene(System.String)">ServerLoadScene(String)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>On single scene mode, this will load the scene and move all clients to it.
+On subscene mode, this will load the scene in and not move any clients there.
+To move clients there, use SendClientToScene. To make this the main/default scene, use SetActiveScene.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -171,12 +316,27 @@ This is used on </p>
       </tr>
     </tbody>
   </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.notsupportedexception">NotSupportedException</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_NetworkSceneManager_ServerLoadSubScene_System_String_.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.NetworkSceneManager.ServerLoadSubScene(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/NetworkSceneManager.cs/#L68">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/NetworkSceneManager.cs/#L116">View Source</a>
   </span>
   <a id="FNNLib_SceneManagement_NetworkSceneManager_ServerLoadSubScene_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.ServerLoadSubScene*"></a>
   <h4 id="FNNLib_SceneManagement_NetworkSceneManager_ServerLoadSubScene_System_String_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.ServerLoadSubScene(System.String)">ServerLoadSubScene(String)</h4>
@@ -209,20 +369,20 @@ TODO: Have a root scene that the server will live in.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_NetworkSceneManager_ServerUnloadSubScene_System_String_System_UInt32_.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.String%2CSystem.UInt32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_NetworkSceneManager_ServerUnloadSubScene_System_String_System_Int32_.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.String%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/NetworkSceneManager.cs/#L95">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/NetworkSceneManager.cs/#L147">View Source</a>
   </span>
   <a id="FNNLib_SceneManagement_NetworkSceneManager_ServerUnloadSubScene_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene*"></a>
-  <h4 id="FNNLib_SceneManagement_NetworkSceneManager_ServerUnloadSubScene_System_String_System_UInt32_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.String,System.UInt32)">ServerUnloadSubScene(String, UInt32)</h4>
+  <h4 id="FNNLib_SceneManagement_NetworkSceneManager_ServerUnloadSubScene_System_String_System_Int32_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.String,System.Int32)">ServerUnloadSubScene(String, Int32)</h4>
   <div class="markdown level1 summary"><p>Unload a subscene, redirecting any clients to the fallback scene.
 TODO: Fallback scene packet so that player position can move.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void ServerUnloadSubScene(string sceneName, uint fallbackScene)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void ServerUnloadSubScene(string sceneName, int fallbackScene = 0)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -240,8 +400,41 @@ TODO: Fallback scene packet so that player position can move.</p>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
         <td><span class="parametername">fallbackScene</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_NetworkSceneManager_SetActiveScene_System_Int32_.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/NetworkSceneManager.cs/#L87">View Source</a>
+  </span>
+  <a id="FNNLib_SceneManagement_NetworkSceneManager_SetActiveScene_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene*"></a>
+  <h4 id="FNNLib_SceneManagement_NetworkSceneManager_SetActiveScene_System_Int32_" data-uid="FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene(System.Int32)">SetActiveScene(Int32)</h4>
+  <div class="markdown level1 summary"><p>Sets the active/main scene with its index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetActiveScene(int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">index</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -257,7 +450,7 @@ TODO: Fallback scene packet so that player position can move.</p>
                     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_NetworkSceneManager.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.NetworkSceneManager%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/NetworkSceneManager.cs/#L20" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/NetworkSceneManager.cs/#L23" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

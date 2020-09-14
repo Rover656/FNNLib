@@ -76,7 +76,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Config.NetworkConfig.html",
-          "hash": "YRU8f5VjgD3TANGi1OH0dg=="
+          "hash": "3ROhNsHvFtWp52du4CUKGw=="
         }
       },
       "is_incremental": false,
@@ -120,11 +120,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/FNNLib.Editor.NetworkIdentityEditor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FNNLib.Editor.NetworkIdentityEditor.html",
+          "hash": "ngdLkqXWiuEaHaKsQvgAMg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/FNNLib.Editor.NetworkManagerEditor.yml",
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Editor.NetworkManagerEditor.html",
-          "hash": "BMNaittCgJdIZ+C1lddRcQ=="
+          "hash": "xYbkN86XUVT+9E7cTUG6yA=="
         }
       },
       "is_incremental": false,
@@ -136,7 +148,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Editor.html",
-          "hash": "Yz1BXQ9inGDcs88NUpM/Iw=="
+          "hash": "48lKuv450nzUsC4bsttakA=="
         }
       },
       "is_incremental": false,
@@ -304,7 +316,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.NetworkManager.html",
-          "hash": "OHQirMu3lqmtHBssirTn5A=="
+          "hash": "sP0rxR15dTKyhRfheJ2pYA=="
         }
       },
       "is_incremental": false,
@@ -328,7 +340,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.SceneManagement.NetworkSceneManager.html",
-          "hash": "5+QWLLGBi5eR+gfr7Ys2bw=="
+          "hash": "q8AvIpilKIAYusX9K6oWJg=="
         }
       },
       "is_incremental": false,
@@ -340,7 +352,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.SceneManagement.NetworkableScene.html",
-          "hash": "GSwFefXYj3Eb0uc4uetacA=="
+          "hash": "uKksdOa13LwaYnbMBtM4mA=="
         }
       },
       "is_incremental": false,
@@ -388,7 +400,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.SceneManagement.html",
-          "hash": "gr1qopAOXJaXt1WTFh/UJg=="
+          "hash": "HCkfnayurl2gc+sSJsFoSQ=="
         }
       },
       "is_incremental": false,
@@ -652,7 +664,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "Ufm4HHXbKA42Kr4dnzIrqQ=="
+          "hash": "nW/jlWMAzPYPewqufNqzog=="
         }
       },
       "is_incremental": false,
@@ -761,7 +773,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 52,
+          "total_file_count": 53,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {

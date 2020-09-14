@@ -7,6 +7,301 @@ references:
   commentId: N:FNNLib
   fullName: FNNLib
   nameWithType: FNNLib
+- uid: FNNLib.Backend
+  name: FNNLib.Backend
+  href: api/FNNLib.Backend.html
+  commentId: N:FNNLib.Backend
+  fullName: FNNLib.Backend
+  nameWithType: FNNLib.Backend
+- uid: FNNLib.Backend.NetworkClient
+  name: NetworkClient
+  href: api/FNNLib.Backend.NetworkClient.html
+  commentId: T:FNNLib.Backend.NetworkClient
+  fullName: FNNLib.Backend.NetworkClient
+  nameWithType: NetworkClient
+- uid: FNNLib.Backend.NetworkClient.#ctor(System.UInt64)
+  name: NetworkClient(UInt64)
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient__ctor_System_UInt64_
+  commentId: M:FNNLib.Backend.NetworkClient.#ctor(System.UInt64)
+  fullName: FNNLib.Backend.NetworkClient.NetworkClient(System.UInt64)
+  nameWithType: NetworkClient.NetworkClient(UInt64)
+- uid: FNNLib.Backend.NetworkClient.#ctor*
+  name: NetworkClient
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient__ctor_
+  commentId: Overload:FNNLib.Backend.NetworkClient.#ctor
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkClient.NetworkClient
+  nameWithType: NetworkClient.NetworkClient
+- uid: FNNLib.Backend.NetworkClient.Connect(FNNLib.Transports.Transport,System.String,System.Byte[])
+  name: Connect(Transport, String, Byte[])
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_Connect_FNNLib_Transports_Transport_System_String_System_Byte___
+  commentId: M:FNNLib.Backend.NetworkClient.Connect(FNNLib.Transports.Transport,System.String,System.Byte[])
+  name.vb: Connect(Transport, String, Byte())
+  fullName: FNNLib.Backend.NetworkClient.Connect(FNNLib.Transports.Transport, System.String, System.Byte[])
+  fullName.vb: FNNLib.Backend.NetworkClient.Connect(FNNLib.Transports.Transport, System.String, System.Byte())
+  nameWithType: NetworkClient.Connect(Transport, String, Byte[])
+  nameWithType.vb: NetworkClient.Connect(Transport, String, Byte())
+- uid: FNNLib.Backend.NetworkClient.Connect*
+  name: Connect
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_Connect_
+  commentId: Overload:FNNLib.Backend.NetworkClient.Connect
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkClient.Connect
+  nameWithType: NetworkClient.Connect
+- uid: FNNLib.Backend.NetworkClient.ConnectVirtual
+  name: ConnectVirtual()
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_ConnectVirtual
+  commentId: M:FNNLib.Backend.NetworkClient.ConnectVirtual
+  fullName: FNNLib.Backend.NetworkClient.ConnectVirtual()
+  nameWithType: NetworkClient.ConnectVirtual()
+- uid: FNNLib.Backend.NetworkClient.ConnectVirtual*
+  name: ConnectVirtual
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_ConnectVirtual_
+  commentId: Overload:FNNLib.Backend.NetworkClient.ConnectVirtual
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkClient.ConnectVirtual
+  nameWithType: NetworkClient.ConnectVirtual
+- uid: FNNLib.Backend.NetworkClient.Disconnect
+  name: Disconnect()
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_Disconnect
+  commentId: M:FNNLib.Backend.NetworkClient.Disconnect
+  fullName: FNNLib.Backend.NetworkClient.Disconnect()
+  nameWithType: NetworkClient.Disconnect()
+- uid: FNNLib.Backend.NetworkClient.Disconnect*
+  name: Disconnect
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_Disconnect_
+  commentId: Overload:FNNLib.Backend.NetworkClient.Disconnect
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkClient.Disconnect
+  nameWithType: NetworkClient.Disconnect
+- uid: FNNLib.Backend.NetworkClient.instance
+  name: instance
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_instance
+  commentId: F:FNNLib.Backend.NetworkClient.instance
+  fullName: FNNLib.Backend.NetworkClient.instance
+  nameWithType: NetworkClient.instance
+- uid: FNNLib.Backend.NetworkClient.isServerContext
+  name: isServerContext
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_isServerContext
+  commentId: P:FNNLib.Backend.NetworkClient.isServerContext
+  fullName: FNNLib.Backend.NetworkClient.isServerContext
+  nameWithType: NetworkClient.isServerContext
+- uid: FNNLib.Backend.NetworkClient.isServerContext*
+  name: isServerContext
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_isServerContext_
+  commentId: Overload:FNNLib.Backend.NetworkClient.isServerContext
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkClient.isServerContext
+  nameWithType: NetworkClient.isServerContext
+- uid: FNNLib.Backend.NetworkClient.localClientID
+  name: localClientID
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_localClientID
+  commentId: P:FNNLib.Backend.NetworkClient.localClientID
+  fullName: FNNLib.Backend.NetworkClient.localClientID
+  nameWithType: NetworkClient.localClientID
+- uid: FNNLib.Backend.NetworkClient.localClientID*
+  name: localClientID
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_localClientID_
+  commentId: Overload:FNNLib.Backend.NetworkClient.localClientID
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkClient.localClientID
+  nameWithType: NetworkClient.localClientID
+- uid: FNNLib.Backend.NetworkClient.onConnected
+  name: onConnected
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_onConnected
+  commentId: F:FNNLib.Backend.NetworkClient.onConnected
+  fullName: FNNLib.Backend.NetworkClient.onConnected
+  nameWithType: NetworkClient.onConnected
+- uid: FNNLib.Backend.NetworkClient.onDisconnected
+  name: onDisconnected
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_onDisconnected
+  commentId: F:FNNLib.Backend.NetworkClient.onDisconnected
+  fullName: FNNLib.Backend.NetworkClient.onDisconnected
+  nameWithType: NetworkClient.onDisconnected
+- uid: FNNLib.Backend.NetworkClient.Send*
+  name: Send
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_Send_
+  commentId: Overload:FNNLib.Backend.NetworkClient.Send
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkClient.Send
+  nameWithType: NetworkClient.Send
+- uid: FNNLib.Backend.NetworkClient.Send``1(``0,System.Int32)
+  name: Send<T>(T, Int32)
+  href: api/FNNLib.Backend.NetworkClient.html#FNNLib_Backend_NetworkClient_Send__1___0_System_Int32_
+  commentId: M:FNNLib.Backend.NetworkClient.Send``1(``0,System.Int32)
+  name.vb: Send(Of T)(T, Int32)
+  fullName: FNNLib.Backend.NetworkClient.Send<T>(T, System.Int32)
+  fullName.vb: FNNLib.Backend.NetworkClient.Send(Of T)(T, System.Int32)
+  nameWithType: NetworkClient.Send<T>(T, Int32)
+  nameWithType.vb: NetworkClient.Send(Of T)(T, Int32)
+- uid: FNNLib.Backend.NetworkServer
+  name: NetworkServer
+  href: api/FNNLib.Backend.NetworkServer.html
+  commentId: T:FNNLib.Backend.NetworkServer
+  fullName: FNNLib.Backend.NetworkServer
+  nameWithType: NetworkServer
+- uid: FNNLib.Backend.NetworkServer.#ctor(System.UInt64)
+  name: NetworkServer(UInt64)
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer__ctor_System_UInt64_
+  commentId: M:FNNLib.Backend.NetworkServer.#ctor(System.UInt64)
+  fullName: FNNLib.Backend.NetworkServer.NetworkServer(System.UInt64)
+  nameWithType: NetworkServer.NetworkServer(UInt64)
+- uid: FNNLib.Backend.NetworkServer.#ctor*
+  name: NetworkServer
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer__ctor_
+  commentId: Overload:FNNLib.Backend.NetworkServer.#ctor
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkServer.NetworkServer
+  nameWithType: NetworkServer.NetworkServer
+- uid: FNNLib.Backend.NetworkServer.Disconnect(System.UInt64,System.String)
+  name: Disconnect(UInt64, String)
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_Disconnect_System_UInt64_System_String_
+  commentId: M:FNNLib.Backend.NetworkServer.Disconnect(System.UInt64,System.String)
+  fullName: FNNLib.Backend.NetworkServer.Disconnect(System.UInt64, System.String)
+  nameWithType: NetworkServer.Disconnect(UInt64, String)
+- uid: FNNLib.Backend.NetworkServer.Disconnect*
+  name: Disconnect
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_Disconnect_
+  commentId: Overload:FNNLib.Backend.NetworkServer.Disconnect
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkServer.Disconnect
+  nameWithType: NetworkServer.Disconnect
+- uid: FNNLib.Backend.NetworkServer.instance
+  name: instance
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_instance
+  commentId: F:FNNLib.Backend.NetworkServer.instance
+  fullName: FNNLib.Backend.NetworkServer.instance
+  nameWithType: NetworkServer.instance
+- uid: FNNLib.Backend.NetworkServer.isServerContext
+  name: isServerContext
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_isServerContext
+  commentId: P:FNNLib.Backend.NetworkServer.isServerContext
+  fullName: FNNLib.Backend.NetworkServer.isServerContext
+  nameWithType: NetworkServer.isServerContext
+- uid: FNNLib.Backend.NetworkServer.isServerContext*
+  name: isServerContext
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_isServerContext_
+  commentId: Overload:FNNLib.Backend.NetworkServer.isServerContext
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkServer.isServerContext
+  nameWithType: NetworkServer.isServerContext
+- uid: FNNLib.Backend.NetworkServer.isServerRunning
+  name: isServerRunning
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_isServerRunning
+  commentId: P:FNNLib.Backend.NetworkServer.isServerRunning
+  fullName: FNNLib.Backend.NetworkServer.isServerRunning
+  nameWithType: NetworkServer.isServerRunning
+- uid: FNNLib.Backend.NetworkServer.isServerRunning*
+  name: isServerRunning
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_isServerRunning_
+  commentId: Overload:FNNLib.Backend.NetworkServer.isServerRunning
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkServer.isServerRunning
+  nameWithType: NetworkServer.isServerRunning
+- uid: FNNLib.Backend.NetworkServer.onClientConnected
+  name: onClientConnected
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_onClientConnected
+  commentId: F:FNNLib.Backend.NetworkServer.onClientConnected
+  fullName: FNNLib.Backend.NetworkServer.onClientConnected
+  nameWithType: NetworkServer.onClientConnected
+- uid: FNNLib.Backend.NetworkServer.onClientDisconnected
+  name: onClientDisconnected
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_onClientDisconnected
+  commentId: F:FNNLib.Backend.NetworkServer.onClientDisconnected
+  fullName: FNNLib.Backend.NetworkServer.onClientDisconnected
+  nameWithType: NetworkServer.onClientDisconnected
+- uid: FNNLib.Backend.NetworkServer.onServerStarted
+  name: onServerStarted
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_onServerStarted
+  commentId: F:FNNLib.Backend.NetworkServer.onServerStarted
+  fullName: FNNLib.Backend.NetworkServer.onServerStarted
+  nameWithType: NetworkServer.onServerStarted
+- uid: FNNLib.Backend.NetworkServer.onServerStopped
+  name: onServerStopped
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_onServerStopped
+  commentId: F:FNNLib.Backend.NetworkServer.onServerStopped
+  fullName: FNNLib.Backend.NetworkServer.onServerStopped
+  nameWithType: NetworkServer.onServerStopped
+- uid: FNNLib.Backend.NetworkServer.running
+  name: running
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_running
+  commentId: P:FNNLib.Backend.NetworkServer.running
+  fullName: FNNLib.Backend.NetworkServer.running
+  nameWithType: NetworkServer.running
+- uid: FNNLib.Backend.NetworkServer.running*
+  name: running
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_running_
+  commentId: Overload:FNNLib.Backend.NetworkServer.running
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkServer.running
+  nameWithType: NetworkServer.running
+- uid: FNNLib.Backend.NetworkServer.Send*
+  name: Send
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_Send_
+  commentId: Overload:FNNLib.Backend.NetworkServer.Send
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkServer.Send
+  nameWithType: NetworkServer.Send
+- uid: FNNLib.Backend.NetworkServer.Send``1(System.Collections.Generic.List{System.UInt64},``0,System.Int32)
+  name: Send<T>(List<UInt64>, T, Int32)
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_Send__1_System_Collections_Generic_List_System_UInt64____0_System_Int32_
+  commentId: M:FNNLib.Backend.NetworkServer.Send``1(System.Collections.Generic.List{System.UInt64},``0,System.Int32)
+  name.vb: Send(Of T)(List(Of UInt64), T, Int32)
+  fullName: FNNLib.Backend.NetworkServer.Send<T>(System.Collections.Generic.List<System.UInt64>, T, System.Int32)
+  fullName.vb: FNNLib.Backend.NetworkServer.Send(Of T)(System.Collections.Generic.List(Of System.UInt64), T, System.Int32)
+  nameWithType: NetworkServer.Send<T>(List<UInt64>, T, Int32)
+  nameWithType.vb: NetworkServer.Send(Of T)(List(Of UInt64), T, Int32)
+- uid: FNNLib.Backend.NetworkServer.Send``1(System.UInt64,``0,System.Int32)
+  name: Send<T>(UInt64, T, Int32)
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_Send__1_System_UInt64___0_System_Int32_
+  commentId: M:FNNLib.Backend.NetworkServer.Send``1(System.UInt64,``0,System.Int32)
+  name.vb: Send(Of T)(UInt64, T, Int32)
+  fullName: FNNLib.Backend.NetworkServer.Send<T>(System.UInt64, T, System.Int32)
+  fullName.vb: FNNLib.Backend.NetworkServer.Send(Of T)(System.UInt64, T, System.Int32)
+  nameWithType: NetworkServer.Send<T>(UInt64, T, Int32)
+  nameWithType.vb: NetworkServer.Send(Of T)(UInt64, T, Int32)
+- uid: FNNLib.Backend.NetworkServer.SendToAll*
+  name: SendToAll
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_SendToAll_
+  commentId: Overload:FNNLib.Backend.NetworkServer.SendToAll
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkServer.SendToAll
+  nameWithType: NetworkServer.SendToAll
+- uid: FNNLib.Backend.NetworkServer.SendToAll``1(``0,System.Int32)
+  name: SendToAll<T>(T, Int32)
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_SendToAll__1___0_System_Int32_
+  commentId: M:FNNLib.Backend.NetworkServer.SendToAll``1(``0,System.Int32)
+  name.vb: SendToAll(Of T)(T, Int32)
+  fullName: FNNLib.Backend.NetworkServer.SendToAll<T>(T, System.Int32)
+  fullName.vb: FNNLib.Backend.NetworkServer.SendToAll(Of T)(T, System.Int32)
+  nameWithType: NetworkServer.SendToAll<T>(T, Int32)
+  nameWithType.vb: NetworkServer.SendToAll(Of T)(T, Int32)
+- uid: FNNLib.Backend.NetworkServer.Start(FNNLib.Transports.Transport)
+  name: Start(Transport)
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_Start_FNNLib_Transports_Transport_
+  commentId: M:FNNLib.Backend.NetworkServer.Start(FNNLib.Transports.Transport)
+  fullName: FNNLib.Backend.NetworkServer.Start(FNNLib.Transports.Transport)
+  nameWithType: NetworkServer.Start(Transport)
+- uid: FNNLib.Backend.NetworkServer.Start*
+  name: Start
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_Start_
+  commentId: Overload:FNNLib.Backend.NetworkServer.Start
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkServer.Start
+  nameWithType: NetworkServer.Start
+- uid: FNNLib.Backend.NetworkServer.Stop
+  name: Stop()
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_Stop
+  commentId: M:FNNLib.Backend.NetworkServer.Stop
+  fullName: FNNLib.Backend.NetworkServer.Stop()
+  nameWithType: NetworkServer.Stop()
+- uid: FNNLib.Backend.NetworkServer.Stop*
+  name: Stop
+  href: api/FNNLib.Backend.NetworkServer.html#FNNLib_Backend_NetworkServer_Stop_
+  commentId: Overload:FNNLib.Backend.NetworkServer.Stop
+  isSpec: "True"
+  fullName: FNNLib.Backend.NetworkServer.Stop
+  nameWithType: NetworkServer.Stop
 - uid: FNNLib.Config
   name: FNNLib.Config
   href: api/FNNLib.Config.html
@@ -110,6 +405,42 @@ references:
   commentId: F:FNNLib.Config.NetworkConfig.useSceneManagement
   fullName: FNNLib.Config.NetworkConfig.useSceneManagement
   nameWithType: NetworkConfig.useSceneManagement
+- uid: FNNLib.Config.NetworkPrefab
+  name: NetworkPrefab
+  href: api/FNNLib.Config.NetworkPrefab.html
+  commentId: T:FNNLib.Config.NetworkPrefab
+  fullName: FNNLib.Config.NetworkPrefab
+  nameWithType: NetworkPrefab
+- uid: FNNLib.Config.NetworkPrefab.prefab
+  name: prefab
+  href: api/FNNLib.Config.NetworkPrefab.html#FNNLib_Config_NetworkPrefab_prefab
+  commentId: F:FNNLib.Config.NetworkPrefab.prefab
+  fullName: FNNLib.Config.NetworkPrefab.prefab
+  nameWithType: NetworkPrefab.prefab
+- uid: FNNLib.ConnectedClient
+  name: ConnectedClient
+  href: api/FNNLib.ConnectedClient.html
+  commentId: T:FNNLib.ConnectedClient
+  fullName: FNNLib.ConnectedClient
+  nameWithType: ConnectedClient
+- uid: FNNLib.ConnectedClient.clientID
+  name: clientID
+  href: api/FNNLib.ConnectedClient.html#FNNLib_ConnectedClient_clientID
+  commentId: F:FNNLib.ConnectedClient.clientID
+  fullName: FNNLib.ConnectedClient.clientID
+  nameWithType: ConnectedClient.clientID
+- uid: FNNLib.ConnectedClient.ownedObjects
+  name: ownedObjects
+  href: api/FNNLib.ConnectedClient.html#FNNLib_ConnectedClient_ownedObjects
+  commentId: F:FNNLib.ConnectedClient.ownedObjects
+  fullName: FNNLib.ConnectedClient.ownedObjects
+  nameWithType: ConnectedClient.ownedObjects
+- uid: FNNLib.ConnectedClient.playerObject
+  name: playerObject
+  href: api/FNNLib.ConnectedClient.html#FNNLib_ConnectedClient_playerObject
+  commentId: F:FNNLib.ConnectedClient.playerObject
+  fullName: FNNLib.ConnectedClient.playerObject
+  nameWithType: ConnectedClient.playerObject
 - uid: FNNLib.Editor
   name: FNNLib.Editor
   href: api/FNNLib.Editor.html
@@ -635,127 +966,6 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkBehaviour.sceneID
   nameWithType: NetworkBehaviour.sceneID
-- uid: FNNLib.NetworkClient
-  name: NetworkClient
-  href: api/FNNLib.NetworkClient.html
-  commentId: T:FNNLib.NetworkClient
-  fullName: FNNLib.NetworkClient
-  nameWithType: NetworkClient
-- uid: FNNLib.NetworkClient.#ctor(System.UInt64)
-  name: NetworkClient(UInt64)
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient__ctor_System_UInt64_
-  commentId: M:FNNLib.NetworkClient.#ctor(System.UInt64)
-  fullName: FNNLib.NetworkClient.NetworkClient(System.UInt64)
-  nameWithType: NetworkClient.NetworkClient(UInt64)
-- uid: FNNLib.NetworkClient.#ctor*
-  name: NetworkClient
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient__ctor_
-  commentId: Overload:FNNLib.NetworkClient.#ctor
-  isSpec: "True"
-  fullName: FNNLib.NetworkClient.NetworkClient
-  nameWithType: NetworkClient.NetworkClient
-- uid: FNNLib.NetworkClient.Connect(FNNLib.Transports.Transport,System.String,System.Byte[])
-  name: Connect(Transport, String, Byte[])
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_Connect_FNNLib_Transports_Transport_System_String_System_Byte___
-  commentId: M:FNNLib.NetworkClient.Connect(FNNLib.Transports.Transport,System.String,System.Byte[])
-  name.vb: Connect(Transport, String, Byte())
-  fullName: FNNLib.NetworkClient.Connect(FNNLib.Transports.Transport, System.String, System.Byte[])
-  fullName.vb: FNNLib.NetworkClient.Connect(FNNLib.Transports.Transport, System.String, System.Byte())
-  nameWithType: NetworkClient.Connect(Transport, String, Byte[])
-  nameWithType.vb: NetworkClient.Connect(Transport, String, Byte())
-- uid: FNNLib.NetworkClient.Connect*
-  name: Connect
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_Connect_
-  commentId: Overload:FNNLib.NetworkClient.Connect
-  isSpec: "True"
-  fullName: FNNLib.NetworkClient.Connect
-  nameWithType: NetworkClient.Connect
-- uid: FNNLib.NetworkClient.ConnectVirtual
-  name: ConnectVirtual()
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_ConnectVirtual
-  commentId: M:FNNLib.NetworkClient.ConnectVirtual
-  fullName: FNNLib.NetworkClient.ConnectVirtual()
-  nameWithType: NetworkClient.ConnectVirtual()
-- uid: FNNLib.NetworkClient.ConnectVirtual*
-  name: ConnectVirtual
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_ConnectVirtual_
-  commentId: Overload:FNNLib.NetworkClient.ConnectVirtual
-  isSpec: "True"
-  fullName: FNNLib.NetworkClient.ConnectVirtual
-  nameWithType: NetworkClient.ConnectVirtual
-- uid: FNNLib.NetworkClient.Disconnect
-  name: Disconnect()
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_Disconnect
-  commentId: M:FNNLib.NetworkClient.Disconnect
-  fullName: FNNLib.NetworkClient.Disconnect()
-  nameWithType: NetworkClient.Disconnect()
-- uid: FNNLib.NetworkClient.Disconnect*
-  name: Disconnect
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_Disconnect_
-  commentId: Overload:FNNLib.NetworkClient.Disconnect
-  isSpec: "True"
-  fullName: FNNLib.NetworkClient.Disconnect
-  nameWithType: NetworkClient.Disconnect
-- uid: FNNLib.NetworkClient.instance
-  name: instance
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_instance
-  commentId: F:FNNLib.NetworkClient.instance
-  fullName: FNNLib.NetworkClient.instance
-  nameWithType: NetworkClient.instance
-- uid: FNNLib.NetworkClient.isServerContext
-  name: isServerContext
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_isServerContext
-  commentId: P:FNNLib.NetworkClient.isServerContext
-  fullName: FNNLib.NetworkClient.isServerContext
-  nameWithType: NetworkClient.isServerContext
-- uid: FNNLib.NetworkClient.isServerContext*
-  name: isServerContext
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_isServerContext_
-  commentId: Overload:FNNLib.NetworkClient.isServerContext
-  isSpec: "True"
-  fullName: FNNLib.NetworkClient.isServerContext
-  nameWithType: NetworkClient.isServerContext
-- uid: FNNLib.NetworkClient.localClientID
-  name: localClientID
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_localClientID
-  commentId: P:FNNLib.NetworkClient.localClientID
-  fullName: FNNLib.NetworkClient.localClientID
-  nameWithType: NetworkClient.localClientID
-- uid: FNNLib.NetworkClient.localClientID*
-  name: localClientID
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_localClientID_
-  commentId: Overload:FNNLib.NetworkClient.localClientID
-  isSpec: "True"
-  fullName: FNNLib.NetworkClient.localClientID
-  nameWithType: NetworkClient.localClientID
-- uid: FNNLib.NetworkClient.onConnected
-  name: onConnected
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_onConnected
-  commentId: F:FNNLib.NetworkClient.onConnected
-  fullName: FNNLib.NetworkClient.onConnected
-  nameWithType: NetworkClient.onConnected
-- uid: FNNLib.NetworkClient.onDisconnected
-  name: onDisconnected
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_onDisconnected
-  commentId: F:FNNLib.NetworkClient.onDisconnected
-  fullName: FNNLib.NetworkClient.onDisconnected
-  nameWithType: NetworkClient.onDisconnected
-- uid: FNNLib.NetworkClient.Send*
-  name: Send
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_Send_
-  commentId: Overload:FNNLib.NetworkClient.Send
-  isSpec: "True"
-  fullName: FNNLib.NetworkClient.Send
-  nameWithType: NetworkClient.Send
-- uid: FNNLib.NetworkClient.Send``1(``0,System.Int32)
-  name: Send<T>(T, Int32)
-  href: api/FNNLib.NetworkClient.html#FNNLib_NetworkClient_Send__1___0_System_Int32_
-  commentId: M:FNNLib.NetworkClient.Send``1(``0,System.Int32)
-  name.vb: Send(Of T)(T, Int32)
-  fullName: FNNLib.NetworkClient.Send<T>(T, System.Int32)
-  fullName.vb: FNNLib.NetworkClient.Send(Of T)(T, System.Int32)
-  nameWithType: NetworkClient.Send<T>(T, Int32)
-  nameWithType.vb: NetworkClient.Send(Of T)(T, Int32)
 - uid: FNNLib.NetworkIdentity
   name: NetworkIdentity
   href: api/FNNLib.NetworkIdentity.html
@@ -892,6 +1102,18 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkIdentity.ownerClientID
   nameWithType: NetworkIdentity.ownerClientID
+- uid: FNNLib.NetworkIdentity.prefabHash
+  name: prefabHash
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_prefabHash
+  commentId: F:FNNLib.NetworkIdentity.prefabHash
+  fullName: FNNLib.NetworkIdentity.prefabHash
+  nameWithType: NetworkIdentity.prefabHash
+- uid: FNNLib.NetworkIdentity.prefabHashGenerator
+  name: prefabHashGenerator
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_prefabHashGenerator
+  commentId: F:FNNLib.NetworkIdentity.prefabHashGenerator
+  fullName: FNNLib.NetworkIdentity.prefabHashGenerator
+  nameWithType: NetworkIdentity.prefabHashGenerator
 - uid: FNNLib.NetworkIdentity.RemoveObserver(System.UInt64)
   name: RemoveObserver(UInt64)
   href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_RemoveObserver_System_UInt64_
@@ -957,6 +1179,19 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkIdentity.SpawnAsPlayerObject
   nameWithType: NetworkIdentity.SpawnAsPlayerObject
+- uid: FNNLib.NetworkIdentity.SpawnWithOwnership(System.UInt64)
+  name: SpawnWithOwnership(UInt64)
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_SpawnWithOwnership_System_UInt64_
+  commentId: M:FNNLib.NetworkIdentity.SpawnWithOwnership(System.UInt64)
+  fullName: FNNLib.NetworkIdentity.SpawnWithOwnership(System.UInt64)
+  nameWithType: NetworkIdentity.SpawnWithOwnership(UInt64)
+- uid: FNNLib.NetworkIdentity.SpawnWithOwnership*
+  name: SpawnWithOwnership
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_SpawnWithOwnership_
+  commentId: Overload:FNNLib.NetworkIdentity.SpawnWithOwnership
+  isSpec: "True"
+  fullName: FNNLib.NetworkIdentity.SpawnWithOwnership
+  nameWithType: NetworkIdentity.SpawnWithOwnership
 - uid: FNNLib.NetworkIdentity.UnSpawn
   name: UnSpawn()
   href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_UnSpawn
@@ -989,6 +1224,18 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkManager.ConfigureServerFramerate
   nameWithType: NetworkManager.ConfigureServerFramerate
+- uid: FNNLib.NetworkManager.connectedClients
+  name: connectedClients
+  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_connectedClients
+  commentId: F:FNNLib.NetworkManager.connectedClients
+  fullName: FNNLib.NetworkManager.connectedClients
+  nameWithType: NetworkManager.connectedClients
+- uid: FNNLib.NetworkManager.connectedClientsList
+  name: connectedClientsList
+  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_connectedClientsList
+  commentId: F:FNNLib.NetworkManager.connectedClientsList
+  fullName: FNNLib.NetworkManager.connectedClientsList
+  nameWithType: NetworkManager.connectedClientsList
 - uid: FNNLib.NetworkManager.instance
   name: instance
   href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_instance
@@ -1069,6 +1316,12 @@ references:
   fullName.vb: FNNLib.NetworkManager.RegisterPacketHandler(Of T)(System.Action(Of System.UInt64, T))
   nameWithType: NetworkManager.RegisterPacketHandler<T>(Action<UInt64, T>)
   nameWithType.vb: NetworkManager.RegisterPacketHandler(Of T)(Action(Of UInt64, T))
+- uid: FNNLib.NetworkManager.runInBackground
+  name: runInBackground
+  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_runInBackground
+  commentId: F:FNNLib.NetworkManager.runInBackground
+  fullName: FNNLib.NetworkManager.runInBackground
+  nameWithType: NetworkManager.runInBackground
 - uid: FNNLib.NetworkManager.StartClient(System.String,System.Byte[])
   name: StartClient(String, Byte[])
   href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_StartClient_System_String_System_Byte___
@@ -1150,174 +1403,6 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkManager.StopServer
   nameWithType: NetworkManager.StopServer
-- uid: FNNLib.NetworkServer
-  name: NetworkServer
-  href: api/FNNLib.NetworkServer.html
-  commentId: T:FNNLib.NetworkServer
-  fullName: FNNLib.NetworkServer
-  nameWithType: NetworkServer
-- uid: FNNLib.NetworkServer.#ctor(System.UInt64)
-  name: NetworkServer(UInt64)
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer__ctor_System_UInt64_
-  commentId: M:FNNLib.NetworkServer.#ctor(System.UInt64)
-  fullName: FNNLib.NetworkServer.NetworkServer(System.UInt64)
-  nameWithType: NetworkServer.NetworkServer(UInt64)
-- uid: FNNLib.NetworkServer.#ctor*
-  name: NetworkServer
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer__ctor_
-  commentId: Overload:FNNLib.NetworkServer.#ctor
-  isSpec: "True"
-  fullName: FNNLib.NetworkServer.NetworkServer
-  nameWithType: NetworkServer.NetworkServer
-- uid: FNNLib.NetworkServer.Disconnect(System.UInt64,System.String)
-  name: Disconnect(UInt64, String)
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Disconnect_System_UInt64_System_String_
-  commentId: M:FNNLib.NetworkServer.Disconnect(System.UInt64,System.String)
-  fullName: FNNLib.NetworkServer.Disconnect(System.UInt64, System.String)
-  nameWithType: NetworkServer.Disconnect(UInt64, String)
-- uid: FNNLib.NetworkServer.Disconnect*
-  name: Disconnect
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Disconnect_
-  commentId: Overload:FNNLib.NetworkServer.Disconnect
-  isSpec: "True"
-  fullName: FNNLib.NetworkServer.Disconnect
-  nameWithType: NetworkServer.Disconnect
-- uid: FNNLib.NetworkServer.instance
-  name: instance
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_instance
-  commentId: F:FNNLib.NetworkServer.instance
-  fullName: FNNLib.NetworkServer.instance
-  nameWithType: NetworkServer.instance
-- uid: FNNLib.NetworkServer.isServerContext
-  name: isServerContext
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_isServerContext
-  commentId: P:FNNLib.NetworkServer.isServerContext
-  fullName: FNNLib.NetworkServer.isServerContext
-  nameWithType: NetworkServer.isServerContext
-- uid: FNNLib.NetworkServer.isServerContext*
-  name: isServerContext
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_isServerContext_
-  commentId: Overload:FNNLib.NetworkServer.isServerContext
-  isSpec: "True"
-  fullName: FNNLib.NetworkServer.isServerContext
-  nameWithType: NetworkServer.isServerContext
-- uid: FNNLib.NetworkServer.isServerRunning
-  name: isServerRunning
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_isServerRunning
-  commentId: P:FNNLib.NetworkServer.isServerRunning
-  fullName: FNNLib.NetworkServer.isServerRunning
-  nameWithType: NetworkServer.isServerRunning
-- uid: FNNLib.NetworkServer.isServerRunning*
-  name: isServerRunning
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_isServerRunning_
-  commentId: Overload:FNNLib.NetworkServer.isServerRunning
-  isSpec: "True"
-  fullName: FNNLib.NetworkServer.isServerRunning
-  nameWithType: NetworkServer.isServerRunning
-- uid: FNNLib.NetworkServer.onClientConnected
-  name: onClientConnected
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_onClientConnected
-  commentId: F:FNNLib.NetworkServer.onClientConnected
-  fullName: FNNLib.NetworkServer.onClientConnected
-  nameWithType: NetworkServer.onClientConnected
-- uid: FNNLib.NetworkServer.onClientDisconnected
-  name: onClientDisconnected
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_onClientDisconnected
-  commentId: F:FNNLib.NetworkServer.onClientDisconnected
-  fullName: FNNLib.NetworkServer.onClientDisconnected
-  nameWithType: NetworkServer.onClientDisconnected
-- uid: FNNLib.NetworkServer.onServerStarted
-  name: onServerStarted
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_onServerStarted
-  commentId: F:FNNLib.NetworkServer.onServerStarted
-  fullName: FNNLib.NetworkServer.onServerStarted
-  nameWithType: NetworkServer.onServerStarted
-- uid: FNNLib.NetworkServer.onServerStopped
-  name: onServerStopped
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_onServerStopped
-  commentId: F:FNNLib.NetworkServer.onServerStopped
-  fullName: FNNLib.NetworkServer.onServerStopped
-  nameWithType: NetworkServer.onServerStopped
-- uid: FNNLib.NetworkServer.running
-  name: running
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_running
-  commentId: P:FNNLib.NetworkServer.running
-  fullName: FNNLib.NetworkServer.running
-  nameWithType: NetworkServer.running
-- uid: FNNLib.NetworkServer.running*
-  name: running
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_running_
-  commentId: Overload:FNNLib.NetworkServer.running
-  isSpec: "True"
-  fullName: FNNLib.NetworkServer.running
-  nameWithType: NetworkServer.running
-- uid: FNNLib.NetworkServer.Send*
-  name: Send
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Send_
-  commentId: Overload:FNNLib.NetworkServer.Send
-  isSpec: "True"
-  fullName: FNNLib.NetworkServer.Send
-  nameWithType: NetworkServer.Send
-- uid: FNNLib.NetworkServer.Send``1(System.Collections.Generic.List{System.UInt64},``0,System.Int32)
-  name: Send<T>(List<UInt64>, T, Int32)
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Send__1_System_Collections_Generic_List_System_UInt64____0_System_Int32_
-  commentId: M:FNNLib.NetworkServer.Send``1(System.Collections.Generic.List{System.UInt64},``0,System.Int32)
-  name.vb: Send(Of T)(List(Of UInt64), T, Int32)
-  fullName: FNNLib.NetworkServer.Send<T>(System.Collections.Generic.List<System.UInt64>, T, System.Int32)
-  fullName.vb: FNNLib.NetworkServer.Send(Of T)(System.Collections.Generic.List(Of System.UInt64), T, System.Int32)
-  nameWithType: NetworkServer.Send<T>(List<UInt64>, T, Int32)
-  nameWithType.vb: NetworkServer.Send(Of T)(List(Of UInt64), T, Int32)
-- uid: FNNLib.NetworkServer.Send``1(System.UInt64,``0,System.Int32)
-  name: Send<T>(UInt64, T, Int32)
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Send__1_System_UInt64___0_System_Int32_
-  commentId: M:FNNLib.NetworkServer.Send``1(System.UInt64,``0,System.Int32)
-  name.vb: Send(Of T)(UInt64, T, Int32)
-  fullName: FNNLib.NetworkServer.Send<T>(System.UInt64, T, System.Int32)
-  fullName.vb: FNNLib.NetworkServer.Send(Of T)(System.UInt64, T, System.Int32)
-  nameWithType: NetworkServer.Send<T>(UInt64, T, Int32)
-  nameWithType.vb: NetworkServer.Send(Of T)(UInt64, T, Int32)
-- uid: FNNLib.NetworkServer.SendToAll*
-  name: SendToAll
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_SendToAll_
-  commentId: Overload:FNNLib.NetworkServer.SendToAll
-  isSpec: "True"
-  fullName: FNNLib.NetworkServer.SendToAll
-  nameWithType: NetworkServer.SendToAll
-- uid: FNNLib.NetworkServer.SendToAll``1(``0,System.Int32)
-  name: SendToAll<T>(T, Int32)
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_SendToAll__1___0_System_Int32_
-  commentId: M:FNNLib.NetworkServer.SendToAll``1(``0,System.Int32)
-  name.vb: SendToAll(Of T)(T, Int32)
-  fullName: FNNLib.NetworkServer.SendToAll<T>(T, System.Int32)
-  fullName.vb: FNNLib.NetworkServer.SendToAll(Of T)(T, System.Int32)
-  nameWithType: NetworkServer.SendToAll<T>(T, Int32)
-  nameWithType.vb: NetworkServer.SendToAll(Of T)(T, Int32)
-- uid: FNNLib.NetworkServer.Start(FNNLib.Transports.Transport)
-  name: Start(Transport)
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Start_FNNLib_Transports_Transport_
-  commentId: M:FNNLib.NetworkServer.Start(FNNLib.Transports.Transport)
-  fullName: FNNLib.NetworkServer.Start(FNNLib.Transports.Transport)
-  nameWithType: NetworkServer.Start(Transport)
-- uid: FNNLib.NetworkServer.Start*
-  name: Start
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Start_
-  commentId: Overload:FNNLib.NetworkServer.Start
-  isSpec: "True"
-  fullName: FNNLib.NetworkServer.Start
-  nameWithType: NetworkServer.Start
-- uid: FNNLib.NetworkServer.Stop
-  name: Stop()
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Stop
-  commentId: M:FNNLib.NetworkServer.Stop
-  fullName: FNNLib.NetworkServer.Stop()
-  nameWithType: NetworkServer.Stop()
-- uid: FNNLib.NetworkServer.Stop*
-  name: Stop
-  href: api/FNNLib.NetworkServer.html#FNNLib_NetworkServer_Stop_
-  commentId: Overload:FNNLib.NetworkServer.Stop
-  isSpec: "True"
-  fullName: FNNLib.NetworkServer.Stop
-  nameWithType: NetworkServer.Stop
 - uid: FNNLib.SceneManagement
   name: FNNLib.SceneManagement
   href: api/FNNLib.SceneManagement.html
@@ -2495,12 +2580,31 @@ references:
   commentId: T:FNNLib.Spawning.SpawnManager
   fullName: FNNLib.Spawning.SpawnManager
   nameWithType: SpawnManager
+- uid: FNNLib.Spawning.SpawnManager.GetNetworkedPrefabIndex(System.UInt64)
+  name: GetNetworkedPrefabIndex(UInt64)
+  href: api/FNNLib.Spawning.SpawnManager.html#FNNLib_Spawning_SpawnManager_GetNetworkedPrefabIndex_System_UInt64_
+  commentId: M:FNNLib.Spawning.SpawnManager.GetNetworkedPrefabIndex(System.UInt64)
+  fullName: FNNLib.Spawning.SpawnManager.GetNetworkedPrefabIndex(System.UInt64)
+  nameWithType: SpawnManager.GetNetworkedPrefabIndex(UInt64)
+- uid: FNNLib.Spawning.SpawnManager.GetNetworkedPrefabIndex*
+  name: GetNetworkedPrefabIndex
+  href: api/FNNLib.Spawning.SpawnManager.html#FNNLib_Spawning_SpawnManager_GetNetworkedPrefabIndex_
+  commentId: Overload:FNNLib.Spawning.SpawnManager.GetNetworkedPrefabIndex
+  isSpec: "True"
+  fullName: FNNLib.Spawning.SpawnManager.GetNetworkedPrefabIndex
+  nameWithType: SpawnManager.GetNetworkedPrefabIndex
 - uid: FNNLib.Spawning.SpawnManager.spawnedObjects
   name: spawnedObjects
   href: api/FNNLib.Spawning.SpawnManager.html#FNNLib_Spawning_SpawnManager_spawnedObjects
   commentId: F:FNNLib.Spawning.SpawnManager.spawnedObjects
   fullName: FNNLib.Spawning.SpawnManager.spawnedObjects
   nameWithType: SpawnManager.spawnedObjects
+- uid: FNNLib.Spawning.SpawnManager.spawnedObjectsList
+  name: spawnedObjectsList
+  href: api/FNNLib.Spawning.SpawnManager.html#FNNLib_Spawning_SpawnManager_spawnedObjectsList
+  commentId: F:FNNLib.Spawning.SpawnManager.spawnedObjectsList
+  fullName: FNNLib.Spawning.SpawnManager.spawnedObjectsList
+  nameWithType: SpawnManager.spawnedObjectsList
 - uid: FNNLib.Spawning.SpawnObjectPacket
   name: SpawnObjectPacket
   href: api/FNNLib.Spawning.SpawnObjectPacket.html

@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace FNNLib
+    <title>Namespace FNNLib.Backend
    | Friday Night Networking Library </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace FNNLib
+    <meta name="title" content="Namespace FNNLib.Backend
    | Friday Night Networking Library ">
     <meta name="generator" content="docfx 2.56.2.0">
     
@@ -78,25 +78,22 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="FNNLib">
+            <article class="content wrap" id="_content" data-uid="FNNLib.Backend">
   
-  <h1 id="FNNLib" data-uid="FNNLib" class="text-break">Namespace FNNLib
+  <h1 id="FNNLib_Backend" data-uid="FNNLib.Backend" class="text-break">Namespace FNNLib.Backend
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">Classes
   </h3>
-      <h4><a class="xref" href="FNNLib.ConnectedClient.html">ConnectedClient</a></h4>
+      <h4><a class="xref" href="FNNLib.Backend.NetworkClient.html">NetworkClient</a></h4>
       <section></section>
-      <h4><a class="xref" href="FNNLib.NetworkBehaviour.html">NetworkBehaviour</a></h4>
-      <section></section>
-      <h4><a class="xref" href="FNNLib.NetworkIdentity.html">NetworkIdentity</a></h4>
-      <section></section>
-      <h4><a class="xref" href="FNNLib.NetworkManager.html">NetworkManager</a></h4>
-      <section><p>The network manager drives the NetworkClient and NetworkServer systems.</p>
-<p>TODO: Make more of this virtual so that custom network managers could be made? Do we actually need this given its functionality/openness?</p>
-<p>TODO: Allow changing hash strength.</p>
+      <h4><a class="xref" href="FNNLib.Backend.NetworkServer.html">NetworkServer</a></h4>
+      <section><p>The NetworkServer class manages sending data to the clients.
+This is normally controlled by the NetworkManager and most games won&apos;t access this at all.
+This is only accessed if you wish to register custom packet types.</p>
+<p>TODO: Clean this messy pile of spaghetti</p>
 </section>
 </article>
           </div>

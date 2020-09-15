@@ -14,7 +14,7 @@ namespace FNNLib.Spawning {
         public bool hasParent;
         public ulong parentNetID;
 
-        public bool isSceneObject;
+        public bool? isSceneObject;
         public ulong networkedInstanceID;
         public ulong prefabHash;
 
@@ -27,20 +27,24 @@ namespace FNNLib.Spawning {
         public void Serialize(NetworkWriter writer) {
             writer.WriteBool(isPlayerObject);
 
-            writer.WriteUInt64(networkID);
-            writer.WriteUInt64(ownerClientID);
+            writer.WritePackedUInt64(networkID);
+            writer.WritePackedUInt64(ownerClientID);
             if (NetworkManager.instance.networkConfig.useSceneManagement)
-                writer.WriteUInt64(sceneID);
+                writer.WritePackedUInt64(sceneID);
 
             writer.WriteBool(hasParent);
             if (hasParent)
-                writer.WriteUInt64(parentNetID);
+                writer.WritePackedUInt64(parentNetID);
 
-            writer.WriteBool(isSceneObject);
-            if (isSceneObject)
-                writer.WriteUInt64(networkedInstanceID);
-            else writer.WriteUInt64(prefabHash);
-
+            if (!NetworkManager.instance.networkConfig.useSceneManagement) {
+                writer.WritePackedUInt64(prefabHash);
+            } else {
+                writer.WriteBool(isSceneObject ?? true);
+                if (isSceneObject ?? true)
+                    writer.WritePackedUInt64(networkedInstanceID);
+                else writer.WritePackedUInt64(prefabHash);
+            }
+            
             writer.WriteBool(includesTransform);
             if (includesTransform) {
                 writer.WriteVector3(position);
@@ -51,19 +55,23 @@ namespace FNNLib.Spawning {
         public void DeSerialize(NetworkReader reader) {
             isPlayerObject = reader.ReadBool();
 
-            networkID = reader.ReadUInt64();
-            ownerClientID = reader.ReadUInt64();
+            networkID = reader.ReadPackedUInt64();
+            ownerClientID = reader.ReadPackedUInt64();
             if (NetworkManager.instance.networkConfig.useSceneManagement)
-                sceneID = reader.ReadUInt64();
+                sceneID = reader.ReadPackedUInt64();
 
             hasParent = reader.ReadBool();
             if (hasParent)
-                parentNetID = reader.ReadUInt64();
-
-            isSceneObject = reader.ReadBool();
-            if (isSceneObject)
-                networkedInstanceID = reader.ReadUInt64();
-            else prefabHash = reader.ReadUInt64();
+                parentNetID = reader.ReadPackedUInt64();
+            
+            if (!NetworkManager.instance.networkConfig.useSceneManagement) {
+                prefabHash = reader.ReadPackedUInt64();
+            } else {
+                isSceneObject = reader.ReadBool();
+                if (isSceneObject.Value)
+                    networkedInstanceID = reader.ReadPackedUInt64();
+                else prefabHash = reader.ReadPackedUInt64();
+            }
 
             includesTransform = reader.ReadBool();
             if (includesTransform) {

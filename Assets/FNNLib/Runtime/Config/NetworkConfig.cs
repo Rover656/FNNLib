@@ -82,11 +82,20 @@ namespace FNNLib.Config {
         #endregion
         
         #region Hashing
+        
+        // TODO: Implement hashing size differences:
 
         /// <summary>
-        /// The hash size used for packet IDs, scene IDs and prefab IDs.
+        /// The hash size used for packet IDs.
+        /// Only change if you are having collision problems.
         /// </summary>
-        public HashSize hashSize = HashSize.FourBytes;
+        public HashSize packetIDHashSize = HashSize.FourBytes;
+        
+        /// <summary>
+        /// The hash size for rpc method names.
+        /// Only change if you are having collision problems.
+        /// </summary>
+        public HashSize rpcHashSize = HashSize.FourBytes;
 
         #endregion
         
@@ -118,7 +127,8 @@ namespace FNNLib.Config {
 
                 // Write config that must be the same across client and server.
                 writer.WriteBool(useSceneManagement);
-                writer.WriteByte((byte) hashSize);
+                writer.WriteByte((byte) packetIDHashSize);
+                writer.WriteByte((byte) rpcHashSize);
 
                 if (cache) {
                     _cachedHash = writer.ToArray().GetStableHash64();

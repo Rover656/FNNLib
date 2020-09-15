@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using FNNLib.Backend;
+using FNNLib.Spawning;
 using FNNLib.Transports;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 namespace FNNLib.SceneManagement {
     [Serializable]
@@ -31,6 +35,8 @@ namespace FNNLib.SceneManagement {
         /// </summary>
         private static ConcurrentDictionary<uint, NetworkScene> _loadedScenes =
             new ConcurrentDictionary<uint, NetworkScene>();
+        
+        #region Scene Management
 
         /// <summary>
         /// On single scene mode, this will load the scene and move all clients to it.
@@ -38,8 +44,9 @@ namespace FNNLib.SceneManagement {
         /// To move clients there, use SendClientToScene. To make this the main/default scene, use SetActiveScene.
         /// </summary>
         /// <param name="sceneName"></param>
+        /// <returns>The scene's network ID.</returns>
         /// <exception cref="NotSupportedException"></exception>
-        public static void ServerLoadScene(string sceneName) {
+        public static uint ServerLoadScene(string sceneName) {
             if (!NetworkManager.instance.networkConfig.useSceneManagement)
                 throw
                     new NotSupportedException("The NetworkSceneManager is not enabled by the current NetworkManager!");
@@ -84,6 +91,8 @@ namespace FNNLib.SceneManagement {
                 var changePacket = new SceneChangePacket {sceneIndex = GetSceneIndex(sceneName), sceneNetID = netID};
                 NetworkServer.instance.SendToAll(changePacket, DefaultChannels.ReliableSequenced);
             }
+
+            return netID;
         }
 
         /// <summary>
@@ -139,8 +148,27 @@ namespace FNNLib.SceneManagement {
 
             NetworkServer.instance.Send(netScene.observers, changePacket, DefaultChannels.ReliableSequenced);
 
+            // Unload this scene.
             SceneManager.UnloadSceneAsync(netScene.scene);
         }
+        
+        #endregion
+        
+        #region Client and Object Management
+
+        public static GameObject Instantiate(uint sceneID, GameObject go, Vector3 position, Quaternion rotation) {
+            if (!_loadedScenes.ContainsKey(sceneID))
+                throw new Exception("Scene is not loaded/does not exist!");
+            var created = Object.Instantiate(go, position, rotation);
+            SceneManager.MoveGameObjectToScene(created, _loadedScenes[sceneID].scene);
+            return created;
+        }
+        
+        // TODO: Moving networked objects...
+        
+        // TODO: FindObjectsOfType... Will be *very* slow but are kinda necessary. Need a performance warning for them.
+        //       You should probably store lists of objects or use singletons to avoid these.
+        //       Oh, and if you're not using subscenes they work the same as normal.
 
         /// <summary>
         /// 
@@ -172,7 +200,11 @@ namespace FNNLib.SceneManagement {
                                                          sceneNetID = _loadedScenes[sceneID].sceneID
                                                      };
             NetworkServer.instance.Send(clientID, changePacket, DefaultChannels.ReliableSequenced);
+            NetworkManager.instance.connectedClients[clientID].sceneID = _loadedScenes[sceneID].sceneID;
+            SpawnManager.OnClientChangeScene(clientID);
         }
+        
+        #endregion
 
         private static bool CanSendClientTo(string sceneName) {
             return NetworkManager.instance.networkConfig.networkableScenes.FindIndex((networkableScene) =>
@@ -223,6 +255,7 @@ namespace FNNLib.SceneManagement {
             // Send to the current scene.
             var changePacket = new SceneChangePacket
                                {sceneIndex = GetSceneIndex(_activeScene.sceneName), sceneNetID = _activeScene.sceneID};
+            NetworkManager.instance.connectedClients[clientID].sceneID = _activeScene.sceneID;
             NetworkServer.instance.Send(clientID, changePacket, DefaultChannels.ReliableSequenced);
         }
 
@@ -237,7 +270,8 @@ namespace FNNLib.SceneManagement {
             // Add to scene observer list
             _loadedScenes[packet.loadedSceneID].AddObserver(clientID);
 
-            // TODO: Make SpawnManager spawn all objects.
+            // Spawn network objects
+            SpawnManager.OnClientJoinScene(clientID, packet.loadedSceneID);
         }
 
         #endregion

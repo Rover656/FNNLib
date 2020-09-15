@@ -16,7 +16,7 @@ namespace FNNLib {
         /// </summary>
         public uint sceneID {
             get {
-                if (NetworkManager.instance == null || NetworkManager.instance.networkConfig.useSceneManagement)
+                if (NetworkManager.instance == null || !NetworkManager.instance.networkConfig.useSceneManagement)
                     return 0;
                 return NetworkSceneManager.GetSceneNetID(gameObject.scene);
             }
@@ -31,6 +31,19 @@ namespace FNNLib {
         /// Whether or not the object is spawned on the network.
         /// </summary>
         public bool isSpawned { get; internal set; }
+        
+        /// <summary>
+        /// Whether or not this object was spawned with the scene.
+        /// </summary>
+        public bool? isSceneObject { get; internal set; }
+
+        /// <summary>
+        /// Unique identifier for this object in the scene.
+        /// Only used if this is a scene object.
+        /// Do not set this value yourself!
+        /// </summary>
+        [HideInInspector]
+        public ulong sceneInstanceID;
 
         /// <summary>
         /// The client ID of the owner.
@@ -135,21 +148,21 @@ namespace FNNLib {
         public void Spawn() {
             if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("Spawn may only be called by the server!");
-            SpawnManager.SpawnObjectLocally(this, SpawnManager.GetNetworkID(), false, null);
+            SpawnManager.SpawnObjectLocally(this, SpawnManager.GetNetworkID(), false, false, null);
             SpawnManager.ServerSendSpawnCall(observers, this);
         }
 
         public void SpawnWithOwnership(ulong clientID) {
             if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("Spawn may only be called by the server!");
-            SpawnManager.SpawnObjectLocally(this, SpawnManager.GetNetworkID(), false, clientID);
+            SpawnManager.SpawnObjectLocally(this, SpawnManager.GetNetworkID(), false, false, clientID);
             SpawnManager.ServerSendSpawnCall(observers, this);
         }
 
         public void SpawnAsPlayerObject(ulong clientID) {
             if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("Spawn may only be called by the server!");
-            SpawnManager.SpawnObjectLocally(this, SpawnManager.GetNetworkID(), true, clientID);
+            SpawnManager.SpawnObjectLocally(this, SpawnManager.GetNetworkID(), false, true, clientID);
             SpawnManager.ServerSendSpawnCall(observers, this);
         }
 

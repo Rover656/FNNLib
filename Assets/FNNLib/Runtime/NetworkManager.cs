@@ -59,7 +59,7 @@ namespace FNNLib {
         public bool runInBackground = true;
 
         private bool _wasRunningInBackground;
-
+        
         /// <summary>
         /// The network config.
         /// </summary>
@@ -96,7 +96,6 @@ namespace FNNLib {
             // TODO: Should this be put elsewhere?
             if (networkConfig.useSceneManagement) {
                 _client.RegisterPacketHandler<SceneChangePacket>(NetworkSceneManager.ClientHandleSceneChangePacket);
-                _server.onClientConnected.AddListener(NetworkSceneManager.OnClientConnected);
                 _server.RegisterPacketHandler<SceneChangeCompletedPacket>(NetworkSceneManager.SceneChangeCompletedHandler);
             }
             
@@ -161,6 +160,10 @@ namespace FNNLib {
                                                                        clientID = clientID
                                                                    });
                 connectedClientsList.Add(connectedClients[clientID]);
+                // TODO: Fire an event on the NetworkManager itself so we don't have to do this.
+                if (networkConfig.useSceneManagement)
+                    NetworkSceneManager.OnClientConnected(clientID);
+                SpawnManager.OnClientConnected(clientID);
             }
         }
 

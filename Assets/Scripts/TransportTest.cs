@@ -12,6 +12,8 @@ namespace DefaultNamespace {
         public bool editorIsClient;
 
         public GameObject testPrefab;
+
+        private uint testSceneID;
         
         void Start() {
             if ((editorIsClient && Application.isEditor) || (!editorIsClient && !Application.isEditor)) {
@@ -28,15 +30,16 @@ namespace DefaultNamespace {
             else {
                 NetworkManager.instance.StartServer();
                 NetworkServer.instance.onClientConnected.AddListener((client) => {
-                                                                       // Instantiate(testPrefab, Vector3.zero,
-                                                                       //     Quaternion.identity).GetComponent<NetworkIdentity>().SpawnWithOwnership(client);
-                                                                       NetworkSceneManager.ServerLoadScene("Test");
+                                                                       NetworkSceneManager.Instantiate(testSceneID, testPrefab, Vector3.zero,
+                                                                           Quaternion.identity).GetComponent<NetworkIdentity>().SpawnWithOwnership(client);
                                                                    });
             }
 
             // Register packet on possible targets. In this packets case, itll register on both client and server.
             // If you want to use a separate handler for client or server, use the NetworkServer or Client instead!
             NetworkManager.instance.RegisterPacketHandler<TestPacket>(HandleTestPacket);
+            
+            testSceneID = NetworkSceneManager.ServerLoadScene("Test");
         }
 
         void HandleTestPacket(ulong clientID, TestPacket packet) {

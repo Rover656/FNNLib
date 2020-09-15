@@ -1,5 +1,7 @@
 ﻿using System;
+using FNNLib.SceneManagement;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace FNNLib {
     // TODO: This will be fleshed out once object spawning and scene management is done.
@@ -30,7 +32,7 @@ namespace FNNLib {
         
         #region Identity Passthrough
 
-        public ulong sceneID => identity.sceneID;
+        public uint sceneID => identity.sceneID;
 
         public ulong networkID => identity.networkID;
 
@@ -61,5 +63,15 @@ namespace FNNLib {
             if (!hasIdentity)
                 Debug.LogError("NetworkBehaviour attached to \"" + name + " \" could not find a NetworkIdentity in its parent!");
         }
+        
+        #region Scene Manager helpers
+
+        public GameObject NetInstantiate(GameObject go, Vector3 position, Quaternion rotation) {
+            if (NetworkManager.instance.networkConfig.useSceneManagement)
+                return NetworkSceneManager.Instantiate(sceneID, go, position, rotation);
+            return Instantiate(go, position, rotation);
+        }
+        
+        #endregion
     }
 }

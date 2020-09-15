@@ -24,7 +24,8 @@ namespace FNNLib.Editor {
         private SerializedProperty _permittedScenesProp;
         private SerializedProperty _networkedPrefabsProp;
         private SerializedProperty _serverTickRateProp;
-        private SerializedProperty _hashSizeProp;
+        private SerializedProperty _packetIDHashSizeProp;
+        private SerializedProperty _rpcHashSizeProp;
 
         private ReorderableList _networkableScenesList;
         private ReorderableList _networkedPrefabsList;
@@ -45,7 +46,8 @@ namespace FNNLib.Editor {
             _useSceneManagementProp = _networkConfigProp.FindPropertyRelative("useSceneManagement");
             _enableSubScenesProp = _networkConfigProp.FindPropertyRelative("enableSubScenes");
             _serverTickRateProp = _networkConfigProp.FindPropertyRelative("serverTickRate");
-            _hashSizeProp = _networkConfigProp.FindPropertyRelative("hashSize");
+            _packetIDHashSizeProp = _networkConfigProp.FindPropertyRelative("packetIDHashSize");
+            _rpcHashSizeProp = _networkConfigProp.FindPropertyRelative("rpcHashSize");
         }
 
         private void OnEnable() {
@@ -163,7 +165,8 @@ namespace FNNLib.Editor {
                 EditorGUILayout.PropertyField(_serverTickRateProp);
 
                 EditorGUILayout.LabelField("Hashing", EditorStyles.boldLabel);
-                EditorGUILayout.PropertyField(_hashSizeProp);
+                EditorGUILayout.PropertyField(_packetIDHashSizeProp);
+                EditorGUILayout.PropertyField(_rpcHashSizeProp);
 
                 serializedObject.ApplyModifiedProperties();
                 

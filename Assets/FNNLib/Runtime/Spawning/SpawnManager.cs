@@ -30,14 +30,16 @@ namespace FNNLib.Spawning {
         /// <param name="networkID"></param>
         /// <param name="playerObject"></param>
         /// <param name="ownerClientID"></param>
-        internal static void SpawnObjectLocally(NetworkIdentity identity, ulong networkID, bool playerObject,
-                                                ulong? ownerClientID) {
+        internal static void SpawnObjectLocally(NetworkIdentity identity, ulong networkID, bool sceneObject,
+                                                bool playerObject, ulong? ownerClientID) {
             if (identity == null)
                 throw new ArgumentNullException("Cannot spawn with null identity!");
             if (identity.isSpawned)
                 throw new Exception("Already spawned!");
 
             identity.isSpawned = true;
+
+            identity.isSceneObject = sceneObject;
             identity.networkID = networkID;
 
             identity._ownerClientID = ownerClientID;
@@ -180,8 +182,16 @@ namespace FNNLib.Spawning {
                 rotation = Quaternion.Euler(packet.eulerRotation);
             }
             
+            // Whether or not this is a scene object
+            bool sceneObject;
+            if (NetworkManager.instance.networkConfig.useSceneManagement) {
+                sceneObject = false;
+            } else {
+                sceneObject = packet.isSceneObject ?? true;
+            }
+            
             var netObj = CreateObjectLocal(packet.sceneID, packet.prefabHash, parentNetID, position, rotation);
-            SpawnObjectLocally(netObj, packet.networkID, packet.isPlayerObject, packet.ownerClientID);
+            SpawnObjectLocally(netObj, packet.networkID, sceneObject, packet.isPlayerObject, packet.ownerClientID);
         }
 
         internal static void ClientHandleDestroy(ulong sender, DestroyObjectPacket packet) {
@@ -230,6 +240,12 @@ namespace FNNLib.Spawning {
             packet.eulerRotation = identity.transform.rotation.eulerAngles;
             return packet;
         }
+
+        internal static void OnClientConnected(ulong clientID) {
+            // If scene management is disabled, spawn objects for the new client.
+            if (!NetworkManager.instance.networkConfig.useSceneManagement)
+                OnClientJoinScene(clientID, 0);
+        }
         
         #endregion
 
@@ -254,6 +270,52 @@ namespace FNNLib.Spawning {
         internal static ulong GetNetworkID() {
             _networkIDCounter++;
             return _networkIDCounter;
+        }
+        
+        #endregion
+        
+        #region Scenes
+
+        /// <summary>
+        /// Spawns any NetworkIdentities in the scene at scene start.
+        /// </summary>
+        internal static void SpawnSceneObjects() {
+            
+        }
+
+        internal static void ResetSceneObjects() {
+            
+        }
+
+        internal static void DestroySpawnedSceneObjects() {
+            
+        }
+
+        internal static void OnClientJoinScene(ulong clientID, uint sceneID) {
+            // Check the player is observing the scene they are joining
+            if (NetworkManager.instance.networkConfig.useSceneManagement) {
+                if (!NetworkSceneManager.GetNetScene(sceneID).observers.Contains(clientID))
+                    throw new NotSupportedException("Will not spawn objects for client that isn't in the scene it requested.");
+            }
+
+            // TODO: IsVisible delegate for custom handling.
+            foreach (var obj in spawnedObjectsList) {
+                if (!NetworkManager.instance.networkConfig.useSceneManagement || obj.sceneID == sceneID)
+                    obj.AddObserver(clientID);
+            }
+        }
+
+        /// <summary>
+        /// Removes anything the client owned in this scene.
+        /// </summary>
+        /// <param name="clientID"></param>
+        internal static void OnClientChangeScene(ulong clientID) {
+            // Destroy's anything the client owned and removes the client from every observer list.
+            foreach (var obj in spawnedObjectsList) {
+                obj.observers.Remove(clientID);
+                if (obj.ownerClientID == clientID)
+                    OnDestroy(obj.networkID, true);
+            }
         }
         
         #endregion

@@ -7,6 +7,6 @@ namespace FNNLib.SceneManagement {
         /// The scene bounds.
         /// This configures how the NetworkSceneManager adds additional scenes and where.
         /// </summary>
-        public Bounds sceneBounds;
+        public Vector3 sceneMinimumBoundary;
     }
 }

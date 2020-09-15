@@ -302,6 +302,24 @@ references:
   isSpec: "True"
   fullName: FNNLib.Backend.NetworkServer.Stop
   nameWithType: NetworkServer.Stop
+- uid: FNNLib.Components
+  name: FNNLib.Components
+  href: api/FNNLib.Components.html
+  commentId: N:FNNLib.Components
+  fullName: FNNLib.Components
+  nameWithType: FNNLib.Components
+- uid: FNNLib.Components.ScenePackingVisualizer
+  name: ScenePackingVisualizer
+  href: api/FNNLib.Components.ScenePackingVisualizer.html
+  commentId: T:FNNLib.Components.ScenePackingVisualizer
+  fullName: FNNLib.Components.ScenePackingVisualizer
+  nameWithType: ScenePackingVisualizer
+- uid: FNNLib.Components.ScenePackingVisualizer.packingData
+  name: packingData
+  href: api/FNNLib.Components.ScenePackingVisualizer.html#FNNLib_Components_ScenePackingVisualizer_packingData
+  commentId: F:FNNLib.Components.ScenePackingVisualizer.packingData
+  fullName: FNNLib.Components.ScenePackingVisualizer.packingData
+  nameWithType: ScenePackingVisualizer.packingData
 - uid: FNNLib.Config
   name: FNNLib.Config
   href: api/FNNLib.Config.html
@@ -369,12 +387,6 @@ references:
   isSpec: "True"
   fullName: FNNLib.Config.NetworkConfig.GetHash
   nameWithType: NetworkConfig.GetHash
-- uid: FNNLib.Config.NetworkConfig.hashSize
-  name: hashSize
-  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_hashSize
-  commentId: F:FNNLib.Config.NetworkConfig.hashSize
-  fullName: FNNLib.Config.NetworkConfig.hashSize
-  nameWithType: NetworkConfig.hashSize
 - uid: FNNLib.Config.NetworkConfig.networkableScenes
   name: networkableScenes
   href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_networkableScenes
@@ -387,12 +399,24 @@ references:
   commentId: F:FNNLib.Config.NetworkConfig.networkedPrefabs
   fullName: FNNLib.Config.NetworkConfig.networkedPrefabs
   nameWithType: NetworkConfig.networkedPrefabs
+- uid: FNNLib.Config.NetworkConfig.packetIDHashSize
+  name: packetIDHashSize
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_packetIDHashSize
+  commentId: F:FNNLib.Config.NetworkConfig.packetIDHashSize
+  fullName: FNNLib.Config.NetworkConfig.packetIDHashSize
+  nameWithType: NetworkConfig.packetIDHashSize
 - uid: FNNLib.Config.NetworkConfig.protocolVersion
   name: protocolVersion
   href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_protocolVersion
   commentId: F:FNNLib.Config.NetworkConfig.protocolVersion
   fullName: FNNLib.Config.NetworkConfig.protocolVersion
   nameWithType: NetworkConfig.protocolVersion
+- uid: FNNLib.Config.NetworkConfig.rpcHashSize
+  name: rpcHashSize
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_rpcHashSize
+  commentId: F:FNNLib.Config.NetworkConfig.rpcHashSize
+  fullName: FNNLib.Config.NetworkConfig.rpcHashSize
+  nameWithType: NetworkConfig.rpcHashSize
 - uid: FNNLib.Config.NetworkConfig.serverTickRate
   name: serverTickRate
   href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_serverTickRate
@@ -497,6 +521,25 @@ references:
   isSpec: "True"
   fullName: FNNLib.Editor.NetworkManagerEditor.OnInspectorGUI
   nameWithType: NetworkManagerEditor.OnInspectorGUI
+- uid: FNNLib.Editor.ScenePostProcessing
+  name: ScenePostProcessing
+  href: api/FNNLib.Editor.ScenePostProcessing.html
+  commentId: T:FNNLib.Editor.ScenePostProcessing
+  fullName: FNNLib.Editor.ScenePostProcessing
+  nameWithType: ScenePostProcessing
+- uid: FNNLib.Editor.ScenePostProcessing.ProcessScene
+  name: ProcessScene()
+  href: api/FNNLib.Editor.ScenePostProcessing.html#FNNLib_Editor_ScenePostProcessing_ProcessScene
+  commentId: M:FNNLib.Editor.ScenePostProcessing.ProcessScene
+  fullName: FNNLib.Editor.ScenePostProcessing.ProcessScene()
+  nameWithType: ScenePostProcessing.ProcessScene()
+- uid: FNNLib.Editor.ScenePostProcessing.ProcessScene*
+  name: ProcessScene
+  href: api/FNNLib.Editor.ScenePostProcessing.html#FNNLib_Editor_ScenePostProcessing_ProcessScene_
+  commentId: Overload:FNNLib.Editor.ScenePostProcessing.ProcessScene
+  isSpec: "True"
+  fullName: FNNLib.Editor.ScenePostProcessing.ProcessScene
+  nameWithType: ScenePostProcessing.ProcessScene
 - uid: FNNLib.Messaging
   name: FNNLib.Messaging
   href: api/FNNLib.Messaging.html
@@ -832,6 +875,19 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkBehaviour.isSpawned
   nameWithType: NetworkBehaviour.isSpawned
+- uid: FNNLib.NetworkBehaviour.NetInstantiate(GameObject,Vector3,Quaternion)
+  name: NetInstantiate(GameObject, Vector3, Quaternion)
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_NetInstantiate_GameObject_Vector3_Quaternion_
+  commentId: M:FNNLib.NetworkBehaviour.NetInstantiate(GameObject,Vector3,Quaternion)
+  fullName: FNNLib.NetworkBehaviour.NetInstantiate(GameObject, Vector3, Quaternion)
+  nameWithType: NetworkBehaviour.NetInstantiate(GameObject, Vector3, Quaternion)
+- uid: FNNLib.NetworkBehaviour.NetInstantiate*
+  name: NetInstantiate
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_NetInstantiate_
+  commentId: Overload:FNNLib.NetworkBehaviour.NetInstantiate
+  isSpec: "True"
+  fullName: FNNLib.NetworkBehaviour.NetInstantiate
+  nameWithType: NetworkBehaviour.NetInstantiate
 - uid: FNNLib.NetworkBehaviour.networkID
   name: networkID
   href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_networkID
@@ -968,6 +1024,19 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkIdentity.isPlayerObject
   nameWithType: NetworkIdentity.isPlayerObject
+- uid: FNNLib.NetworkIdentity.isSceneObject
+  name: isSceneObject
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isSceneObject
+  commentId: P:FNNLib.NetworkIdentity.isSceneObject
+  fullName: FNNLib.NetworkIdentity.isSceneObject
+  nameWithType: NetworkIdentity.isSceneObject
+- uid: FNNLib.NetworkIdentity.isSceneObject*
+  name: isSceneObject
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isSceneObject_
+  commentId: Overload:FNNLib.NetworkIdentity.isSceneObject
+  isSpec: "True"
+  fullName: FNNLib.NetworkIdentity.isSceneObject
+  nameWithType: NetworkIdentity.isSceneObject
 - uid: FNNLib.NetworkIdentity.isSpawned
   name: isSpawned
   href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_isSpawned
@@ -1058,6 +1127,12 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkIdentity.sceneID
   nameWithType: NetworkIdentity.sceneID
+- uid: FNNLib.NetworkIdentity.sceneInstanceID
+  name: sceneInstanceID
+  href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_sceneInstanceID
+  commentId: F:FNNLib.NetworkIdentity.sceneInstanceID
+  fullName: FNNLib.NetworkIdentity.sceneInstanceID
+  nameWithType: NetworkIdentity.sceneInstanceID
 - uid: FNNLib.NetworkIdentity.Spawn
   name: Spawn()
   href: api/FNNLib.NetworkIdentity.html#FNNLib_NetworkIdentity_Spawn
@@ -1428,6 +1503,19 @@ references:
   isSpec: "True"
   fullName: FNNLib.SceneManagement.NetworkSceneManager.GetSceneNetID
   nameWithType: NetworkSceneManager.GetSceneNetID
+- uid: FNNLib.SceneManagement.NetworkSceneManager.Instantiate(System.UInt32,GameObject,Vector3,Quaternion)
+  name: Instantiate(UInt32, GameObject, Vector3, Quaternion)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_Instantiate_System_UInt32_GameObject_Vector3_Quaternion_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.Instantiate(System.UInt32,GameObject,Vector3,Quaternion)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.Instantiate(System.UInt32, GameObject, Vector3, Quaternion)
+  nameWithType: NetworkSceneManager.Instantiate(UInt32, GameObject, Vector3, Quaternion)
+- uid: FNNLib.SceneManagement.NetworkSceneManager.Instantiate*
+  name: Instantiate
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_Instantiate_
+  commentId: Overload:FNNLib.SceneManagement.NetworkSceneManager.Instantiate
+  isSpec: "True"
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.Instantiate
+  nameWithType: NetworkSceneManager.Instantiate
 - uid: FNNLib.SceneManagement.NetworkSceneManager.SendClientTo(System.UInt64,System.UInt32)
   name: SendClientTo(UInt64, UInt32)
   href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_SendClientTo_System_UInt64_System_UInt32_
@@ -1486,12 +1574,12 @@ references:
   commentId: T:FNNLib.SceneManagement.ScenePackingData
   fullName: FNNLib.SceneManagement.ScenePackingData
   nameWithType: ScenePackingData
-- uid: FNNLib.SceneManagement.ScenePackingData.sceneBounds
-  name: sceneBounds
-  href: api/FNNLib.SceneManagement.ScenePackingData.html#FNNLib_SceneManagement_ScenePackingData_sceneBounds
-  commentId: F:FNNLib.SceneManagement.ScenePackingData.sceneBounds
-  fullName: FNNLib.SceneManagement.ScenePackingData.sceneBounds
-  nameWithType: ScenePackingData.sceneBounds
+- uid: FNNLib.SceneManagement.ScenePackingData.sceneMinimumBoundary
+  name: sceneMinimumBoundary
+  href: api/FNNLib.SceneManagement.ScenePackingData.html#FNNLib_SceneManagement_ScenePackingData_sceneMinimumBoundary
+  commentId: F:FNNLib.SceneManagement.ScenePackingData.sceneMinimumBoundary
+  fullName: FNNLib.SceneManagement.ScenePackingData.sceneMinimumBoundary
+  nameWithType: ScenePackingData.sceneMinimumBoundary
 - uid: FNNLib.Serialization
   name: FNNLib.Serialization
   href: api/FNNLib.Serialization.html

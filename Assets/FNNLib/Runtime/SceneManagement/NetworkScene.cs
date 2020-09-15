@@ -30,43 +30,19 @@ namespace FNNLib.SceneManagement {
         /// <summary>
         /// This scene's observers.
         /// </summary>
-        private readonly List<ulong> _observers = new List<ulong>();
-
-        #region Networked Objects
-        
-        // TODO: Spawning player objects and for only specific observers.
-
-        /// <summary>
-        /// Spawn a networked object using its identity.
-        /// </summary>
-        /// <param name="netIdentity"></param>
-        internal void SpawnForAll(NetworkIdentity netIdentity) {
-            // TODO
-        }
-
-        /// <summary>
-        /// Despawns an object using its identity.
-        /// Generally you won't need to call this, it will be handled by the Identity on destruction.
-        /// Only do this if you want the object to be removed from clients only.
-        /// </summary>
-        /// <param name="netIdentity"></param>
-        internal void DespawnForAll(NetworkIdentity netIdentity) {
-            // TODO, Remove the object from all observers.
-        }
-        
-        #endregion
+        internal readonly List<ulong> observers = new List<ulong>();
 
         #region Observers (scene members)
 
         internal void AddObserver(ulong clientID) {
             // Add to observer list and spawn all current objects for the client (if they can see them)
-            _observers.Add(clientID);
+            observers.Add(clientID);
         }
 
         internal void RemoveObserver(ulong clientID) {
             // Remove from observer list, they no longer recieve updates.
-            // We don't tell the client to despawn objects however, as this only happens if they disconnect or load a different scene.
-            _observers.Remove(clientID);
+            // We don't tell the client to despawn objects however, as this function is only called if they disconnect or load a different scene.
+            observers.Remove(clientID);
         }
         
         #endregion

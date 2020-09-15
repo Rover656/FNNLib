@@ -2,7 +2,7 @@
 
 namespace FNNLib.Messaging.Internal {
     [ServerPacket]
-    public class ConnectionRequestPacket : IPacket {
+    internal class ConnectionRequestPacket : IPacket {
         public ulong protocolVersion;
         public byte[] connectionData;
         

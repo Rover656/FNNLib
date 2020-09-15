@@ -2,7 +2,7 @@
 
 namespace FNNLib.Messaging.Internal {
     [ClientPacket]
-    public class ConnectionApprovedPacket : IPacket {
+    internal class ConnectionApprovedPacket : IPacket {
         public ulong localClientID;
 
         public void Serialize(NetworkWriter writer) {

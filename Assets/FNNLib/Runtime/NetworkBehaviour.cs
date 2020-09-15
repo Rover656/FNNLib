@@ -30,7 +30,7 @@ namespace FNNLib {
         
         #region Identity Passthrough
 
-        public ulong? sceneID => identity.sceneID;
+        public ulong sceneID => identity.sceneID;
 
         public ulong networkID => identity.networkID;
 

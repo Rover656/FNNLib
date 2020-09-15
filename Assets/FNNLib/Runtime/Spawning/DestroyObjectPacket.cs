@@ -3,7 +3,7 @@ using FNNLib.Serialization;
 
 namespace FNNLib.Spawning {
     [ClientPacket]
-    public class DestroyObjectPacket : IPacket {
+    internal class DestroyObjectPacket : IPacket {
         public ulong networkID;
         
         // TODO: Do we need to validate scene ID?

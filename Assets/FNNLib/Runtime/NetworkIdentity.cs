@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FNNLib.Backend;
+using FNNLib.SceneManagement;
 using FNNLib.Spawning;
 using FNNLib.Transports;
 using FNNLib.Utilities;
@@ -11,9 +12,15 @@ namespace FNNLib {
     public class NetworkIdentity : MonoBehaviour {
         /// <summary>
         /// The scene that this object is in.
-        /// Will always equal 0 if scene management is disabled.
+        /// Will always be 0 if scene management is disabled.
         /// </summary>
-        public ulong? sceneID { get; internal set; }
+        public uint sceneID {
+            get {
+                if (NetworkManager.instance == null || NetworkManager.instance.networkConfig.useSceneManagement)
+                    return 0;
+                return NetworkSceneManager.GetSceneNetID(gameObject.scene);
+            }
+        }
         
         /// <summary>
         /// The network ID of this object in the scene.
@@ -160,11 +167,13 @@ namespace FNNLib {
         public void ChangeOwnership(ulong newOwnerClientID) {
             if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("ChangeOwnership may only be called by the server!");
+            //todo
         }
         
         public void RemoveOwnership() {
             if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("RemoveOwnership may only be called by the server!");
+            //todo
         }
 
         #endregion

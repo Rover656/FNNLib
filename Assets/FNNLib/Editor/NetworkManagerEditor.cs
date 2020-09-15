@@ -44,7 +44,6 @@ namespace FNNLib.Editor {
             _transportProp = _networkConfigProp.FindPropertyRelative("transport");
             _useSceneManagementProp = _networkConfigProp.FindPropertyRelative("useSceneManagement");
             _enableSubScenesProp = _networkConfigProp.FindPropertyRelative("enableSubScenes");
-            _moveNewClientsToActiveSceneProp = _networkConfigProp.FindPropertyRelative("moveNewClientsToActiveScene");
             _serverTickRateProp = _networkConfigProp.FindPropertyRelative("serverTickRate");
             _hashSizeProp = _networkConfigProp.FindPropertyRelative("hashSize");
         }
@@ -151,10 +150,6 @@ namespace FNNLib.Editor {
 
                 using (new EditorGUI.DisabledScope(!_networkManager.networkConfig.useSceneManagement)) {
                     EditorGUILayout.PropertyField(_enableSubScenesProp);
-
-                    using (new EditorGUI.DisabledScope(!_networkManager.networkConfig.enableSubScenes)) {
-                        EditorGUILayout.PropertyField(_moveNewClientsToActiveSceneProp);
-                    }
 
                     _networkableScenesList.DoLayoutList();
                 }

@@ -29,6 +29,7 @@
       <Path>Documentation</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
+      <Path>Temp</Path>
       <Path>UserSettings</Path>
       <Path>_site</Path>
       <Path>obj</Path>

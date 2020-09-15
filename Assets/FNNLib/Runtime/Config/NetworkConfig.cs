@@ -40,14 +40,6 @@ namespace FNNLib.Config {
         public bool enableSubScenes = false;
 
         /// <summary>
-        /// If enabled, new clients will always be moved to the currently active scene.
-        /// If this is not enabled, you will be expected to move the client yourself. I.e the client will not exist in any space until you move it.
-        ///
-        /// Only available if subscenes are enabled.
-        /// </summary>
-        public bool moveNewClientsToActiveScene = true;
-        
-        /// <summary>
         /// The list of scenes that the server is permitted to send the client to.
         /// Used for security purposes if you opt to use the NetworkSceneManager (recommended).
         /// </summary>

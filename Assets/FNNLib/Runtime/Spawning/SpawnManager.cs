@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FNNLib.Backend;
+using FNNLib.SceneManagement;
 using FNNLib.Transports;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -33,7 +34,6 @@ namespace FNNLib.Spawning {
                                                 ulong? ownerClientID) {
             if (identity == null)
                 throw new ArgumentNullException("Cannot spawn with null identity!");
-            
             if (identity.isSpawned)
                 throw new Exception("Already spawned!");
 
@@ -45,21 +45,29 @@ namespace FNNLib.Spawning {
 
             spawnedObjects.Add(identity.networkID, identity);
             spawnedObjectsList.Add(identity);
-
+            
             if (ownerClientID != null) {
                 if (NetworkManager.instance.isServer) {
                     if (playerObject)
-                        NetworkManager.instance.connectedClients[ownerClientID.Value].playerObject = identity;
-                    else NetworkManager.instance.connectedClients[ownerClientID.Value].ownedObjects.Add(identity);
+                        NetworkManager.instance.connectedClients[ownerClientID.Value].playerObject = identity.networkID;
+                    else NetworkManager.instance.connectedClients[ownerClientID.Value].ownedObjects.Add(identity.networkID);
                 } else if (playerObject && ownerClientID.Value == NetworkManager.instance.localClientID) {
-                    NetworkManager.instance.connectedClients[ownerClientID.Value].playerObject = identity;
+                    NetworkManager.instance.connectedClients[ownerClientID.Value].playerObject = identity.networkID;
                 }
             }
             
             if (NetworkManager.instance.isServer) {
                 for (var i = 0; i < NetworkManager.instance.connectedClientsList.Count; i++) {
-                    // TODO: Initial delegate to determine if client should observe
-                    identity.observers.Add(NetworkManager.instance.connectedClientsList[i].clientID);
+                    var clientID = NetworkManager.instance.connectedClientsList[i].clientID;
+                    if (NetworkManager.instance.networkConfig.useSceneManagement) {
+                        // If the client isn't observing the scene, don't make them observe this object.
+                        if (!NetworkSceneManager.GetNetScene(identity.sceneID).observers.Contains(clientID))
+                            continue;
+                    }
+                    
+                    // TODO: Custom is observer callback for more customisation
+                    
+                    identity.observers.Add(clientID);
                 }
             }
             
@@ -67,7 +75,16 @@ namespace FNNLib.Spawning {
         }
         
         // Run on client only
-        internal static NetworkIdentity CreateObjectLocal(ulong prefabHash, ulong? parentNetID, Vector3? position, Quaternion? rotation) {
+        internal static NetworkIdentity CreateObjectLocal(ulong sceneID, ulong prefabHash, ulong? parentNetID, Vector3? position, Quaternion? rotation) {
+            // Check that the scene ID matches the client's current scene.
+            if (NetworkManager.instance.networkConfig.useSceneManagement && !NetworkManager.instance.isServer) {
+                var client = NetworkManager.instance.connectedClients[NetworkManager.instance.localClientID];
+                if (client.sceneID != sceneID) {
+                    Debug.LogWarning("Cannot spawn object from another scene. Ignoring");
+                    return null;
+                }
+            }
+            
             NetworkIdentity parent = null;
             if (parentNetID.HasValue) {
                 if (spawnedObjects.ContainsKey(parentNetID.Value)) {
@@ -117,10 +134,10 @@ namespace FNNLib.Spawning {
                 NetworkManager.instance.connectedClients.ContainsKey(spawnedObjects[networkID].ownerClientID)) {
                 if (spawnedObjects[networkID].isPlayerObject) {
                     NetworkManager.instance.connectedClients[spawnedObjects[networkID].ownerClientID].playerObject =
-                        null;
+                        0;
                 } else {
                     NetworkManager.instance.connectedClients[spawnedObjects[networkID].ownerClientID].ownedObjects
-                                  .RemoveAll((identity) => identity.networkID == networkID);
+                                  .RemoveAll((id) => id == networkID);
                 }
             }
             
@@ -163,7 +180,7 @@ namespace FNNLib.Spawning {
                 rotation = Quaternion.Euler(packet.eulerRotation);
             }
             
-            var netObj = CreateObjectLocal(packet.prefabHash, parentNetID, position, rotation);
+            var netObj = CreateObjectLocal(packet.sceneID, packet.prefabHash, parentNetID, position, rotation);
             SpawnObjectLocally(netObj, packet.networkID, packet.isPlayerObject, packet.ownerClientID);
         }
 
@@ -192,7 +209,7 @@ namespace FNNLib.Spawning {
             packet.networkID = identity.networkID;
             packet.ownerClientID = identity.ownerClientID;
             if (NetworkManager.instance.networkConfig.useSceneManagement) {
-                packet.sceneID = identity.sceneID.GetValueOrDefault(0);
+                packet.sceneID = identity.sceneID;
             }
 
             if (identity.transform.parent != null) {

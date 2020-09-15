@@ -97,6 +97,7 @@ namespace FNNLib {
             if (networkConfig.useSceneManagement) {
                 _client.RegisterPacketHandler<SceneChangePacket>(NetworkSceneManager.ClientHandleSceneChangePacket);
                 _server.onClientConnected.AddListener(NetworkSceneManager.OnClientConnected);
+                _server.RegisterPacketHandler<SceneChangeCompletedPacket>(NetworkSceneManager.SceneChangeCompletedHandler);
             }
             
             // Object spawning
@@ -167,12 +168,12 @@ namespace FNNLib {
             if (connectedClients.ContainsKey(clientID)) {
                 // Destroy owned objects
                 for (var i = connectedClients[clientID].ownedObjects.Count - 1; i > -1; i--) {
-                    SpawnManager.OnDestroy(connectedClients[clientID].ownedObjects[i].networkID, true);
+                    SpawnManager.OnDestroy(connectedClients[clientID].ownedObjects[i], true);
                 }
                 
                 // Destroy player object
-                if (connectedClients[clientID].playerObject != null)
-                    SpawnManager.OnDestroy(connectedClients[clientID].playerObject.networkID, true);
+                if (connectedClients[clientID].playerObject > 0)
+                    SpawnManager.OnDestroy(connectedClients[clientID].playerObject, true);
                 
                 connectedClientsList.Remove(connectedClients[clientID]);
                 connectedClients.Remove(clientID);

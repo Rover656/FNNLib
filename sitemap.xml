@@ -2,337 +2,289 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Backend.NetworkClient.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Backend.NetworkServer.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Backend.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Config.HashSize.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Config.NetworkConfig.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Config.NetworkPrefab.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Config.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.ConnectedClient.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Editor.NetworkIdentityEditor.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Editor.NetworkManagerEditor.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Editor.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Messaging.ClientPacketAttribute.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://rover656.github.io/FNNLib/api/FNNLib.Messaging.Internal.ClientDisconnectPacket.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://rover656.github.io/FNNLib/api/FNNLib.Messaging.Internal.ConnectionApprovedPacket.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://rover656.github.io/FNNLib/api/FNNLib.Messaging.Internal.ConnectionRequestPacket.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://rover656.github.io/FNNLib/api/FNNLib.Messaging.Internal.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Messaging.IPacket.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Messaging.NetworkPacketDelegate.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Messaging.PacketHandler.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Messaging.PacketUtils.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Messaging.ServerPacketAttribute.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Messaging.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.NetworkBehaviour.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.NetworkIdentity.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.NetworkManager.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.SceneManagement.NetworkableScene.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.SceneManagement.NetworkScene.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.SceneManagement.NetworkSceneManager.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://rover656.github.io/FNNLib/api/FNNLib.SceneManagement.SceneChangeCompletedPacket.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://rover656.github.io/FNNLib/api/FNNLib.SceneManagement.SceneChangePacket.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.SceneManagement.ScenePackingData.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.SceneManagement.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Serialization.NetworkReader.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Serialization.NetworkReaderPool.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Serialization.NetworkWriter.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Serialization.NetworkWriterPool.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Serialization.PooledNetworkReader.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Serialization.PooledNetworkWriter.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Serialization.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://rover656.github.io/FNNLib/api/FNNLib.Spawning.DestroyObjectPacket.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Spawning.SpawnManager.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://rover656.github.io/FNNLib/api/FNNLib.Spawning.SpawnObjectPacket.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Spawning.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Transports.ChannelType.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Transports.DefaultChannels.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Transports.MultiplexTransport.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Transports.RufflesTransport.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Transports.TelepathyTransport.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Transports.Transport.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Transports.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Utilities.Hashing.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.Utilities.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/api/FNNLib.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/index.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/manual/coniunctis.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://rover656.github.io/FNNLib/manual/etiam.html</loc>
-    <lastmod>2020-09-14T09:05:58+00:00</lastmod>
+    <lastmod>2020-09-15T11:24:44+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

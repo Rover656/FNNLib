@@ -375,12 +375,6 @@ references:
   commentId: F:FNNLib.Config.NetworkConfig.hashSize
   fullName: FNNLib.Config.NetworkConfig.hashSize
   nameWithType: NetworkConfig.hashSize
-- uid: FNNLib.Config.NetworkConfig.moveNewClientsToActiveScene
-  name: moveNewClientsToActiveScene
-  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_moveNewClientsToActiveScene
-  commentId: F:FNNLib.Config.NetworkConfig.moveNewClientsToActiveScene
-  fullName: FNNLib.Config.NetworkConfig.moveNewClientsToActiveScene
-  nameWithType: NetworkConfig.moveNewClientsToActiveScene
 - uid: FNNLib.Config.NetworkConfig.networkableScenes
   name: networkableScenes
   href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_networkableScenes
@@ -453,6 +447,12 @@ references:
   commentId: F:FNNLib.ConnectedClient.playerObject
   fullName: FNNLib.ConnectedClient.playerObject
   nameWithType: ConnectedClient.playerObject
+- uid: FNNLib.ConnectedClient.sceneID
+  name: sceneID
+  href: api/FNNLib.ConnectedClient.html#FNNLib_ConnectedClient_sceneID
+  commentId: F:FNNLib.ConnectedClient.sceneID
+  fullName: FNNLib.ConnectedClient.sceneID
+  nameWithType: ConnectedClient.sceneID
 - uid: FNNLib.Editor
   name: FNNLib.Editor
   href: api/FNNLib.Editor.html
@@ -509,132 +509,6 @@ references:
   commentId: T:FNNLib.Messaging.ClientPacketAttribute
   fullName: FNNLib.Messaging.ClientPacketAttribute
   nameWithType: ClientPacketAttribute
-- uid: FNNLib.Messaging.Internal
-  name: FNNLib.Messaging.Internal
-  href: api/FNNLib.Messaging.Internal.html
-  commentId: N:FNNLib.Messaging.Internal
-  fullName: FNNLib.Messaging.Internal
-  nameWithType: FNNLib.Messaging.Internal
-- uid: FNNLib.Messaging.Internal.ClientDisconnectPacket
-  name: ClientDisconnectPacket
-  href: api/FNNLib.Messaging.Internal.ClientDisconnectPacket.html
-  commentId: T:FNNLib.Messaging.Internal.ClientDisconnectPacket
-  fullName: FNNLib.Messaging.Internal.ClientDisconnectPacket
-  nameWithType: ClientDisconnectPacket
-- uid: FNNLib.Messaging.Internal.ClientDisconnectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  name: DeSerialize(NetworkReader)
-  href: api/FNNLib.Messaging.Internal.ClientDisconnectPacket.html#FNNLib_Messaging_Internal_ClientDisconnectPacket_DeSerialize_FNNLib_Serialization_NetworkReader_
-  commentId: M:FNNLib.Messaging.Internal.ClientDisconnectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  fullName: FNNLib.Messaging.Internal.ClientDisconnectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  nameWithType: ClientDisconnectPacket.DeSerialize(NetworkReader)
-- uid: FNNLib.Messaging.Internal.ClientDisconnectPacket.DeSerialize*
-  name: DeSerialize
-  href: api/FNNLib.Messaging.Internal.ClientDisconnectPacket.html#FNNLib_Messaging_Internal_ClientDisconnectPacket_DeSerialize_
-  commentId: Overload:FNNLib.Messaging.Internal.ClientDisconnectPacket.DeSerialize
-  isSpec: "True"
-  fullName: FNNLib.Messaging.Internal.ClientDisconnectPacket.DeSerialize
-  nameWithType: ClientDisconnectPacket.DeSerialize
-- uid: FNNLib.Messaging.Internal.ClientDisconnectPacket.disconnectReason
-  name: disconnectReason
-  href: api/FNNLib.Messaging.Internal.ClientDisconnectPacket.html#FNNLib_Messaging_Internal_ClientDisconnectPacket_disconnectReason
-  commentId: F:FNNLib.Messaging.Internal.ClientDisconnectPacket.disconnectReason
-  fullName: FNNLib.Messaging.Internal.ClientDisconnectPacket.disconnectReason
-  nameWithType: ClientDisconnectPacket.disconnectReason
-- uid: FNNLib.Messaging.Internal.ClientDisconnectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  name: Serialize(NetworkWriter)
-  href: api/FNNLib.Messaging.Internal.ClientDisconnectPacket.html#FNNLib_Messaging_Internal_ClientDisconnectPacket_Serialize_FNNLib_Serialization_NetworkWriter_
-  commentId: M:FNNLib.Messaging.Internal.ClientDisconnectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  fullName: FNNLib.Messaging.Internal.ClientDisconnectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  nameWithType: ClientDisconnectPacket.Serialize(NetworkWriter)
-- uid: FNNLib.Messaging.Internal.ClientDisconnectPacket.Serialize*
-  name: Serialize
-  href: api/FNNLib.Messaging.Internal.ClientDisconnectPacket.html#FNNLib_Messaging_Internal_ClientDisconnectPacket_Serialize_
-  commentId: Overload:FNNLib.Messaging.Internal.ClientDisconnectPacket.Serialize
-  isSpec: "True"
-  fullName: FNNLib.Messaging.Internal.ClientDisconnectPacket.Serialize
-  nameWithType: ClientDisconnectPacket.Serialize
-- uid: FNNLib.Messaging.Internal.ConnectionApprovedPacket
-  name: ConnectionApprovedPacket
-  href: api/FNNLib.Messaging.Internal.ConnectionApprovedPacket.html
-  commentId: T:FNNLib.Messaging.Internal.ConnectionApprovedPacket
-  fullName: FNNLib.Messaging.Internal.ConnectionApprovedPacket
-  nameWithType: ConnectionApprovedPacket
-- uid: FNNLib.Messaging.Internal.ConnectionApprovedPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  name: DeSerialize(NetworkReader)
-  href: api/FNNLib.Messaging.Internal.ConnectionApprovedPacket.html#FNNLib_Messaging_Internal_ConnectionApprovedPacket_DeSerialize_FNNLib_Serialization_NetworkReader_
-  commentId: M:FNNLib.Messaging.Internal.ConnectionApprovedPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  fullName: FNNLib.Messaging.Internal.ConnectionApprovedPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  nameWithType: ConnectionApprovedPacket.DeSerialize(NetworkReader)
-- uid: FNNLib.Messaging.Internal.ConnectionApprovedPacket.DeSerialize*
-  name: DeSerialize
-  href: api/FNNLib.Messaging.Internal.ConnectionApprovedPacket.html#FNNLib_Messaging_Internal_ConnectionApprovedPacket_DeSerialize_
-  commentId: Overload:FNNLib.Messaging.Internal.ConnectionApprovedPacket.DeSerialize
-  isSpec: "True"
-  fullName: FNNLib.Messaging.Internal.ConnectionApprovedPacket.DeSerialize
-  nameWithType: ConnectionApprovedPacket.DeSerialize
-- uid: FNNLib.Messaging.Internal.ConnectionApprovedPacket.localClientID
-  name: localClientID
-  href: api/FNNLib.Messaging.Internal.ConnectionApprovedPacket.html#FNNLib_Messaging_Internal_ConnectionApprovedPacket_localClientID
-  commentId: F:FNNLib.Messaging.Internal.ConnectionApprovedPacket.localClientID
-  fullName: FNNLib.Messaging.Internal.ConnectionApprovedPacket.localClientID
-  nameWithType: ConnectionApprovedPacket.localClientID
-- uid: FNNLib.Messaging.Internal.ConnectionApprovedPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  name: Serialize(NetworkWriter)
-  href: api/FNNLib.Messaging.Internal.ConnectionApprovedPacket.html#FNNLib_Messaging_Internal_ConnectionApprovedPacket_Serialize_FNNLib_Serialization_NetworkWriter_
-  commentId: M:FNNLib.Messaging.Internal.ConnectionApprovedPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  fullName: FNNLib.Messaging.Internal.ConnectionApprovedPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  nameWithType: ConnectionApprovedPacket.Serialize(NetworkWriter)
-- uid: FNNLib.Messaging.Internal.ConnectionApprovedPacket.Serialize*
-  name: Serialize
-  href: api/FNNLib.Messaging.Internal.ConnectionApprovedPacket.html#FNNLib_Messaging_Internal_ConnectionApprovedPacket_Serialize_
-  commentId: Overload:FNNLib.Messaging.Internal.ConnectionApprovedPacket.Serialize
-  isSpec: "True"
-  fullName: FNNLib.Messaging.Internal.ConnectionApprovedPacket.Serialize
-  nameWithType: ConnectionApprovedPacket.Serialize
-- uid: FNNLib.Messaging.Internal.ConnectionRequestPacket
-  name: ConnectionRequestPacket
-  href: api/FNNLib.Messaging.Internal.ConnectionRequestPacket.html
-  commentId: T:FNNLib.Messaging.Internal.ConnectionRequestPacket
-  fullName: FNNLib.Messaging.Internal.ConnectionRequestPacket
-  nameWithType: ConnectionRequestPacket
-- uid: FNNLib.Messaging.Internal.ConnectionRequestPacket.connectionData
-  name: connectionData
-  href: api/FNNLib.Messaging.Internal.ConnectionRequestPacket.html#FNNLib_Messaging_Internal_ConnectionRequestPacket_connectionData
-  commentId: F:FNNLib.Messaging.Internal.ConnectionRequestPacket.connectionData
-  fullName: FNNLib.Messaging.Internal.ConnectionRequestPacket.connectionData
-  nameWithType: ConnectionRequestPacket.connectionData
-- uid: FNNLib.Messaging.Internal.ConnectionRequestPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  name: DeSerialize(NetworkReader)
-  href: api/FNNLib.Messaging.Internal.ConnectionRequestPacket.html#FNNLib_Messaging_Internal_ConnectionRequestPacket_DeSerialize_FNNLib_Serialization_NetworkReader_
-  commentId: M:FNNLib.Messaging.Internal.ConnectionRequestPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  fullName: FNNLib.Messaging.Internal.ConnectionRequestPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  nameWithType: ConnectionRequestPacket.DeSerialize(NetworkReader)
-- uid: FNNLib.Messaging.Internal.ConnectionRequestPacket.DeSerialize*
-  name: DeSerialize
-  href: api/FNNLib.Messaging.Internal.ConnectionRequestPacket.html#FNNLib_Messaging_Internal_ConnectionRequestPacket_DeSerialize_
-  commentId: Overload:FNNLib.Messaging.Internal.ConnectionRequestPacket.DeSerialize
-  isSpec: "True"
-  fullName: FNNLib.Messaging.Internal.ConnectionRequestPacket.DeSerialize
-  nameWithType: ConnectionRequestPacket.DeSerialize
-- uid: FNNLib.Messaging.Internal.ConnectionRequestPacket.protocolVersion
-  name: protocolVersion
-  href: api/FNNLib.Messaging.Internal.ConnectionRequestPacket.html#FNNLib_Messaging_Internal_ConnectionRequestPacket_protocolVersion
-  commentId: F:FNNLib.Messaging.Internal.ConnectionRequestPacket.protocolVersion
-  fullName: FNNLib.Messaging.Internal.ConnectionRequestPacket.protocolVersion
-  nameWithType: ConnectionRequestPacket.protocolVersion
-- uid: FNNLib.Messaging.Internal.ConnectionRequestPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  name: Serialize(NetworkWriter)
-  href: api/FNNLib.Messaging.Internal.ConnectionRequestPacket.html#FNNLib_Messaging_Internal_ConnectionRequestPacket_Serialize_FNNLib_Serialization_NetworkWriter_
-  commentId: M:FNNLib.Messaging.Internal.ConnectionRequestPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  fullName: FNNLib.Messaging.Internal.ConnectionRequestPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  nameWithType: ConnectionRequestPacket.Serialize(NetworkWriter)
-- uid: FNNLib.Messaging.Internal.ConnectionRequestPacket.Serialize*
-  name: Serialize
-  href: api/FNNLib.Messaging.Internal.ConnectionRequestPacket.html#FNNLib_Messaging_Internal_ConnectionRequestPacket_Serialize_
-  commentId: Overload:FNNLib.Messaging.Internal.ConnectionRequestPacket.Serialize
-  isSpec: "True"
-  fullName: FNNLib.Messaging.Internal.ConnectionRequestPacket.Serialize
-  nameWithType: ConnectionRequestPacket.Serialize
 - uid: FNNLib.Messaging.IPacket
   name: IPacket
   href: api/FNNLib.Messaging.IPacket.html
@@ -1528,12 +1402,12 @@ references:
   commentId: T:FNNLib.SceneManagement.NetworkSceneManager
   fullName: FNNLib.SceneManagement.NetworkSceneManager
   nameWithType: NetworkSceneManager
-- uid: FNNLib.SceneManagement.NetworkSceneManager.GetNetScene(System.Int32)
-  name: GetNetScene(Int32)
-  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_GetNetScene_System_Int32_
-  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.GetNetScene(System.Int32)
-  fullName: FNNLib.SceneManagement.NetworkSceneManager.GetNetScene(System.Int32)
-  nameWithType: NetworkSceneManager.GetNetScene(Int32)
+- uid: FNNLib.SceneManagement.NetworkSceneManager.GetNetScene(System.UInt32)
+  name: GetNetScene(UInt32)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_GetNetScene_System_UInt32_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.GetNetScene(System.UInt32)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.GetNetScene(System.UInt32)
+  nameWithType: NetworkSceneManager.GetNetScene(UInt32)
 - uid: FNNLib.SceneManagement.NetworkSceneManager.GetNetScene*
   name: GetNetScene
   href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_GetNetScene_
@@ -1541,19 +1415,6 @@ references:
   isSpec: "True"
   fullName: FNNLib.SceneManagement.NetworkSceneManager.GetNetScene
   nameWithType: NetworkSceneManager.GetNetScene
-- uid: FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex(Scene)
-  name: GetSceneIndex(Scene)
-  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_GetSceneIndex_Scene_
-  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex(Scene)
-  fullName: FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex(Scene)
-  nameWithType: NetworkSceneManager.GetSceneIndex(Scene)
-- uid: FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex*
-  name: GetSceneIndex
-  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_GetSceneIndex_
-  commentId: Overload:FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex
-  isSpec: "True"
-  fullName: FNNLib.SceneManagement.NetworkSceneManager.GetSceneIndex
-  nameWithType: NetworkSceneManager.GetSceneIndex
 - uid: FNNLib.SceneManagement.NetworkSceneManager.GetSceneNetID(Scene)
   name: GetSceneNetID(Scene)
   href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_GetSceneNetID_Scene_
@@ -1567,12 +1428,12 @@ references:
   isSpec: "True"
   fullName: FNNLib.SceneManagement.NetworkSceneManager.GetSceneNetID
   nameWithType: NetworkSceneManager.GetSceneNetID
-- uid: FNNLib.SceneManagement.NetworkSceneManager.SendClientTo(System.UInt64,System.String)
-  name: SendClientTo(UInt64, String)
-  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_SendClientTo_System_UInt64_System_String_
-  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.SendClientTo(System.UInt64,System.String)
-  fullName: FNNLib.SceneManagement.NetworkSceneManager.SendClientTo(System.UInt64, System.String)
-  nameWithType: NetworkSceneManager.SendClientTo(UInt64, String)
+- uid: FNNLib.SceneManagement.NetworkSceneManager.SendClientTo(System.UInt64,System.UInt32)
+  name: SendClientTo(UInt64, UInt32)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_SendClientTo_System_UInt64_System_UInt32_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.SendClientTo(System.UInt64,System.UInt32)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.SendClientTo(System.UInt64, System.UInt32)
+  nameWithType: NetworkSceneManager.SendClientTo(UInt64, UInt32)
 - uid: FNNLib.SceneManagement.NetworkSceneManager.SendClientTo*
   name: SendClientTo
   href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_SendClientTo_
@@ -1593,25 +1454,12 @@ references:
   isSpec: "True"
   fullName: FNNLib.SceneManagement.NetworkSceneManager.ServerLoadScene
   nameWithType: NetworkSceneManager.ServerLoadScene
-- uid: FNNLib.SceneManagement.NetworkSceneManager.ServerLoadSubScene(System.String)
-  name: ServerLoadSubScene(String)
-  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_ServerLoadSubScene_System_String_
-  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.ServerLoadSubScene(System.String)
-  fullName: FNNLib.SceneManagement.NetworkSceneManager.ServerLoadSubScene(System.String)
-  nameWithType: NetworkSceneManager.ServerLoadSubScene(String)
-- uid: FNNLib.SceneManagement.NetworkSceneManager.ServerLoadSubScene*
-  name: ServerLoadSubScene
-  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_ServerLoadSubScene_
-  commentId: Overload:FNNLib.SceneManagement.NetworkSceneManager.ServerLoadSubScene
-  isSpec: "True"
-  fullName: FNNLib.SceneManagement.NetworkSceneManager.ServerLoadSubScene
-  nameWithType: NetworkSceneManager.ServerLoadSubScene
-- uid: FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.String,System.Int32)
-  name: ServerUnloadSubScene(String, Int32)
-  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_ServerUnloadSubScene_System_String_System_Int32_
-  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.String,System.Int32)
-  fullName: FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.String, System.Int32)
-  nameWithType: NetworkSceneManager.ServerUnloadSubScene(String, Int32)
+- uid: FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.UInt32,System.UInt32)
+  name: ServerUnloadSubScene(UInt32, UInt32)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_ServerUnloadSubScene_System_UInt32_System_UInt32_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.UInt32,System.UInt32)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene(System.UInt32, System.UInt32)
+  nameWithType: NetworkSceneManager.ServerUnloadSubScene(UInt32, UInt32)
 - uid: FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene*
   name: ServerUnloadSubScene
   href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_ServerUnloadSubScene_
@@ -1619,12 +1467,12 @@ references:
   isSpec: "True"
   fullName: FNNLib.SceneManagement.NetworkSceneManager.ServerUnloadSubScene
   nameWithType: NetworkSceneManager.ServerUnloadSubScene
-- uid: FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene(System.Int32)
-  name: SetActiveScene(Int32)
-  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_SetActiveScene_System_Int32_
-  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene(System.Int32)
-  fullName: FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene(System.Int32)
-  nameWithType: NetworkSceneManager.SetActiveScene(Int32)
+- uid: FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene(System.UInt32)
+  name: SetActiveScene(UInt32)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_SetActiveScene_System_UInt32_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene(System.UInt32)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene(System.UInt32)
+  nameWithType: NetworkSceneManager.SetActiveScene(UInt32)
 - uid: FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene*
   name: SetActiveScene
   href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_SetActiveScene_
@@ -1632,88 +1480,6 @@ references:
   isSpec: "True"
   fullName: FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene
   nameWithType: NetworkSceneManager.SetActiveScene
-- uid: FNNLib.SceneManagement.SceneChangeCompletedPacket
-  name: SceneChangeCompletedPacket
-  href: api/FNNLib.SceneManagement.SceneChangeCompletedPacket.html
-  commentId: T:FNNLib.SceneManagement.SceneChangeCompletedPacket
-  fullName: FNNLib.SceneManagement.SceneChangeCompletedPacket
-  nameWithType: SceneChangeCompletedPacket
-- uid: FNNLib.SceneManagement.SceneChangeCompletedPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  name: DeSerialize(NetworkReader)
-  href: api/FNNLib.SceneManagement.SceneChangeCompletedPacket.html#FNNLib_SceneManagement_SceneChangeCompletedPacket_DeSerialize_FNNLib_Serialization_NetworkReader_
-  commentId: M:FNNLib.SceneManagement.SceneChangeCompletedPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  fullName: FNNLib.SceneManagement.SceneChangeCompletedPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  nameWithType: SceneChangeCompletedPacket.DeSerialize(NetworkReader)
-- uid: FNNLib.SceneManagement.SceneChangeCompletedPacket.DeSerialize*
-  name: DeSerialize
-  href: api/FNNLib.SceneManagement.SceneChangeCompletedPacket.html#FNNLib_SceneManagement_SceneChangeCompletedPacket_DeSerialize_
-  commentId: Overload:FNNLib.SceneManagement.SceneChangeCompletedPacket.DeSerialize
-  isSpec: "True"
-  fullName: FNNLib.SceneManagement.SceneChangeCompletedPacket.DeSerialize
-  nameWithType: SceneChangeCompletedPacket.DeSerialize
-- uid: FNNLib.SceneManagement.SceneChangeCompletedPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  name: Serialize(NetworkWriter)
-  href: api/FNNLib.SceneManagement.SceneChangeCompletedPacket.html#FNNLib_SceneManagement_SceneChangeCompletedPacket_Serialize_FNNLib_Serialization_NetworkWriter_
-  commentId: M:FNNLib.SceneManagement.SceneChangeCompletedPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  fullName: FNNLib.SceneManagement.SceneChangeCompletedPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  nameWithType: SceneChangeCompletedPacket.Serialize(NetworkWriter)
-- uid: FNNLib.SceneManagement.SceneChangeCompletedPacket.Serialize*
-  name: Serialize
-  href: api/FNNLib.SceneManagement.SceneChangeCompletedPacket.html#FNNLib_SceneManagement_SceneChangeCompletedPacket_Serialize_
-  commentId: Overload:FNNLib.SceneManagement.SceneChangeCompletedPacket.Serialize
-  isSpec: "True"
-  fullName: FNNLib.SceneManagement.SceneChangeCompletedPacket.Serialize
-  nameWithType: SceneChangeCompletedPacket.Serialize
-- uid: FNNLib.SceneManagement.SceneChangePacket
-  name: SceneChangePacket
-  href: api/FNNLib.SceneManagement.SceneChangePacket.html
-  commentId: T:FNNLib.SceneManagement.SceneChangePacket
-  fullName: FNNLib.SceneManagement.SceneChangePacket
-  nameWithType: SceneChangePacket
-- uid: FNNLib.SceneManagement.SceneChangePacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  name: DeSerialize(NetworkReader)
-  href: api/FNNLib.SceneManagement.SceneChangePacket.html#FNNLib_SceneManagement_SceneChangePacket_DeSerialize_FNNLib_Serialization_NetworkReader_
-  commentId: M:FNNLib.SceneManagement.SceneChangePacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  fullName: FNNLib.SceneManagement.SceneChangePacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  nameWithType: SceneChangePacket.DeSerialize(NetworkReader)
-- uid: FNNLib.SceneManagement.SceneChangePacket.DeSerialize*
-  name: DeSerialize
-  href: api/FNNLib.SceneManagement.SceneChangePacket.html#FNNLib_SceneManagement_SceneChangePacket_DeSerialize_
-  commentId: Overload:FNNLib.SceneManagement.SceneChangePacket.DeSerialize
-  isSpec: "True"
-  fullName: FNNLib.SceneManagement.SceneChangePacket.DeSerialize
-  nameWithType: SceneChangePacket.DeSerialize
-- uid: FNNLib.SceneManagement.SceneChangePacket.sceneIndex
-  name: sceneIndex
-  href: api/FNNLib.SceneManagement.SceneChangePacket.html#FNNLib_SceneManagement_SceneChangePacket_sceneIndex
-  commentId: F:FNNLib.SceneManagement.SceneChangePacket.sceneIndex
-  fullName: FNNLib.SceneManagement.SceneChangePacket.sceneIndex
-  nameWithType: SceneChangePacket.sceneIndex
-- uid: FNNLib.SceneManagement.SceneChangePacket.sceneNetID
-  name: sceneNetID
-  href: api/FNNLib.SceneManagement.SceneChangePacket.html#FNNLib_SceneManagement_SceneChangePacket_sceneNetID
-  commentId: F:FNNLib.SceneManagement.SceneChangePacket.sceneNetID
-  fullName: FNNLib.SceneManagement.SceneChangePacket.sceneNetID
-  nameWithType: SceneChangePacket.sceneNetID
-- uid: FNNLib.SceneManagement.SceneChangePacket.sceneOffset
-  name: sceneOffset
-  href: api/FNNLib.SceneManagement.SceneChangePacket.html#FNNLib_SceneManagement_SceneChangePacket_sceneOffset
-  commentId: F:FNNLib.SceneManagement.SceneChangePacket.sceneOffset
-  fullName: FNNLib.SceneManagement.SceneChangePacket.sceneOffset
-  nameWithType: SceneChangePacket.sceneOffset
-- uid: FNNLib.SceneManagement.SceneChangePacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  name: Serialize(NetworkWriter)
-  href: api/FNNLib.SceneManagement.SceneChangePacket.html#FNNLib_SceneManagement_SceneChangePacket_Serialize_FNNLib_Serialization_NetworkWriter_
-  commentId: M:FNNLib.SceneManagement.SceneChangePacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  fullName: FNNLib.SceneManagement.SceneChangePacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  nameWithType: SceneChangePacket.Serialize(NetworkWriter)
-- uid: FNNLib.SceneManagement.SceneChangePacket.Serialize*
-  name: Serialize
-  href: api/FNNLib.SceneManagement.SceneChangePacket.html#FNNLib_SceneManagement_SceneChangePacket_Serialize_
-  commentId: Overload:FNNLib.SceneManagement.SceneChangePacket.Serialize
-  isSpec: "True"
-  fullName: FNNLib.SceneManagement.SceneChangePacket.Serialize
-  nameWithType: SceneChangePacket.Serialize
 - uid: FNNLib.SceneManagement.ScenePackingData
   name: ScenePackingData
   href: api/FNNLib.SceneManagement.ScenePackingData.html
@@ -2625,44 +2391,6 @@ references:
   commentId: N:FNNLib.Spawning
   fullName: FNNLib.Spawning
   nameWithType: FNNLib.Spawning
-- uid: FNNLib.Spawning.DestroyObjectPacket
-  name: DestroyObjectPacket
-  href: api/FNNLib.Spawning.DestroyObjectPacket.html
-  commentId: T:FNNLib.Spawning.DestroyObjectPacket
-  fullName: FNNLib.Spawning.DestroyObjectPacket
-  nameWithType: DestroyObjectPacket
-- uid: FNNLib.Spawning.DestroyObjectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  name: DeSerialize(NetworkReader)
-  href: api/FNNLib.Spawning.DestroyObjectPacket.html#FNNLib_Spawning_DestroyObjectPacket_DeSerialize_FNNLib_Serialization_NetworkReader_
-  commentId: M:FNNLib.Spawning.DestroyObjectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  fullName: FNNLib.Spawning.DestroyObjectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  nameWithType: DestroyObjectPacket.DeSerialize(NetworkReader)
-- uid: FNNLib.Spawning.DestroyObjectPacket.DeSerialize*
-  name: DeSerialize
-  href: api/FNNLib.Spawning.DestroyObjectPacket.html#FNNLib_Spawning_DestroyObjectPacket_DeSerialize_
-  commentId: Overload:FNNLib.Spawning.DestroyObjectPacket.DeSerialize
-  isSpec: "True"
-  fullName: FNNLib.Spawning.DestroyObjectPacket.DeSerialize
-  nameWithType: DestroyObjectPacket.DeSerialize
-- uid: FNNLib.Spawning.DestroyObjectPacket.networkID
-  name: networkID
-  href: api/FNNLib.Spawning.DestroyObjectPacket.html#FNNLib_Spawning_DestroyObjectPacket_networkID
-  commentId: F:FNNLib.Spawning.DestroyObjectPacket.networkID
-  fullName: FNNLib.Spawning.DestroyObjectPacket.networkID
-  nameWithType: DestroyObjectPacket.networkID
-- uid: FNNLib.Spawning.DestroyObjectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  name: Serialize(NetworkWriter)
-  href: api/FNNLib.Spawning.DestroyObjectPacket.html#FNNLib_Spawning_DestroyObjectPacket_Serialize_FNNLib_Serialization_NetworkWriter_
-  commentId: M:FNNLib.Spawning.DestroyObjectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  fullName: FNNLib.Spawning.DestroyObjectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  nameWithType: DestroyObjectPacket.Serialize(NetworkWriter)
-- uid: FNNLib.Spawning.DestroyObjectPacket.Serialize*
-  name: Serialize
-  href: api/FNNLib.Spawning.DestroyObjectPacket.html#FNNLib_Spawning_DestroyObjectPacket_Serialize_
-  commentId: Overload:FNNLib.Spawning.DestroyObjectPacket.Serialize
-  isSpec: "True"
-  fullName: FNNLib.Spawning.DestroyObjectPacket.Serialize
-  nameWithType: DestroyObjectPacket.Serialize
 - uid: FNNLib.Spawning.SpawnManager
   name: SpawnManager
   href: api/FNNLib.Spawning.SpawnManager.html
@@ -2694,110 +2422,6 @@ references:
   commentId: F:FNNLib.Spawning.SpawnManager.spawnedObjectsList
   fullName: FNNLib.Spawning.SpawnManager.spawnedObjectsList
   nameWithType: SpawnManager.spawnedObjectsList
-- uid: FNNLib.Spawning.SpawnObjectPacket
-  name: SpawnObjectPacket
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html
-  commentId: T:FNNLib.Spawning.SpawnObjectPacket
-  fullName: FNNLib.Spawning.SpawnObjectPacket
-  nameWithType: SpawnObjectPacket
-- uid: FNNLib.Spawning.SpawnObjectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  name: DeSerialize(NetworkReader)
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_DeSerialize_FNNLib_Serialization_NetworkReader_
-  commentId: M:FNNLib.Spawning.SpawnObjectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  fullName: FNNLib.Spawning.SpawnObjectPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
-  nameWithType: SpawnObjectPacket.DeSerialize(NetworkReader)
-- uid: FNNLib.Spawning.SpawnObjectPacket.DeSerialize*
-  name: DeSerialize
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_DeSerialize_
-  commentId: Overload:FNNLib.Spawning.SpawnObjectPacket.DeSerialize
-  isSpec: "True"
-  fullName: FNNLib.Spawning.SpawnObjectPacket.DeSerialize
-  nameWithType: SpawnObjectPacket.DeSerialize
-- uid: FNNLib.Spawning.SpawnObjectPacket.eulerRotation
-  name: eulerRotation
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_eulerRotation
-  commentId: F:FNNLib.Spawning.SpawnObjectPacket.eulerRotation
-  fullName: FNNLib.Spawning.SpawnObjectPacket.eulerRotation
-  nameWithType: SpawnObjectPacket.eulerRotation
-- uid: FNNLib.Spawning.SpawnObjectPacket.hasParent
-  name: hasParent
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_hasParent
-  commentId: F:FNNLib.Spawning.SpawnObjectPacket.hasParent
-  fullName: FNNLib.Spawning.SpawnObjectPacket.hasParent
-  nameWithType: SpawnObjectPacket.hasParent
-- uid: FNNLib.Spawning.SpawnObjectPacket.includesTransform
-  name: includesTransform
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_includesTransform
-  commentId: F:FNNLib.Spawning.SpawnObjectPacket.includesTransform
-  fullName: FNNLib.Spawning.SpawnObjectPacket.includesTransform
-  nameWithType: SpawnObjectPacket.includesTransform
-- uid: FNNLib.Spawning.SpawnObjectPacket.isPlayerObject
-  name: isPlayerObject
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_isPlayerObject
-  commentId: F:FNNLib.Spawning.SpawnObjectPacket.isPlayerObject
-  fullName: FNNLib.Spawning.SpawnObjectPacket.isPlayerObject
-  nameWithType: SpawnObjectPacket.isPlayerObject
-- uid: FNNLib.Spawning.SpawnObjectPacket.isSceneObject
-  name: isSceneObject
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_isSceneObject
-  commentId: F:FNNLib.Spawning.SpawnObjectPacket.isSceneObject
-  fullName: FNNLib.Spawning.SpawnObjectPacket.isSceneObject
-  nameWithType: SpawnObjectPacket.isSceneObject
-- uid: FNNLib.Spawning.SpawnObjectPacket.networkedInstanceID
-  name: networkedInstanceID
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_networkedInstanceID
-  commentId: F:FNNLib.Spawning.SpawnObjectPacket.networkedInstanceID
-  fullName: FNNLib.Spawning.SpawnObjectPacket.networkedInstanceID
-  nameWithType: SpawnObjectPacket.networkedInstanceID
-- uid: FNNLib.Spawning.SpawnObjectPacket.networkID
-  name: networkID
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_networkID
-  commentId: F:FNNLib.Spawning.SpawnObjectPacket.networkID
-  fullName: FNNLib.Spawning.SpawnObjectPacket.networkID
-  nameWithType: SpawnObjectPacket.networkID
-- uid: FNNLib.Spawning.SpawnObjectPacket.ownerClientID
-  name: ownerClientID
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_ownerClientID
-  commentId: F:FNNLib.Spawning.SpawnObjectPacket.ownerClientID
-  fullName: FNNLib.Spawning.SpawnObjectPacket.ownerClientID
-  nameWithType: SpawnObjectPacket.ownerClientID
-- uid: FNNLib.Spawning.SpawnObjectPacket.parentNetID
-  name: parentNetID
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_parentNetID
-  commentId: F:FNNLib.Spawning.SpawnObjectPacket.parentNetID
-  fullName: FNNLib.Spawning.SpawnObjectPacket.parentNetID
-  nameWithType: SpawnObjectPacket.parentNetID
-- uid: FNNLib.Spawning.SpawnObjectPacket.position
-  name: position
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_position
-  commentId: F:FNNLib.Spawning.SpawnObjectPacket.position
-  fullName: FNNLib.Spawning.SpawnObjectPacket.position
-  nameWithType: SpawnObjectPacket.position
-- uid: FNNLib.Spawning.SpawnObjectPacket.prefabHash
-  name: prefabHash
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_prefabHash
-  commentId: F:FNNLib.Spawning.SpawnObjectPacket.prefabHash
-  fullName: FNNLib.Spawning.SpawnObjectPacket.prefabHash
-  nameWithType: SpawnObjectPacket.prefabHash
-- uid: FNNLib.Spawning.SpawnObjectPacket.sceneID
-  name: sceneID
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_sceneID
-  commentId: F:FNNLib.Spawning.SpawnObjectPacket.sceneID
-  fullName: FNNLib.Spawning.SpawnObjectPacket.sceneID
-  nameWithType: SpawnObjectPacket.sceneID
-- uid: FNNLib.Spawning.SpawnObjectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  name: Serialize(NetworkWriter)
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_Serialize_FNNLib_Serialization_NetworkWriter_
-  commentId: M:FNNLib.Spawning.SpawnObjectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  fullName: FNNLib.Spawning.SpawnObjectPacket.Serialize(FNNLib.Serialization.NetworkWriter)
-  nameWithType: SpawnObjectPacket.Serialize(NetworkWriter)
-- uid: FNNLib.Spawning.SpawnObjectPacket.Serialize*
-  name: Serialize
-  href: api/FNNLib.Spawning.SpawnObjectPacket.html#FNNLib_Spawning_SpawnObjectPacket_Serialize_
-  commentId: Overload:FNNLib.Spawning.SpawnObjectPacket.Serialize
-  isSpec: "True"
-  fullName: FNNLib.Spawning.SpawnObjectPacket.Serialize
-  nameWithType: SpawnObjectPacket.Serialize
 - uid: FNNLib.Transports
   name: FNNLib.Transports
   href: api/FNNLib.Transports.html

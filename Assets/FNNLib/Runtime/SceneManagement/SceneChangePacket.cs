@@ -1,6 +1,7 @@
 ﻿using FNNLib.Messaging;
 using FNNLib.Serialization;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace FNNLib.SceneManagement {
     [ClientPacket]
@@ -10,6 +11,11 @@ namespace FNNLib.SceneManagement {
         /// This is the index of the scene in the allowed scenes list.
         /// </summary>
         public int sceneIndex;
+
+        /// <summary>
+        /// Client scene load mode.
+        /// </summary>
+        public LoadSceneMode mode;
 
         /// <summary>
         /// The scene network ID.

@@ -7,6 +7,7 @@ using FNNLib.SceneManagement;
 using FNNLib.Spawning;
 using FNNLib.Transports;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace FNNLib {
     /// <summary>
@@ -93,11 +94,8 @@ namespace FNNLib {
             _client = new NetworkClient(networkConfig.GetHash());
 
             // Register scene management events.
-            // TODO: Should this be put elsewhere?
-            if (networkConfig.useSceneManagement) {
-                _client.RegisterPacketHandler<SceneChangePacket>(NetworkSceneManager.ClientHandleSceneChangePacket);
-                _server.RegisterPacketHandler<SceneChangeCompletedPacket>(NetworkSceneManager.SceneChangeCompletedHandler);
-            }
+            _client.RegisterPacketHandler<SceneChangePacket>(NetworkSceneManager.ClientHandleSceneChangePacket);
+            _server.RegisterPacketHandler<SceneChangeCompletedPacket>(NetworkSceneManager.SceneChangeCompletedHandler);
             
             // Object spawning
             _client.RegisterPacketHandler<SpawnObjectPacket>(SpawnManager.ClientHandleSpawnPacket);
@@ -135,6 +133,9 @@ namespace FNNLib {
 
             // Server fps fix
             ConfigureServerFramerate();
+            
+            // Set starting scene. TODO: Set starting scene in config?
+            SpawnManager.ServerSpawnSceneObjects(NetworkSceneManager.RegisterActiveScene());
         }
 
         /// <summary>
@@ -150,6 +151,9 @@ namespace FNNLib {
             if (!isServer)
                 throw new NotSupportedException("A server is not running!");
 
+            // Shutdown
+            Shutdown();
+            
             // Stop server
             _server.Stop();
         }
@@ -161,9 +165,7 @@ namespace FNNLib {
                                                                    });
                 connectedClientsList.Add(connectedClients[clientID]);
                 // TODO: Fire an event on the NetworkManager itself so we don't have to do this.
-                if (networkConfig.useSceneManagement)
-                    NetworkSceneManager.OnClientConnected(clientID);
-                SpawnManager.OnClientConnected(clientID);
+                NetworkSceneManager.OnClientConnected(clientID);
             }
         }
 
@@ -243,6 +245,9 @@ namespace FNNLib {
             if (!isClient)
                 throw new NotSupportedException("A client is not running!");
 
+            // Shutdown
+            Shutdown();
+            
             // Disconnect
             _client.Disconnect();
             isClient = false;
@@ -310,6 +315,13 @@ namespace FNNLib {
             // Save current state and set the desired state
             _wasRunningInBackground = Application.runInBackground;
             Application.runInBackground = runInBackground;
+        }
+
+        private void Shutdown() {
+            SpawnManager.DestroyNonSceneObjects();
+            if (isServer) {
+                SpawnManager.ServerUnspawnAllSceneObjects();
+            }
         }
 
         private void Cleanup() {

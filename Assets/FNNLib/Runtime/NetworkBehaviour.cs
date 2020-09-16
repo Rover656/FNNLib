@@ -32,7 +32,9 @@ namespace FNNLib {
         
         #region Identity Passthrough
 
-        public uint sceneID => identity.sceneID;
+        public uint networkSceneID => identity.networkSceneID;
+
+        public NetworkScene networkScene => identity.networkScene;
 
         public ulong networkID => identity.networkID;
 
@@ -67,9 +69,7 @@ namespace FNNLib {
         #region Scene Manager helpers
 
         public GameObject NetInstantiate(GameObject go, Vector3 position, Quaternion rotation) {
-            if (NetworkManager.instance.networkConfig.useSceneManagement)
-                return NetworkSceneManager.Instantiate(sceneID, go, position, rotation);
-            return Instantiate(go, position, rotation);
+            return networkScene.Instantiate(go, position, rotation);
         }
         
         #endregion

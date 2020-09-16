@@ -13,8 +13,8 @@ namespace DefaultNamespace {
 
         public GameObject testPrefab;
 
-        private uint testSceneID;
-        
+        private NetworkScene testScene;
+
         void Start() {
             if ((editorIsClient && Application.isEditor) || (!editorIsClient && !Application.isEditor)) {
                 NetworkManager.instance.StartClient("127.0.0.1");
@@ -30,16 +30,19 @@ namespace DefaultNamespace {
             else {
                 NetworkManager.instance.StartServer();
                 NetworkServer.instance.onClientConnected.AddListener((client) => {
-                                                                       NetworkSceneManager.Instantiate(testSceneID, testPrefab, Vector3.zero,
-                                                                           Quaternion.identity).GetComponent<NetworkIdentity>().SpawnWithOwnership(client);
-                                                                   });
+                                                                         NetworkSceneManager.GetActiveScene()
+                                                                            .Instantiate(testPrefab, Vector3.zero,
+                                                                                 Quaternion.identity)
+                                                                            .GetComponent<NetworkIdentity>()
+                                                                            .SpawnWithOwnership(client);
+                                                                     });
+                // testScene = NetworkSceneManager.LoadScene("Test", LoadSceneMode.Additive);
+                // NetworkSceneManager.SetActiveScene(testScene);
             }
 
             // Register packet on possible targets. In this packets case, itll register on both client and server.
             // If you want to use a separate handler for client or server, use the NetworkServer or Client instead!
             NetworkManager.instance.RegisterPacketHandler<TestPacket>(HandleTestPacket);
-            
-            testSceneID = NetworkSceneManager.ServerLoadScene("Test");
         }
 
         void HandleTestPacket(ulong clientID, TestPacket packet) {

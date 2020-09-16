@@ -12,13 +12,17 @@ namespace FNNLib {
     public class NetworkIdentity : MonoBehaviour {
         /// <summary>
         /// The scene that this object is in.
-        /// Will always be 0 if scene management is disabled.
         /// </summary>
-        public uint sceneID {
+        public uint networkSceneID => networkScene.netID;
+
+        /// <summary>
+        /// The network scene this object resides in.
+        /// </summary>
+        public NetworkScene networkScene {
             get {
-                if (NetworkManager.instance == null || !NetworkManager.instance.networkConfig.useSceneManagement)
-                    return 0;
-                return NetworkSceneManager.GetSceneNetID(gameObject.scene);
+                if (NetworkManager.instance == null)
+                    return null;
+                return NetworkSceneManager.GetNetScene(gameObject.scene);
             }
         }
         

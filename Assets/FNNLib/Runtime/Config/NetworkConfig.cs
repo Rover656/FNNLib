@@ -26,18 +26,12 @@ namespace FNNLib.Config {
         #endregion
         
         #region Scene Manager
-        
-        /// <summary>
-        /// This enables the NetworkSceneManager and will register its packets in the relevant places.
-        /// TODO: Do we just force use of this?
-        /// </summary>
-        public bool useSceneManagement = true;
 
         /// <summary>
-        /// Whether or not subscenes are enabled.
-        /// If they are enabled, all networkable scenes must be given packing data.
+        /// The initial starting scene.
+        /// If left blank, it will use the scene when StartServer/StartHost is called.
         /// </summary>
-        public bool enableSubScenes = false;
+        public string initialScene;
 
         /// <summary>
         /// The list of scenes that the server is permitted to send the client to.
@@ -126,7 +120,6 @@ namespace FNNLib.Config {
                 writer.WritePackedUInt16(FNNLIB_PROTOCOL_VER);
 
                 // Write config that must be the same across client and server.
-                writer.WriteBool(useSceneManagement);
                 writer.WriteByte((byte) packetIDHashSize);
                 writer.WriteByte((byte) rpcHashSize);
 

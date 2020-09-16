@@ -20,6 +20,9 @@ namespace FNNLib.Spawning {
 
         public static readonly List<NetworkIdentity> spawnedObjectsList = new List<NetworkIdentity>();
 
+        private static readonly Dictionary<ulong, NetworkIdentity> pendingSceneObjects =
+            new Dictionary<ulong, NetworkIdentity>();
+
         #region Spawning
 
         /// <summary>
@@ -47,46 +50,49 @@ namespace FNNLib.Spawning {
 
             spawnedObjects.Add(identity.networkID, identity);
             spawnedObjectsList.Add(identity);
-            
+
             if (ownerClientID != null) {
                 if (NetworkManager.instance.isServer) {
                     if (playerObject)
                         NetworkManager.instance.connectedClients[ownerClientID.Value].playerObject = identity.networkID;
-                    else NetworkManager.instance.connectedClients[ownerClientID.Value].ownedObjects.Add(identity.networkID);
-                } else if (playerObject && ownerClientID.Value == NetworkManager.instance.localClientID) {
+                    else
+                        NetworkManager.instance.connectedClients[ownerClientID.Value].ownedObjects
+                                      .Add(identity.networkID);
+                }
+                else if (playerObject && ownerClientID.Value == NetworkManager.instance.localClientID) {
                     NetworkManager.instance.connectedClients[ownerClientID.Value].playerObject = identity.networkID;
                 }
             }
-            
+
             if (NetworkManager.instance.isServer) {
                 for (var i = 0; i < NetworkManager.instance.connectedClientsList.Count; i++) {
                     var clientID = NetworkManager.instance.connectedClientsList[i].clientID;
-                    if (NetworkManager.instance.networkConfig.useSceneManagement) {
-                        // If the client isn't observing the scene, don't make them observe this object.
-                        if (!NetworkSceneManager.GetNetScene(identity.sceneID).observers.Contains(clientID))
-                            continue;
-                    }
-                    
+                    // If the client isn't observing the scene, don't make them observe this object.
+                    if (!NetworkSceneManager.GetNetScene(identity.networkSceneID).observers.Contains(clientID))
+                        continue;
+
                     // TODO: Custom is observer callback for more customisation
-                    
+
                     identity.observers.Add(clientID);
                 }
             }
-            
+
             // TODO: Network functions like NetworkSpawn etc.
         }
-        
+
         // Run on client only
-        internal static NetworkIdentity CreateObjectLocal(ulong sceneID, ulong prefabHash, ulong? parentNetID, Vector3? position, Quaternion? rotation) {
+        internal static NetworkIdentity CreateObjectLocal(bool isSceneObject, ulong instanceID, ulong sceneID,
+                                                          ulong prefabHash, ulong? parentNetID, Vector3? position,
+                                                          Quaternion? rotation) {
             // Check that the scene ID matches the client's current scene.
-            if (NetworkManager.instance.networkConfig.useSceneManagement && !NetworkManager.instance.isServer) {
+            if (!NetworkManager.instance.isServer) {
                 var client = NetworkManager.instance.connectedClients[NetworkManager.instance.localClientID];
                 if (client.sceneID != sceneID) {
                     Debug.LogWarning("Cannot spawn object from another scene. Ignoring");
                     return null;
                 }
             }
-            
+
             NetworkIdentity parent = null;
             if (parentNetID.HasValue) {
                 if (spawnedObjects.ContainsKey(parentNetID.Value)) {
@@ -95,7 +101,21 @@ namespace FNNLib.Spawning {
                 else Debug.LogWarning("Failed to find parent!");
             }
 
-            if (NetworkManager.instance.networkConfig.useSceneManagement) {
+            if (isSceneObject) {
+                // See if we have this object pending
+                if (!pendingSceneObjects.ContainsKey(instanceID)) {
+                    Debug.LogError("Client did not expect this instance to be spawned.");
+                    return null;
+                }
+
+                var obj = pendingSceneObjects[instanceID];
+                pendingSceneObjects.Remove(instanceID);
+
+                if (parent != null)
+                    obj.transform.SetParent(parent.transform, true);
+
+                return obj;
+            } else {
                 int prefabIdx = GetNetworkedPrefabIndex(prefabHash);
                 if (prefabIdx < 0)
                     return null;
@@ -114,35 +134,34 @@ namespace FNNLib.Spawning {
                 return createdObject;
             }
 
-            // TODO: Non-scene manager impl if we keep the useSceneManagement flag.
-
             return null;
         }
 
         #endregion
-        
+
         #region Despawning
 
         internal static void OnDestroy(ulong networkID, bool destroyObject) {
             if (NetworkManager.instance == null)
                 return;
-            
+
             // If it has been removed already (or does not exist) do nothing
             if (!spawnedObjects.ContainsKey(networkID))
                 return;
-            
+
             // If this object is owned by someone, remove it from the list
             if (!spawnedObjects[networkID].isOwnedByServer &&
                 NetworkManager.instance.connectedClients.ContainsKey(spawnedObjects[networkID].ownerClientID)) {
                 if (spawnedObjects[networkID].isPlayerObject) {
                     NetworkManager.instance.connectedClients[spawnedObjects[networkID].ownerClientID].playerObject =
                         0;
-                } else {
+                }
+                else {
                     NetworkManager.instance.connectedClients[spawnedObjects[networkID].ownerClientID].ownedObjects
                                   .RemoveAll((id) => id == networkID);
                 }
             }
-            
+
             // Mark as not spawned
             spawnedObjects[networkID].isSpawned = false;
 
@@ -150,12 +169,12 @@ namespace FNNLib.Spawning {
             if (NetworkManager.instance != null && NetworkManager.instance.isServer) {
                 if (spawnedObjects[networkID] != null) {
                     var destroyPacket = new DestroyObjectPacket {networkID = networkID};
-                    
+
                     // Send to all, so that even if someone is instructed to create it, they will destroy it after.
                     NetworkServer.instance.SendToAll(destroyPacket, DefaultChannels.ReliableSequenced);
                 }
             }
-            
+
             // Get the gameobject and destroy if if we are supposed to
             if (destroyObject && spawnedObjects[networkID].gameObject != null) {
                 Object.Destroy(spawnedObjects[networkID].gameObject);
@@ -164,7 +183,7 @@ namespace FNNLib.Spawning {
             spawnedObjects.Remove(networkID);
             spawnedObjectsList.RemoveAll((identity) => identity.networkID == networkID);
         }
-        
+
         #endregion
 
         #region Client Handlers
@@ -182,16 +201,10 @@ namespace FNNLib.Spawning {
                 rotation = Quaternion.Euler(packet.eulerRotation);
             }
             
-            // Whether or not this is a scene object
-            bool sceneObject;
-            if (NetworkManager.instance.networkConfig.useSceneManagement) {
-                sceneObject = false;
-            } else {
-                sceneObject = packet.isSceneObject ?? true;
-            }
-            
-            var netObj = CreateObjectLocal(packet.sceneID, packet.prefabHash, parentNetID, position, rotation);
-            SpawnObjectLocally(netObj, packet.networkID, sceneObject, packet.isPlayerObject, packet.ownerClientID);
+
+            var netObj = CreateObjectLocal(packet.isSceneObject ?? true, packet.networkedInstanceID, packet.sceneID, packet.prefabHash,
+                                           parentNetID, position, rotation);
+            SpawnObjectLocally(netObj, packet.networkID, packet.isSceneObject ?? true, packet.isPlayerObject, packet.ownerClientID);
         }
 
         internal static void ClientHandleDestroy(ulong sender, DestroyObjectPacket packet) {
@@ -199,15 +212,16 @@ namespace FNNLib.Spawning {
         }
 
         #endregion
-        
+
         #region Server
-        
+
         internal static void ServerSendSpawnCall(ulong clientID, NetworkIdentity identity) {
             NetworkServer.instance.Send(clientID, CreateSpawnObjectPacket(identity), DefaultChannels.ReliableSequenced);
         }
 
         internal static void ServerSendSpawnCall(List<ulong> observers, NetworkIdentity identity) {
-            NetworkServer.instance.Send(observers, CreateSpawnObjectPacket(identity), DefaultChannels.ReliableSequenced);
+            NetworkServer.instance.Send(observers, CreateSpawnObjectPacket(identity),
+                                        DefaultChannels.ReliableSequenced);
         }
 
         private static SpawnObjectPacket CreateSpawnObjectPacket(NetworkIdentity identity) {
@@ -218,19 +232,18 @@ namespace FNNLib.Spawning {
 
             packet.networkID = identity.networkID;
             packet.ownerClientID = identity.ownerClientID;
-            if (NetworkManager.instance.networkConfig.useSceneManagement) {
-                packet.sceneID = identity.sceneID;
-            }
+            packet.sceneID = identity.networkSceneID;
 
             if (identity.transform.parent != null) {
                 var parent = identity.transform.parent.GetComponent<NetworkIdentity>();
                 packet.hasParent = parent != null;
                 if (packet.hasParent)
                     packet.parentNetID = parent.networkID;
-            } else packet.hasParent = false;
+            }
+            else packet.hasParent = false;
 
-            packet.isSceneObject = false;// TODO
-            packet.networkedInstanceID = 0; // TODO
+            packet.isSceneObject = identity.isSceneObject;
+            packet.networkedInstanceID = identity.sceneInstanceID;
             packet.prefabHash = identity.prefabHash;
 
             // TODO: Allow not sending transform on spawn
@@ -241,12 +254,6 @@ namespace FNNLib.Spawning {
             return packet;
         }
 
-        internal static void OnClientConnected(ulong clientID) {
-            // If scene management is disabled, spawn objects for the new client.
-            if (!NetworkManager.instance.networkConfig.useSceneManagement)
-                OnClientJoinScene(clientID, 0);
-        }
-        
         #endregion
 
         #region Prefabs
@@ -261,46 +268,95 @@ namespace FNNLib.Spawning {
         }
 
         #endregion
-        
+
         #region Network IDs
-        
+
         // TODO: ID release system
 
         private static ulong _networkIDCounter;
+
         internal static ulong GetNetworkID() {
             _networkIDCounter++;
             return _networkIDCounter;
         }
-        
+
         #endregion
-        
+
         #region Scenes
 
-        /// <summary>
-        /// Spawns any NetworkIdentities in the scene at scene start.
-        /// </summary>
-        internal static void SpawnSceneObjects() {
-            
+        //Spawns any NetworkIdentities in the scene at scene start.
+        internal static void ServerSpawnSceneObjects(uint sceneID = 0) {
+            // Get all networked objects for this scene.
+            NetworkIdentity[] objects = NetworkSceneManager.GetNetScene(sceneID).FindObjectsOfType<NetworkIdentity>();
+
+            // Spawn any scene objects
+            foreach (var obj in objects) {
+                if (obj.isSceneObject == null) {
+                    SpawnObjectLocally(obj, GetNetworkID(), true, false, null);
+                }
+            }
         }
 
-        internal static void ResetSceneObjects() {
-            
+        internal static void ServerUnspawnSceneObjects(uint sceneID) {
+            for (var i = spawnedObjectsList.Count - 1; i >= 0; i++) {
+                if (spawnedObjectsList[i].isSceneObject != null && spawnedObjectsList[i].isSceneObject == true && spawnedObjectsList[i].networkSceneID == sceneID) {
+                    // Don't destroy on server, no point. The scene is about to be unloaded.
+                    OnDestroy(spawnedObjectsList[i].networkID, false);
+                }
+            }
         }
 
-        internal static void DestroySpawnedSceneObjects() {
+        internal static void ServerUnspawnAllSceneObjects() {
+            for (var i = spawnedObjectsList.Count - 1; i >= 0; i++) {
+                if (spawnedObjectsList[i].isSceneObject != null && spawnedObjectsList[i].isSceneObject == true) {
+                    // Don't destroy on server, no point. The scene is about to be unloaded.
+                    OnDestroy(spawnedObjectsList[i].networkID, false);
+                }
+            }
+        }
+
+        internal static void DestroyNonSceneObjects() {
+            for (var i = spawnedObjectsList.Count - 1; i >= 0; i++) {
+                if (spawnedObjectsList[i].isSceneObject == null || spawnedObjectsList[i].isSceneObject == false) {
+                    OnDestroy(spawnedObjectsList[i].networkID, true);
+                }
+            }
+        }
+
+        internal static void ClientCollectSceneObjects(uint sceneID = 0) {
+            // Clear, we're going again
+            pendingSceneObjects.Clear();
             
+            // Get all networked objects for this scene.
+            var objects = NetworkSceneManager.GetNetScene(sceneID).FindObjectsOfType<NetworkIdentity>();
+
+            // Spawn any scene objects
+            foreach (var obj in objects) {
+                if (obj.isSceneObject == null) {
+                    // Save in pending list
+                    pendingSceneObjects.Add(obj.sceneInstanceID, obj);
+                }
+            }
+        }
+
+        internal static void ClientResetSceneObjects() {
+            for (var i = spawnedObjectsList.Count - 1; i >= 0; i++) {
+                if (spawnedObjectsList[i].isSceneObject != null && spawnedObjectsList[i].isSceneObject == true) {
+                    // Don't destroy on server, no point. The scene is about to be unloaded.
+                    OnDestroy(spawnedObjectsList[i].networkID, false);
+                }
+            }
         }
 
         internal static void OnClientJoinScene(ulong clientID, uint sceneID) {
             // Check the player is observing the scene they are joining
-            if (NetworkManager.instance.networkConfig.useSceneManagement) {
-                if (!NetworkSceneManager.GetNetScene(sceneID).observers.Contains(clientID))
-                    throw new NotSupportedException("Will not spawn objects for client that isn't in the scene it requested.");
-            }
+            if (!NetworkSceneManager.GetNetScene(sceneID).observers.Contains(clientID))
+                throw new
+                    NotSupportedException("Will not spawn objects for client that isn't in the scene it requested.");
 
             // TODO: IsVisible delegate for custom handling.
             foreach (var obj in spawnedObjectsList) {
-                if (!NetworkManager.instance.networkConfig.useSceneManagement || obj.sceneID == sceneID)
+                if (obj.networkSceneID == sceneID)
                     obj.AddObserver(clientID);
             }
         }
@@ -317,7 +373,7 @@ namespace FNNLib.Spawning {
                     OnDestroy(obj.networkID, true);
             }
         }
-        
+
         #endregion
     }
 }

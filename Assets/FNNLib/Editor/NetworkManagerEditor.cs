@@ -18,8 +18,7 @@ namespace FNNLib.Editor {
 
         private SerializedProperty _protocolVersionProp;
         private SerializedProperty _transportProp;
-        private SerializedProperty _useSceneManagementProp;
-        private SerializedProperty _enableSubScenesProp;
+        private SerializedProperty _initialSceneProp;
         private SerializedProperty _moveNewClientsToActiveSceneProp;
         private SerializedProperty _permittedScenesProp;
         private SerializedProperty _networkedPrefabsProp;
@@ -43,8 +42,7 @@ namespace FNNLib.Editor {
             // NetworkConfig properties
             _protocolVersionProp = _networkConfigProp.FindPropertyRelative("protocolVersion");
             _transportProp = _networkConfigProp.FindPropertyRelative("transport");
-            _useSceneManagementProp = _networkConfigProp.FindPropertyRelative("useSceneManagement");
-            _enableSubScenesProp = _networkConfigProp.FindPropertyRelative("enableSubScenes");
+            _initialSceneProp = _networkConfigProp.FindPropertyRelative("initialScene");
             _serverTickRateProp = _networkConfigProp.FindPropertyRelative("serverTickRate");
             _packetIDHashSizeProp = _networkConfigProp.FindPropertyRelative("packetIDHashSize");
             _rpcHashSizeProp = _networkConfigProp.FindPropertyRelative("rpcHashSize");
@@ -52,15 +50,13 @@ namespace FNNLib.Editor {
 
         private void OnEnable() {
             Init();
-            
+
             _networkableScenesList = new ReorderableList(serializedObject,
                                                          _networkConfigProp
-                                                                         .FindPropertyRelative("networkableScenes"),
+                                                            .FindPropertyRelative("networkableScenes"),
                                                          true,
                                                          true, true, true);
-            if (_enableSubScenesProp.boolValue) {
-                _networkableScenesList.elementHeight = 40;
-            } else _networkableScenesList.elementHeight = 21;
+            _networkableScenesList.elementHeight = 40;
 
             _networkableScenesList.drawElementCallback = (rect, index, isActive, isFocused) => {
                                                              var element = _networkableScenesList
@@ -83,19 +79,17 @@ namespace FNNLib.Editor {
                                                                      EditorGUIUtility.singleLineHeight),
                                                                  name, GUIContent.none);
 
-                                                             if (_enableSubScenesProp.boolValue) {
-                                                                 EditorGUI
-                                                                    .LabelField(new Rect(rect.x, rect.y + secondRow, firstLabelWidth, EditorGUIUtility.singleLineHeight),
-                                                                                    "Packing Data");
-                                                                 EditorGUI
-                                                                    .PropertyField(new Rect(rect.x + firstLabelWidth,
-                                                                             rect.y + secondRow,
-                                                                             rect.width - firstLabelWidth -
-                                                                             padding,
-                                                                             EditorGUIUtility
-                                                                                .singleLineHeight),
-                                                                         packingData, GUIContent.none);
-                                                             }
+                                                             EditorGUI
+                                                                .LabelField(new Rect(rect.x, rect.y + secondRow, firstLabelWidth, EditorGUIUtility.singleLineHeight),
+                                                                            "Packing Data");
+                                                             EditorGUI
+                                                                .PropertyField(new Rect(rect.x + firstLabelWidth,
+                                                                                   rect.y + secondRow,
+                                                                                   rect.width - firstLabelWidth -
+                                                                                   padding,
+                                                                                   EditorGUIUtility
+                                                                                      .singleLineHeight),
+                                                                               packingData, GUIContent.none);
                                                          };
 
             _networkableScenesList.drawHeaderCallback = (rect) => { EditorGUI.LabelField(rect, "Networkable Scenes"); };
@@ -148,13 +142,11 @@ namespace FNNLib.Editor {
                 }
 
                 EditorGUILayout.LabelField("Scene Management", EditorStyles.boldLabel);
-                EditorGUILayout.PropertyField(_useSceneManagementProp);
-
-                using (new EditorGUI.DisabledScope(!_networkManager.networkConfig.useSceneManagement)) {
-                    EditorGUILayout.PropertyField(_enableSubScenesProp);
-
-                    _networkableScenesList.DoLayoutList();
-                }
+                EditorGUILayout.PropertyField(_initialSceneProp);
+                _networkableScenesList.DoLayoutList();
+                EditorGUILayout
+                   .HelpBox("Scene packing data is used to space out subscenes if they are loaded additively on the server, but not on the client. Do not provide one if you do not use this feature.",
+                            MessageType.Info);
 
                 EditorGUILayout.LabelField("Spawning", EditorStyles.boldLabel);
                 _networkedPrefabsList.DoLayoutList();
@@ -169,11 +161,6 @@ namespace FNNLib.Editor {
                 EditorGUILayout.PropertyField(_rpcHashSizeProp);
 
                 serializedObject.ApplyModifiedProperties();
-                
-                // Update sizing for the networkable scenes list.
-                if (_enableSubScenesProp.boolValue) {
-                    _networkableScenesList.elementHeight = 40;
-                } else _networkableScenesList.elementHeight = 21;
             }
         }
 

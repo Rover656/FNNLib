@@ -464,8 +464,7 @@ MonoBehaviour:
   networkConfig:
     protocolVersion: 0
     transport: {fileID: 786270579}
-    useSceneManagement: 1
-    enableSubScenes: 1
+    initialScene: SampleScene
     networkableScenes:
     - sceneName: SampleScene
       scenePackingData: {fileID: 0}

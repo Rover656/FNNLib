@@ -65,6 +65,8 @@ namespace FNNLib.SceneManagement {
         #region Objects
         
         public GameObject Instantiate(GameObject go, Vector3 position, Quaternion rotation) {
+            if (!NetworkManager.instance.isServer)
+                throw new NotSupportedException("Only the server may instantiate things inside of a network scene!");
             var created = Object.Instantiate(go, position, rotation);
             SceneManager.MoveGameObjectToScene(created, scene);
             return created;

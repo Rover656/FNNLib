@@ -30,12 +30,14 @@ namespace FNNLib.SceneManagement {
         
         public void Serialize(NetworkWriter writer) {
             writer.WritePackedInt32(sceneIndex);
+            writer.WriteByte((byte) mode);
             writer.WritePackedUInt32(sceneNetID);
             writer.WriteVector3(sceneOffset);
         }
 
         public void DeSerialize(NetworkReader reader) {
             sceneIndex = reader.ReadPackedInt32();
+            mode = (LoadSceneMode) reader.ReadByte();
             sceneNetID = reader.ReadPackedUInt32();
             sceneOffset = reader.ReadVector3();
         }

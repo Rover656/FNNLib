@@ -26,8 +26,7 @@ namespace DefaultNamespace {
                                                                               };
                                                                    NetworkClient.instance.Send(test);
                                                                });
-            }
-            else {
+            } else {
                 NetworkManager.instance.StartServer();
                 NetworkServer.instance.onClientConnected.AddListener((client) => {
                                                                          NetworkSceneManager.GetActiveScene()
@@ -36,8 +35,8 @@ namespace DefaultNamespace {
                                                                             .GetComponent<NetworkIdentity>()
                                                                             .SpawnWithOwnership(client);
                                                                      });
-                // testScene = NetworkSceneManager.LoadScene("Test", LoadSceneMode.Additive);
-                // NetworkSceneManager.SetActiveScene(testScene);
+                testScene = NetworkSceneManager.LoadScene("Test", LoadSceneMode.Additive);
+                NetworkSceneManager.SetActiveScene(testScene);
             }
 
             // Register packet on possible targets. In this packets case, itll register on both client and server.
@@ -48,8 +47,7 @@ namespace DefaultNamespace {
         void HandleTestPacket(ulong clientID, TestPacket packet) {
             if (NetworkManager.instance.isServer) {
                 Debug.Log("Received test packet from " + clientID + "! Text is \"" + packet.text + "\"");
-            }
-            else {
+            } else {
                 Debug.Log("Received test packet from server! Text is \"" + packet.text + "\"");
             }
         }
@@ -61,6 +59,17 @@ namespace DefaultNamespace {
             // else {
             //     running.text = NetworkManager.instance.networkConfig.transport.serverRunning ? "Running" : "Stopped";
             // }
+
+            return;
+
+            if (Input.GetMouseButtonDown(0)) {
+                var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                pos.z = 0;
+                NetworkSceneManager.GetActiveScene()
+                                   .Instantiate(testPrefab, pos,
+                                                Quaternion.identity)
+                                   .GetComponent<NetworkIdentity>().Spawn();
+            }
         }
     }
 }

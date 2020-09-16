@@ -35,22 +35,24 @@ namespace FNNLib.SceneManagement {
         /// </summary>
         internal static ConcurrentDictionary<uint, NetworkScene> loadedScenes =
             new ConcurrentDictionary<uint, NetworkScene>();
-        
+
         #region Scene Management
-        
+
         public static NetworkScene LoadScene(string sceneName, LoadSceneMode mode = LoadSceneMode.Single) {
             return LoadScene(sceneName, mode, mode);
         }
-        
-        public static NetworkScene LoadScene(string sceneName, LoadSceneMode serverMode = LoadSceneMode.Single, LoadSceneMode clientMode = LoadSceneMode.Single) {
+
+        public static NetworkScene LoadScene(string sceneName, LoadSceneMode serverMode = LoadSceneMode.Single,
+                                             LoadSceneMode clientMode = LoadSceneMode.Single) {
             if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("Only the server may load scenes!");
             if (!CanSendClientTo(sceneName))
                 throw new
                     NotSupportedException("Cannot send client to this scene. It is not on the permitted scenes list.");
             if (serverMode == LoadSceneMode.Single && clientMode == LoadSceneMode.Additive)
-                throw new NotSupportedException("You cannot load a scene using single mode on server and additively on clients!");
-            
+                throw new
+                    NotSupportedException("You cannot load a scene using single mode on server and additively on clients!");
+
             // We haven't implemented packing yet, prevent uses which need it
             if (serverMode == LoadSceneMode.Additive && clientMode == LoadSceneMode.Single)
                 throw new NotImplementedException("Scene packing is not implemented");
@@ -65,7 +67,10 @@ namespace FNNLib.SceneManagement {
             var netID = GetSceneID();
 
             // Create net scene
-            var netScene = new NetworkScene {scene = scene, netID = netID, name = sceneName, serverMode = serverMode, clientMode = clientMode};
+            var netScene = new NetworkScene {
+                                                scene = scene, netID = netID, name = sceneName, serverMode = serverMode,
+                                                clientMode = clientMode
+                                            };
 
             // Add to subscene list
             loadedScenes.TryAdd(netID, netScene);
@@ -74,16 +79,17 @@ namespace FNNLib.SceneManagement {
             if (_activeScene == null) {
                 _activeScene = netScene;
             }
-            
+
             // TODO: If we are loading additively on the server, but not on the client we must move it based on packing data.
 
             // Move all clients if we're not in subscene mode.
             if (serverMode == LoadSceneMode.Single) {
                 // Send the scene change packet
-                var changePacket = new SceneChangePacket {sceneIndex = GetSceneIndex(sceneName), sceneNetID = netID, mode = clientMode};
+                var changePacket = new SceneChangePacket
+                                   {sceneIndex = GetSceneIndex(sceneName), sceneNetID = netID, mode = clientMode};
                 NetworkServer.instance.SendToAll(changePacket, DefaultChannels.ReliableSequenced);
             }
-            
+
             // Spawn all of the scene objects
             SpawnManager.ServerSpawnSceneObjects(netID);
 
@@ -139,14 +145,14 @@ namespace FNNLib.SceneManagement {
 
             // Get the scene
             var netScene = loadedScenes[netID];
-            
+
             // If its the current scene, make the fallback scene main
             if (_activeScene.netID == netID)
                 _activeScene = loadedScenes[fallbackScene];
 
             // Remove from dict and list
             loadedScenes.TryRemove(netScene.netID, out _);
-            
+
             // Unspawn any scene objects
             SpawnManager.ServerUnspawnSceneObjects(netID);
 
@@ -155,7 +161,8 @@ namespace FNNLib.SceneManagement {
                                                          sceneIndex =
                                                              GetSceneIndex(loadedScenes[fallbackScene]
                                                                               .name),
-                                                         sceneNetID = loadedScenes[fallbackScene].netID
+                                                         sceneNetID = loadedScenes[fallbackScene].netID,
+                                                         mode = loadedScenes[fallbackScene].clientMode
                                                      };
             NetworkServer.instance.Send(netScene.observers, changePacket, DefaultChannels.ReliableSequenced);
 
@@ -174,19 +181,19 @@ namespace FNNLib.SceneManagement {
                 if (SceneManager.GetActiveScene().name != initialScene)
                     SceneManager.LoadScene(initialScene);
             }
-            
+
             // Get active scene
             var scene = SceneManager.GetActiveScene();
-            
+
             // Get existing ID if it is there.
             foreach (var subScene in loadedScenes) {
                 if (subScene.Value.scene == scene)
                     return subScene.Key;
             }
-                
+
             // Get ID
             var netID = GetSceneID();
-            
+
             // Create net scene
             var netScene = new NetworkScene {scene = scene, netID = netID, name = scene.name};
 
@@ -200,9 +207,9 @@ namespace FNNLib.SceneManagement {
 
             return netID;
         }
-        
+
         #endregion
-        
+
         #region Client and Object Management
 
         /// <summary>
@@ -211,7 +218,7 @@ namespace FNNLib.SceneManagement {
         /// <param name="clientID"></param>
         /// <param name="sceneID">The scene network ID.</param>
         /// <exception cref="NotSupportedException"></exception>
-        public static void SendClientTo(ulong clientID, uint sceneID) {
+        public static void MoveClientToScene(ulong clientID, uint sceneID) {
             // Get client's current scene
             var client = NetworkManager.instance.connectedClients[clientID];
 
@@ -226,13 +233,14 @@ namespace FNNLib.SceneManagement {
                                                          sceneIndex =
                                                              GetSceneIndex(loadedScenes[sceneID]
                                                                               .name),
-                                                         sceneNetID = loadedScenes[sceneID].netID
+                                                         sceneNetID = loadedScenes[sceneID].netID,
+                                                         mode = loadedScenes[sceneID].clientMode
                                                      };
             NetworkServer.instance.Send(clientID, changePacket, DefaultChannels.ReliableSequenced);
             NetworkManager.instance.connectedClients[clientID].sceneID = loadedScenes[sceneID].netID;
             SpawnManager.OnClientChangeScene(clientID);
         }
-        
+
         #endregion
 
         private static bool CanSendClientTo(string sceneName) {
@@ -258,31 +266,32 @@ namespace FNNLib.SceneManagement {
             var targetScene = NetworkManager.instance.networkConfig.networkableScenes[packet.sceneIndex]
                                             .sceneName;
             var currentScene = SceneManager.GetActiveScene().name;
-            
+
             // Reset the current scene if its the same
-            if (targetScene == currentScene) {
+            if (targetScene == currentScene && packet.mode == LoadSceneMode.Single) {
                 SpawnManager.DestroyNonSceneObjects();
                 SpawnManager.ClientResetSceneObjects();
-            } else {
+            }
+            else {
                 // Remove current loaded scene if it exists
                 var curScene = NetworkManager.instance.connectedClients[NetworkManager.instance.localClientID].sceneID;
                 if (loadedScenes.ContainsKey(curScene))
                     loadedScenes.TryRemove(curScene, out _);
-            
+
                 // Load the scene
-                SceneManager.LoadScene(targetScene);
+                SceneManager.LoadScene(targetScene, packet.mode);
             }
-            
+
             // Add to loaded scenes
             loadedScenes.TryAdd(packet.sceneNetID, new NetworkScene {
-                                                                         scene = SceneManager.GetActiveScene(),
-                                                                         netID = packet.sceneNetID,
-                                                                         name = SceneManager.GetActiveScene().name
-                                                                     });
-            
+                                                                        scene = SceneManager.GetActiveScene(),
+                                                                        netID = packet.sceneNetID,
+                                                                        name = SceneManager.GetActiveScene().name
+                                                                    });
+
             // Save my current scene ID
             NetworkManager.instance.connectedClients[NetworkManager.instance.localClientID].sceneID = packet.sceneNetID;
-            
+
             // Setup scene spawns
             SpawnManager.ClientCollectSceneObjects(packet.sceneNetID);
 
@@ -297,8 +306,11 @@ namespace FNNLib.SceneManagement {
 
         internal static void OnClientConnected(ulong clientID) {
             // Send to the current scene.
-            var changePacket = new SceneChangePacket
-                               {sceneIndex = GetSceneIndex(_activeScene.name), sceneNetID = _activeScene.netID};
+            var changePacket = new SceneChangePacket {
+                                                         sceneIndex = GetSceneIndex(_activeScene.name),
+                                                         sceneNetID = _activeScene.netID,
+                                                         mode = _activeScene.clientMode
+                                                     };
             NetworkManager.instance.connectedClients[clientID].sceneID = _activeScene.netID;
             NetworkServer.instance.Send(clientID, changePacket, DefaultChannels.ReliableSequenced);
         }

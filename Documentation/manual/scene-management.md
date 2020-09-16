@@ -4,9 +4,11 @@ FNNLib manages network scene sync for you by adding the `NetworkSceneManager` cl
 
 ## Loading scenes
 
-You can load scenes either as a single scene, an additive scene, or a scene that is additively loaded in the server, but is a single scene on the client. Single and additive scenes work exactly the same as in Unity's own manager. However the third case is managed using packing information, to spawn the scenes away from one another on the server so that the scenes don't interfere with one another. This is so that host mode does not render all scenes at once, as they will be offscreen until the host moves into them.
+You can load scenes either as a single scene, an [additive scene](https://docs.unity3d.com/ScriptReference/SceneManagement.LoadSceneMode.Additive.html) (Basically, where multiple scenes are loaded at once and overlap one another), or a scene that is additively loaded in the server, but is only a single scene on the client. The latter is managed using packing information, to spawn the scenes away from one another on the server so that the scenes don't interfere with one another. This is so that host mode does not render all scenes at once, as they will be offscreen until the host moves into them.
 
 You can load a single scene by simply calling:
+
+> Note: You must add the scene (and it's packing data if use use the third loading mode) to the NetworkManager's list of networked scenes before loading it, otherwise the scene will not load and an exception will be thrown.
 
 ```c#
 NetworkSceneManager.LoadScene("sceneName");
@@ -20,7 +22,9 @@ NetworkSceneManager.LoadScene("sceneName", LoadSceneMode.Additive);
 
 ## Unloading scenes
 
-You can unload a scene in the same way you would in Unity also:
+You can unload a scene in the same way you would in Unity.
+
+> Do note that a scene may only be unloaded if there are 2 or more loaded scenes.
 
 ```c#
 var networkScene = ...; // You can get this either as a return value from LoadScene, or GetActiveScene. GetSceneAt is to be implemented soon.
@@ -29,7 +33,7 @@ NetworkSceneManager.UnloadSceneAsync(networkScene);
 
 ## Active scenes
 
-You can mark a scene as active too! Doing this means that any new clients will move to this scene and using Object.Instantiate would create objects in that scene. However, more on Object.Instantiate in the next section. The active scene can be queried and set with:
+You can mark a scene as active too! Doing this means that any new clients will start in this scene and using Object.Instantiate would create objects in that scene. However, use of this is discussed in the next section.
 
 ```c#
 // Get
@@ -39,9 +43,9 @@ var activeScene = NetworkSceneManager.GetActiveScene();
 NetworkSceneManager.SetActiveScene(someOtherScene); // or use its network ID
 ```
 
-## Object.Instantiate, FindObject(s)OfType etc.
+## Object.Instantiate, FindObject(s)OfType etc
 
-Because FNNLib supports loading of multiple scenes, this causes some problems with Unity's built in Instantiate and FindObjectsOfType methods. To fix this, the NetworkScene class implements helper functions for these. It is recommended that you use these all the time, and avoid use of the Unity versions to prevent confusion.
+Because FNNLib supports the loading of multiple scenes at a time, you may find Object.Instantiate annoying, as you must move the newly created gameobject to the target scene every time. To remedy this, the NetworkScene class implements helper functions which do this for you. It is recommended that you use these all the time, and avoid use of the Unity versions to prevent confusion.
 
 > Do note that using FindObjectsOfType will be obscenely slow, and it is recommended to use alternatives at all costs before using it. If you do use it, refrain from doing so every frame.
 
@@ -54,7 +58,7 @@ var objects = someScene.FindObjectsOfType<MyBehaviour>();
 
 ## Moving clients
 
-You can move clients to different scenes (if you have multiple scenes loaded additively) using the following:
+You can move clients to different scenes (if you have multiple scenes loaded) using the following:
 
 ```c#
 NetworkSceneManager.MoveClientToScene(clientID, networkScene);

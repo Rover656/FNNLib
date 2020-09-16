@@ -3,16 +3,16 @@
 namespace FNNLib.Messaging.Internal {
     [ServerPacket]
     internal class ConnectionRequestPacket : IPacket {
-        public ulong protocolVersion;
+        public ulong verificationHash;
         public byte[] connectionData;
         
         public void Serialize(NetworkWriter writer) {
-            writer.WritePackedUInt64(protocolVersion);
+            writer.WritePackedUInt64(verificationHash);
             writer.WriteBytesWithSize(connectionData, 0, connectionData?.Length ?? 0);
         }
 
         public void DeSerialize(NetworkReader reader) {
-            protocolVersion = reader.ReadPackedUInt64();
+            verificationHash = reader.ReadPackedUInt64();
             connectionData = reader.ReadBytesWithSize();
         }
     }

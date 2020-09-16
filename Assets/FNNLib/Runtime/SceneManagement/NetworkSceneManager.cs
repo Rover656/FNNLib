@@ -216,6 +216,15 @@ namespace FNNLib.SceneManagement {
         /// 
         /// </summary>
         /// <param name="clientID"></param>
+        /// <param name="scene"></param>
+        public static void MoveClientToScene(ulong clientID, NetworkScene scene) {
+            MoveClientToScene(clientID, scene.netID);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clientID"></param>
         /// <param name="sceneID">The scene network ID.</param>
         /// <exception cref="NotSupportedException"></exception>
         public static void MoveClientToScene(ulong clientID, uint sceneID) {

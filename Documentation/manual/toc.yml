@@ -1,4 +1,4 @@
-- name: Coniunctis nec qui
-  href: coniunctis.md
-- name: Etiam nantemque exul
-  href: etiam.md
+- name: Getting Started
+  href: getting-started.md
+- name: Scene Management
+  href: scene-management.md

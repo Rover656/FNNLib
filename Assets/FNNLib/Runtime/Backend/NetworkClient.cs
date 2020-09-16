@@ -41,9 +41,9 @@ namespace FNNLib.Backend {
         private Transport _transport;
 
         /// <summary>
-        /// The protocol version of the client.
+        /// The connection verification hash.
         /// </summary>
-        private readonly ulong _protocolVersion;
+        private readonly ulong _verificationHash;
 
         /// <summary>
         /// If running in host mode, we don't send packets to the server.
@@ -52,12 +52,12 @@ namespace FNNLib.Backend {
         private bool _hostMode;
 
         /// <summary>
-        /// Creates a network client with the given protocol version.
+        /// Creates a network client with the given verification hash.
         /// </summary>
-        /// <param name="protocolVersion">Client protocol version.</param>
-        public NetworkClient(ulong protocolVersion) {
-            // Set protocol version
-            _protocolVersion = protocolVersion;
+        /// <param name="verificationHash">Client verification hash.</param>
+        public NetworkClient(ulong verificationHash) {
+            // Set verification hash.
+            _verificationHash = verificationHash;
             
             // Register internal protocol packets
             RegisterInternalPackets();
@@ -212,7 +212,7 @@ namespace FNNLib.Backend {
             Debug.Log("Connected to server! Sending connection request.");
 
             // Send connection request
-            var request = new ConnectionRequestPacket {connectionData = _connectionRequestData, protocolVersion = _protocolVersion};
+            var request = new ConnectionRequestPacket {connectionData = _connectionRequestData, verificationHash = _verificationHash};
             Send(request);
         }
 

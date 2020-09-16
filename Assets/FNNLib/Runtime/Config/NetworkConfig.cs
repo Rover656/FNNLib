@@ -31,12 +31,14 @@ namespace FNNLib.Config {
         /// The initial starting scene.
         /// If left blank, it will use the scene when StartServer/StartHost is called.
         /// </summary>
+        [Tooltip("The initial starting scene. IF left blank, it will use the active scene at the time the server or host is started.")]
         public string initialScene;
 
         /// <summary>
         /// The list of scenes that the server is permitted to send the client to.
-        /// Used for security purposes if you opt to use the NetworkSceneManager (recommended).
+        /// Used to prevent rogue servers sending clients to invalid scenes.
         /// </summary>
+        [Tooltip("The list of scenes that the server may send the client to. Used to prevent rogue servers sending clients to invalid scenes.")]
         public List<NetworkableScene> networkableScenes = new List<NetworkableScene>();
         
         #endregion
@@ -46,6 +48,7 @@ namespace FNNLib.Config {
         /// <summary>
         /// List of all networked prefabs.
         /// </summary>
+        [Tooltip("List of every networked prefab. All of which must have unique hashes.")]
         public List<NetworkPrefab> networkedPrefabs = new List<NetworkPrefab>();
         
         #endregion
@@ -59,6 +62,7 @@ namespace FNNLib.Config {
         /// <summary>
         /// (Dedicated) server update frequency.
         /// </summary>
+        [Tooltip("Dedicated server update frequency. Prevents high CPU usage from an unlocked tickrate.")]
         public int serverTickRate = 30;
         
         // TODO: Use these in NetworkServer:
@@ -108,6 +112,12 @@ namespace FNNLib.Config {
         /// </summary>
         private ulong? _cachedHash;
 
+        /// <summary>
+        /// Get the config hash.
+        /// This is used to compare the validity of a connection.
+        /// </summary>
+        /// <param name="cache"></param>
+        /// <returns></returns>
         public ulong GetHash(bool cache = true) {
             if (_cachedHash != null && cache)
                 return _cachedHash.Value;

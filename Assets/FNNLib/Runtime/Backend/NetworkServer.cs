@@ -66,10 +66,9 @@ namespace FNNLib.Backend {
         private Transport _transport;
 
         /// <summary>
-        /// The server protocol version.
-        /// This stops incompatible client-server interactions.
+        /// The connection verification hash
         /// </summary>
-        private readonly ulong _protocolVersion;
+        private readonly ulong _verificationHash;
 
         /// <summary>
         /// Sender list for sending data to an individual client.
@@ -103,9 +102,9 @@ namespace FNNLib.Backend {
         
         private readonly List<ulong> _allClientIDs = new List<ulong>();
 
-        public NetworkServer(ulong protocolVersion) {
-            // Save the protocol version
-            _protocolVersion = protocolVersion;
+        public NetworkServer(ulong verificationHash) {
+            // Save the verification hash
+            _verificationHash = verificationHash;
             
             // Register the common handlers. These are required across *all* servers.
             RegisterInternalPackets();
@@ -258,13 +257,13 @@ namespace FNNLib.Backend {
             // Client has requested connection. We can stop the timeout thread.
             _clients[clientID].CancelTimeout();
             
-            // Check protocol version
-            if (packet.protocolVersion != _protocolVersion) {
+            // Check verification hash.
+            if (packet.verificationHash != _verificationHash) {
                 Disconnect(clientID, "Client version does not match the server's.");
             }
 
             // TODO: Add a delegate that will use the extra data sent with the request to approve or deny the connection.
-            //  For now, we just accept if the protocol version matches.
+            //  For now, we just accept if the verification hash matches.
             
             // Send the acceptance packet
             var accept = new ConnectionApprovedPacket {localClientID = clientID};

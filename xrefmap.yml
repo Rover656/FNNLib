@@ -1616,19 +1616,19 @@ references:
   isSpec: "True"
   fullName: FNNLib.SceneManagement.NetworkSceneManager.LoadScene
   nameWithType: NetworkSceneManager.LoadScene
-- uid: FNNLib.SceneManagement.NetworkSceneManager.SendClientTo(System.UInt64,System.UInt32)
-  name: SendClientTo(UInt64, UInt32)
-  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_SendClientTo_System_UInt64_System_UInt32_
-  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.SendClientTo(System.UInt64,System.UInt32)
-  fullName: FNNLib.SceneManagement.NetworkSceneManager.SendClientTo(System.UInt64, System.UInt32)
-  nameWithType: NetworkSceneManager.SendClientTo(UInt64, UInt32)
-- uid: FNNLib.SceneManagement.NetworkSceneManager.SendClientTo*
-  name: SendClientTo
-  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_SendClientTo_
-  commentId: Overload:FNNLib.SceneManagement.NetworkSceneManager.SendClientTo
+- uid: FNNLib.SceneManagement.NetworkSceneManager.MoveClientToScene(System.UInt64,System.UInt32)
+  name: MoveClientToScene(UInt64, UInt32)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_MoveClientToScene_System_UInt64_System_UInt32_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.MoveClientToScene(System.UInt64,System.UInt32)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.MoveClientToScene(System.UInt64, System.UInt32)
+  nameWithType: NetworkSceneManager.MoveClientToScene(UInt64, UInt32)
+- uid: FNNLib.SceneManagement.NetworkSceneManager.MoveClientToScene*
+  name: MoveClientToScene
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_MoveClientToScene_
+  commentId: Overload:FNNLib.SceneManagement.NetworkSceneManager.MoveClientToScene
   isSpec: "True"
-  fullName: FNNLib.SceneManagement.NetworkSceneManager.SendClientTo
-  nameWithType: NetworkSceneManager.SendClientTo
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.MoveClientToScene
+  nameWithType: NetworkSceneManager.MoveClientToScene
 - uid: FNNLib.SceneManagement.NetworkSceneManager.SetActiveScene(FNNLib.SceneManagement.NetworkScene)
   name: SetActiveScene(NetworkScene)
   href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_SetActiveScene_FNNLib_SceneManagement_NetworkScene_

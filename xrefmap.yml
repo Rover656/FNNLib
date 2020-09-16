@@ -1616,6 +1616,12 @@ references:
   isSpec: "True"
   fullName: FNNLib.SceneManagement.NetworkSceneManager.LoadScene
   nameWithType: NetworkSceneManager.LoadScene
+- uid: FNNLib.SceneManagement.NetworkSceneManager.MoveClientToScene(System.UInt64,FNNLib.SceneManagement.NetworkScene)
+  name: MoveClientToScene(UInt64, NetworkScene)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_MoveClientToScene_System_UInt64_FNNLib_SceneManagement_NetworkScene_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.MoveClientToScene(System.UInt64,FNNLib.SceneManagement.NetworkScene)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.MoveClientToScene(System.UInt64, FNNLib.SceneManagement.NetworkScene)
+  nameWithType: NetworkSceneManager.MoveClientToScene(UInt64, NetworkScene)
 - uid: FNNLib.SceneManagement.NetworkSceneManager.MoveClientToScene(System.UInt64,System.UInt32)
   name: MoveClientToScene(UInt64, UInt32)
   href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_MoveClientToScene_System_UInt64_System_UInt32_

@@ -81,24 +81,28 @@
 
 <p>FNNLib manages network scene sync for you by adding the <code>NetworkSceneManager</code> class. This should be used <strong>instead</strong> of Unity&#39;s own <code>SceneManager</code> as it deals with the network synchronization and spawning of objects.</p>
 <h2 id="loading-scenes">Loading scenes</h2>
-<p>You can load scenes either as a single scene, an additive scene, or a scene that is additively loaded in the server, but is a single scene on the client. Single and additive scenes work exactly the same as in Unity&#39;s own manager. However the third case is managed using packing information, to spawn the scenes away from one another on the server so that the scenes don&#39;t interfere with one another. This is so that host mode does not render all scenes at once, as they will be offscreen until the host moves into them.</p>
+<p>You can load scenes either as a single scene, an <a href="https://docs.unity3d.com/ScriptReference/SceneManagement.LoadSceneMode.Additive.html">additive scene</a> (Basically, where multiple scenes are loaded at once and overlap one another), or a scene that is additively loaded in the server, but is only a single scene on the client. The latter is managed using packing information, to spawn the scenes away from one another on the server so that the scenes don&#39;t interfere with one another. This is so that host mode does not render all scenes at once, as they will be offscreen until the host moves into them.</p>
 <p>You can load a single scene by simply calling:</p>
+<blockquote><p>Note: You must add the scene (and it&#39;s packing data if use use the third loading mode) to the NetworkManager&#39;s list of networked scenes before loading it, otherwise the scene will not load and an exception will be thrown.</p>
+</blockquote>
 <pre><code class="lang-c#">NetworkSceneManager.LoadScene(&quot;sceneName&quot;);
 </code></pre><p>To load a scene additively, instead use:</p>
 <pre><code class="lang-c#">NetworkSceneManager.LoadScene(&quot;sceneName&quot;, LoadSceneMode.Additive);
 </code></pre><h2 id="unloading-scenes">Unloading scenes</h2>
-<p>You can unload a scene in the same way you would in Unity also:</p>
+<p>You can unload a scene in the same way you would in Unity.</p>
+<blockquote><p>Do note that a scene may only be unloaded if there are 2 or more loaded scenes.</p>
+</blockquote>
 <pre><code class="lang-c#">var networkScene = ...; // You can get this either as a return value from LoadScene, or GetActiveScene. GetSceneAt is to be implemented soon.
 NetworkSceneManager.UnloadSceneAsync(networkScene);
 </code></pre><h2 id="active-scenes">Active scenes</h2>
-<p>You can mark a scene as active too! Doing this means that any new clients will move to this scene and using Object.Instantiate would create objects in that scene. However, more on Object.Instantiate in the next section. The active scene can be queried and set with:</p>
+<p>You can mark a scene as active too! Doing this means that any new clients will start in this scene and using Object.Instantiate would create objects in that scene. However, use of this is discussed in the next section.</p>
 <pre><code class="lang-c#">// Get
 var activeScene = NetworkSceneManager.GetActiveScene();
 
 // Set
 NetworkSceneManager.SetActiveScene(someOtherScene); // or use its network ID
-</code></pre><h2 id="objectinstantiate-findobjectsoftype-etc">Object.Instantiate, FindObject(s)OfType etc.</h2>
-<p>Because FNNLib supports loading of multiple scenes, this causes some problems with Unity&#39;s built in Instantiate and FindObjectsOfType methods. To fix this, the NetworkScene class implements helper functions for these. It is recommended that you use these all the time, and avoid use of the Unity versions to prevent confusion.</p>
+</code></pre><h2 id="objectinstantiate-findobjectsoftype-etc">Object.Instantiate, FindObject(s)OfType etc</h2>
+<p>Because FNNLib supports the loading of multiple scenes at a time, you may find Object.Instantiate annoying, as you must move the newly created gameobject to the target scene every time. To remedy this, the NetworkScene class implements helper functions which do this for you. It is recommended that you use these all the time, and avoid use of the Unity versions to prevent confusion.</p>
 <blockquote><p>Do note that using FindObjectsOfType will be obscenely slow, and it is recommended to use alternatives at all costs before using it. If you do use it, refrain from doing so every frame.</p>
 </blockquote>
 <pre><code class="lang-c#">var someScene = ...;
@@ -106,7 +110,7 @@ someScene.Instantiate(myPrefab, Vector3.zero, Quaternion.identity);
 
 var objects = someScene.FindObjectsOfType&lt;MyBehaviour&gt;();
 </code></pre><h2 id="moving-clients">Moving clients</h2>
-<p>You can move clients to different scenes (if you have multiple scenes loaded additively) using the following:</p>
+<p>You can move clients to different scenes (if you have multiple scenes loaded) using the following:</p>
 <pre><code class="lang-c#">NetworkSceneManager.MoveClientToScene(clientID, networkScene);
 // or
 NetworkSceneManager.MoveClientToScene(clientID, sceneNetworkID);

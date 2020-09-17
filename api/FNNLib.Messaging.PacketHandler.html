@@ -150,7 +150,7 @@ A packet can have both.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void ClearPacketHandler&lt;T&gt;()
-    where T : IPacket, new()</code></pre>
+    where T : ISerializable, new()</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -244,7 +244,7 @@ A packet can have both.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void RegisterPacketHandler&lt;T&gt;(Action&lt;ulong, T&gt; handler)
-    where T : IPacket, new()</code></pre>
+    where T : ISerializable, new()</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

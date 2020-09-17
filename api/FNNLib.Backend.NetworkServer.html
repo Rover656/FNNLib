@@ -454,7 +454,7 @@ Check if a server is running with the IsServerRunning static property.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void Send&lt;T&gt;(List&lt;ulong&gt; clients, T packet, int channelID = 0)
-    where T : IPacket</code></pre>
+    where T : ISerializable</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -532,7 +532,7 @@ Check if a server is running with the IsServerRunning static property.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void Send&lt;T&gt;(ulong clientID, T packet, int channelID = 0)
-    where T : IPacket</code></pre>
+    where T : ISerializable</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -610,7 +610,7 @@ Check if a server is running with the IsServerRunning static property.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void SendToAll&lt;T&gt;(T packet, int channelID = 0)
-    where T : IPacket</code></pre>
+    where T : ISerializable</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

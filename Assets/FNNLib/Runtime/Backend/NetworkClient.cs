@@ -116,7 +116,7 @@ namespace FNNLib.Backend {
         /// <param name="packet"></param>
         /// <typeparam name="T"></typeparam>
         /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ServerPacket.</exception>
-        public void Send<T>(T packet, int channelID = DefaultChannels.Reliable) where T : IPacket, new() {
+        public void Send<T>(T packet, int channelID = DefaultChannels.Reliable) where T : ISerializable, new() {
             if (!PacketUtils.IsServerPacket<T>())
                 throw new InvalidOperationException("Attempted to send non-server packet to server!");
             
@@ -127,7 +127,7 @@ namespace FNNLib.Backend {
             // Write data
             using (var writer = NetworkWriterPool.GetWriter()) {
                 writer.WritePackedUInt32(PacketUtils.GetID<T>());
-                packet.Serialize(writer);
+                writer.WritePackedObject(packet);
                 _transport.ClientSend(writer.ToArraySegment(), channelID);
             }
         }

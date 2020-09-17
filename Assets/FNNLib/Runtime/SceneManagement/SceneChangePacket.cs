@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace FNNLib.SceneManagement {
     [ClientPacket]
-    internal class SceneChangePacket : IPacket {
+    internal class SceneChangePacket : ISerializable {
         /// <summary>
         /// The index of the scene to load.
         /// This is the index of the scene in the allowed scenes list.

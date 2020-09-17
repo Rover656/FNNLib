@@ -77,7 +77,8 @@ namespace FNNLib.Spawning {
                 }
             }
 
-            // TODO: Network functions like NetworkSpawn etc.
+            identity.ResetNetStartInvoked();
+            identity.InvokeBehaviourNetStart();
         }
 
         // Run on client only
@@ -323,9 +324,10 @@ namespace FNNLib.Spawning {
             }
         }
 
-        internal static void ClientCollectSceneObjects(uint sceneID = 0) {
+        internal static void ClientCollectSceneObjects(uint sceneID, bool loadedAdditively) {
             // Clear, we're going again
-            pendingSceneObjects.Clear();
+            if (!loadedAdditively)
+                pendingSceneObjects.Clear();
             
             // Get all networked objects for this scene.
             var objects = NetworkSceneManager.GetNetScene(sceneID).FindObjectsOfType<NetworkIdentity>();

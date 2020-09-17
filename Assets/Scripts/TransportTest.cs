@@ -28,15 +28,15 @@ namespace DefaultNamespace {
                                                                });
             } else {
                 NetworkManager.instance.StartServer();
-                NetworkServer.instance.onClientConnected.AddListener((client) => {
-                                                                         NetworkSceneManager.GetActiveScene()
-                                                                            .Instantiate(testPrefab, Vector3.zero,
-                                                                                 Quaternion.identity)
-                                                                            .GetComponent<NetworkIdentity>()
-                                                                            .SpawnWithOwnership(client);
-                                                                     });
-                testScene = NetworkSceneManager.LoadScene("Test", LoadSceneMode.Additive);
-                NetworkSceneManager.SetActiveScene(testScene);
+                // NetworkServer.instance.onClientConnected.AddListener((client) => {
+                //                                                          NetworkSceneManager.GetActiveScene()
+                //                                                             .Instantiate(testPrefab, Vector3.zero,
+                //                                                                  Quaternion.identity)
+                //                                                             .GetComponent<NetworkIdentity>()
+                //                                                             .SpawnWithOwnership(client);
+                //                                                      });
+                // testScene = NetworkSceneManager.LoadScene("Test", LoadSceneMode.Additive);
+                // NetworkSceneManager.SetActiveScene(testScene);
             }
 
             // Register packet on possible targets. In this packets case, itll register on both client and server.

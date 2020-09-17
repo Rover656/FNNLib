@@ -1,0 +1,177 @@
+<script>
+    // DISGUSTING. MIGHT CLEAN ONE DAY.
+
+    const maxParams = 32;
+    const methodNameHashMethod = "HashMethodName";
+    const methodSigHashMethod = "HashMethodSignature";
+    const clientRPCDispatcher = "SendClientRPCCall";
+    const clientRPCDispatcherAll = "SendClientRPCCallAll";
+    const clientRPCDispatcherSingle = "SendClientRPCCallFor";
+
+    for (let i = 0; i < maxParams; i++) {
+        // public delegate void RPCMethod<T1>(T1 t1);
+        document.write("/// &lt;exclude /&gt;<br/>public delegate void RPCMethod");
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write("(")
+        writeTypeParams(i);
+        document.write(");<br/>");
+
+        // public void InvokeClientRPC(string methodName, List&lt;ulong&gt; clients, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeClientRPC");
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write("(string methodName, List&lt;ulong&gt; clients")
+        if (i > 0)
+            document.write(", ");
+        writeTypeParams(i);
+        document.write(", int channel = DefaultChannels.Reliable");
+        document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + clientRPCDispatcher + "(" + methodNameHashMethod + "(methodName), clients, channel");
+        if (i > 0)
+            document.write(", ");
+        writeTypeArguments(i);
+        document.write(");<br/>}<br/>")
+
+        // public void InvokeClientRPCFor(string methodName, ulong client, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeClientRPCFor");
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write("(string methodName, ulong client")
+        if (i > 0)
+            document.write(", ");
+        writeTypeParams(i);
+        document.write(", int channel = DefaultChannels.Reliable");
+        document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + clientRPCDispatcherSingle + "(" + methodNameHashMethod + "(methodName), client, channel");
+        if (i > 0)
+            document.write(", ");
+        writeTypeArguments(i);
+        document.write(");<br/>}<br/>")
+
+        // public void InvokeClientRPCForAll(string methodName, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeClientRPCForAll");
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write("(string methodName")
+        if (i > 0)
+            document.write(", ");
+        writeTypeParams(i);
+        document.write(", int channel = DefaultChannels.Reliable");
+        document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + clientRPCDispatcherAll + "(" + methodNameHashMethod + "(methodName), channel");
+        if (i > 0)
+            document.write(", ");
+        writeTypeArguments(i);
+        document.write(");<br/>}<br/>")
+
+        // public void InvokeClientRPC(RPCMethod<...>, List&lt;ulong&gt; clients, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeClientRPC");
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write("(RPCMethod")
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write(" method, List&lt;ulong&gt; clients")
+        if (i > 0)
+            document.write(", ");
+        writeTypeParams(i);
+        document.write(", int channel = DefaultChannels.Reliable");
+        document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + clientRPCDispatcher + "(" + methodSigHashMethod + "(method.Method), clients, channel");
+        if (i > 0)
+            document.write(", ");
+        writeTypeArguments(i);
+        document.write(");<br/>}<br/>")
+
+        // public void InvokeClientRPCFor(RPCMethod<...> method, ulong client, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeClientRPCFor");
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write("(RPCMethod")
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write(" method, ulong client")
+        if (i > 0)
+            document.write(", ");
+        writeTypeParams(i);
+        document.write(", int channel = DefaultChannels.Reliable");
+        document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + clientRPCDispatcherSingle + "(" + methodSigHashMethod + "(method.Method), client, channel");
+        if (i > 0)
+            document.write(", ");
+        writeTypeArguments(i);
+        document.write(");<br/>}<br/>")
+
+        // public void InvokeClientRPCForAll(RPCMethod<...>, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeClientRPCForAll");
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write("(RPCMethod")
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write(" method")
+        if (i > 0)
+            document.write(", ");
+        writeTypeParams(i);
+        document.write(", int channel = DefaultChannels.Reliable");
+        document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + clientRPCDispatcherAll + "(" + methodSigHashMethod + "(method.Method), channel");
+        if (i > 0)
+            document.write(", ");
+        writeTypeArguments(i);
+        document.write(");<br/>}<br/>")
+    }
+
+    function writeTypes(typeCount) {
+        for (let j = 0; j < typeCount; j++) {
+            document.write("T" + j); 
+            if (j < typeCount - 1) {
+                document.write(", ");
+            }
+        }
+    }
+
+    function writeTypeParams(typeCount) {
+        for (let j = 0; j < typeCount; j++) {
+            document.write("T" + j + " ");
+            document.write("t" + j); 
+            if (j < typeCount - 1) {
+                document.write(", ");
+            }
+        }
+    }
+
+    function writeTypeArguments(typeCount) {
+        for (let j = 0; j < typeCount; j++) {
+            document.write("t" + j); 
+            if (j < typeCount - 1) {
+                document.write(", ");
+            }
+        }
+    }
+</script>

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FNNLib.Spawning {
     [ClientPacket]
-    internal class SpawnObjectPacket : IPacket {
+    internal class SpawnObjectPacket : ISerializable {
         public bool isPlayerObject;
 
         public ulong networkID;

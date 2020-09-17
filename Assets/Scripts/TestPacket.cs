@@ -4,15 +4,7 @@ using FNNLib.Serialization;
 
 namespace DefaultNamespace {
     [ClientPacket, ServerPacket]
-    public class TestPacket : IPacket {
+    public class TestPacket : AutoSerializer {
         public string text;
-        
-        public void Serialize(NetworkWriter writer) {
-            writer.WriteString(text);
-        }
-
-        public void DeSerialize(NetworkReader reader) {
-            text = reader.ReadString();
-        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using FNNLib.Reflection;
+using UnityEditor;
 using UnityEngine;
 
 namespace FNNLib.Serialization {
@@ -106,19 +108,19 @@ namespace FNNLib.Serialization {
             value |= ((ulong) buffer.Array[buffer.Offset + position++] << 56);
             return value;
         }
-        
+
         public long ReadInt64() => (long) ReadUInt64();
 
         public ushort ReadPackedUInt16() => (ushort) ReadPackedUInt64();
-        
+
         public short ReadPackedInt16() {
             // https://gist.github.com/mfuerstenau/ba870a29e16536fdbaba
             var value = ReadPackedUInt16();
             return (short) ((value >> 1) ^ -(value & 1));
         }
-        
+
         public uint ReadPackedUInt32() => (uint) ReadPackedUInt64();
-        
+
         public int ReadPackedInt32() {
             // https://gist.github.com/mfuerstenau/ba870a29e16536fdbaba
             var value = ReadPackedUInt32();
@@ -177,11 +179,11 @@ namespace FNNLib.Serialization {
 
             throw new IndexOutOfRangeException("Invalid packed int! A0 = " + a0);
         }
-        
+
         public long ReadPackedInt64() {
             // https://gist.github.com/mfuerstenau/ba870a29e16536fdbaba
             var value = ReadPackedUInt64();
-            return ((long)(value >> 1) ^ -((long)value & 1));
+            return ((long) (value >> 1) ^ -((long) value & 1));
         }
 
         #endregion
@@ -206,7 +208,7 @@ namespace FNNLib.Serialization {
 
         public string ReadString() {
             // String size
-            ushort size = ReadUInt16();
+            ushort size = ReadPackedUInt16();
             if (size == 0) return null;
 
             // Get real size
@@ -224,7 +226,7 @@ namespace FNNLib.Serialization {
 
         public byte[] ReadBytesWithSize() {
             var segment = ReadSegmentWithSize();
-            if (!segment.HasValue)
+            if (segment == null)
                 return null;
             var data = new byte[segment.Value.Count];
             Array.Copy(segment.Value.Array, segment.Value.Offset, data, 0, segment.Value.Count);
@@ -232,7 +234,7 @@ namespace FNNLib.Serialization {
         }
 
         public ArraySegment<byte>? ReadSegmentWithSize() {
-            uint count = ReadUInt32();
+            var count = ReadPackedUInt32();
             if (count == 0)
                 return null;
             var realCount = checked((int) (count - 1u));
@@ -248,6 +250,57 @@ namespace FNNLib.Serialization {
         public Vector2 ReadVector2() => new Vector2(ReadSingle(), ReadSingle());
 
         public Vector3 ReadVector3() => new Vector3(ReadSingle(), ReadSingle(), ReadSingle());
+
+        public object ReadPackedObject(Type type) {
+            if (type.IsNullable()) {
+                var isNull = ReadBool();
+                if (isNull)
+                    return null;
+            }
+
+            if (type.IsArray && type.HasElementType && SerializationSystem.CanSerialize(type.GetElementType())) {
+                var size = ReadPackedInt32();
+                var array = Array.CreateInstance(type.GetElementType(), size);
+                for (var i = 0; i < size; i++)
+                    array.SetValue(ReadPackedObject(type.GetElementType()), i);
+                return array;
+            }
+            if (type == typeof(byte))
+                return ReadByte();
+            if (type == typeof(ushort))
+                return ReadPackedUInt16();
+            if (type == typeof(short))
+                return ReadPackedInt16();
+            if (type == typeof(uint))
+                return ReadPackedUInt32();
+            if (type == typeof(int))
+                return ReadPackedInt32();
+            if (type == typeof(ulong))
+                return ReadPackedUInt64();
+            if (type == typeof(long))
+                return ReadPackedInt64();
+            if (type == typeof(float))
+                return ReadSingle();
+            if (type == typeof(double))
+                return ReadDouble();
+            if (type == typeof(decimal))
+                return ReadDecimal();
+            if (type == typeof(string))
+                return ReadString();
+            if (type == typeof(bool))
+                return ReadBool();
+            if (type == typeof(Vector2))
+                return ReadVector2();
+            if (type == typeof(Vector3))
+                return ReadVector3();
+            if (typeof(ISerializable).IsAssignableFrom(type)) {
+                var instance = Activator.CreateInstance(type);
+                ((ISerializable) instance).DeSerialize(this);
+                return instance;
+            }
+
+            throw new InvalidOperationException("This type cannot be deserialized!");
+        }
 
         #endregion
     }

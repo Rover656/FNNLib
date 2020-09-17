@@ -2,7 +2,7 @@
 
 namespace FNNLib.Messaging.Internal {
     [ClientPacket]
-    internal class ClientDisconnectPacket : IPacket {
+    internal class ClientDisconnectPacket : ISerializable {
         /// <summary>
         /// The reason that the client was disconnected.
         /// </summary>

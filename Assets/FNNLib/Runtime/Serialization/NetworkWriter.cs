@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using FNNLib.Reflection;
 using UnityEngine;
 
 namespace FNNLib.Serialization {
@@ -160,8 +161,8 @@ namespace FNNLib.Serialization {
             buffer[_position++] = (byte) (value >> 56);
         }
 
-        public void WriteInt64(int value) => WriteUInt64((ulong) value);
-        
+        public void WriteInt64(long value) => WriteUInt64((ulong) value);
+
         public void WritePackedUInt16(ushort value) => WritePackedUInt64(value);
 
         public void WritePackedInt16(short value) => WritePackedInt64(value);
@@ -169,7 +170,7 @@ namespace FNNLib.Serialization {
         public void WritePackedUInt32(uint value) => WritePackedUInt64(value);
 
         public void WritePackedInt32(int value) => WritePackedInt64(value);
-        
+
         public void WritePackedUInt64(ulong value) {
             // https://sqlite.org/src4/doc/trunk/www/varint.wiki
             if (value <= 240) {
@@ -228,7 +229,7 @@ namespace FNNLib.Serialization {
                 WriteByte((byte) (value >> 56));
             }
         }
-        
+
         public void WritePackedInt64(long value) {
             // https://gist.github.com/mfuerstenau/ba870a29e16536fdbaba
             var zigzagged = (ulong) ((value >> 63) ^ (value << 1));
@@ -258,7 +259,7 @@ namespace FNNLib.Serialization {
         public void WriteString(string value) {
             // Null strings
             if (value == null) {
-                WriteUInt16(0);
+                WritePackedUInt16(0);
             }
 
             // Write string to buffer.
@@ -272,13 +273,13 @@ namespace FNNLib.Serialization {
             }
 
             // Write size and bytes
-            WriteUInt16(checked((ushort) (size + 1)));
+            WritePackedUInt16(checked((ushort) (size + 1)));
             WriteBytes(_stringBuffer, 0, size);
         }
 
         public void WriteBytesWithSize(byte[] values, int offset, int count) {
             if (values == null) {
-                WriteUInt32(0u);
+                WritePackedUInt32(0u);
                 return;
             }
 
@@ -287,11 +288,11 @@ namespace FNNLib.Serialization {
 
         public void WriteSegmentWithSize(ArraySegment<byte> segment) {
             if (segment.Array == null) {
-                WriteUInt32(0u);
+                WritePackedUInt32(0u);
                 return;
             }
 
-            WriteUInt32(checked((uint) segment.Count) + 1u);
+            WritePackedUInt32(checked((uint) segment.Count) + 1u);
             WriteBytes(segment.Array, segment.Offset, segment.Count);
         }
 
@@ -304,6 +305,77 @@ namespace FNNLib.Serialization {
             WriteSingle(value.x);
             WriteSingle(value.y);
             WriteSingle(value.z);
+        }
+
+        public void WritePackedObject(object value) {
+            if (value == null || value.GetType().IsNullable()) {
+                WriteBool(value == null);
+                if (value == null) return;
+            }
+
+            switch (value) {
+                case Array array: {
+                    var elementType = value.GetType().GetElementType();
+
+                    if (SerializationSystem.CanSerialize(elementType)) {
+                        WritePackedInt32(array.Length);
+
+                        for (int i = 0; i < array.Length; i++)
+                            WritePackedObject(array.GetValue(i));
+                    }
+                    break;
+                }
+                case byte @byte:
+                    WriteByte(@byte);
+                    break;
+                // case sbyte SByte:
+                //     // todo
+                //     break;
+                case ushort @ushort:
+                    WritePackedUInt16(@ushort);
+                    break;
+                case short @short:
+                    WritePackedInt16(@short);
+                    break;
+                case uint @uint:
+                    WritePackedUInt32(@uint);
+                    break;
+                case int @int:
+                    WritePackedInt32(@int);
+                    break;
+                case ulong @ulong:
+                    WritePackedUInt64(@ulong);
+                    break;
+                case long @long:
+                    WritePackedInt64(@long);
+                    break;
+                case float @float:
+                    WriteSingle(@float);
+                    break;
+                case double @double:
+                    WriteDouble(@double);
+                    break;
+                case decimal @decimal:
+                    WriteDecimal(@decimal);
+                    break;
+                case string @string:
+                    WriteString(@string);
+                    break;
+                case bool @bool:
+                    WriteBool(@bool);
+                    break;
+                case Vector2 vector2:
+                    WriteVector2(vector2);
+                    break;
+                case Vector3 vector3:
+                    WriteVector3(vector3);
+                    break;
+                case ISerializable serializable:
+                    serializable.Serialize(this);
+                    break;
+                default:
+                    throw new InvalidOperationException("This type cannot be serialized!");
+            }
         }
 
         #endregion

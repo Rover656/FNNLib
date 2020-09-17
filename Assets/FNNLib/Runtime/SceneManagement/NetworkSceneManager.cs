@@ -270,6 +270,8 @@ namespace FNNLib.SceneManagement {
 
         #region Client Handlers
 
+        // TODO: Move to a SceneLoadPacket. Then we can have move packets within that stack.
+        
         internal static void ClientHandleSceneChangePacket(ulong sender, SceneChangePacket packet) {
             // Get the target scene
             var targetScene = NetworkManager.instance.networkConfig.networkableScenes[packet.sceneIndex]
@@ -280,8 +282,7 @@ namespace FNNLib.SceneManagement {
             if (targetScene == currentScene && packet.mode == LoadSceneMode.Single) {
                 SpawnManager.DestroyNonSceneObjects();
                 SpawnManager.ClientResetSceneObjects();
-            }
-            else {
+            } else {
                 // Remove current loaded scene if it exists
                 var curScene = NetworkManager.instance.connectedClients[NetworkManager.instance.localClientID].sceneID;
                 if (loadedScenes.ContainsKey(curScene))
@@ -302,7 +303,7 @@ namespace FNNLib.SceneManagement {
             NetworkManager.instance.connectedClients[NetworkManager.instance.localClientID].sceneID = packet.sceneNetID;
 
             // Setup scene spawns
-            SpawnManager.ClientCollectSceneObjects(packet.sceneNetID);
+            SpawnManager.ClientCollectSceneObjects(packet.sceneNetID, packet.mode == LoadSceneMode.Additive);
 
             // Confirm scene change.
             var confirmationPacket = new SceneChangeCompletedPacket {loadedSceneID = packet.sceneNetID};

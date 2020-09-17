@@ -2,7 +2,7 @@
 
 namespace FNNLib.Messaging.Internal {
     [ServerPacket]
-    internal class ConnectionRequestPacket : IPacket {
+    internal class ConnectionRequestPacket : ISerializable {
         public ulong verificationHash;
         public byte[] connectionData;
         

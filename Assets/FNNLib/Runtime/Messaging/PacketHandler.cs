@@ -42,7 +42,7 @@ namespace FNNLib.Messaging {
         /// <param name="handler">The handler to control this packet</param>
         /// <typeparam name="T">The packet type to be handled.</typeparam>
         /// <exception cref="InvalidOperationException">Thrown if a packet name/hash conflict occurs.</exception>
-        public void RegisterPacketHandler<T>(Action<ulong, T> handler) where T : IPacket, new() {
+        public void RegisterPacketHandler<T>(Action<ulong, T> handler) where T : ISerializable, new() {
             if (isServerContext && !PacketUtils.IsServerPacket<T>())
                 throw new InvalidOperationException("To register a packet on the server, it must have the ServerPacket attribute.");
             if (!isServerContext && !PacketUtils.IsClientPacket<T>())
@@ -59,7 +59,7 @@ namespace FNNLib.Messaging {
         /// </summary>
         /// <typeparam name="T">The packet type to clear.</typeparam>
         /// <exception cref="InvalidOperationException">Thrown if a handler does not exist for this packet.</exception>
-        public void ClearPacketHandler<T>() where T : IPacket, new() {
+        public void ClearPacketHandler<T>() where T : ISerializable, new() {
             var id = PacketUtils.GetID<T>();
             if (!_packetHandlers.ContainsKey(id))
                 throw new InvalidOperationException("No handler exists for this packet!");

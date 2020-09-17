@@ -164,7 +164,7 @@ namespace FNNLib.Backend {
         /// <param name="channelID">The channel to send the message with.</param>
         /// <typeparam name="T"></typeparam>
         /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ClientPacket.</exception>
-        public void Send<T>(ulong clientID, T packet, int channelID = DefaultChannels.Reliable) where T : IPacket {
+        public void Send<T>(ulong clientID, T packet, int channelID = DefaultChannels.Reliable) where T : ISerializable {
             // We reuse the list for server sending
             _singleSenderList[0] = clientID;
             Send(_singleSenderList, packet, channelID);
@@ -178,14 +178,14 @@ namespace FNNLib.Backend {
         /// <param name="channelID">The channel to send the message with.</param>
         /// <typeparam name="T"></typeparam>
         /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ClientPacket.</exception>
-        public void Send<T>(List<ulong> clients, T packet, int channelID = DefaultChannels.Reliable) where T : IPacket {
+        public void Send<T>(List<ulong> clients, T packet, int channelID = DefaultChannels.Reliable) where T : ISerializable {
             if (!PacketUtils.IsClientPacket<T>())
                 throw new InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
             
             // Write data
             using (var writer = NetworkWriterPool.GetWriter()) {
                 writer.WritePackedUInt32(PacketUtils.GetID<T>());
-                packet.Serialize(writer);
+                writer.WritePackedObject(packet);
                 _transport.ServerSend(clients, writer.ToArraySegment(), channelID);
             }
         }
@@ -197,7 +197,7 @@ namespace FNNLib.Backend {
         /// <param name="channelID">The channel to send the message with.</param>
         /// <typeparam name="T"></typeparam>
         /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ClientPacket.</exception>
-        public void SendToAll<T>(T packet, int channelID = DefaultChannels.Reliable) where T : IPacket {
+        public void SendToAll<T>(T packet, int channelID = DefaultChannels.Reliable) where T : ISerializable {
             Send(_allClientIDs, packet, channelID);
         }
         

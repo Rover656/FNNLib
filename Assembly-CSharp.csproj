@@ -52,6 +52,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\TransportTest.cs" />
      <Compile Include="Assets\Scripts\TestPacket.cs" />
+     <Compile Include="Assets\Scripts\TestBehaviour.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

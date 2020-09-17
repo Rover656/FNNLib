@@ -90,6 +90,24 @@ namespace FNNLib {
         private void OnValidate() {
             ValidateHash();
         }
+        
+        #region Behaviours
+
+        private List<NetworkBehaviour> _behaviours;
+
+        public List<NetworkBehaviour> behaviours {
+            get {
+                if (_behaviours == null) {
+                    _behaviours = new List<NetworkBehaviour>();
+                    var behaviours = GetComponentsInChildren<NetworkBehaviour>(true);
+                    foreach (var b in behaviours)
+                        _behaviours.Add(b);
+                }
+                return _behaviours;
+            }
+        }
+        
+        #endregion
 
         #region Prefabs
         
@@ -193,6 +211,30 @@ namespace FNNLib {
             //todo
         }
 
+        #endregion
+        
+        #region Internal Events
+
+        internal void ResetNetStartInvoked() {
+            foreach (var behaviour in behaviours) {
+                behaviour.netStartInvoked = false;
+            }
+        }
+
+        internal void InvokeBehaviourNetStart() {
+            foreach (var behaviour in behaviours) {
+                if (!behaviour.netStartInvoked) {
+                    if (!behaviour.internalNetStartInvoked) {
+                        behaviour.InternalNetworkStart();
+                        behaviour.internalNetStartInvoked = true;
+                    }
+                    
+                    behaviour.NetworkStart();
+                    behaviour.netStartInvoked = true;
+                }
+            }
+        }
+        
         #endregion
         
         #region Lifecycle

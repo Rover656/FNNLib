@@ -3,7 +3,7 @@ using FNNLib.Serialization;
 
 namespace FNNLib.SceneManagement {
     [ServerPacket]
-    internal class SceneChangeCompletedPacket : IPacket {
+    internal class SceneChangeCompletedPacket : ISerializable {
         public uint loadedSceneID;
 
         public void Serialize(NetworkWriter writer) {

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using FNNLib.Backend;
 using FNNLib.Config;
 using FNNLib.Messaging;
+using FNNLib.RPC;
 using FNNLib.SceneManagement;
+using FNNLib.Serialization;
 using FNNLib.Spawning;
 using FNNLib.Transports;
 using UnityEngine;
@@ -100,6 +102,9 @@ namespace FNNLib {
             // Object spawning
             _client.RegisterPacketHandler<SpawnObjectPacket>(SpawnManager.ClientHandleSpawnPacket);
             _client.RegisterPacketHandler<DestroyObjectPacket>(SpawnManager.ClientHandleDestroy);
+            
+            // RPCs
+            _client.RegisterPacketHandler<ClientRPCPacket>(NetworkBehaviour.ClientRPCCallHandler);
         }
 
         #region Server
@@ -343,7 +348,7 @@ namespace FNNLib {
         /// </summary>
         /// <param name="handler"></param>
         /// <typeparam name="T"></typeparam>
-        public void RegisterPacketHandler<T>(Action<ulong, T> handler) where T : IPacket, new() {
+        public void RegisterPacketHandler<T>(Action<ulong, T> handler) where T : ISerializable, new() {
             if (PacketUtils.IsClientPacket<T>()) {
                 _client.RegisterPacketHandler(handler);
             }

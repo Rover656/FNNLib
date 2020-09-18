@@ -397,18 +397,18 @@
   <div><a class="xref" href="FNNLib.Transports.Transport.html#FNNLib_Transports_Transport_ServerDisconnect_System_UInt64_">Transport.ServerDisconnect(UInt64)</a></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_MultiplexTransport_ServerSend_System_Collections_Generic_List_System_UInt64__System_ArraySegment_System_Byte__System_Int32_.md&amp;value=---%0Auid%3A%20FNNLib.Transports.MultiplexTransport.ServerSend(System.Collections.Generic.List%7BSystem.UInt64%7D%2CSystem.ArraySegment%7BSystem.Byte%7D%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_MultiplexTransport_ServerSend_System_Collections_Generic_List_System_UInt64__System_ArraySegment_System_Byte__System_Int32_System_UInt64_.md&amp;value=---%0Auid%3A%20FNNLib.Transports.MultiplexTransport.ServerSend(System.Collections.Generic.List%7BSystem.UInt64%7D%2CSystem.ArraySegment%7BSystem.Byte%7D%2CSystem.Int32%2CSystem.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/MultiplexTransport.cs/#L62">View Source</a>
   </span>
   <a id="FNNLib_Transports_MultiplexTransport_ServerSend_" data-uid="FNNLib.Transports.MultiplexTransport.ServerSend*"></a>
-  <h4 id="FNNLib_Transports_MultiplexTransport_ServerSend_System_Collections_Generic_List_System_UInt64__System_ArraySegment_System_Byte__System_Int32_" data-uid="FNNLib.Transports.MultiplexTransport.ServerSend(System.Collections.Generic.List{System.UInt64},System.ArraySegment{System.Byte},System.Int32)">ServerSend(List&lt;UInt64&gt;, ArraySegment&lt;Byte&gt;, Int32)</h4>
+  <h4 id="FNNLib_Transports_MultiplexTransport_ServerSend_System_Collections_Generic_List_System_UInt64__System_ArraySegment_System_Byte__System_Int32_System_UInt64_" data-uid="FNNLib.Transports.MultiplexTransport.ServerSend(System.Collections.Generic.List{System.UInt64},System.ArraySegment{System.Byte},System.Int32,System.UInt64)">ServerSend(List&lt;UInt64&gt;, ArraySegment&lt;Byte&gt;, Int32, UInt64)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override bool ServerSend(List&lt;ulong&gt; clients, ArraySegment&lt;byte&gt; data, int channel = 0)</code></pre>
+    <pre><code class="lang-csharp hljs">public override bool ServerSend(List&lt;ulong&gt; clients, ArraySegment&lt;byte&gt; data, int channel = 0, ulong excludedClient = 0UL)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -435,6 +435,11 @@
         <td><span class="parametername">channel</span></td>
         <td></td>
       </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">excludedClient</span></td>
+        <td></td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -453,7 +458,7 @@
     </tbody>
   </table>
   <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="FNNLib.Transports.Transport.html#FNNLib_Transports_Transport_ServerSend_System_Collections_Generic_List_System_UInt64__System_ArraySegment_System_Byte__System_Int32_">Transport.ServerSend(List&lt;UInt64&gt;, ArraySegment&lt;Byte&gt;, Int32)</a></div>
+  <div><a class="xref" href="FNNLib.Transports.Transport.html#FNNLib_Transports_Transport_ServerSend_System_Collections_Generic_List_System_UInt64__System_ArraySegment_System_Byte__System_Int32_System_UInt64_">Transport.ServerSend(List&lt;UInt64&gt;, ArraySegment&lt;Byte&gt;, Int32, UInt64)</a></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_MultiplexTransport_ServerSend_System_UInt64_System_ArraySegment_System_Byte__System_Int32_.md&amp;value=---%0Auid%3A%20FNNLib.Transports.MultiplexTransport.ServerSend(System.UInt64%2CSystem.ArraySegment%7BSystem.Byte%7D%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>

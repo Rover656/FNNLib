@@ -321,6 +321,11 @@ namespace FNNLib.Serialization {
             WriteSingle(value.w);
         }
 
+        public void WritePackedObjects(object[] values) {
+            for(object value in values)
+                WritePackedObject(value)
+        }
+
         public void WritePackedObject(object value) {
             if (value == null || value.GetType().IsNullable()) {
                 WriteBool(value == null);

@@ -108,6 +108,15 @@ namespace FNNLib {
             _server.RegisterPacketHandler<RPCPacket>(NetworkBehaviour.ServerRPCCallHandler);
         }
 
+        private void OnDestroy() {
+            if (isHost)
+                StopHost();
+            if (isServer)
+                StopServer();
+            if (isClient)
+                StopClient();
+        }
+
         #region Server
 
         /// <summary>
@@ -152,8 +161,7 @@ namespace FNNLib {
             if (isHost)
                 throw new NotSupportedException("The network manager is running in host mode! Use StopHost() instead.");
             if (isClient)
-                throw new
-                    NotSupportedException("The network manager is running in client mode! Use StopClient() instead.");
+                throw new NotSupportedException("The network manager is running in client mode! Use StopClient() instead.");
             if (!isServer)
                 throw new NotSupportedException("A server is not running!");
 
@@ -260,9 +268,7 @@ namespace FNNLib {
         }
 
         private void ClientOnConnected() {
-            connectedClients.Add(localClientID, new ConnectedClient {
-                                                                        clientID = localClientID
-                                                                    });
+            connectedClients.Add(localClientID, new ConnectedClient { clientID = localClientID });
         }
 
         private void ClientOnDisconnected(string reason) {

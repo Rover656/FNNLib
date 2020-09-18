@@ -87,9 +87,7 @@ namespace FNNLib {
 
         public bool isOwnedByServer => NetworkManager.instance != null && ownerClientID == 0;
 
-        private void OnValidate() {
-            ValidateHash();
-        }
+        private void OnValidate() => ValidateHash();
         
         #region Behaviours
 
@@ -98,10 +96,7 @@ namespace FNNLib {
         public List<NetworkBehaviour> behaviours {
             get {
                 if (_behaviours == null) {
-                    _behaviours = new List<NetworkBehaviour>();
-                    var behaviours = GetComponentsInChildren<NetworkBehaviour>(true);
-                    foreach (var b in behaviours)
-                        _behaviours.Add(b);
+                    _behaviours = new List<NetworkBehaviour>(GetComponentsInChildren<NetworkBehaviour>(true));
                 }
                 return _behaviours;
             }

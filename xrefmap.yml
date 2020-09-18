@@ -340,6 +340,12 @@ references:
   commentId: N:FNNLib.Components
   fullName: FNNLib.Components
   nameWithType: FNNLib.Components
+- uid: FNNLib.Components.NetworkRigidbody
+  name: NetworkRigidbody
+  href: api/FNNLib.Components.NetworkRigidbody.html
+  commentId: T:FNNLib.Components.NetworkRigidbody
+  fullName: FNNLib.Components.NetworkRigidbody
+  nameWithType: NetworkRigidbody
 - uid: FNNLib.Components.NetworkTransform
   name: NetworkTransform
   href: api/FNNLib.Components.NetworkTransform.html

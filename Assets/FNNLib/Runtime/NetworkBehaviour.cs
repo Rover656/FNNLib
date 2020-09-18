@@ -15,8 +15,6 @@ using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace FNNLib {
-    // TODO: This will be fleshed out once object spawning and scene management is done.
-    [RequireComponent(typeof(NetworkIdentity))]
     public abstract partial class NetworkBehaviour : MonoBehaviour {
         #region Identity Fetch
 
@@ -29,7 +27,7 @@ namespace FNNLib {
             }
         }
 
-        public bool hasIdentity => identity != null
+        public bool hasIdentity => identity != null;
 
         #endregion
 
@@ -103,7 +101,7 @@ namespace FNNLib {
 
             // Write parameters
             using (var writer = NetworkWriterPool.GetWriter()) {
-                writer.WritePackedObjects(arg);
+                writer.WritePackedObjects(args);
 
                 if (isHost && identity.observers.Contains(NetworkManager.instance.localClientID) &&
                     clients.Contains(NetworkManager.instance.localClientID))

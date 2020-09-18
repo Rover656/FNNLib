@@ -322,8 +322,8 @@ namespace FNNLib.Serialization {
         }
 
         public void WritePackedObjects(object[] values) {
-            for(object value in values)
-                WritePackedObject(value)
+            foreach (var value in values)
+                WritePackedObject(value);
         }
 
         public void WritePackedObject(object value) {

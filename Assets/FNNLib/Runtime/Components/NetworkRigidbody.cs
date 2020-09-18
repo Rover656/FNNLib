@@ -2,30 +2,29 @@
 using UnityEngine;
 
 namespace FNNLib.Components {
-    
-    [RequiresComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody))]
     public class NetworkRigidbody : NetworkBehaviour {
         [Header("Configuration")]
         [SerializeField] private float sendsPerSecond = 20;
         [SerializeField] private float interpolationMultiplier = 1;
 
-        private Rigidbody rigidBody;
+        private Rigidbody _rigidBody;
 
         private float _lastSendTime;
-        private float interpolationSpeed = 1;
+        private float _interpolationSpeed = 1;
 
-        private Vector3 targetPosition;
-        private Quaternion targetRotation;
-        private Vector3 targetVelocity;
-        private Vector3 targetAngularVelocity;
+        private Vector3 _targetPosition;
+        private Quaternion _targetRotation;
+        private Vector3 _targetVelocity;
+        private Vector3 _targetAngularVelocity;
         
         void Awake() {
-            rigidBody = getComponent<Rigidbody>();
+            _rigidBody = GetComponent<Rigidbody>();
 
-            targetPosition = transform.position;
-            targetRotation = transform.rotation;
-            targetVelocity = rigidBody.velocity;
-            targetAngularVelocity = rigidBody.angularVelocity;
+            _targetPosition = transform.position;
+            _targetRotation = transform.rotation;
+            _targetVelocity = _rigidBody.velocity;
+            _targetAngularVelocity = _rigidBody.angularVelocity;
         }
 
         private void Update() {
@@ -36,36 +35,36 @@ namespace FNNLib.Components {
                     _lastSendTime = Time.unscaledTime;
 
                     if (isServer)
-                        InvokeClientRPCForAllExcept(ApplyRigidBody, ownerClientID, transform.position, transform.rotation);
-                    else InvokeServerRPC(SubmitRigidbody, transform.position, transform.rotation, rigidBody.velocity, rigidBody.angularVelocity);
+                        InvokeClientRPCForAllExcept(ApplyRigidBody, ownerClientID, transform.position, transform.rotation, _rigidBody.velocity, _rigidBody.angularVelocity);
+                    else InvokeServerRPC(SubmitRigidbody, transform.position, transform.rotation, _rigidBody.velocity, _rigidBody.angularVelocity);
                 }
                 return;
             }
 
             // Perform interpolation
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * interpolationSpeed);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * interpolationSpeed);
-            rigidBody.velocity = targetVelocity;
-            rigidBody.angularVelocity = targetAngularVelocity;
+            transform.position = Vector3.MoveTowards(transform.position, _targetPosition, Time.deltaTime * _interpolationSpeed);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetRotation, Time.deltaTime * _interpolationSpeed);
+            _rigidBody.velocity = _targetVelocity;
+            _rigidBody.angularVelocity = _targetAngularVelocity;
         }
 
         [ClientRPC]
         private void ApplyRigidBody(Vector3 position, Quaternion rotation, Vector3 velocity, Vector3 angularVelocity) {            
             float positonSpeed = Vector3.Distance(transform.position, position);
             float rotationSpeed = Quaternion.Angle(transform.rotation, rotation);
-            interpolationSpeed = Mathf.Max(positonSpeed, rotationSpeed) * (interpolationMultiplier * 10);
+            _interpolationSpeed = Mathf.Max(positonSpeed, rotationSpeed) * (interpolationMultiplier * 10);
 
-            targetPosition = position;
-            targetRotation = rotation;
-            targetVelocity = velocity;
-            targetAngularVelocity = angularVelocity;
+            _targetPosition = position;
+            _targetRotation = rotation;
+            _targetVelocity = velocity;
+            _targetAngularVelocity = angularVelocity;
         }
 
         [ServerRPC]
         private void SubmitRigidbody(Vector3 position, Quaternion rotation, Vector3 velocity, Vector3 angularVelocity) {
             // Apply the transform if we are a dedicated server.
             if (!isClient)
-                ApplyTransform(position, rotation, velocity, angularVelocity);
+                ApplyRigidBody(position, rotation, velocity, angularVelocity);
             
             InvokeClientRPCForAllExcept(ApplyRigidBody, ownerClientID, position, rotation, velocity, angularVelocity);
         }

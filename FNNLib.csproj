@@ -62,7 +62,7 @@
      <Compile Include="Assets\FNNLib\Runtime\Transports\TelepathyTransport.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Transports\Telepathy\EventType.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Transports\MultiplexTransport.cs" />
-     <Compile Include="Assets\FNNLib\Runtime\ConnectedClient.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Backend\NetworkedClient.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Serialization\NetworkWriter.cs" />
      <Compile Include="Assets\FNNLib\Runtime\RPC\ServerRPCAttribute.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Config\NetworkPrefab.cs" />
@@ -70,6 +70,7 @@
      <Compile Include="Assets\FNNLib\Runtime\Transports\Telepathy\SafeQueue.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Transports\Telepathy\Server.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Components\ScenePackingVisualizer.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Components\NetworkRigidbody.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Utilities\Hashing.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Messaging\ServerPacketAttribute.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Spawning\DestroyObjectPacket.cs" />
@@ -80,7 +81,6 @@
      <Compile Include="Assets\FNNLib\Runtime\Messaging\Internal\ClientDisconnectPacket.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Serialization\AutoSerializer.cs" />
      <Compile Include="Assets\FNNLib\Runtime\NetworkIdentity.cs" />
-     <Compile Include="Assets\FNNLib\Runtime\Backend\NetworkClient.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Reflection\TypeExtensions.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Components\NetworkTransform.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Transports\Telepathy\NetworkStreamExtensions.cs" />
@@ -90,7 +90,6 @@
      <Compile Include="Assets\FNNLib\Runtime\NetworkBehaviour.cs" />
      <Compile Include="Assets\FNNLib\Runtime\SceneManagement\ScenePackingData.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Serialization\SerializationSystem.cs" />
-     <Compile Include="Assets\FNNLib\Runtime\Backend\NetworkServer.cs" />
      <Compile Include="Assets\FNNLib\Runtime\RPC\RPCPacket.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Messaging\Internal\ConnectionRequestPacket.cs" />
      <Compile Include="Assets\FNNLib\Runtime\NetworkManager.cs" />
@@ -106,7 +105,6 @@
      <Compile Include="Assets\FNNLib\Runtime\Serialization\ISerializable.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Transports\Telepathy\Message.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Spawning\SpawnManager.cs" />
-     <Compile Include="Assets\FNNLib\Runtime\Components\NetworkRigidbody.cs" />
      <None Include="Assets\FNNLib\Runtime\FNNLib.asmdef" />
  <Reference Include="UnityEditor.UI">
  <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>

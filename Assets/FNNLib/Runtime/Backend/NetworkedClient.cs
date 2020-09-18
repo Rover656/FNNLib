@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace FNNLib {
-    public class ConnectedClient {
+    public class NetworkedClient {
         public ulong clientID;
 
         public uint sceneID;

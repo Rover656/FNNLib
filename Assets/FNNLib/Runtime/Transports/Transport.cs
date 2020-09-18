@@ -108,6 +108,7 @@ namespace FNNLib.Transports {
         /// <param name="data">The data to send.</param>
         /// <param name="channel">The channel to send the data down. Ignored on Transports that don't support channelling.</param>
         /// <returns>Whether the data could be sent.</returns>
+        // TODO: I want to get rid of this again.
         public abstract bool ServerSend(ulong clientID, ArraySegment<byte> data, int channel = DefaultChannels.Reliable);
 
         /// <summary>
@@ -116,8 +117,9 @@ namespace FNNLib.Transports {
         /// <param name="clients">The clients to send to.</param>
         /// <param name="data">The data to send.</param>
         /// <param name="channel">The channel to send the data down. Ignored on Transports that don't support channelling.</param>
+        /// <param name="excludedClient"></param>
         /// <returns>Whether the data could be sent.</returns>
-        public abstract bool ServerSend(List<ulong> clients, ArraySegment<byte> data, int channel = DefaultChannels.Reliable);
+        public abstract bool ServerSend(List<ulong> clients, ArraySegment<byte> data, int channel = DefaultChannels.Reliable, ulong excludedClient = 0);
 
         /// <summary>
         /// Force disconnect client.
@@ -142,11 +144,6 @@ namespace FNNLib.Transports {
         /// Shutdown both client and server.
         /// </summary>
         public abstract void Shutdown();
-
-        private void OnApplicationQuit() {
-            // Shutdown to prevent threads from continuing running in the editor.
-            Shutdown();
-        }
 
         #endregion
     }

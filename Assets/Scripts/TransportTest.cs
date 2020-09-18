@@ -1,8 +1,6 @@
 ﻿using FNNLib;
-using FNNLib.Backend;
 using FNNLib.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace DefaultNamespace {
@@ -19,12 +17,11 @@ namespace DefaultNamespace {
             if ((editorIsClient && Application.isEditor) || (!editorIsClient && !Application.isEditor)) {
                 NetworkManager.instance.StartClient("127.0.0.1");
 
-                // TODO: Pass through events to the NetworkManager too? Or leave the individual events in network client/server
-                NetworkClient.instance.onConnected.AddListener(() => {
+                NetworkManager.instance.clientOnConnect.AddListener(() => {
                                                                    var test = new TestPacket {
                                                                                   text = "Hello from the client!"
                                                                               };
-                                                                   NetworkClient.instance.Send(test);
+                                                                   NetworkManager.instance.ClientSend(test);
                                                                });
             } else {
                 NetworkManager.instance.StartServer();
@@ -39,9 +36,8 @@ namespace DefaultNamespace {
                 // NetworkSceneManager.SetActiveScene(testScene);
             }
 
-            // Register packet on possible targets. In this packets case, itll register on both client and server.
-            // If you want to use a separate handler for client or server, use the NetworkServer or Client instead!
-            NetworkManager.instance.RegisterPacketHandler<TestPacket>(HandleTestPacket);
+            // Register packet on possible targets.
+            NetworkManager.instance.RegisterServerPacketHandler<TestPacket>(HandleTestPacket);
         }
 
         void HandleTestPacket(ulong clientID, TestPacket packet) {
@@ -60,16 +56,14 @@ namespace DefaultNamespace {
             //     running.text = NetworkManager.instance.networkConfig.transport.serverRunning ? "Running" : "Stopped";
             // }
 
-            return;
-
-            if (Input.GetMouseButtonDown(0)) {
-                var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                pos.z = 0;
-                NetworkSceneManager.GetActiveScene()
-                                   .Instantiate(testPrefab, pos,
-                                                Quaternion.identity)
-                                   .GetComponent<NetworkIdentity>().Spawn();
-            }
+            // if (Input.GetMouseButtonDown(0)) {
+            //     var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //     pos.z = 0;
+            //     NetworkSceneManager.GetActiveScene()
+            //                        .Instantiate(testPrefab, pos,
+            //                                     Quaternion.identity)
+            //                        .GetComponent<NetworkIdentity>().Spawn();
+            // }
         }
     }
 }

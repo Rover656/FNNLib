@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using System.Text;
-using FNNLib.Backend;
 using FNNLib.RPC;
 using FNNLib.SceneManagement;
 using FNNLib.Serialization;
 using FNNLib.Spawning;
-using FNNLib.Transports;
 using FNNLib.Utilities;
 using UnityEngine;
-using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 namespace FNNLib {
     public abstract partial class NetworkBehaviour : MonoBehaviour {
@@ -106,7 +101,7 @@ namespace FNNLib {
                 if (isHost && identity.observers.Contains(NetworkManager.instance.localClientID) &&
                     clients.Contains(NetworkManager.instance.localClientID))
                     using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment())) {
-                        InvokeClientRPCLocal(hash, NetworkManager.instance.localClientID, reader);
+                        InvokeClientRPCLocal(hash, reader);
                     }
 
                 var packet = new RPCPacket {
@@ -115,7 +110,7 @@ namespace FNNLib {
                                                networkID = networkID,
                                                parameterBuffer = writer.ToArraySegment()
                                            };
-                NetworkServer.instance.Send(clients, packet, channel);
+                NetworkManager.instance.ServerSend(clients, packet, channel);
             }
         }
 
@@ -131,7 +126,7 @@ namespace FNNLib {
                 // If we're the host, ignore sending the packet.
                 if (isHost && client == NetworkManager.instance.localClientID)
                     using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment())) {
-                        InvokeClientRPCLocal(hash, NetworkManager.instance.localClientID, reader);
+                        InvokeClientRPCLocal(hash, reader);
                     }
                 else {
                     var packet = new RPCPacket {
@@ -140,7 +135,7 @@ namespace FNNLib {
                                                    networkID = networkID,
                                                    parameterBuffer = writer.ToArraySegment()
                                                };
-                    NetworkServer.instance.Send(client, packet, channel);
+                    NetworkManager.instance.ServerSend(client, packet, channel);
                 }
             }
         }
@@ -156,7 +151,7 @@ namespace FNNLib {
 
                 if (isHost && identity.observers.Contains(NetworkManager.instance.localClientID))
                     using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment())) {
-                        InvokeClientRPCLocal(hash, NetworkManager.instance.localClientID, reader);
+                        InvokeClientRPCLocal(hash, reader);
                     }
 
                 var packet = new RPCPacket {
@@ -165,7 +160,7 @@ namespace FNNLib {
                                                networkID = networkID,
                                                parameterBuffer = writer.ToArraySegment()
                                            };
-                NetworkServer.instance.Send(identity.observers, packet, channel);
+                NetworkManager.instance.ServerSend(identity.observers, packet, channel);
             }
         }
         
@@ -180,7 +175,7 @@ namespace FNNLib {
 
                 if (isHost && identity.observers.Contains(NetworkManager.instance.localClientID))
                     using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment())) {
-                        InvokeClientRPCLocal(hash, NetworkManager.instance.localClientID, reader);
+                        InvokeClientRPCLocal(hash, reader);
                     }
 
                 var packet = new RPCPacket {
@@ -189,7 +184,7 @@ namespace FNNLib {
                                                networkID = networkID,
                                                parameterBuffer = writer.ToArraySegment()
                                            };
-                NetworkServer.instance.SendExcluding(identity.observers, excludedClient, packet, channel);
+                NetworkManager.instance.ServerSendExcluding(identity.observers, excludedClient, packet, channel);
             }
         }
 
@@ -213,14 +208,14 @@ namespace FNNLib {
                                                    networkID = networkID,
                                                    parameterBuffer = writer.ToArraySegment()
                                                };
-                    NetworkClient.instance.Send(packet, channel);
+                    NetworkManager.instance.ClientSend(packet, channel);
                 }
             }
         }
 
-        private object InvokeClientRPCLocal(ulong hash, ulong sender, NetworkReader args) {
+        private object InvokeClientRPCLocal(ulong hash, NetworkReader args) {
             if (_rpcReflectionData.clientMethods.ContainsKey(hash))
-                _rpcReflectionData.clientMethods[hash].Invoke(this, sender, args);
+                _rpcReflectionData.clientMethods[hash].Invoke(this, 0, args);
 
             return null;
         }
@@ -232,13 +227,13 @@ namespace FNNLib {
             return null;
         }
 
-        internal static void ClientRPCCallHandler(ulong sender, RPCPacket packet) {
+        internal static void ClientRPCCallHandler(RPCPacket packet) {
             if (SpawnManager.spawnedObjects.ContainsKey(packet.networkID)) {
                 var identity = SpawnManager.spawnedObjects[packet.networkID];
                 var behaviour = identity.behaviours[packet.behaviourOrder];
                 if (behaviour._rpcReflectionData.clientMethods.ContainsKey(packet.methodHash))
                     using (var paramReader = NetworkReaderPool.GetReader(packet.parameterBuffer)) {
-                        behaviour.InvokeClientRPCLocal(packet.methodHash, sender, paramReader);
+                        behaviour.InvokeClientRPCLocal(packet.methodHash, paramReader);
                     }
             }
         }

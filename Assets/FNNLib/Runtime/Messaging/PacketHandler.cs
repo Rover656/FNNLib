@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FNNLib.Config;
 using FNNLib.Serialization;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace FNNLib.Messaging {
         /// <summary>
         /// This contains a list of packet handlers for each packet ID.
         /// </summary>
-        private readonly Dictionary<uint, NetworkPacketDelegate> _packetHandlers = new Dictionary<uint, NetworkPacketDelegate>();
+        private readonly Dictionary<ulong, NetworkPacketDelegate> _packetHandlers = new Dictionary<ulong, NetworkPacketDelegate>();
 
         /// <summary>
         /// Handle an incoming packet.
@@ -26,7 +27,20 @@ namespace FNNLib.Messaging {
         /// <param name="data">The data containing the packet.</param>
         protected void HandlePacket(ulong sender, ArraySegment<byte> data, int channelID) {
             using (var reader = NetworkReaderPool.GetReader(data)) {
-                var packetID = reader.ReadPackedUInt32();
+                ulong packetID;
+                switch (NetworkManager.instance.networkConfig.packetIDHashSize) {
+                    case HashSize.TwoBytes:
+                        packetID = reader.ReadPackedUInt16();
+                        break;
+                    case HashSize.FourBytes:
+                        packetID = reader.ReadPackedUInt32();
+                        break;
+                    case HashSize.EightBytes:
+                        packetID = reader.ReadPackedUInt64();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
                 if (_packetHandlers.TryGetValue(packetID, out var handler)) {
                     handler(sender, reader);
                 } else {
@@ -47,22 +61,24 @@ namespace FNNLib.Messaging {
             if (!isServerContext && !PacketUtils.IsClientPacket<T>())
                 throw new InvalidOperationException("To register a packet on the client, it must have the ClientPacket attribute.");
             
-            var packetID = PacketUtils.GetID<T>();
+            // Get packet ID
+            ulong packetID;
+            switch (NetworkManager.instance.networkConfig.packetIDHashSize) {
+                case HashSize.TwoBytes:
+                    packetID = PacketUtils.GetID16<T>();
+                    break;
+                case HashSize.FourBytes:
+                    packetID = PacketUtils.GetID32<T>();
+                    break;
+                case HashSize.EightBytes:
+                    packetID = PacketUtils.GetID64<T>();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             if (_packetHandlers.ContainsKey(packetID))
                 throw new InvalidOperationException("A packet with this ID already exists, ensure that you have given it a unique name!");
-            _packetHandlers.Add(packetID, PacketUtils.GetPacketHandler(handler));
-        }
-
-        /// <summary>
-        /// Clear the packet handler for a given packet type.
-        /// </summary>
-        /// <typeparam name="T">The packet type to clear.</typeparam>
-        /// <exception cref="InvalidOperationException">Thrown if a handler does not exist for this packet.</exception>
-        public void ClearPacketHandler<T>() where T : ISerializable, new() {
-            var id = PacketUtils.GetID<T>();
-            if (!_packetHandlers.ContainsKey(id))
-                throw new InvalidOperationException("No handler exists for this packet!");
-            _packetHandlers.Remove(id);
+            // _packetHandlers.Add(packetID, PacketUtils.GetPacketHandler(handler));
         }
 
         /// <summary>

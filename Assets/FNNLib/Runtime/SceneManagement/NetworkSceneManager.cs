@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using FNNLib.Backend;
 using FNNLib.Spawning;
 using FNNLib.Transports;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Object = UnityEngine.Object;
 
 namespace FNNLib.SceneManagement {
     [Serializable]
@@ -87,7 +83,7 @@ namespace FNNLib.SceneManagement {
                 // Send the scene change packet
                 var changePacket = new SceneChangePacket
                                    {sceneIndex = GetSceneIndex(sceneName), sceneNetID = netID, mode = clientMode};
-                NetworkServer.instance.SendToAll(changePacket, DefaultChannels.ReliableSequenced);
+                NetworkManager.instance.ServerSendToAll(changePacket, DefaultChannels.ReliableSequenced);
             }
 
             // Spawn all of the scene objects
@@ -164,7 +160,7 @@ namespace FNNLib.SceneManagement {
                                                          sceneNetID = loadedScenes[fallbackScene].netID,
                                                          mode = loadedScenes[fallbackScene].clientMode
                                                      };
-            NetworkServer.instance.Send(netScene.observers, changePacket, DefaultChannels.ReliableSequenced);
+            NetworkManager.instance.ServerSend(netScene.observers, changePacket, DefaultChannels.ReliableSequenced);
 
             // Unload this scene.
             var op = SceneManager.UnloadSceneAsync(netScene.scene);
@@ -245,7 +241,7 @@ namespace FNNLib.SceneManagement {
                                                          sceneNetID = loadedScenes[sceneID].netID,
                                                          mode = loadedScenes[sceneID].clientMode
                                                      };
-            NetworkServer.instance.Send(clientID, changePacket, DefaultChannels.ReliableSequenced);
+            NetworkManager.instance.ServerSend(clientID, changePacket, DefaultChannels.ReliableSequenced);
             NetworkManager.instance.connectedClients[clientID].sceneID = loadedScenes[sceneID].netID;
             SpawnManager.OnClientChangeScene(clientID);
         }
@@ -272,7 +268,7 @@ namespace FNNLib.SceneManagement {
 
         // TODO: Move to a SceneLoadPacket. Then we can have move packets within that stack.
         
-        internal static void ClientHandleSceneChangePacket(ulong sender, SceneChangePacket packet) {
+        internal static void ClientHandleSceneChangePacket(SceneChangePacket packet) {
             // Get the target scene
             var targetScene = NetworkManager.instance.networkConfig.networkableScenes[packet.sceneIndex]
                                             .sceneName;
@@ -307,7 +303,7 @@ namespace FNNLib.SceneManagement {
 
             // Confirm scene change.
             var confirmationPacket = new SceneChangeCompletedPacket {loadedSceneID = packet.sceneNetID};
-            NetworkClient.instance.Send(confirmationPacket);
+            NetworkManager.instance.ClientSend(confirmationPacket);
         }
 
         #endregion
@@ -322,7 +318,7 @@ namespace FNNLib.SceneManagement {
                                                          mode = _activeScene.clientMode
                                                      };
             NetworkManager.instance.connectedClients[clientID].sceneID = _activeScene.netID;
-            NetworkServer.instance.Send(clientID, changePacket, DefaultChannels.ReliableSequenced);
+            NetworkManager.instance.ServerSend(clientID, changePacket, DefaultChannels.ReliableSequenced);
         }
 
         internal static void SceneChangeCompletedHandler(ulong clientID, SceneChangeCompletedPacket packet) {

@@ -59,7 +59,7 @@ namespace FNNLib.Transports {
             throw new NotImplementedException();
         }
 
-        public override bool ServerSend(List<ulong> clients, ArraySegment<byte> data, int channel = 0) {
+        public override bool ServerSend(List<ulong> clients, ArraySegment<byte> data, int channel = 0, ulong excludedClient = 0) {
             throw new NotImplementedException();
         }
 

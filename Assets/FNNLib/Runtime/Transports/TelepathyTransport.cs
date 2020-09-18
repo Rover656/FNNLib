@@ -106,13 +106,13 @@ namespace FNNLib.Transports {
             return true;
         }
 
-        public override bool ServerSend(List<ulong> clients, ArraySegment<byte> data, int channel = 0) {
+        public override bool ServerSend(List<ulong> clients, ArraySegment<byte> data, int channel = DefaultChannels.Reliable, ulong excludedClient = 0) {
             var copy = new byte[data.Count];
             Array.Copy(data.Array, data.Offset, copy, 0, data.Count);
             
             foreach (var clientID in clients) {
-                // Cannot send to server.
-                if (clientID == 0) {
+                // Don't send to server or excluded client.
+                if (clientID == 0 || clientID == excludedClient) {
                     continue;
                 }
 
@@ -132,7 +132,7 @@ namespace FNNLib.Transports {
 
         public override void ServerShutdown() {
             if (!serverRunning)
-                throw new NotSupportedException("The server is already running!");
+                throw new NotSupportedException("The server is not running!");
             _server.Stop();
         }
 

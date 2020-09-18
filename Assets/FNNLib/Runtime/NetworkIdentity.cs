@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using FNNLib.Backend;
 using FNNLib.SceneManagement;
 using FNNLib.Spawning;
 using FNNLib.Transports;
@@ -151,7 +150,7 @@ namespace FNNLib {
             var destroyPacket = new DestroyObjectPacket {networkID = networkID};
                     
             // Send to all, so that even if someone is instructed to create it, they will destroy it after.
-            NetworkServer.instance.Send(clientID, destroyPacket, DefaultChannels.ReliableSequenced);
+            NetworkManager.instance.ServerSend(clientID, destroyPacket, DefaultChannels.ReliableSequenced);
         }
 
         public bool IsObserving(ulong clientID) {

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using FNNLib.Backend;
 using FNNLib.SceneManagement;
 using FNNLib.Transports;
 using UnityEngine;
@@ -172,7 +170,7 @@ namespace FNNLib.Spawning {
                     var destroyPacket = new DestroyObjectPacket {networkID = networkID};
 
                     // Send to all, so that even if someone is instructed to create it, they will destroy it after.
-                    NetworkServer.instance.SendToAll(destroyPacket, DefaultChannels.ReliableSequenced);
+                    NetworkManager.instance.ServerSendToAll(destroyPacket, DefaultChannels.ReliableSequenced);
                 }
             }
 
@@ -189,7 +187,7 @@ namespace FNNLib.Spawning {
 
         #region Client Handlers
 
-        internal static void ClientHandleSpawnPacket(ulong sender, SpawnObjectPacket packet) {
+        internal static void ClientHandleSpawnPacket(SpawnObjectPacket packet) {
             // Make nullable vars
             ulong? parentNetID = null;
             if (packet.hasParent)
@@ -208,7 +206,7 @@ namespace FNNLib.Spawning {
             SpawnObjectLocally(netObj, packet.networkID, packet.isSceneObject ?? true, packet.isPlayerObject, packet.ownerClientID);
         }
 
-        internal static void ClientHandleDestroy(ulong sender, DestroyObjectPacket packet) {
+        internal static void ClientHandleDestroy(DestroyObjectPacket packet) {
             OnDestroy(packet.networkID, true);
         }
 
@@ -217,12 +215,12 @@ namespace FNNLib.Spawning {
         #region Server
 
         internal static void ServerSendSpawnCall(ulong clientID, NetworkIdentity identity) {
-            NetworkServer.instance.Send(clientID, CreateSpawnObjectPacket(identity), DefaultChannels.ReliableSequenced);
+            NetworkManager.instance.ServerSend(clientID, CreateSpawnObjectPacket(identity), DefaultChannels.ReliableSequenced);
         }
 
         internal static void ServerSendSpawnCall(List<ulong> observers, NetworkIdentity identity) {
-            NetworkServer.instance.Send(observers, CreateSpawnObjectPacket(identity),
-                                        DefaultChannels.ReliableSequenced);
+            NetworkManager.instance.ServerSend(observers, CreateSpawnObjectPacket(identity),
+                                               DefaultChannels.ReliableSequenced);
         }
 
         private static SpawnObjectPacket CreateSpawnObjectPacket(NetworkIdentity identity) {
@@ -288,7 +286,7 @@ namespace FNNLib.Spawning {
         //Spawns any NetworkIdentities in the scene at scene start.
         internal static void ServerSpawnSceneObjects(uint sceneID = 0) {
             // Get all networked objects for this scene.
-            NetworkIdentity[] objects = NetworkSceneManager.GetNetScene(sceneID).FindObjectsOfType<NetworkIdentity>();
+            var objects = NetworkSceneManager.GetNetScene(sceneID).FindObjectsOfType<NetworkIdentity>();
 
             // Spawn any scene objects
             foreach (var obj in objects) {
@@ -299,7 +297,7 @@ namespace FNNLib.Spawning {
         }
 
         internal static void ServerUnspawnSceneObjects(uint sceneID) {
-            for (var i = spawnedObjectsList.Count - 1; i >= 0; i++) {
+            for (var i = spawnedObjectsList.Count - 1; i >= 0; i--) {
                 if (spawnedObjectsList[i].isSceneObject != null && spawnedObjectsList[i].isSceneObject == true && spawnedObjectsList[i].networkSceneID == sceneID) {
                     // Don't destroy on server, no point. The scene is about to be unloaded.
                     OnDestroy(spawnedObjectsList[i].networkID, false);
@@ -308,7 +306,7 @@ namespace FNNLib.Spawning {
         }
 
         internal static void ServerUnspawnAllSceneObjects() {
-            for (var i = spawnedObjectsList.Count - 1; i >= 0; i++) {
+            for (var i = spawnedObjectsList.Count - 1; i >= 0; i--) {
                 if (spawnedObjectsList[i].isSceneObject != null && spawnedObjectsList[i].isSceneObject == true) {
                     // Don't destroy on server, no point. The scene is about to be unloaded.
                     OnDestroy(spawnedObjectsList[i].networkID, false);
@@ -317,7 +315,7 @@ namespace FNNLib.Spawning {
         }
 
         internal static void DestroyNonSceneObjects() {
-            for (var i = spawnedObjectsList.Count - 1; i >= 0; i++) {
+            for (var i = spawnedObjectsList.Count - 1; i >= 0; i--) {
                 if (spawnedObjectsList[i].isSceneObject == null || spawnedObjectsList[i].isSceneObject == false) {
                     OnDestroy(spawnedObjectsList[i].networkID, true);
                 }

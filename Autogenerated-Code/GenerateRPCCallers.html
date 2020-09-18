@@ -7,6 +7,8 @@
     const clientRPCDispatcher = "SendClientRPCCall";
     const clientRPCDispatcherAll = "SendClientRPCCallAll";
     const clientRPCDispatcherSingle = "SendClientRPCCallFor";
+    const clientRPCDispatcherAllBut = "SendClientRPCCallAllExcept";
+    const serverRPCDispatcher = "SendServerRPCCall";
 
     for (let i = 0; i < maxParams; i++) {
         // public delegate void RPCMethod<T1>(T1 t1);
@@ -69,6 +71,24 @@
         writeTypeParams(i);
         document.write(", int channel = DefaultChannels.Reliable");
         document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + clientRPCDispatcherAll + "(" + methodNameHashMethod + "(methodName), channel");
+        if (i > 0)
+            document.write(", ");
+        writeTypeArguments(i);
+        document.write(");<br/>}<br/>")
+
+        // public void InvokeClientRPCForAllExcept(string methodName, ulong excludedClient, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeClientRPCForAllExcept");
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write("(string methodName, ulong excludedClient")
+        if (i > 0)
+            document.write(", ");
+        writeTypeParams(i);
+        document.write(", int channel = DefaultChannels.Reliable");
+        document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + clientRPCDispatcherAllBut + "(" + methodNameHashMethod + "(methodName), excludedClient, channel");
         if (i > 0)
             document.write(", ");
         writeTypeArguments(i);
@@ -141,6 +161,72 @@
         writeTypeParams(i);
         document.write(", int channel = DefaultChannels.Reliable");
         document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + clientRPCDispatcherAll + "(" + methodSigHashMethod + "(method.Method), channel");
+        if (i > 0)
+            document.write(", ");
+        writeTypeArguments(i);
+        document.write(");<br/>}<br/>")
+
+        // public void InvokeClientRPCForAllExcept(RPCMethod<...>, ulong excludedClient, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeClientRPCForAllExcept");
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write("(RPCMethod")
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write(" method, ulong excludedClient")
+        if (i > 0)
+            document.write(", ");
+        writeTypeParams(i);
+        document.write(", int channel = DefaultChannels.Reliable");
+        document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + clientRPCDispatcherAllBut + "(" + methodSigHashMethod + "(method.Method), excludedClient, channel");
+        if (i > 0)
+            document.write(", ");
+        writeTypeArguments(i);
+        document.write(");<br/>}<br/>")
+
+        // public void InvokeServerRPC(string methodName, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeServerRPC");
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write("(string methodName")
+        if (i > 0)
+            document.write(", ");
+        writeTypeParams(i);
+        document.write(", int channel = DefaultChannels.Reliable");
+        document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + serverRPCDispatcher + "(" + methodNameHashMethod + "(methodName), channel");
+        if (i > 0)
+            document.write(", ");
+        writeTypeArguments(i);
+        document.write(");<br/>}<br/>")
+
+        // public void InvokeServerRPC(RPCMethod<...>, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeServerRPC");
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write("(RPCMethod")
+        if (i > 0)
+            document.write("&lt;")
+        writeTypes(i);
+        if (i > 0)
+            document.write("&gt;")
+        document.write(" method")
+        if (i > 0)
+            document.write(", ");
+        writeTypeParams(i);
+        document.write(", int channel = DefaultChannels.Reliable");
+        document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + serverRPCDispatcher + "(" + methodSigHashMethod + "(method.Method), channel");
         if (i > 0)
             document.write(", ");
         writeTypeArguments(i);

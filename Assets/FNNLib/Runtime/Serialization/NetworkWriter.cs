@@ -306,6 +306,20 @@ namespace FNNLib.Serialization {
             WriteSingle(value.y);
             WriteSingle(value.z);
         }
+        
+        public void WriteVector4(Vector4 value) {
+            WriteSingle(value.x);
+            WriteSingle(value.y);
+            WriteSingle(value.z);
+            WriteSingle(value.w);
+        }
+
+        public void WriteQuaternion(Quaternion value) {
+            WriteSingle(value.x);
+            WriteSingle(value.y);
+            WriteSingle(value.z);
+            WriteSingle(value.w);
+        }
 
         public void WritePackedObject(object value) {
             if (value == null || value.GetType().IsNullable()) {
@@ -369,6 +383,12 @@ namespace FNNLib.Serialization {
                     break;
                 case Vector3 vector3:
                     WriteVector3(vector3);
+                    break;
+                case Vector4 vector4:
+                    WriteVector3(vector4);
+                    break;
+                case Quaternion quaternion:
+                    WriteQuaternion(quaternion);
                     break;
                 case ISerializable serializable:
                     serializable.Serialize(this);

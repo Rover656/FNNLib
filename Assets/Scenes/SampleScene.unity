@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   running: {fileID: 1517152541}
-  editorIsClient: 1
+  editorIsClient: 0
   testPrefab: {fileID: 5101672141092711332, guid: 90fdb134f78ffc047ba089b9aa66b3f0, type: 3}
 --- !u!114 &786270579
 MonoBehaviour:

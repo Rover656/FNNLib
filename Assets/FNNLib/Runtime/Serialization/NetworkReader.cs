@@ -250,6 +250,8 @@ namespace FNNLib.Serialization {
         public Vector2 ReadVector2() => new Vector2(ReadSingle(), ReadSingle());
 
         public Vector3 ReadVector3() => new Vector3(ReadSingle(), ReadSingle(), ReadSingle());
+        public Vector3 ReadVector4() => new Vector4(ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle());
+        public Quaternion ReadQuaternion() => new Quaternion(ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle());
 
         public object ReadPackedObject(Type type) {
             if (type.IsNullable()) {
@@ -293,6 +295,10 @@ namespace FNNLib.Serialization {
                 return ReadVector2();
             if (type == typeof(Vector3))
                 return ReadVector3();
+            if (type == typeof(Vector4))
+                return ReadVector4();
+            if (type == typeof(Quaternion))
+                return ReadQuaternion();
             if (typeof(ISerializable).IsAssignableFrom(type)) {
                 var instance = Activator.CreateInstance(type);
                 ((ISerializable) instance).DeSerialize(this);

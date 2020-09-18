@@ -70,12 +70,6 @@ namespace FNNLib.Backend {
         /// </summary>
         private readonly ulong _verificationHash;
 
-        /// <summary>
-        /// Sender list for sending data to an individual client.
-        /// Saves on allocations
-        /// </summary>
-        private readonly List<ulong> _singleSenderList = new List<ulong> { 0 };
-        
         private class ClientInfo {
             public ulong clientID = 0;
             public bool clientApproved = false;
@@ -165,9 +159,15 @@ namespace FNNLib.Backend {
         /// <typeparam name="T"></typeparam>
         /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ClientPacket.</exception>
         public void Send<T>(ulong clientID, T packet, int channelID = DefaultChannels.Reliable) where T : ISerializable {
-            // We reuse the list for server sending
-            _singleSenderList[0] = clientID;
-            Send(_singleSenderList, packet, channelID);
+            if (!PacketUtils.IsClientPacket<T>())
+                throw new InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
+            
+            // Write data
+            using (var writer = NetworkWriterPool.GetWriter()) {
+                writer.WritePackedUInt32(PacketUtils.GetID<T>());
+                writer.WritePackedObject(packet);
+                _transport.ServerSend(clientID, writer.ToArraySegment(), channelID);
+            }
         }
 
         /// <summary>
@@ -189,6 +189,31 @@ namespace FNNLib.Backend {
                 _transport.ServerSend(clients, writer.ToArraySegment(), channelID);
             }
         }
+        
+        /// <summary>
+        /// Broadcast a packet to a list of clients.
+        /// </summary>
+        /// <param name="clients">Clients to receive the packet.</param>
+        /// <param name="packet">The packet to broadcast.</param>
+        /// <param name="channelID">The channel to send the message with.</param>
+        /// <typeparam name="T"></typeparam>
+        /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ClientPacket.</exception>
+        public void SendExcluding<T>(List<ulong> clients, ulong excludedClient, T packet, int channelID = DefaultChannels.Reliable) where T : ISerializable {
+            if (!PacketUtils.IsClientPacket<T>())
+                throw new InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
+            
+            // Write data
+            using (var writer = NetworkWriterPool.GetWriter()) {
+                writer.WritePackedUInt32(PacketUtils.GetID<T>());
+                writer.WritePackedObject(packet);
+                
+                foreach (var clientID in _allClientIDs) {
+                    if (clientID != excludedClient) {
+                        _transport.ServerSend(clientID, writer.ToArraySegment(), channelID);
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Broadcast a packet to every connected client.
@@ -199,6 +224,31 @@ namespace FNNLib.Backend {
         /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ClientPacket.</exception>
         public void SendToAll<T>(T packet, int channelID = DefaultChannels.Reliable) where T : ISerializable {
             Send(_allClientIDs, packet, channelID);
+        }
+        
+        /// <summary>
+        /// Broadcast a packet to every connected client.
+        /// </summary>
+        /// <param name="packet">The packet to broadcast.</param>
+        /// <param name="channelID">The channel to send the message with.</param>
+        /// <typeparam name="T"></typeparam>
+        /// <exception cref="InvalidOperationException">Thrown when the packet is not marked ClientPacket.</exception>
+        public void SendToAllExcept<T>(T packet, ulong excludedClient, int channelID = DefaultChannels.Reliable) where T : ISerializable {
+            if (!PacketUtils.IsClientPacket<T>())
+                throw new InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
+            
+            // Write data
+            using (var writer = NetworkWriterPool.GetWriter()) {
+                writer.WritePackedUInt32(PacketUtils.GetID<T>());
+                writer.WritePackedObject(packet);
+
+                // TODO: Nasty, nasty, nasty. I want to find a better way to do this... maybe implement exclusions on the transport level?
+                foreach (var clientID in _allClientIDs) {
+                    if (clientID != excludedClient) {
+                        _transport.ServerSend(clientID, writer.ToArraySegment(), channelID);
+                    }
+                }
+            }
         }
         
         #endregion

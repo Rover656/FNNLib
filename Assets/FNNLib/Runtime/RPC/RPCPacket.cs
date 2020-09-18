@@ -3,8 +3,8 @@ using FNNLib.Messaging;
 using FNNLib.Serialization;
 
 namespace FNNLib.RPC {
-    [ClientPacket]
-    public class ClientRPCPacket : ISerializable {
+    [ClientPacket, ServerPacket]
+    public class RPCPacket : ISerializable {
         public ulong networkID;
         public int behaviourOrder;
         public ulong methodHash;

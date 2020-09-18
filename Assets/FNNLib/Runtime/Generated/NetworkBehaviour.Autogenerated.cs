@@ -9,1685 +9,1028 @@ using FNNLib.Transports;
 namespace FNNLib {
     public abstract partial class NetworkBehaviour {
         /// <exclude />
-        public delegate void RPCMethod();
-
-        public void InvokeClientRPC(string methodName, List<ulong> clients, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel);
-        }
-
-        public void InvokeClientRPCFor(string methodName, ulong client, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel);
-        }
-
-        public void InvokeClientRPCForAll(string methodName, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel);
-        }
-
-        public void InvokeClientRPC(RPCMethod method, List<ulong> clients, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel);
-        }
-
-        public void InvokeClientRPCFor(RPCMethod method, ulong client, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel);
-        }
-
-        public void InvokeClientRPCForAll(RPCMethod method, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0>(T0 t0);
-
-        public void InvokeClientRPC<T0>(string methodName, List<ulong> clients, T0 t0,
-                                        int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0);
-        }
-
-        public void InvokeClientRPCFor<T0>(string methodName, ulong client, T0 t0,
-                                           int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0);
-        }
-
-        public void InvokeClientRPCForAll<T0>(string methodName, T0 t0, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0);
-        }
-
-        public void InvokeClientRPC<T0>(RPCMethod<T0> method, List<ulong> clients, T0 t0,
-                                        int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0);
-        }
-
-        public void InvokeClientRPCFor<T0>(RPCMethod<T0> method, ulong client, T0 t0,
-                                           int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0);
-        }
-
-        public void InvokeClientRPCForAll<T0>(RPCMethod<T0> method, T0 t0, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1>(T0 t0, T1 t1);
-
-        public void InvokeClientRPC<T0, T1>(string methodName, List<ulong> clients, T0 t0, T1 t1,
-                                            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1);
-        }
-
-        public void InvokeClientRPCFor<T0, T1>(string methodName, ulong client, T0 t0, T1 t1,
-                                               int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1>(string methodName, T0 t0, T1 t1,
-                                                  int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1);
-        }
-
-        public void InvokeClientRPC<T0, T1>(RPCMethod<T0, T1> method, List<ulong> clients, T0 t0, T1 t1,
-                                            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1);
-        }
-
-        public void InvokeClientRPCFor<T0, T1>(RPCMethod<T0, T1> method, ulong client, T0 t0, T1 t1,
-                                               int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1>(RPCMethod<T0, T1> method, T0 t0, T1 t1,
-                                                  int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2>(T0 t0, T1 t1, T2 t2);
-
-        public void InvokeClientRPC<T0, T1, T2>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2,
-                                                int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2>(string methodName, ulong client, T0 t0, T1 t1, T2 t2,
-                                                   int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2>(string methodName, T0 t0, T1 t1, T2 t2,
-                                                      int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2>(RPCMethod<T0, T1, T2> method, List<ulong> clients, T0 t0, T1 t1, T2 t2,
-                                                int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2>(RPCMethod<T0, T1, T2> method, ulong client, T0 t0, T1 t1, T2 t2,
-                                                   int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2>(RPCMethod<T0, T1, T2> method, T0 t0, T1 t1, T2 t2,
-                                                      int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3>(T0 t0, T1 t1, T2 t2, T3 t3);
-
-        public void InvokeClientRPC<T0, T1, T2, T3>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3,
-                                                    int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3,
-                                                       int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3,
-                                                          int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3>(RPCMethod<T0, T1, T2, T3> method, List<ulong> clients, T0 t0, T1 t1,
-                                                    T2 t2, T3 t3, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3>(RPCMethod<T0, T1, T2, T3> method, ulong client, T0 t0, T1 t1,
-                                                       T2 t2, T3 t3, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3>(RPCMethod<T0, T1, T2, T3> method, T0 t0, T1 t1, T2 t2, T3 t3,
-                                                          int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2,
-                                                        T3 t3, T4 t4, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3,
-                                                           T4 t4, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-                                                              int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4>(RPCMethod<T0, T1, T2, T3, T4> method, List<ulong> clients,
-                                                        T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-                                                        int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4>(RPCMethod<T0, T1, T2, T3, T4> method, ulong client, T0 t0,
-                                                           T1 t1, T2 t2, T3 t3, T4 t4,
-                                                           int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4>(RPCMethod<T0, T1, T2, T3, T4> method, T0 t0, T1 t1, T2 t2,
-                                                              T3 t3, T4 t4, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2,
-                                                            T3 t3, T4 t4, T5 t5,
-                                                            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5>(string methodName, ulong client, T0 t0, T1 t1, T2 t2,
-                                                               T3 t3, T4 t4, T5 t5,
-                                                               int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-                                                                  T5 t5, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5>(RPCMethod<T0, T1, T2, T3, T4, T5> method,
-                                                            List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-                                                            T5 t5, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5>(RPCMethod<T0, T1, T2, T3, T4, T5> method, ulong client,
-                                                               T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5,
-                                                               int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5>(RPCMethod<T0, T1, T2, T3, T4, T5> method, T0 t0,
-                                                                  T1 t1, T2 t2, T3 t3, T4 t4, T5 t5,
-                                                                  int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6>(string methodName, List<ulong> clients, T0 t0, T1 t1,
-                                                                T2 t2, T3 t3, T4 t4, T5 t5, T6 t6,
-                                                                int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6>(string methodName, ulong client, T0 t0, T1 t1, T2 t2,
-                                                                   T3 t3, T4 t4, T5 t5, T6 t6,
-                                                                   int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3,
-                                                                      T4 t4, T5 t5, T6 t6,
-                                                                      int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6>(RPCMethod<T0, T1, T2, T3, T4, T5, T6> method,
-                                                                List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-                                                                T5 t5, T6 t6, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6>(RPCMethod<T0, T1, T2, T3, T4, T5, T6> method,
-                                                                   ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-                                                                   T5 t5, T6 t6,
-                                                                   int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6>(RPCMethod<T0, T1, T2, T3, T4, T5, T6> method,
-                                                                      T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6,
-                                                                      int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6,
-                                                                       T7 t7);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7>(string methodName, List<ulong> clients, T0 t0,
-                                                                    T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7,
-                                                                    int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7>(string methodName, ulong client, T0 t0, T1 t1,
-                                                                       T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7,
-                                                                       int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7> method,
-                                                                    List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3,
-                                                                    T4 t4, T5 t5, T6 t6, T7 t7,
-                                                                    int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7> method,
-                                                                       ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-                                                                       T5 t5, T6 t6, T7 t7,
-                                                                       int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8>(string methodName, List<ulong> clients, T0 t0,
-                                                                        T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7,
-                                                                        T8 t8, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3,
-            T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-            T5 t5, T6 t6, T7 t7, T8 t8, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6,
-            T7 t7, T8 t8, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-            string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3,
-            T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-            T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6,
-            T7 t7, T8 t8, T9 t9, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-            string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                              t10);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> method, List<ulong> clients, T0 t0, T1 t1, T2 t2,
-            T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3,
-            T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5,
-            T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
-            string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> method, List<ulong> clients, T0 t0, T1 t1,
-            T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> method, ulong client, T0 t0, T1 t1, T2 t2,
-            T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-            T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
-            string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> method, List<ulong> clients, T0 t0, T1 t1,
-            T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> method, ulong client, T0 t0, T1 t1, T2 t2,
-            T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-            T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
-            string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> method, List<ulong> clients, T0 t0,
-            T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> method, ulong client, T0 t0, T1 t1,
-            T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> method, T0 t0, T1 t1, T2 t2, T3 t3,
-            T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
-            string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> method, List<ulong> clients,
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> method, ulong client, T0 t0,
-            T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> method, T0 t0, T1 t1, T2 t2,
-            T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, T15 t15);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
-            string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> method, List<ulong> clients,
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, T15 t15, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> method, ulong client, T0 t0,
-            T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14,
-            T15 t15, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> method, T0 t0, T1 t1, T2 t2,
-            T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, T15 t15, T16 t16);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
-            string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> method,
-            List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> method, ulong client,
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> method, T0 t0, T1 t1,
-            T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14,
-            T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, T15 t15, T16 t16, T17 t17);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
-            string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16, t17);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6,
-                                               T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14,
-                                               T15 t15, T16 t16, T17 t17, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16, t17);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> method,
-            List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16, t17);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> method,
-            ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16, t17);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> method, T0 t0,
-            T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14,
-            T15 t15, T16 t16, T17 t17, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17);
-        }
-
-        /// <exclude />
-        public delegate void
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
-                T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12,
-                T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18);
-
-        public void
-            InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
-                string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-                T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18,
-                int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16, t17, t18);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5,
-                                            T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14,
-                                            T15 t15, T16 t16, T17 t17, T18 t18,
-                                            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6,
-                                                    T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14,
-                                                    T15 t15, T16 t16, T17 t17, T18 t18,
-                                                    int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16, t17, t18);
-        }
-
-        public void
-            InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18> method,
-                List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10,
-                T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18,
-                int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16, t17, t18);
-        }
-
-        public void
-            InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18> method,
-                ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-                T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18> method,
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-                                                 T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17,
-                                                 T18 t18, T19 t19);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-                                         T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14,
-                                         T15 t15, T16 t16, T17 t17, T18 t18, T19 t19,
-                                         int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16, t17, t18, t19);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-                                                 T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-                                                 T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19,
-                                                 int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5,
-                                                         T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-                                                         T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19,
-                                                         int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16, t17, t18, t19);
-        }
-
-        public void
-            InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>
-                    method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-                T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19,
-                int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19> method,
-            ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19> method,
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-                                                      T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15,
-                                                      T16 t16, T17 t17, T18 t18, T19 t19, T20 t20);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-                                              T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-                                              T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-                                              int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3,
-                                                      T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-                                                      T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18,
-                                                      T19 t19, T20 t20, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-                                                              T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-                                                              T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17,
-                                                              T18 t18, T19 t19, T20 t20,
-                                                              int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16, t17, t18, t19, t20);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>
-                method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>
-                method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10,
-            T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>
-                method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12,
-            T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7,
-                                                           T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14,
-                                                           T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-                                                           T21 t21);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20, T21>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3,
-                                                   T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12,
-                                                   T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19,
-                                                   T20 t20, T21 t21, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3,
-                                                           T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-                                                           T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17,
-                                                           T18 t18, T19 t19, T20 t20, T21 t21,
-                                                           int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-                                                                   T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-                                                                   T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17,
-                                                                   T18 t18, T19 t19, T20 t20, T21 t21,
-                                                                   int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20, T21>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-            > method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-            > method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10,
-            T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-            > method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12,
-            T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7,
-                                                                T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-                                                                T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19,
-                                                                T20 t20, T21 t21, T22 t22);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20, T21, T22>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2,
-                                                        T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10,
-                                                        T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17,
-                                                        T18 t18, T19 t19, T20 t20, T21 t21, T22 t22,
-                                                        int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22>(string methodName, ulong client, T0 t0, T1 t1, T2 t2,
-                                                                T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-                                                                T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15,
-                                                                T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-                                                                T22 t22, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3,
-                                                                        T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-                                                                        T10 t10, T11 t11, T12 t12, T13 t13, T14 t14,
-                                                                        T15 t15, T16 t16, T17 t17, T18 t18, T19 t19,
-                                                                        T20 t20, T21 t21, T22 t22,
-                                                                        int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20, T21, T22>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-                , T22> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-            T21 t21, T22 t22, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-                , T22> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-            T22 t22, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-                , T22> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6,
-                                                                     T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12,
-                                                                     T13 t13, T14 t14, T15 t15, T16 t16, T17 t17,
-                                                                     T18 t18, T19 t19, T20 t20, T21 t21, T22 t22,
-                                                                     T23 t23);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20, T21, T22, T23>(string methodName, List<ulong> clients, T0 t0, T1 t1,
-                                                             T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-                                                             T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15,
-                                                             T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-                                                             T22 t22, T23 t23, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23>(string methodName, ulong client, T0 t0, T1 t1,
-                                                                     T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-                                                                     T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14,
-                                                                     T15 t15, T16 t16, T17 t17, T18 t18, T19 t19,
-                                                                     T20 t20, T21 t21, T22 t22, T23 t23,
-                                                                     int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
-        }
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20, T21, T22, T23>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-                , T22, T23> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-            T21 t21, T22 t22, T23 t23, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-                , T22, T23> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-            T22 t22, T23 t23, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-                , T22, T23> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10,
-            T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22,
-            T23 t23, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20, T21, T22, T23, T24>(string methodName, List<ulong> clients, T0 t0, T1 t1,
-                                                                  T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-                                                                  T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14,
-                                                                  T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-                                                                  T21 t21, T22 t22, T23 t23, T24 t24,
-                                                                  int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-            T22 t22, T23 t23, T24 t24, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23, T24>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23,
-            T24 t24, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
-        }
-
-        public void
-            InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-                            T20, T21, T22, T23, T24>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
-                    T21, T22, T23, T24> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6,
-                T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18,
-                T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-                , T22, T23, T24> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-            T21 t21, T22 t22, T23 t23, T24 t24, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23, T24>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-                , T22, T23, T24> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10,
-            T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22,
-            T23 t23, T24 t24, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24, T25>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20, T21, T22, T23, T24, T25>(string methodName, List<ulong> clients, T0 t0,
-                                                                       T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7,
-                                                                       T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-                                                                       T14 t14, T15 t15, T16 t16, T17 t17, T18 t18,
-                                                                       T19 t19, T20 t20, T21 t21, T22 t22, T23 t23,
-                                                                       T24 t24, T25 t25,
-                                                                       int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24, T25>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-            T22 t22, T23 t23, T24 t24, T25 t25, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23, T24, T25>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23,
-            T24 t24, T25 t25, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
-        }
-
-        public void
-            InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-                            T20, T21, T22, T23, T24, T25>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
-                    T21, T22, T23, T24, T25> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5,
-                T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17,
-                T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25,
-                int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24, T25>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-                , T22, T23, T24, T25> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7,
-            T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19,
-            T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24,
-                                 t25);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23, T24, T25>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-                , T22, T23, T24, T25> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-            T22 t22, T23 t23, T24 t24, T25 t25, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24, T25, T26>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25,
-            T26 t26);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20, T21, T22, T23, T24, T25, T26>(
-            string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-            T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24, T25, T26>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-            T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23,
-            T24 t24, T25 t25, T26 t26, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
-        }
-
-        public void
-            InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-                            T20, T21, T22, T23, T24, T25, T26>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
-                    T21, T22, T23, T24, T25, T26> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5,
-                T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17,
-                T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26,
-                int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
-        }
-
-        public void
-            InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-                               T20, T21, T22, T23, T24, T25, T26>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
-                    T21, T22, T23, T24, T25, T26> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6,
-                T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18,
-                T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26,
-                int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25,
-                                 t26);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-                , T22, T23, T24, T25, T26> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-            T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25,
-            T26 t26, T27 t27);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20, T21, T22, T23, T24, T25, T26, T27>(
-            string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-            T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-            T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26,
-                                 t27);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23,
-            T24 t24, T25 t25, T26 t26, T27 t27, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27);
-        }
-
-        public void
-            InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-                            T20, T21, T22, T23, T24, T25, T26, T27>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
-                    T21, T22, T23, T24, T25, T26, T27> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-                T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16,
-                T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27,
-                int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26,
-                              t27);
-        }
-
-        public void
-            InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-                               T20, T21, T22, T23, T24, T25, T26, T27>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
-                    T21, T22, T23, T24, T25, T26, T27> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5,
-                T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17,
-                T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27,
-                int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25,
-                                 t26, t27);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-                , T22, T23, T24, T25, T26, T27> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-            T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26,
-                                 t27);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25,
-            T26 t26, T27 t27, T28 t28);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(
-            string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-            T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-            T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26,
-                                 t27, t28);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23,
-            T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28);
-        }
-
-        public void
-            InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-                            T20, T21, T22, T23, T24, T25, T26, T27, T28>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
-                    T21, T22, T23, T24, T25, T26, T27, T28> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3,
-                T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16,
-                T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27,
-                T28 t28, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26,
-                              t27, t28);
-        }
-
-        public void
-            InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-                               T20, T21, T22, T23, T24, T25, T26, T27, T28>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
-                    T21, T22, T23, T24, T25, T26, T27, T28> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4,
-                T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16,
-                T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27,
-                T28 t28, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25,
-                                 t26, t27, t28);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-                , T22, T23, T24, T25, T26, T27, T28> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7,
-            T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19,
-            T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26,
-                                 t27, t28);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25,
-            T26 t26, T27 t27, T28 t28, T29 t29);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(
-            string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-            T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28,
-                              t29);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-            T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26,
-                                 t27, t28, t29);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23,
-            T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28,
-                                 t29);
-        }
-
-        public void
-            InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-                            T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
-                    T21, T22, T23, T24, T25, T26, T27, T28, T29> method, List<ulong> clients, T0 t0, T1 t1, T2 t2,
-                T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15,
-                T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26,
-                T27 t27, T28 t28, T29 t29, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26,
-                              t27, t28, t29);
-        }
-
-        public void
-            InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-                               T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
-                    T21, T22, T23, T24, T25, T26, T27, T28, T29> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3,
-                T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16,
-                T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27,
-                T28 t28, T29 t29, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25,
-                                 t26, t27, t28, t29);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(
-            RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21
-                , T22, T23, T24, T25, T26, T27, T28, T29> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6,
-            T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18,
-            T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26,
-                                 t27, t28, t29);
-        }
-
-        /// <exclude />
-        public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(
-            T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13,
-            T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25,
-            T26 t26, T27 t27, T28 t28, T29 t29, T30 t30);
-
-        public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                    T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(
-            string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8,
-            T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20,
-            T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, T30 t30,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10,
-                              t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28,
-                              t29, t30);
-        }
-
-        public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17,
-                                       T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(
-            string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9,
-            T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21,
-            T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, T30 t30,
-            int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26,
-                                 t27, t28, t29, t30);
-        }
-
-        public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16,
-                                          T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(
-            string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11,
-            T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23,
-            T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, T30 t30, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11,
-                                 t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28,
-                                 t29, t30);
-        }
-
-        public void
-            InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-                            T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
-                    T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> method, List<ulong> clients, T0 t0, T1 t1, T2 t2,
-                T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15,
-                T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26,
-                T27 t27, T28 t28, T29 t29, T30 t30, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8,
-                              t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26,
-                              t27, t28, t29, t30);
-        }
-
-        public void
-            InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-                               T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
-                    T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3,
-                T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16,
-                T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27,
-                T28 t28, T29 t29, T30 t30, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7,
-                                 t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25,
-                                 t26, t27, t28, t29, t30);
-        }
-
-        public void
-            InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18,
-                                  T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(
-                RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20,
-                    T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5,
-                T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17,
-                T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28,
-                T29 t29, T30 t30, int channel = DefaultChannels.Reliable) {
-            SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9,
-                                 t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26,
-                                 t27, t28, t29, t30);
-        }
+public delegate void RPCMethod();
+public void InvokeClientRPC(string methodName, List<ulong> clients, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel);
+}
+public void InvokeClientRPCFor(string methodName, ulong client, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel);
+}
+public void InvokeClientRPCForAll(string methodName, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel);
+}
+public void InvokeClientRPCForAllExcept(string methodName, ulong excludedClient, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel);
+}
+public void InvokeClientRPC(RPCMethod method, List<ulong> clients, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel);
+}
+public void InvokeClientRPCFor(RPCMethod method, ulong client, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel);
+}
+public void InvokeClientRPCForAll(RPCMethod method, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel);
+}
+public void InvokeClientRPCForAllExcept(RPCMethod method, ulong excludedClient, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel);
+}
+public void InvokeServerRPC(string methodName, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel);
+}
+public void InvokeServerRPC(RPCMethod method, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel);
+}
+/// <exclude />
+public delegate void RPCMethod<T0>(T0 t0);
+public void InvokeClientRPC<T0>(string methodName, List<ulong> clients, T0 t0, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0);
+}
+public void InvokeClientRPCFor<T0>(string methodName, ulong client, T0 t0, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0);
+}
+public void InvokeClientRPCForAll<T0>(string methodName, T0 t0, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0);
+}
+public void InvokeClientRPCForAllExcept<T0>(string methodName, ulong excludedClient, T0 t0, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0);
+}
+public void InvokeClientRPC<T0>(RPCMethod<T0> method, List<ulong> clients, T0 t0, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0);
+}
+public void InvokeClientRPCFor<T0>(RPCMethod<T0> method, ulong client, T0 t0, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0);
+}
+public void InvokeClientRPCForAll<T0>(RPCMethod<T0> method, T0 t0, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0);
+}
+public void InvokeClientRPCForAllExcept<T0>(RPCMethod<T0> method, ulong excludedClient, T0 t0, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0);
+}
+public void InvokeServerRPC<T0>(string methodName, T0 t0, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0);
+}
+public void InvokeServerRPC<T0>(RPCMethod<T0> method, T0 t0, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1>(T0 t0, T1 t1);
+public void InvokeClientRPC<T0, T1>(string methodName, List<ulong> clients, T0 t0, T1 t1, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1);
+}
+public void InvokeClientRPCFor<T0, T1>(string methodName, ulong client, T0 t0, T1 t1, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1);
+}
+public void InvokeClientRPCForAll<T0, T1>(string methodName, T0 t0, T1 t1, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1);
+}
+public void InvokeClientRPCForAllExcept<T0, T1>(string methodName, ulong excludedClient, T0 t0, T1 t1, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1);
+}
+public void InvokeClientRPC<T0, T1>(RPCMethod<T0, T1> method, List<ulong> clients, T0 t0, T1 t1, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1);
+}
+public void InvokeClientRPCFor<T0, T1>(RPCMethod<T0, T1> method, ulong client, T0 t0, T1 t1, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1);
+}
+public void InvokeClientRPCForAll<T0, T1>(RPCMethod<T0, T1> method, T0 t0, T1 t1, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1);
+}
+public void InvokeClientRPCForAllExcept<T0, T1>(RPCMethod<T0, T1> method, ulong excludedClient, T0 t0, T1 t1, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1);
+}
+public void InvokeServerRPC<T0, T1>(string methodName, T0 t0, T1 t1, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1);
+}
+public void InvokeServerRPC<T0, T1>(RPCMethod<T0, T1> method, T0 t0, T1 t1, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2>(T0 t0, T1 t1, T2 t2);
+public void InvokeClientRPC<T0, T1, T2>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2);
+}
+public void InvokeClientRPCFor<T0, T1, T2>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2);
+}
+public void InvokeClientRPCForAll<T0, T1, T2>(string methodName, T0 t0, T1 t1, T2 t2, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2);
+}
+public void InvokeClientRPC<T0, T1, T2>(RPCMethod<T0, T1, T2> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2);
+}
+public void InvokeClientRPCFor<T0, T1, T2>(RPCMethod<T0, T1, T2> method, ulong client, T0 t0, T1 t1, T2 t2, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2);
+}
+public void InvokeClientRPCForAll<T0, T1, T2>(RPCMethod<T0, T1, T2> method, T0 t0, T1 t1, T2 t2, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2>(RPCMethod<T0, T1, T2> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2);
+}
+public void InvokeServerRPC<T0, T1, T2>(string methodName, T0 t0, T1 t1, T2 t2, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2);
+}
+public void InvokeServerRPC<T0, T1, T2>(RPCMethod<T0, T1, T2> method, T0 t0, T1 t1, T2 t2, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3>(T0 t0, T1 t1, T2 t2, T3 t3);
+public void InvokeClientRPC<T0, T1, T2, T3>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3);
+}
+public void InvokeClientRPC<T0, T1, T2, T3>(RPCMethod<T0, T1, T2, T3> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3>(RPCMethod<T0, T1, T2, T3> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3>(RPCMethod<T0, T1, T2, T3> method, T0 t0, T1 t1, T2 t2, T3 t3, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3>(RPCMethod<T0, T1, T2, T3> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3);
+}
+public void InvokeServerRPC<T0, T1, T2, T3>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3);
+}
+public void InvokeServerRPC<T0, T1, T2, T3>(RPCMethod<T0, T1, T2, T3> method, T0 t0, T1 t1, T2 t2, T3 t3, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4);
+public void InvokeClientRPC<T0, T1, T2, T3, T4>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4>(RPCMethod<T0, T1, T2, T3, T4> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4>(RPCMethod<T0, T1, T2, T3, T4> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4>(RPCMethod<T0, T1, T2, T3, T4> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4>(RPCMethod<T0, T1, T2, T3, T4> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4>(RPCMethod<T0, T1, T2, T3, T4> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5>(RPCMethod<T0, T1, T2, T3, T4, T5> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5>(RPCMethod<T0, T1, T2, T3, T4, T5> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5>(RPCMethod<T0, T1, T2, T3, T4, T5> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5>(RPCMethod<T0, T1, T2, T3, T4, T5> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5>(RPCMethod<T0, T1, T2, T3, T4, T5> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6>(RPCMethod<T0, T1, T2, T3, T4, T5, T6> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6>(RPCMethod<T0, T1, T2, T3, T4, T5, T6> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6>(RPCMethod<T0, T1, T2, T3, T4, T5, T6> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6>(RPCMethod<T0, T1, T2, T3, T4, T5, T6> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6>(RPCMethod<T0, T1, T2, T3, T4, T5, T6> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29);
+}
+/// <exclude />
+public delegate void RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, T30 t30);
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(string methodName, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, T30 t30, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodName(methodName), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(string methodName, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, T30 t30, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodName(methodName), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, T30 t30, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(string methodName, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, T30 t30, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodName(methodName), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30);
+}
+public void InvokeClientRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> method, List<ulong> clients, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, T30 t30, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCall(HashMethodSignature(method.Method), clients, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30);
+}
+public void InvokeClientRPCFor<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> method, ulong client, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, T30 t30, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallFor(HashMethodSignature(method.Method), client, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30);
+}
+public void InvokeClientRPCForAll<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, T30 t30, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAll(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30);
+}
+public void InvokeClientRPCForAllExcept<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> method, ulong excludedClient, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, T30 t30, int channel = DefaultChannels.Reliable) {
+    SendClientRPCCallAllExcept(HashMethodSignature(method.Method), excludedClient, channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(string methodName, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, T30 t30, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodName(methodName), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30);
+}
+public void InvokeServerRPC<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>(RPCMethod<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> method, T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16, T17 t17, T18 t18, T19 t19, T20 t20, T21 t21, T22 t22, T23 t23, T24 t24, T25 t25, T26 t26, T27 t27, T28 t28, T29 t29, T30 t30, int channel = DefaultChannels.Reliable) {
+    SendServerRPCCall(HashMethodSignature(method.Method), channel, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30);
+}
     }
 }

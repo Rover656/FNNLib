@@ -128,12 +128,12 @@ namespace FNNLib {
                     }
                 }
 
-                var packet = new ClientRPCPacket {
-                                                     behaviourOrder = behaviourIndex,
-                                                     methodHash = hash,
-                                                     networkID = networkID,
-                                                     parameterBuffer = writer.ToArraySegment()
-                                                 };
+                var packet = new RPCPacket {
+                                               behaviourOrder = behaviourIndex,
+                                               methodHash = hash,
+                                               networkID = networkID,
+                                               parameterBuffer = writer.ToArraySegment()
+                                           };
                 NetworkServer.instance.Send(clients, packet, channel);
             }
         }
@@ -154,12 +154,12 @@ namespace FNNLib {
                         InvokeClientRPCLocal(hash, NetworkManager.instance.localClientID, reader);
                     }
                 } else {
-                    var packet = new ClientRPCPacket {
-                                                         behaviourOrder = behaviourIndex,
-                                                         methodHash = hash,
-                                                         networkID = networkID,
-                                                         parameterBuffer = writer.ToArraySegment()
-                                                     };
+                    var packet = new RPCPacket {
+                                                   behaviourOrder = behaviourIndex,
+                                                   methodHash = hash,
+                                                   networkID = networkID,
+                                                   parameterBuffer = writer.ToArraySegment()
+                                               };
                     NetworkServer.instance.Send(client, packet, channel);
                 }
             }
@@ -181,13 +181,65 @@ namespace FNNLib {
                     }
                 }
 
-                var packet = new ClientRPCPacket {
-                                                     behaviourOrder = behaviourIndex,
-                                                     methodHash = hash,
-                                                     networkID = networkID,
-                                                     parameterBuffer = writer.ToArraySegment()
-                                                 };
+                var packet = new RPCPacket {
+                                               behaviourOrder = behaviourIndex,
+                                               methodHash = hash,
+                                               networkID = networkID,
+                                               parameterBuffer = writer.ToArraySegment()
+                                           };
                 NetworkServer.instance.Send(identity.observers, packet, channel);
+            }
+        }
+        
+        internal void SendClientRPCCallAllExcept(ulong hash, ulong excludedClient, int channel, params object[] args) {
+            // Block non-server calls
+            if (!isServer)
+                throw new NotSupportedException("Only the server may invoke RPCs on clients.");
+
+            // Write parameters
+            using (var writer = NetworkWriterPool.GetWriter()) {
+                foreach (var arg in args)
+                    writer.WritePackedObject(arg);
+
+                if (isHost && identity.observers.Contains(NetworkManager.instance.localClientID)) {
+                    using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment())) {
+                        InvokeClientRPCLocal(hash, NetworkManager.instance.localClientID, reader);
+                    }
+                }
+
+                var packet = new RPCPacket {
+                                               behaviourOrder = behaviourIndex,
+                                               methodHash = hash,
+                                               networkID = networkID,
+                                               parameterBuffer = writer.ToArraySegment()
+                                           };
+                NetworkServer.instance.SendExcluding(identity.observers, excludedClient, packet, channel);
+            }
+        }
+
+        internal void SendServerRPCCall(ulong hash, int channel, params object[] args) {
+            // Block non-client calls
+            if (!isClient)
+                throw new NotSupportedException("Only the client may invoke RPCs on the server.");
+
+            // Write parameters
+            using (var writer = NetworkWriterPool.GetWriter()) {
+                foreach (var arg in args)
+                    writer.WritePackedObject(arg);
+
+                if (isHost) {
+                    using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment())) {
+                        InvokeServerRPCLocal(hash, NetworkManager.instance.localClientID, reader);
+                    }
+                } else {
+                    var packet = new RPCPacket {
+                                                   behaviourOrder = behaviourIndex,
+                                                   methodHash = hash,
+                                                   networkID = networkID,
+                                                   parameterBuffer = writer.ToArraySegment()
+                                               };
+                    NetworkClient.instance.Send(packet, channel);
+                }
             }
         }
 
@@ -198,14 +250,34 @@ namespace FNNLib {
 
             return null;
         }
+        
+        private object InvokeServerRPCLocal(ulong hash, ulong sender, NetworkReader args) {
+            if (_rpcReflectionData.serverMethods.ContainsKey(hash)) {
+                _rpcReflectionData.serverMethods[hash].Invoke(this, sender, args);
+            }
 
-        internal static void ClientRPCCallHandler(ulong sender, ClientRPCPacket packet) {
+            return null;
+        }
+
+        internal static void ClientRPCCallHandler(ulong sender, RPCPacket packet) {
             if (SpawnManager.spawnedObjects.ContainsKey(packet.networkID)) {
                 var identity = SpawnManager.spawnedObjects[packet.networkID];
                 var behaviour = identity.behaviours[packet.behaviourOrder];
                 if (behaviour._rpcReflectionData.clientMethods.ContainsKey(packet.methodHash)) {
                     using (var paramReader = NetworkReaderPool.GetReader(packet.parameterBuffer)) {
                         behaviour.InvokeClientRPCLocal(packet.methodHash, sender, paramReader);
+                    }
+                }
+            }
+        }
+        
+        internal static void ServerRPCCallHandler(ulong sender, RPCPacket packet) {
+            if (SpawnManager.spawnedObjects.ContainsKey(packet.networkID)) {
+                var identity = SpawnManager.spawnedObjects[packet.networkID];
+                var behaviour = identity.behaviours[packet.behaviourOrder];
+                if (behaviour._rpcReflectionData.serverMethods.ContainsKey(packet.methodHash)) {
+                    using (var paramReader = NetworkReaderPool.GetReader(packet.parameterBuffer)) {
+                        behaviour.InvokeServerRPCLocal(packet.methodHash, sender, paramReader);
                     }
                 }
             }

@@ -101,7 +101,14 @@ namespace FNNLib.Transports {
         /// </summary>
         public abstract void ServerStart();
 
-        // TODO: StartServer overloads which support custom bind and port. Should override any transport config.
+        /// <summary>
+        /// Send data to clients.
+        /// </summary>
+        /// <param name="clients">The clients to send to.</param>
+        /// <param name="data">The data to send.</param>
+        /// <param name="channel">The channel to send the data down. Ignored on Transports that don't support channelling.</param>
+        /// <returns>Whether the data could be sent.</returns>
+        public abstract bool ServerSend(ulong clientID, ArraySegment<byte> data, int channel = DefaultChannels.Reliable);
 
         /// <summary>
         /// Send data to clients.

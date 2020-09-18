@@ -90,6 +90,22 @@ namespace FNNLib.Transports {
             _server.Start(port);
         }
 
+        public override bool ServerSend(ulong clientID, ArraySegment<byte> data, int channel = DefaultChannels.Reliable) {
+            var copy = new byte[data.Count];
+            Array.Copy(data.Array, data.Offset, copy, 0, data.Count);
+            
+            // Cannot send to server.
+            if (clientID == 0) {
+                return true;
+            }
+
+            var id = GetTelepathyConnectionID(clientID);
+            if (!_server.Send(id, copy))
+                return false;
+
+            return true;
+        }
+
         public override bool ServerSend(List<ulong> clients, ArraySegment<byte> data, int channel = 0) {
             var copy = new byte[data.Count];
             Array.Copy(data.Array, data.Offset, copy, 0, data.Count);

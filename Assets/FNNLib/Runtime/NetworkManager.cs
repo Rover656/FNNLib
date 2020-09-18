@@ -84,7 +84,7 @@ namespace FNNLib {
             // Instance manager
             if (instance != null && instance == this) {
                 Debug.LogError("Only one NetworkManager may exist. Destroying.");
-                Destroy(this);
+                Destroy(gameObject);
             } else {
                 instance = this;
                 if (dontDestroyOnLoad)
@@ -104,7 +104,8 @@ namespace FNNLib {
             _client.RegisterPacketHandler<DestroyObjectPacket>(SpawnManager.ClientHandleDestroy);
             
             // RPCs
-            _client.RegisterPacketHandler<ClientRPCPacket>(NetworkBehaviour.ClientRPCCallHandler);
+            _client.RegisterPacketHandler<RPCPacket>(NetworkBehaviour.ClientRPCCallHandler);
+            _server.RegisterPacketHandler<RPCPacket>(NetworkBehaviour.ServerRPCCallHandler);
         }
 
         #region Server

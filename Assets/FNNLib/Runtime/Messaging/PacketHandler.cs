@@ -25,7 +25,6 @@ namespace FNNLib.Messaging {
         /// <param name="sender">The senders ID (0 for server).</param>
         /// <param name="data">The data containing the packet.</param>
         protected void HandlePacket(ulong sender, ArraySegment<byte> data, int channelID) {
-            // TODO: A non-allocating reader/writer like Mirror.
             using (var reader = NetworkReaderPool.GetReader(data)) {
                 var packetID = reader.ReadPackedUInt32();
                 if (_packetHandlers.TryGetValue(packetID, out var handler)) {

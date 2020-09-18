@@ -5772,6 +5772,22 @@ references:
   isSpec: "True"
   fullName: FNNLib.Serialization.NetworkWriter.WritePackedObject
   nameWithType: NetworkWriter.WritePackedObject
+- uid: FNNLib.Serialization.NetworkWriter.WritePackedObjects(System.Object[])
+  name: WritePackedObjects(Object[])
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedObjects_System_Object___
+  commentId: M:FNNLib.Serialization.NetworkWriter.WritePackedObjects(System.Object[])
+  name.vb: WritePackedObjects(Object())
+  fullName: FNNLib.Serialization.NetworkWriter.WritePackedObjects(System.Object[])
+  fullName.vb: FNNLib.Serialization.NetworkWriter.WritePackedObjects(System.Object())
+  nameWithType: NetworkWriter.WritePackedObjects(Object[])
+  nameWithType.vb: NetworkWriter.WritePackedObjects(Object())
+- uid: FNNLib.Serialization.NetworkWriter.WritePackedObjects*
+  name: WritePackedObjects
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedObjects_
+  commentId: Overload:FNNLib.Serialization.NetworkWriter.WritePackedObjects
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkWriter.WritePackedObjects
+  nameWithType: NetworkWriter.WritePackedObjects
 - uid: FNNLib.Serialization.NetworkWriter.WritePackedUInt16(System.UInt16)
   name: WritePackedUInt16(UInt16)
   href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WritePackedUInt16_System_UInt16_

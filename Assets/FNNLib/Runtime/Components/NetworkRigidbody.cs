@@ -35,7 +35,7 @@ namespace FNNLib.Components {
                     _lastSendTime = Time.unscaledTime;
 
                     if (isServer)
-                        InvokeClientRPCForAllExcept(ApplyRigidBody, ownerClientID, transform.position, transform.rotation, _rigidBody.velocity, _rigidBody.angularVelocity);
+                        InvokeClientRPCOnAllExcept(ApplyRigidBody, ownerClientID, transform.position, transform.rotation, _rigidBody.velocity, _rigidBody.angularVelocity);
                     else InvokeServerRPC(SubmitRigidbody, transform.position, transform.rotation, _rigidBody.velocity, _rigidBody.angularVelocity);
                 }
                 return;
@@ -66,7 +66,7 @@ namespace FNNLib.Components {
             if (!isClient)
                 ApplyRigidBody(position, rotation, velocity, angularVelocity);
             
-            InvokeClientRPCForAllExcept(ApplyRigidBody, ownerClientID, position, rotation, velocity, angularVelocity);
+            InvokeClientRPCOnAllExcept(ApplyRigidBody, ownerClientID, position, rotation, velocity, angularVelocity);
         }
     }
 }

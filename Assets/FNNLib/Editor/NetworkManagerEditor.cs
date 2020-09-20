@@ -20,10 +20,10 @@ namespace FNNLib.Editor {
         private SerializedProperty _transportProp;
         private SerializedProperty _maxBufferedPacketAgeProp;
         private SerializedProperty _initialSceneProp;
-        private SerializedProperty _moveNewClientsToActiveSceneProp;
-        private SerializedProperty _permittedScenesProp;
-        private SerializedProperty _networkedPrefabsProp;
+        private SerializedProperty _enableHybridScenesProp;
+        private SerializedProperty _clientMaxReceivesPerUpdateProp;
         private SerializedProperty _serverTickRateProp;
+        private SerializedProperty _serverMaxReceivesPerUpdateProp;
         private SerializedProperty _packetIDHashSizeProp;
         private SerializedProperty _rpcHashSizeProp;
 
@@ -45,7 +45,10 @@ namespace FNNLib.Editor {
             _transportProp = _networkConfigProp.FindPropertyRelative("transport");
             _maxBufferedPacketAgeProp = _networkConfigProp.FindPropertyRelative("maxBufferedPacketAge");
             _initialSceneProp = _networkConfigProp.FindPropertyRelative("initialScene");
+            _enableHybridScenesProp = _networkConfigProp.FindPropertyRelative("enableHybridScenes");
+            _clientMaxReceivesPerUpdateProp = _networkConfigProp.FindPropertyRelative("clientMaxReceivesPerUpdate");
             _serverTickRateProp = _networkConfigProp.FindPropertyRelative("serverTickRate");
+            _serverMaxReceivesPerUpdateProp = _networkConfigProp.FindPropertyRelative("serverMaxReceivesPerUpdate");
             _packetIDHashSizeProp = _networkConfigProp.FindPropertyRelative("packetIDHashSize");
             _rpcHashSizeProp = _networkConfigProp.FindPropertyRelative("rpcHashSize");
         }
@@ -58,7 +61,10 @@ namespace FNNLib.Editor {
                                                             .FindPropertyRelative("networkableScenes"),
                                                          true,
                                                          true, true, true);
-            _networkableScenesList.elementHeight = 40;
+
+            if (_enableHybridScenesProp.boolValue)
+                _networkableScenesList.elementHeight = 40;
+            else _networkableScenesList.elementHeight = 21;
 
             _networkableScenesList.drawElementCallback = (rect, index, isActive, isFocused) => {
                                                              var element = _networkableScenesList
@@ -81,17 +87,19 @@ namespace FNNLib.Editor {
                                                                      EditorGUIUtility.singleLineHeight),
                                                                  name, GUIContent.none);
 
-                                                             EditorGUI
-                                                                .LabelField(new Rect(rect.x, rect.y + secondRow, firstLabelWidth, EditorGUIUtility.singleLineHeight),
-                                                                            "Packing Data");
-                                                             EditorGUI
-                                                                .PropertyField(new Rect(rect.x + firstLabelWidth,
-                                                                                   rect.y + secondRow,
-                                                                                   rect.width - firstLabelWidth -
-                                                                                   padding,
-                                                                                   EditorGUIUtility
-                                                                                      .singleLineHeight),
-                                                                               packingData, GUIContent.none);
+                                                             if (_enableHybridScenesProp.boolValue) {
+                                                                 EditorGUI
+                                                                    .LabelField(new Rect(rect.x, rect.y + secondRow, firstLabelWidth, EditorGUIUtility.singleLineHeight),
+                                                                                    "Packing Data");
+                                                                 EditorGUI
+                                                                    .PropertyField(new Rect(rect.x + firstLabelWidth,
+                                                                             rect.y + secondRow,
+                                                                             rect.width - firstLabelWidth -
+                                                                             padding,
+                                                                             EditorGUIUtility
+                                                                                .singleLineHeight),
+                                                                         packingData, GUIContent.none);
+                                                             }
                                                          };
 
             _networkableScenesList.drawHeaderCallback = (rect) => { EditorGUI.LabelField(rect, "Networkable Scenes"); };
@@ -146,24 +154,34 @@ namespace FNNLib.Editor {
 
                 EditorGUILayout.LabelField("Scene Management", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(_initialSceneProp);
+                EditorGUILayout.PropertyField(_enableHybridScenesProp);
                 _networkableScenesList.DoLayoutList();
-                EditorGUILayout
-                   .HelpBox("Scene packing data is used to space out subscenes if they are loaded additively on the server, but not on the client. Do not provide one if you do not use this feature.",
-                            MessageType.Info);
+
+                if (_enableHybridScenesProp.boolValue) {
+                    EditorGUILayout
+                       .HelpBox("Scene packing data is used to space out subscenes if they are loaded in hybrid mode.",
+                                MessageType.Info);
+                }
 
                 EditorGUILayout.LabelField("Spawning", EditorStyles.boldLabel);
                 _networkedPrefabsList.DoLayoutList();
 
                 EditorGUILayout.LabelField("Client", EditorStyles.boldLabel);
+                EditorGUILayout.PropertyField(_clientMaxReceivesPerUpdateProp);
 
                 EditorGUILayout.LabelField("Server", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(_serverTickRateProp);
+                EditorGUILayout.PropertyField(_serverMaxReceivesPerUpdateProp);
 
                 EditorGUILayout.LabelField("Hashing", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(_packetIDHashSizeProp);
                 EditorGUILayout.PropertyField(_rpcHashSizeProp);
 
                 serializedObject.ApplyModifiedProperties();
+
+                if (_enableHybridScenesProp.boolValue)
+                    _networkableScenesList.elementHeight = 40;
+                else _networkableScenesList.elementHeight = 21;
             }
         }
 

@@ -43,8 +43,8 @@ namespace FNNLib.RPC {
             if (attributes.Length == 0)
                 return null;
 
-            // TODO: The ability to have return types.
-            if (method.ReturnType != typeof(void))
+            // Ensure the response can be serialized
+            if (method.ReturnType != typeof(void) && !SerializationSystem.CanSerialize(method.ReturnType))
                 return null;
 
             return new RPCReflectedMethod(method, parameters, attributes[0], index);

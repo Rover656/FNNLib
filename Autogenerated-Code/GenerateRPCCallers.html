@@ -6,9 +6,11 @@
     const methodSigHashMethod = "HashMethodSignature";
     const clientRPCDispatcher = "SendClientRPCCall";
     const clientRPCDispatcherAll = "SendClientRPCCallAll";
-    const clientRPCDispatcherSingle = "SendClientRPCCallFor";
+    const clientRPCDispatcherSingle = "SendClientRPCCallOn";
+    const clientRPCDispatcherSingleResponse = "SendClientRPCCallOnResponse";
     const clientRPCDispatcherAllBut = "SendClientRPCCallAllExcept";
     const serverRPCDispatcher = "SendServerRPCCall";
+    const serverRPCDispatcherResponse = "SendServerRPCCallResponse";
 
     for (let i = 0; i < maxParams; i++) {
         // public delegate void RPCMethod<T1>(T1 t1);
@@ -18,6 +20,17 @@
         writeTypes(i);
         if (i > 0)
             document.write("&gt;")
+        document.write("(")
+        writeTypeParams(i);
+        document.write(");<br/>");
+
+        // public delegate void RPCResponseMethod<TResponse, T1>(T1 t1);
+            document.write("/// &lt;exclude /&gt;<br/>public delegate TResponse RPCResponseMethod");
+        document.write("&lt;TResponse")
+        if (i > 0)
+            document.write(", ");
+        writeTypes(i);
+        document.write("&gt;")
         document.write("(")
         writeTypeParams(i);
         document.write(");<br/>");
@@ -40,8 +53,8 @@
         writeTypeArguments(i);
         document.write(");<br/>}<br/>")
 
-        // public void InvokeClientRPCFor(string methodName, ulong client, T..., int channel = DefaultChannels.Reliable)
-        document.write("public void InvokeClientRPCFor");
+        // public void InvokeClientRPCOn(string methodName, ulong client, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeClientRPCOn");
         if (i > 0)
             document.write("&lt;")
         writeTypes(i);
@@ -58,8 +71,25 @@
         writeTypeArguments(i);
         document.write(");<br/>}<br/>")
 
-        // public void InvokeClientRPCForAll(string methodName, T..., int channel = DefaultChannels.Reliable)
-        document.write("public void InvokeClientRPCForAll");
+        // public RPCResponse<TResponse> InvokeClientRPCOn<TResponse>(string methodName, ulong client, T..., int channel = DefaultChannels.Reliable)
+        document.write("public RPCResponse&lt;TResponse&gt; InvokeClientRPCOn&lt;TResponse");
+        if (i > 0)
+            document.write(", ")
+        writeTypes(i);
+        document.write("&gt;")
+        document.write("(string methodName, ulong client")
+        if (i > 0)
+            document.write(", ");
+        writeTypeParams(i);
+        document.write(", int channel = DefaultChannels.Reliable");
+        document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;return " + clientRPCDispatcherSingleResponse + "&lt;TResponse&gt;(" + methodNameHashMethod + "(methodName), client, channel");
+        if (i > 0)
+            document.write(", ");
+        writeTypeArguments(i);
+        document.write(");<br/>}<br/>")
+
+        // public void InvokeClientRPCOnAll(string methodName, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeClientRPCOnAll");
         if (i > 0)
             document.write("&lt;")
         writeTypes(i);
@@ -76,8 +106,8 @@
         writeTypeArguments(i);
         document.write(");<br/>}<br/>")
 
-        // public void InvokeClientRPCForAllExcept(string methodName, ulong excludedClient, T..., int channel = DefaultChannels.Reliable)
-        document.write("public void InvokeClientRPCForAllExcept");
+        // public void InvokeClientRPCOnAllExcept(string methodName, ulong excludedClient, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeClientRPCOnAllExcept");
         if (i > 0)
             document.write("&lt;")
         writeTypes(i);
@@ -118,8 +148,8 @@
         writeTypeArguments(i);
         document.write(");<br/>}<br/>")
 
-        // public void InvokeClientRPCFor(RPCMethod<...> method, ulong client, T..., int channel = DefaultChannels.Reliable)
-        document.write("public void InvokeClientRPCFor");
+        // public void InvokeClientRPCOn(RPCMethod<...> method, ulong client, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeClientRPCOn");
         if (i > 0)
             document.write("&lt;")
         writeTypes(i);
@@ -142,8 +172,28 @@
         writeTypeArguments(i);
         document.write(");<br/>}<br/>")
 
-        // public void InvokeClientRPCForAll(RPCMethod<...>, T..., int channel = DefaultChannels.Reliable)
-        document.write("public void InvokeClientRPCForAll");
+        // public RPCResponse<TResponse> InvokeClientRPCOn<TResponse>(RPCResponseMethod<...> method, ulong client, T..., int channel = DefaultChannels.Reliable)
+        document.write("public RPCResponse&lt;TResponse&gt; InvokeClientRPCOn&lt;TResponse");
+        if (i > 0)
+            document.write(", ")
+        writeTypes(i);
+        document.write("&gt;(RPCResponseMethod&lt;TResponse");
+        if (i > 0)
+            document.write(", ");
+        writeTypes(i);
+        document.write("&gt; method, ulong client")
+        if (i > 0)
+            document.write(", ");
+        writeTypeParams(i);
+        document.write(", int channel = DefaultChannels.Reliable");
+        document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;return " + clientRPCDispatcherSingleResponse + "&lt;TResponse&gt;(" + methodSigHashMethod + "(method.Method), client, channel");
+        if (i > 0)
+            document.write(", ");
+        writeTypeArguments(i);
+        document.write(");<br/>}<br/>")
+
+        // public void InvokeClientRPCOnAll(RPCMethod<...>, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeClientRPCOnAll");
         if (i > 0)
             document.write("&lt;")
         writeTypes(i);
@@ -166,8 +216,8 @@
         writeTypeArguments(i);
         document.write(");<br/>}<br/>")
 
-        // public void InvokeClientRPCForAllExcept(RPCMethod<...>, ulong excludedClient, T..., int channel = DefaultChannels.Reliable)
-        document.write("public void InvokeClientRPCForAllExcept");
+        // public void InvokeClientRPCOnAllExcept(RPCMethod<...>, ulong excludedClient, T..., int channel = DefaultChannels.Reliable)
+        document.write("public void InvokeClientRPCOnAllExcept");
         if (i > 0)
             document.write("&lt;")
         writeTypes(i);
@@ -208,6 +258,22 @@
         writeTypeArguments(i);
         document.write(");<br/>}<br/>")
 
+        // public RPCResponse<TResponse> InvokeServerRPC<TResponse>(string methodName, T..., int channel = DefaultChannels.Reliable)
+        document.write("public RPCResponse&lt;TResponse&gt; InvokeServerRPC&lt;TResponse");
+        if (i > 0)
+            document.write(", ");
+        writeTypes(i);
+        document.write("&gt;(string methodName");
+        if (i > 0)
+            document.write(", ");
+        writeTypeParams(i);
+        document.write(", int channel = DefaultChannels.Reliable");
+        document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;return " + serverRPCDispatcherResponse + "&lt;TResponse&gt;(" + methodNameHashMethod + "(methodName), channel");
+        if (i > 0)
+            document.write(", ");
+        writeTypeArguments(i);
+        document.write(");<br/>}<br/>")
+
         // public void InvokeServerRPC(RPCMethod<...>, T..., int channel = DefaultChannels.Reliable)
         document.write("public void InvokeServerRPC");
         if (i > 0)
@@ -227,6 +293,26 @@
         writeTypeParams(i);
         document.write(", int channel = DefaultChannels.Reliable");
         document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + serverRPCDispatcher + "(" + methodSigHashMethod + "(method.Method), channel");
+        if (i > 0)
+            document.write(", ");
+        writeTypeArguments(i);
+        document.write(");<br/>}<br/>")
+
+        // public RPCResponse<TResponse> InvokeServerRPC<TResponse>(RPCResponseMethod<...> method, T..., int channel = DefaultChannels.Reliable)
+            document.write("public RPCResponse&lt;TResponse&gt; InvokeServerRPC&lt;TResponse");
+        if (i > 0)
+            document.write(", ");
+        writeTypes(i);
+        document.write("&gt;(RPCResponseMethod&lt;TResponse");
+        if (i > 0)
+            document.write(", ");
+        writeTypes(i);
+        document.write("&gt; method")
+        if (i > 0)
+            document.write(", ");
+        writeTypeParams(i);
+        document.write(", int channel = DefaultChannels.Reliable");
+        document.write(") {<br/>&nbsp;&nbsp;&nbsp;&nbsp;return " + serverRPCDispatcherResponse + "&lt;TResponse&gt;(" + methodSigHashMethod + "(method.Method), channel");
         if (i > 0)
             document.write(", ");
         writeTypeArguments(i);

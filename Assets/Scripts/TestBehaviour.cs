@@ -3,16 +3,31 @@ using System.Collections.Generic;
 using FNNLib;
 using FNNLib.RPC;
 using FNNLib.Serialization;
+using FNNLib.Transports;
 using UnityEngine;
 
 namespace DefaultNamespace {
     public class TestBehaviour : NetworkBehaviour {
         public override void NetworkStart() {
             NetworkManager.instance.serverOnClientConnect.AddListener((clientID) => {
-                                                                          InvokeClientRPCFor(Test, clientID, "Hello world!");
+                                                                          InvokeClientRPCOn(Test, clientID, "Hello world!");
+                                                                          StartCoroutine(AwaitResponse(InvokeClientRPCOn(TestResponse, clientID)));
                                                                  });
-            if (isClient)
-                InvokeServerRPC(ServerTest, "hello");
+            if (isClient) {
+                // StartCoroutine(AwaitResponse(InvokeServerRPC(TestResponse)));
+            }
+        }
+
+        private IEnumerator AwaitResponse(RPCResponse<bool> response) {
+            while (!response.isDone) yield return null;
+            Debug.Log("Received response from server, it was: " + response.value);
+        }
+
+        [ClientRPC]
+        // [ServerRPC(requireOwnership = false)] // TODO: Allow a function to be both client and server callable? Is that bad?
+        public bool TestResponse() {
+            Debug.Log("TESTRESPONSE CALLED");
+            return true;
         }
 
         [ClientRPC]

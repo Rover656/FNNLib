@@ -16,20 +16,26 @@ namespace FNNLib.Config {
         /// This prevents cross-version communication.
         /// You can however keep the protocol version the same if a minor bugfix or change is done that doesn't affect gameplay.
         /// </summary>
+        [Tooltip("The protocol version. This prevents cross-version communication.")]
         public ushort protocolVersion;
 
         /// <summary>
-        /// The transport to use.
+        /// The transport to use for networking.
         /// </summary>
+        [Tooltip("The transport to use for networking.")]
         public Transport transport;
 
         /// <summary>
         /// The maximum age of a buffered packet before it is ignored.
-        /// Default: 2 seconds.
-        ///
-        /// TODO: Actually implement freeing of old packets.
         /// </summary>
+        [Tooltip("The maximum age of a buffered packet before it is ignored.")]
         public float maxBufferedPacketAge = 10f;
+
+        /// <summary>
+        /// The number of buffer purges to perform per second.
+        /// TODO: Add to editor
+        /// </summary>
+        public int bufferPurgesPerSecond = 3;
         
         #endregion
         
@@ -39,7 +45,7 @@ namespace FNNLib.Config {
         /// The initial starting scene.
         /// If left blank, it will use the scene when StartServer/StartHost is called.
         /// </summary>
-        [Tooltip("The initial starting scene. IF left blank, it will use the active scene at the time the server or host is started.")]
+        [Tooltip("The initial starting scene. If left blank, it will use the active scene at the time the server or host is started.")]
         public string initialScene;
 
         /// <summary>
@@ -48,6 +54,13 @@ namespace FNNLib.Config {
         /// </summary>
         [Tooltip("The list of scenes that the server may send the client to. Used to prevent rogue servers sending clients to invalid scenes.")]
         public List<NetworkableScene> networkableScenes = new List<NetworkableScene>();
+
+        /// <summary>
+        /// Whether or not hybrid scenes are enabled.
+        /// This will enable the use of scenes that are additively loaded (and packed) on the server and single loaded on clients.
+        /// </summary>
+        [Tooltip("Whether or not hybrid scenes are enabled. This will enable the use of scenes that are additively loaded (and packed) on the server and single loaded on clients.")]
+        public bool enableHybridScenes;
         
         #endregion
         
@@ -63,6 +76,12 @@ namespace FNNLib.Config {
         
         #region Client Specific
         
+        /// <summary>
+        /// Maximum number of updates to process per tick as the client.
+        /// </summary>
+        [Tooltip("Maximum number of updates to process per tick as the client.")]
+        public int clientMaxReceivesPerUpdate = 1000;
+        
         #endregion
         
         #region Server Specific
@@ -72,15 +91,23 @@ namespace FNNLib.Config {
         /// </summary>
         [Tooltip("Dedicated server update frequency. Prevents high CPU usage from an unlocked tickrate.")]
         public int serverTickRate = 30;
+        
+        /// <summary>
+        /// Maximum number of updates to process per tick as the server.
+        /// </summary>
+        [Tooltip("Maximum number of updates to process per tick as the server.")]
+        public int serverMaxReceivesPerUpdate = 10000;
 
         /// <summary>
         /// The number of seconds to wait for a client to request connection before dropping them.
         /// </summary>
+        [Tooltip("The number of seconds to wait for a client to request connection before dropping them.")]
         public int connectionRequestTimeout = 15;
 
         /// <summary>
         /// The number of seconds to wait for a client to acknowledge a disconnection request before dropping them.
         /// </summary>
+        [Tooltip("The number of seconds to wait for a client to acknowledge a disconnection request before dropping them.")]
         public int disconnectRequestTimeout = 15;
         
         #endregion
@@ -91,12 +118,14 @@ namespace FNNLib.Config {
         /// The hash size used for packet IDs.
         /// Only change if you are having collision problems.
         /// </summary>
+        [Tooltip("The hash size used for packet IDs. Only change if you are having collision problems.")]
         public HashSize packetIDHashSize = HashSize.FourBytes;
         
         /// <summary>
-        /// The hash size for rpc method names.
+        /// The hash size for RPC method names/signatures.
         /// Only change if you are having collision problems.
         /// </summary>
+        [Tooltip("The hash size for RPC method names/signatures. Only change if you are having collision problems.")]
         public HashSize rpcHashSize = HashSize.FourBytes;
 
         #endregion

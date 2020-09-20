@@ -25,7 +25,7 @@ namespace FNNLib.Components {
                     _lastSendTime = Time.unscaledTime;
 
                     if (isServer)
-                        InvokeClientRPCForAllExcept(ApplyTransform, ownerClientID, transform.position,
+                        InvokeClientRPCOnAllExcept(ApplyTransform, ownerClientID, transform.position,
                                                     transform.rotation);
                     else InvokeServerRPC(SubmitTransform, transform.position, transform.rotation);
                 }
@@ -52,7 +52,7 @@ namespace FNNLib.Components {
             if (!isClient)
                 ApplyTransform(position, rotation);
             
-            InvokeClientRPCForAllExcept(ApplyTransform, ownerClientID, position, rotation);
+            InvokeClientRPCOnAllExcept(ApplyTransform, ownerClientID, position, rotation);
         }
     }
 }

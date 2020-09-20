@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using FNNLib.Config;
 using FNNLib.Messaging;
 using FNNLib.Serialization;
 using FNNLib.Spawning;
-using UnityEngine;
 
 namespace FNNLib.RPC {
     [ClientPacket, ServerPacket]
@@ -12,6 +10,8 @@ namespace FNNLib.RPC {
         public ulong networkID;
         public int behaviourOrder;
         public ulong methodHash;
+        public bool expectsResponse;
+        public ulong responseID;
         public ArraySegment<byte> parameterBuffer;
 
         public void Serialize(NetworkWriter writer) {
@@ -31,6 +31,10 @@ namespace FNNLib.RPC {
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            writer.WriteBool(expectsResponse);
+            if (expectsResponse)
+                writer.WritePackedUInt64(responseID);
             
             writer.WriteSegmentWithSize(parameterBuffer);
         }
@@ -52,6 +56,10 @@ namespace FNNLib.RPC {
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            expectsResponse = reader.ReadBool();
+            if (expectsResponse)
+                responseID = reader.ReadPackedUInt64();
             
             var paramBuf = reader.ReadSegmentWithSize();
             if (paramBuf == null)

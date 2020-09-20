@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 
 namespace FNNLib.Messaging {
-    public class PacketBufferCollection<TKey> {
+    public class PacketBufferCollection<TKey> : BasePacketBufferCollection {
+        /// <summary>
+        /// All of the buffers in the collection
+        /// </summary>
         private Dictionary<TKey, PacketBuffer> _buffers = new Dictionary<TKey, PacketBuffer>();
 
         public void Enqueue(TKey key, BufferedPacket packet) {
@@ -25,7 +28,7 @@ namespace FNNLib.Messaging {
             return _buffers[key].count > 0;
         }
 
-        public void PurgeOldPackets() {
+        public override void PurgeOldPackets() {
             var remove = new List<TKey>();
             foreach (var buffer in _buffers) {
                 buffer.Value.PurgeOldPackets();

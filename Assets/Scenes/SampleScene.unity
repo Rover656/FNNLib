@@ -417,36 +417,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18de6302a7a09c741949381cba444d47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onClientConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  onClientDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  onClientDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerStopped:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  onServerDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
   port: 7777
   noDelay: 1
   serverMaxMessageSize: 16384
-  serverMaxReceivesPerUpdate: 10000
   clientMaxMessageSize: 16384
-  clientMaxReceivesPerUpdate: 1000
 --- !u!114 &786270580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,14 +445,17 @@ MonoBehaviour:
       scenePackingData: {fileID: 0}
     - sceneName: Test
       scenePackingData: {fileID: 0}
+    enableHybridScenes: 0
     networkedPrefabs:
     - prefab: {fileID: 5101672141092711332, guid: 90fdb134f78ffc047ba089b9aa66b3f0, type: 3}
     - prefab: {fileID: 2814584347881587928, guid: 8ef2c1703d1cdf546be216bc493ac80f, type: 3}
+    clientMaxReceivesPerUpdate: 1000
     serverTickRate: 30
+    serverMaxReceivesPerUpdate: 10000
     connectionRequestTimeout: 15
     disconnectRequestTimeout: 15
     packetIDHashSize: 1
-    rpcHashSize: 2
+    rpcHashSize: 1
   serverOnClientConnect:
     m_PersistentCalls:
       m_Calls: []

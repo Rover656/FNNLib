@@ -19,14 +19,10 @@ namespace FNNLib.Transports {
 
         public int serverMaxMessageSize = 16 * 1024;
 
-        public int serverMaxReceivesPerUpdate = 10000;
-
         public int clientMaxMessageSize = 16 * 1024;
 
-        public int clientMaxReceivesPerUpdate = 1000;
-
-        private Telepathy.Client _client = new Telepathy.Client();
-        private Telepathy.Server _server = new Telepathy.Server();
+        private Client _client = new Client();
+        private Server _server = new Server();
 
         private void Awake() {
             // Route telepathy logging to Unity
@@ -65,27 +61,6 @@ namespace FNNLib.Transports {
 
         public override void ClientDisconnect() => _client.Disconnect();
 
-        private bool ProcessClientIncoming() {
-            if (_client.GetNextMessage(out var msg)) {
-                switch (msg.eventType) {
-                    case Telepathy.EventType.Connected:
-                        onClientConnected.Invoke();
-                        break;
-                    case Telepathy.EventType.Data:
-                        onClientDataReceived.Invoke(new ArraySegment<byte>(msg.data), DefaultChannels.Reliable);
-                        break;
-                    case Telepathy.EventType.Disconnected:
-                    default:
-                        onClientDisconnected.Invoke();
-                        break; // Error = disconnect, so fire disconnect event!
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-
         #endregion
 
         #region Server
@@ -98,23 +73,6 @@ namespace FNNLib.Transports {
             if (clientConnected)
                 throw new NotSupportedException("A client is currently active!");
             _server.Start(port);
-        }
-
-        public override bool ServerSend(ulong clientID, ArraySegment<byte> data,
-                                        int channel = DefaultChannels.Reliable) {
-            var copy = new byte[data.Count];
-            Array.Copy(data.Array, data.Offset, copy, 0, data.Count);
-
-            // Cannot send to server.
-            if (clientID == 0) {
-                return true;
-            }
-
-            var id = GetTelepathyConnectionID(clientID);
-            if (!_server.Send(id, copy))
-                return false;
-
-            return true;
         }
 
         public override bool ServerSend(List<ulong> clients, ArraySegment<byte> data,
@@ -146,30 +104,6 @@ namespace FNNLib.Transports {
             if (!serverRunning)
                 throw new NotSupportedException("The server is not running!");
             _server.Stop();
-        }
-
-        private bool ProcessServerIncoming() {
-            if (_server.GetNextMessage(out var msg)) {
-                // Get client ID
-                var clientID = GetFNNClientID(msg.connectionId, false);
-                switch (msg.eventType) {
-                    case Telepathy.EventType.Connected:
-                        onServerConnected?.Invoke(clientID);
-                        break;
-                    case Telepathy.EventType.Data:
-                        onServerDataReceived.Invoke(clientID, new ArraySegment<byte>(msg.data),
-                                                    DefaultChannels.Reliable);
-                        break;
-                    case Telepathy.EventType.Disconnected:
-                    default: // Error = disconnect, so fire disconnect event!
-                        onServerDisconnected?.Invoke(clientID);
-                        break;
-                }
-
-                return true;
-            }
-
-            return false;
         }
 
         #endregion

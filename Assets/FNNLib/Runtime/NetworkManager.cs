@@ -160,8 +160,7 @@ namespace FNNLib {
             Shutdown();
 
             // Stop server
-            networkConfig.transport
-                         .ServerShutdown(); // TODO: Thread safe way for transport to send events to the manager.
+            networkConfig.transport.ServerShutdown();
             isServer = false;
         }
 
@@ -186,6 +185,8 @@ namespace FNNLib {
             networkConfig.transport.ServerDisconnect(clientID);
         }
 
+        private List<ulong> _singleSenderList = new List<ulong> {0};
+
         /// <summary>
         /// Send a packet to the given client.
         /// </summary>
@@ -206,7 +207,8 @@ namespace FNNLib {
                 WritePacket(packet, writer);
 
                 // Send
-                networkConfig.transport.ServerSend(clientID, writer.ToArraySegment(), channel);
+                _singleSenderList[0] = clientID;
+                networkConfig.transport.ServerSend(_singleSenderList, writer.ToArraySegment(), channel);
             }
         }
 
@@ -620,8 +622,7 @@ namespace FNNLib {
             Shutdown();
 
             // Stop server
-            networkConfig.transport
-                         .ServerShutdown(); // TODO: Thread safe way for transport to send events to the manager.
+            networkConfig.transport.ServerShutdown();
             isServer = false;
             isClient = false;
         }
@@ -731,14 +732,6 @@ namespace FNNLib {
             _wasRunningInBackground = Application.runInBackground;
             Application.runInBackground = runInBackground;
 
-            // Hook transport events
-            networkConfig.transport.onClientConnected.AddListener(ClientOnConnected);
-            networkConfig.transport.onClientDisconnected.AddListener(ClientOnDisconnected);
-            networkConfig.transport.onClientDataReceived.AddListener(ClientOnDataReceived);
-            networkConfig.transport.onServerConnected.AddListener(ServerOnClientConnect);
-            networkConfig.transport.onServerDataReceived.AddListener(ServerOnDataReceived);
-            networkConfig.transport.onServerDisconnected.AddListener(ServerOnClientDisconnect);
-
             // Initial protocols
             RegisterBuiltinPackets();
         }
@@ -751,26 +744,23 @@ namespace FNNLib {
 
             // Reset run in background state. So if player goes into main menu and minimizes the game stops using resources.
             Application.runInBackground = _wasRunningInBackground;
-
-            // Unhook transport events
-            networkConfig.transport.onClientConnected.RemoveListener(ClientOnConnected);
-            networkConfig.transport.onClientDisconnected.RemoveListener(ClientOnDisconnected);
-            networkConfig.transport.onClientDataReceived.RemoveListener(ClientOnDataReceived);
-            networkConfig.transport.onServerConnected.RemoveListener(ServerOnClientConnect);
-            networkConfig.transport.onServerDataReceived.RemoveListener(ServerOnDataReceived);
-            networkConfig.transport.onServerDisconnected.RemoveListener(ServerOnClientDisconnect);
         }
 
         #endregion
         
         #region Lifecycle
 
+        /// <summary>
+        /// The last time we purged all buffers.
+        /// </summary>
+        private float _lastBufferPurge;
+
         private void LateUpdate() {
             if (!enabled) return;
 
-            // Prioritise server. Host mode will take precedence.
+            // Prioritise server. Host mode will take precedence (obviously).
             if (isServer) {
-                for (var i = 0; i < 10000; i++) {
+                for (var i = 0; i < networkConfig.serverMaxReceivesPerUpdate; i++) {
                     var eventType = networkConfig.transport.GetMessage(out var clientID, out var data, out var channel);
                 
                     switch (eventType) {
@@ -790,7 +780,7 @@ namespace FNNLib {
                     }
                 }
             } else if (isClient) {
-                for (var i = 0; i < 1000; i++) {
+                for (var i = 0; i < networkConfig.clientMaxReceivesPerUpdate; i++) {
                     var eventType = networkConfig.transport.GetMessage(out var clientID, out var data, out var channel);
                 
                     switch (eventType) {
@@ -812,16 +802,27 @@ namespace FNNLib {
             }
             
             exit:
-            return;
+            
+            // Purge all expired but still buffered packets
+            if (Time.unscaledTime - _lastBufferPurge > (1f / networkConfig.bufferPurgesPerSecond)) {
+                _lastBufferPurge = Time.unscaledTime;
+                BasePacketBufferCollection.PurgeAllOldPackets();
+            }
         }
         
         #endregion
 
         #region Packets
 
+        /// <summary>
+        /// All client packet handlers
+        /// </summary>
         internal readonly Dictionary<ulong, ClientPacketHandlers> clientHandlers =
             new Dictionary<ulong, ClientPacketHandlers>();
 
+        /// <summary>
+        /// All server packet handlers.
+        /// </summary>
         internal readonly Dictionary<ulong, ServerPacketHandlers> serverHandlers =
             new Dictionary<ulong, ServerPacketHandlers>();
 
@@ -902,7 +903,9 @@ namespace FNNLib {
 
             // RPCs
             RegisterClientPacketHandler<RPCPacket>(NetworkBehaviour.ClientRPCCallHandler);
+            RegisterClientPacketHandler<RPCResponsePacket>(RPCResponseManager.ClientHandleRPCResponse);
             RegisterServerPacketHandler<RPCPacket>(NetworkBehaviour.ServerRPCCallHandler);
+            RegisterServerPacketHandler<RPCResponsePacket>(RPCResponseManager.ServerHandleRPCResponse);
         }
 
         /// <summary>

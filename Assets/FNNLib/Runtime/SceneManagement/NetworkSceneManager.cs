@@ -31,26 +31,20 @@ namespace FNNLib.SceneManagement {
         /// <summary>
         /// Other additive scenes that will be loaded when the player joins.
         /// </summary>
-        private static List<NetworkScene> _mainScenes = new List<NetworkScene>();
+        private static readonly List<NetworkScene> _mainScenes = new List<NetworkScene>();
 
         /// <summary>
         /// Dictionary of currently loaded scenes.
         /// </summary>
-        internal static ConcurrentDictionary<uint, NetworkScene> loadedScenes =
+        private static readonly ConcurrentDictionary<uint, NetworkScene> loadedScenes =
             new ConcurrentDictionary<uint, NetworkScene>();
-        
+
         internal static PacketBufferCollection<uint> bufferedScenePackets = new PacketBufferCollection<uint>();
 
-        #region Scene Management
+        public static int mainSceneCount => _mainScenes.Count;
+        public static int loadedSceneCount => loadedScenes.Count;
 
-        /// <summary>
-        /// Load the given scene on the server and all clients.
-        /// </summary>
-        /// <param name="sceneName">Scene to load.</param>
-        /// <returns>The NetworkScene.</returns>
-        public static NetworkScene LoadScene(string sceneName) {
-            return LoadScene(sceneName, LoadSceneMode.Single, LoadSceneMode.Single);
-        }
+        #region Scene Management
 
         /// <summary>
         /// Load a scene.
@@ -63,7 +57,7 @@ namespace FNNLib.SceneManagement {
         /// <param name="clientMode">he mode to load with on the client.</param>
         /// <param name="clientsToLoadFor">The clients to load the scene for, or null for all clients.</param>
         /// <returns>The NetworkScene.</returns>
-        public static NetworkScene LoadScene(string sceneName, LoadSceneMode serverMode, LoadSceneMode clientMode,
+        public static NetworkScene LoadScene(string sceneName, LoadSceneMode serverMode = LoadSceneMode.Single, LoadSceneMode clientMode = LoadSceneMode.Single,
                                              List<ulong> clientsToLoadFor = null) {
             if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("Only the server may load scenes!");
@@ -74,8 +68,10 @@ namespace FNNLib.SceneManagement {
                     NotSupportedException("If you load a scene in single mode on the server, all clients must be moved there. Pass null instead.");
             if (!CanSendClientTo(sceneName))
                 throw new NotSupportedException();
+            if (serverMode == LoadSceneMode.Additive && clientMode == LoadSceneMode.Single && !NetworkManager.instance.networkConfig.enableHybridScenes)
+                throw new NotSupportedException("Hybrid scenes are not enabled!");
             if (serverMode == LoadSceneMode.Additive && clientMode == LoadSceneMode.Single)
-                throw new NotImplementedException();
+                throw new NotImplementedException(); // Need to implement scene packing.
 
             // Load on the server
             SceneManager.LoadScene(sceneName, serverMode);
@@ -252,27 +248,27 @@ namespace FNNLib.SceneManagement {
         #endregion
 
         #region Object Management
-        
+
         public static void MoveNetworkObjectToScene(NetworkIdentity identity, NetworkScene scene) {
             MoveNetworkObjectToScene(identity, scene.netID);
         }
-        
+
         public static void MoveNetworkObjectToScene(NetworkIdentity identity, uint sceneNetworkID) {
             if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("Only server may move objects to different scenes!");
             if (!loadedScenes.ContainsKey(sceneNetworkID))
                 throw new NotSupportedException("Scene is not loaded!");
-            
+
             // Move it
             var originalScene = loadedScenes[identity.networkSceneID];
             var targetScene = loadedScenes[sceneNetworkID];
             SceneManager.MoveGameObjectToScene(identity.gameObject, targetScene.scene);
-            
+
             // Tell observers of both scenes to move it. If they can only see the 
             var movePacket = new MoveObjectToScenePacket {
-                                                       networkID = identity.networkID,
-                                                       destinationScene = sceneNetworkID
-                                                   };
+                                                             networkID = identity.networkID,
+                                                             destinationScene = sceneNetworkID
+                                                         };
             foreach (var observer in NetworkManager.instance.connectedClientsList.Select(item => item.clientID)) {
                 if (originalScene.observers.Contains(observer) && targetScene.observers.Contains(observer)) {
                     NetworkManager.instance.ServerSend(observer, movePacket);
@@ -308,11 +304,11 @@ namespace FNNLib.SceneManagement {
             // Get the scene to load
             var scene = NetworkManager.instance.networkConfig.networkableScenes[packet.sceneIndex];
 
-            // Async load scene TODO: There are major problems around here. Need to buffer spawn packets and such
+            // Async load scene
             var asyncLoad = SceneManager.LoadSceneAsync(scene.sceneName, packet.mode);
             var loadedScene = SceneManager.GetSceneAt(SceneManager
-                                                   .sceneCount - 1);
-            asyncLoad.completed += (AsyncOperation op) => {
+                                                         .sceneCount - 1);
+            asyncLoad.completed += (op) => {
                                        // Add to loaded scenes list
                                        loadedScenes.TryAdd(packet.sceneNetworkID, new NetworkScene {
                                                                scene = loadedScene,
@@ -328,7 +324,7 @@ namespace FNNLib.SceneManagement {
                                        // Add to the loaded scenes list of the client
                                        NetworkManager.instance.connectedClients[NetworkManager.instance.localClientID]
                                                      .loadedScenes.Add(packet.sceneNetworkID);
-                                       
+
                                        // Run buffered actions (spawns)
                                        while (bufferedScenePackets.HasPending(packet.sceneNetworkID)) {
                                            bufferedScenePackets.ExecutePending(packet.sceneNetworkID);
@@ -386,12 +382,7 @@ namespace FNNLib.SceneManagement {
         #endregion
 
         #region Scene Fetching
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="scene"></param>
-        /// <returns></returns>
+        
         public static uint GetSceneNetID(Scene scene) {
             foreach (var subScene in loadedScenes) {
                 if (subScene.Value.scene == scene)
@@ -411,12 +402,7 @@ namespace FNNLib.SceneManagement {
             // Not loaded.
             throw new Exception("Scene could not be found! Are you sure it is loaded?");
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="netID"></param>
-        /// <returns></returns>
+        
         public static NetworkScene GetNetScene(uint netID = 0) {
             return loadedScenes.ContainsKey(netID) ? loadedScenes[netID] : null;
         }

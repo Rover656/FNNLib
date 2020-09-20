@@ -41,6 +41,7 @@ namespace FNNLib.Messaging {
 
         public void PurgeOldPackets() {
             foreach (var bufferedPacket in _internalList) {
+                // TODO: Sorted list so that we can stop looping if this is not old (saves on processing time)
                 if (IsPacketOld(bufferedPacket))
                     _internalList.Remove(bufferedPacket);
             }

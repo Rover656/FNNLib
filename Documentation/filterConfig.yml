@@ -8,3 +8,9 @@ apiRules:
 - exclude:
     uidRegex: .*
     type: Namespace
+- exclude:
+    uidRegex: ^FNNLib\.NetworkBehaviour\.RPCMethod
+    type: Delegate
+- exclude:
+    uidRegex: ^FNNLib\.NetworkBehaviour\.RPCResponseMethod
+    type: Delegate

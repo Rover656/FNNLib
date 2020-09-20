@@ -104,7 +104,7 @@ public class NetworkConfig</code></pre>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Config_NetworkConfig_connectionRequestTimeout.md&amp;value=---%0Auid%3A%20FNNLib.Config.NetworkConfig.connectionRequestTimeout%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L73">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L79">View Source</a>
   </span>
   <h4 id="FNNLib_Config_NetworkConfig_connectionRequestTimeout" data-uid="FNNLib.Config.NetworkConfig.connectionRequestTimeout">connectionRequestTimeout</h4>
   <div class="markdown level1 summary"><p>The number of seconds to wait for a client to request connection before dropping them.</p>
@@ -134,7 +134,7 @@ public class NetworkConfig</code></pre>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Config_NetworkConfig_disconnectRequestTimeout.md&amp;value=---%0Auid%3A%20FNNLib.Config.NetworkConfig.disconnectRequestTimeout%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L78">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L84">View Source</a>
   </span>
   <h4 id="FNNLib_Config_NetworkConfig_disconnectRequestTimeout" data-uid="FNNLib.Config.NetworkConfig.disconnectRequestTimeout">disconnectRequestTimeout</h4>
   <div class="markdown level1 summary"><p>The number of seconds to wait for a client to acknowledge a disconnection request before dropping them.</p>
@@ -164,7 +164,7 @@ public class NetworkConfig</code></pre>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Config_NetworkConfig_initialScene.md&amp;value=---%0Auid%3A%20FNNLib.Config.NetworkConfig.initialScene%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L35">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L43">View Source</a>
   </span>
   <h4 id="FNNLib_Config_NetworkConfig_initialScene" data-uid="FNNLib.Config.NetworkConfig.initialScene">initialScene</h4>
   <div class="markdown level1 summary"><p>The initial starting scene.
@@ -192,10 +192,42 @@ If left blank, it will use the scene when StartServer/StartHost is called.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Config_NetworkConfig_maxBufferedPacketAge.md&amp;value=---%0Auid%3A%20FNNLib.Config.NetworkConfig.maxBufferedPacketAge%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L32">View Source</a>
+  </span>
+  <h4 id="FNNLib_Config_NetworkConfig_maxBufferedPacketAge" data-uid="FNNLib.Config.NetworkConfig.maxBufferedPacketAge">maxBufferedPacketAge</h4>
+  <div class="markdown level1 summary"><p>The maximum age of a buffered packet before it is ignored.
+Default: 2 seconds.</p>
+<p>TODO: Actually implement freeing of old packets.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float maxBufferedPacketAge</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Config_NetworkConfig_networkableScenes.md&amp;value=---%0Auid%3A%20FNNLib.Config.NetworkConfig.networkableScenes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L42">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L50">View Source</a>
   </span>
   <h4 id="FNNLib_Config_NetworkConfig_networkableScenes" data-uid="FNNLib.Config.NetworkConfig.networkableScenes">networkableScenes</h4>
   <div class="markdown level1 summary"><p>The list of scenes that the server is permitted to send the client to.
@@ -226,7 +258,7 @@ Used to prevent rogue servers sending clients to invalid scenes.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Config_NetworkConfig_networkedPrefabs.md&amp;value=---%0Auid%3A%20FNNLib.Config.NetworkConfig.networkedPrefabs%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L52">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L60">View Source</a>
   </span>
   <h4 id="FNNLib_Config_NetworkConfig_networkedPrefabs" data-uid="FNNLib.Config.NetworkConfig.networkedPrefabs">networkedPrefabs</h4>
   <div class="markdown level1 summary"><p>List of all networked prefabs.</p>
@@ -256,7 +288,7 @@ Used to prevent rogue servers sending clients to invalid scenes.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Config_NetworkConfig_packetIDHashSize.md&amp;value=---%0Auid%3A%20FNNLib.Config.NetworkConfig.packetIDHashSize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L90">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L94">View Source</a>
   </span>
   <h4 id="FNNLib_Config_NetworkConfig_packetIDHashSize" data-uid="FNNLib.Config.NetworkConfig.packetIDHashSize">packetIDHashSize</h4>
   <div class="markdown level1 summary"><p>The hash size used for packet IDs.
@@ -319,11 +351,12 @@ You can however keep the protocol version the same if a minor bugfix or change i
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Config_NetworkConfig_rpcHashSize.md&amp;value=---%0Auid%3A%20FNNLib.Config.NetworkConfig.rpcHashSize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L96">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L101">View Source</a>
   </span>
   <h4 id="FNNLib_Config_NetworkConfig_rpcHashSize" data-uid="FNNLib.Config.NetworkConfig.rpcHashSize">rpcHashSize</h4>
   <div class="markdown level1 summary"><p>The hash size for rpc method names.
-Only change if you are having collision problems.</p>
+Only change if you are having collision problems.
+TODO: Implement</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -350,7 +383,7 @@ Only change if you are having collision problems.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Config_NetworkConfig_serverTickRate.md&amp;value=---%0Auid%3A%20FNNLib.Config.NetworkConfig.serverTickRate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L66">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L74">View Source</a>
   </span>
   <h4 id="FNNLib_Config_NetworkConfig_serverTickRate" data-uid="FNNLib.Config.NetworkConfig.serverTickRate">serverTickRate</h4>
   <div class="markdown level1 summary"><p>(Dedicated) server update frequency.</p>
@@ -412,7 +445,7 @@ Only change if you are having collision problems.</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Config_NetworkConfig_GetHash_System_Boolean_.md&amp;value=---%0Auid%3A%20FNNLib.Config.NetworkConfig.GetHash(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L121">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Config/NetworkConfig.cs/#L126">View Source</a>
   </span>
   <a id="FNNLib_Config_NetworkConfig_GetHash_" data-uid="FNNLib.Config.NetworkConfig.GetHash*"></a>
   <h4 id="FNNLib_Config_NetworkConfig_GetHash_System_Boolean_" data-uid="FNNLib.Config.NetworkConfig.GetHash(System.Boolean)">GetHash(Boolean)</h4>

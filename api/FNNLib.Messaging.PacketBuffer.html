@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class NetworkedClient
+    <title>Class PacketBuffer
    | Friday Night Networking Library </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class NetworkedClient
+    <meta name="title" content="Class PacketBuffer
    | Friday Night Networking Library ">
     <meta name="generator" content="docfx 2.56.2.0">
     
@@ -78,41 +78,42 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="FNNLib.NetworkedClient">
+            <article class="content wrap" id="_content" data-uid="FNNLib.Messaging.PacketBuffer">
   
   
-  <h1 id="FNNLib_NetworkedClient" data-uid="FNNLib.NetworkedClient" class="text-break">Class NetworkedClient
+  <h1 id="FNNLib_Messaging_PacketBuffer" data-uid="FNNLib.Messaging.PacketBuffer" class="text-break">Class PacketBuffer
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">NetworkedClient</span></div>
+    <div class="level1"><span class="xref">PacketBuffer</span></div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="FNNLib.html">FNNLib</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="FNNLib.Messaging.html">FNNLib.Messaging</a></h6>
   <h6><strong>Assembly</strong>: FNNLib.dll</h6>
-  <h5 id="FNNLib_NetworkedClient_syntax">Syntax</h5>
+  <h5 id="FNNLib_Messaging_PacketBuffer_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class NetworkedClient</code></pre>
+    <pre><code class="lang-csharp hljs">public class PacketBuffer</code></pre>
   </div>
-  <h3 id="fields">Fields
+  <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkedClient_clientID.md&amp;value=---%0Auid%3A%20FNNLib.NetworkedClient.clientID%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_PacketBuffer_count.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.PacketBuffer.count%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Backend/NetworkedClient.cs/#L5">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/PacketBuffer.cs/#L9">View Source</a>
   </span>
-  <h4 id="FNNLib_NetworkedClient_clientID" data-uid="FNNLib.NetworkedClient.clientID">clientID</h4>
+  <a id="FNNLib_Messaging_PacketBuffer_count_" data-uid="FNNLib.Messaging.PacketBuffer.count*"></a>
+  <h4 id="FNNLib_Messaging_PacketBuffer_count" data-uid="FNNLib.Messaging.PacketBuffer.count">count</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ulong clientID</code></pre>
+    <pre><code class="lang-csharp hljs">public int count { get; }</code></pre>
   </div>
-  <h5 class="fieldValue">Field Value</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -122,98 +123,75 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_PacketBuffer_Enqueue_FNNLib_Messaging_BufferedPacket_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.PacketBuffer.Enqueue(FNNLib.Messaging.BufferedPacket)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/PacketBuffer.cs/#L11">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_PacketBuffer_Enqueue_" data-uid="FNNLib.Messaging.PacketBuffer.Enqueue*"></a>
+  <h4 id="FNNLib_Messaging_PacketBuffer_Enqueue_FNNLib_Messaging_BufferedPacket_" data-uid="FNNLib.Messaging.PacketBuffer.Enqueue(FNNLib.Messaging.BufferedPacket)">Enqueue(BufferedPacket)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Enqueue(BufferedPacket packet)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FNNLib.Messaging.BufferedPacket.html">BufferedPacket</a></td>
+        <td><span class="parametername">packet</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkedClient_loadedScenes.md&amp;value=---%0Auid%3A%20FNNLib.NetworkedClient.loadedScenes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_PacketBuffer_ExecutePending.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.PacketBuffer.ExecutePending%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Backend/NetworkedClient.cs/#L7">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/PacketBuffer.cs/#L17">View Source</a>
   </span>
-  <h4 id="FNNLib_NetworkedClient_loadedScenes" data-uid="FNNLib.NetworkedClient.loadedScenes">loadedScenes</h4>
+  <a id="FNNLib_Messaging_PacketBuffer_ExecutePending_" data-uid="FNNLib.Messaging.PacketBuffer.ExecutePending*"></a>
+  <h4 id="FNNLib_Messaging_PacketBuffer_ExecutePending" data-uid="FNNLib.Messaging.PacketBuffer.ExecutePending">ExecutePending()</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;uint&gt; loadedScenes</code></pre>
+    <pre><code class="lang-csharp hljs">public void ExecutePending()</code></pre>
   </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkedClient_ownedObjects.md&amp;value=---%0Auid%3A%20FNNLib.NetworkedClient.ownedObjects%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_PacketBuffer_PurgeOldPackets.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.PacketBuffer.PurgeOldPackets%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Backend/NetworkedClient.cs/#L11">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/PacketBuffer.cs/#L35">View Source</a>
   </span>
-  <h4 id="FNNLib_NetworkedClient_ownedObjects" data-uid="FNNLib.NetworkedClient.ownedObjects">ownedObjects</h4>
+  <a id="FNNLib_Messaging_PacketBuffer_PurgeOldPackets_" data-uid="FNNLib.Messaging.PacketBuffer.PurgeOldPackets*"></a>
+  <h4 id="FNNLib_Messaging_PacketBuffer_PurgeOldPackets" data-uid="FNNLib.Messaging.PacketBuffer.PurgeOldPackets">PurgeOldPackets()</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public readonly List&lt;ulong&gt; ownedObjects</code></pre>
+    <pre><code class="lang-csharp hljs">public void PurgeOldPackets()</code></pre>
   </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkedClient_playerObject.md&amp;value=---%0Auid%3A%20FNNLib.NetworkedClient.playerObject%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Backend/NetworkedClient.cs/#L9">View Source</a>
-  </span>
-  <h4 id="FNNLib_NetworkedClient_playerObject" data-uid="FNNLib.NetworkedClient.playerObject">playerObject</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ulong playerObject</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
 </article>
           </div>
           
@@ -222,10 +200,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkedClient.md&amp;value=---%0Auid%3A%20FNNLib.NetworkedClient%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_PacketBuffer.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.PacketBuffer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Backend/NetworkedClient.cs/#L4" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/PacketBuffer.cs/#L6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

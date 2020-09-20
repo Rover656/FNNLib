@@ -93,12 +93,13 @@
   <div classs="implements">
     <h5>Implements</h5>
     <div><a class="xref" href="FNNLib.Serialization.ISerializable.html">ISerializable</a></div>
+    <div><a class="xref" href="FNNLib.Messaging.IBufferablePacket.html">IBufferablePacket</a></div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="FNNLib.RPC.html">FNNLib.RPC</a></h6>
   <h6><strong>Assembly</strong>: FNNLib.dll</h6>
   <h5 id="FNNLib_RPC_RPCPacket_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class RPCPacket : ISerializable</code></pre>
+    <pre><code class="lang-csharp hljs">public class RPCPacket : ISerializable, IBufferablePacket</code></pre>
   </div>
   <h3 id="fields">Fields
   </h3>
@@ -107,7 +108,7 @@
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket_behaviourOrder.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket.behaviourOrder%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L9">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L11">View Source</a>
   </span>
   <h4 id="FNNLib_RPC_RPCPacket_behaviourOrder" data-uid="FNNLib.RPC.RPCPacket.behaviourOrder">behaviourOrder</h4>
   <div class="markdown level1 summary"></div>
@@ -136,7 +137,7 @@
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket_methodHash.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket.methodHash%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L10">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L12">View Source</a>
   </span>
   <h4 id="FNNLib_RPC_RPCPacket_methodHash" data-uid="FNNLib.RPC.RPCPacket.methodHash">methodHash</h4>
   <div class="markdown level1 summary"></div>
@@ -165,7 +166,7 @@
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket_networkID.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket.networkID%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L8">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L10">View Source</a>
   </span>
   <h4 id="FNNLib_RPC_RPCPacket_networkID" data-uid="FNNLib.RPC.RPCPacket.networkID">networkID</h4>
   <div class="markdown level1 summary"></div>
@@ -194,7 +195,7 @@
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket_parameterBuffer.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket.parameterBuffer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L11">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L13">View Source</a>
   </span>
   <h4 id="FNNLib_RPC_RPCPacket_parameterBuffer" data-uid="FNNLib.RPC.RPCPacket.parameterBuffer">parameterBuffer</h4>
   <div class="markdown level1 summary"></div>
@@ -222,10 +223,57 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket_BufferPacket_System_UInt64_.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket.BufferPacket(System.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L32">View Source</a>
+  </span>
+  <a id="FNNLib_RPC_RPCPacket_BufferPacket_" data-uid="FNNLib.RPC.RPCPacket.BufferPacket*"></a>
+  <h4 id="FNNLib_RPC_RPCPacket_BufferPacket_System_UInt64_" data-uid="FNNLib.RPC.RPCPacket.BufferPacket(System.UInt64)">BufferPacket(UInt64)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool BufferPacket(ulong sender)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">sender</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket_DeSerialize_FNNLib_Serialization_NetworkReader_.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket.DeSerialize(FNNLib.Serialization.NetworkReader)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L20">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L22">View Source</a>
   </span>
   <a id="FNNLib_RPC_RPCPacket_DeSerialize_" data-uid="FNNLib.RPC.RPCPacket.DeSerialize*"></a>
   <h4 id="FNNLib_RPC_RPCPacket_DeSerialize_FNNLib_Serialization_NetworkReader_" data-uid="FNNLib.RPC.RPCPacket.DeSerialize(FNNLib.Serialization.NetworkReader)">DeSerialize(NetworkReader)</h4>
@@ -257,7 +305,7 @@
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket_Serialize_FNNLib_Serialization_NetworkWriter_.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket.Serialize(FNNLib.Serialization.NetworkWriter)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L13">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L15">View Source</a>
   </span>
   <a id="FNNLib_RPC_RPCPacket_Serialize_" data-uid="FNNLib.RPC.RPCPacket.Serialize*"></a>
   <h4 id="FNNLib_RPC_RPCPacket_Serialize_FNNLib_Serialization_NetworkWriter_" data-uid="FNNLib.RPC.RPCPacket.Serialize(FNNLib.Serialization.NetworkWriter)">Serialize(NetworkWriter)</h4>
@@ -288,6 +336,9 @@
   <div>
       <a class="xref" href="FNNLib.Serialization.ISerializable.html">ISerializable</a>
   </div>
+  <div>
+      <a class="xref" href="FNNLib.Messaging.IBufferablePacket.html">IBufferablePacket</a>
+  </div>
 </article>
           </div>
           
@@ -299,7 +350,7 @@
                     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L8" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   running: {fileID: 1517152541}
-  reverseRoles: 1
+  reverseRoles: 0
   testPrefab: {fileID: 2814584347881587928, guid: 8ef2c1703d1cdf546be216bc493ac80f, type: 3}
 --- !u!114 &786270579
 MonoBehaviour:
@@ -478,7 +478,7 @@ MonoBehaviour:
     connectionRequestTimeout: 15
     disconnectRequestTimeout: 15
     packetIDHashSize: 1
-    rpcHashSize: 1
+    rpcHashSize: 2
   serverOnClientConnect:
     m_PersistentCalls:
       m_Calls: []
@@ -505,37 +505,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1129424419 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5101672141092711332, guid: 90fdb134f78ffc047ba089b9aa66b3f0, type: 3}
-  m_PrefabInstance: {fileID: 5101672140451962991}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1129424423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129424419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2d60bdf38ca44d6857bbe6aa4d6d026, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1129424424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129424419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae5cbf0a70484732b3ad64b39097192c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sendsPerSecond: 20
-  interpolationMultiplier: 1
 --- !u!1 &1517152539
 GameObject:
   m_ObjectHideFlags: 0

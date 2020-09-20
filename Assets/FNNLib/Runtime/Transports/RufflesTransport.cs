@@ -78,6 +78,10 @@ namespace FNNLib.Transports {
             throw new NotImplementedException();
         }
 
+        public override NetworkEventType GetMessage(out ulong clientID, out ArraySegment<byte> data, out int channel) {
+            throw new NotImplementedException();
+        }
+
         public override void Shutdown() {
             throw new NotImplementedException();
         }

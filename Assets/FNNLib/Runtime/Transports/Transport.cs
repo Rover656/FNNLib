@@ -140,6 +140,8 @@ namespace FNNLib.Transports {
 
         #region Lifecycle
 
+        public abstract NetworkEventType GetMessage(out ulong clientID, out ArraySegment<byte> data, out int channel);
+
         /// <summary>
         /// Shutdown both client and server.
         /// </summary>

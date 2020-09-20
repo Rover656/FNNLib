@@ -762,6 +762,60 @@ namespace FNNLib {
         }
 
         #endregion
+        
+        #region Lifecycle
+
+        private void LateUpdate() {
+            if (!enabled) return;
+
+            // Prioritise server. Host mode will take precedence.
+            if (isServer) {
+                for (var i = 0; i < 10000; i++) {
+                    var eventType = networkConfig.transport.GetMessage(out var clientID, out var data, out var channel);
+                
+                    switch (eventType) {
+                        case NetworkEventType.None:
+                            goto exit;
+                        case NetworkEventType.Connected:
+                            ServerOnClientConnect(clientID);
+                            break;
+                        case NetworkEventType.Data:
+                            ServerOnDataReceived(clientID, data, channel);
+                            break;
+                        case NetworkEventType.Disconnected:
+                            ServerOnClientDisconnect(clientID);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+            } else if (isClient) {
+                for (var i = 0; i < 1000; i++) {
+                    var eventType = networkConfig.transport.GetMessage(out var clientID, out var data, out var channel);
+                
+                    switch (eventType) {
+                        case NetworkEventType.None:
+                            goto exit;
+                        case NetworkEventType.Connected:
+                            ClientOnConnected();
+                            break;
+                        case NetworkEventType.Data:
+                            ClientOnDataReceived(data, channel);
+                            break;
+                        case NetworkEventType.Disconnected:
+                            ClientOnDisconnected();
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+            }
+            
+            exit:
+            return;
+        }
+        
+        #endregion
 
         #region Packets
 

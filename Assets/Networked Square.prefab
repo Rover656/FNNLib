@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5101672141092711330}
   - component: {fileID: 5101672141092711331}
   - component: {fileID: 5101672141092711329}
+  - component: {fileID: 1129424423}
+  - component: {fileID: 1129424424}
   m_Layer: 0
   m_Name: Networked Square
   m_TagString: Untagged
@@ -95,3 +97,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373fb8d8ea0e4066b952c9a97196f8bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneInstanceID: 0
+  prefabHashGenerator: Networked Square
+  prefabHash: 2559692654647125803
+--- !u!114 &1129424423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5101672141092711332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2d60bdf38ca44d6857bbe6aa4d6d026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1129424424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5101672141092711332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5cbf0a70484732b3ad64b39097192c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendsPerSecond: 20
+  interpolationMultiplier: 1

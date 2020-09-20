@@ -6560,6 +6560,22 @@ references:
   isSpec: "True"
   fullName: FNNLib.Transports.MultiplexTransport.ClientSend
   nameWithType: MultiplexTransport.ClientSend
+- uid: FNNLib.Transports.MultiplexTransport.GetMessage(System.UInt64@,System.ArraySegment{System.Byte}@,System.Int32@)
+  name: GetMessage(out UInt64, out ArraySegment<Byte>, out Int32)
+  href: api/FNNLib.Transports.MultiplexTransport.html#FNNLib_Transports_MultiplexTransport_GetMessage_System_UInt64__System_ArraySegment_System_Byte___System_Int32__
+  commentId: M:FNNLib.Transports.MultiplexTransport.GetMessage(System.UInt64@,System.ArraySegment{System.Byte}@,System.Int32@)
+  name.vb: GetMessage(ByRef UInt64, ByRef ArraySegment(Of Byte), ByRef Int32)
+  fullName: FNNLib.Transports.MultiplexTransport.GetMessage(out System.UInt64, out System.ArraySegment<System.Byte>, out System.Int32)
+  fullName.vb: FNNLib.Transports.MultiplexTransport.GetMessage(ByRef System.UInt64, ByRef System.ArraySegment(Of System.Byte), ByRef System.Int32)
+  nameWithType: MultiplexTransport.GetMessage(out UInt64, out ArraySegment<Byte>, out Int32)
+  nameWithType.vb: MultiplexTransport.GetMessage(ByRef UInt64, ByRef ArraySegment(Of Byte), ByRef Int32)
+- uid: FNNLib.Transports.MultiplexTransport.GetMessage*
+  name: GetMessage
+  href: api/FNNLib.Transports.MultiplexTransport.html#FNNLib_Transports_MultiplexTransport_GetMessage_
+  commentId: Overload:FNNLib.Transports.MultiplexTransport.GetMessage
+  isSpec: "True"
+  fullName: FNNLib.Transports.MultiplexTransport.GetMessage
+  nameWithType: MultiplexTransport.GetMessage
 - uid: FNNLib.Transports.MultiplexTransport.ServerDisconnect(System.UInt64)
   name: ServerDisconnect(UInt64)
   href: api/FNNLib.Transports.MultiplexTransport.html#FNNLib_Transports_MultiplexTransport_ServerDisconnect_System_UInt64_
@@ -6669,6 +6685,36 @@ references:
   commentId: F:FNNLib.Transports.MultiplexTransport.transports
   fullName: FNNLib.Transports.MultiplexTransport.transports
   nameWithType: MultiplexTransport.transports
+- uid: FNNLib.Transports.NetworkEventType
+  name: NetworkEventType
+  href: api/FNNLib.Transports.NetworkEventType.html
+  commentId: T:FNNLib.Transports.NetworkEventType
+  fullName: FNNLib.Transports.NetworkEventType
+  nameWithType: NetworkEventType
+- uid: FNNLib.Transports.NetworkEventType.Connected
+  name: Connected
+  href: api/FNNLib.Transports.NetworkEventType.html#FNNLib_Transports_NetworkEventType_Connected
+  commentId: F:FNNLib.Transports.NetworkEventType.Connected
+  fullName: FNNLib.Transports.NetworkEventType.Connected
+  nameWithType: NetworkEventType.Connected
+- uid: FNNLib.Transports.NetworkEventType.Data
+  name: Data
+  href: api/FNNLib.Transports.NetworkEventType.html#FNNLib_Transports_NetworkEventType_Data
+  commentId: F:FNNLib.Transports.NetworkEventType.Data
+  fullName: FNNLib.Transports.NetworkEventType.Data
+  nameWithType: NetworkEventType.Data
+- uid: FNNLib.Transports.NetworkEventType.Disconnected
+  name: Disconnected
+  href: api/FNNLib.Transports.NetworkEventType.html#FNNLib_Transports_NetworkEventType_Disconnected
+  commentId: F:FNNLib.Transports.NetworkEventType.Disconnected
+  fullName: FNNLib.Transports.NetworkEventType.Disconnected
+  nameWithType: NetworkEventType.Disconnected
+- uid: FNNLib.Transports.NetworkEventType.None
+  name: None
+  href: api/FNNLib.Transports.NetworkEventType.html#FNNLib_Transports_NetworkEventType_None
+  commentId: F:FNNLib.Transports.NetworkEventType.None
+  fullName: FNNLib.Transports.NetworkEventType.None
+  nameWithType: NetworkEventType.None
 - uid: FNNLib.Transports.RufflesTransport
   name: RufflesTransport
   href: api/FNNLib.Transports.RufflesTransport.html
@@ -6736,6 +6782,22 @@ references:
   isSpec: "True"
   fullName: FNNLib.Transports.RufflesTransport.ClientSend
   nameWithType: RufflesTransport.ClientSend
+- uid: FNNLib.Transports.RufflesTransport.GetMessage(System.UInt64@,System.ArraySegment{System.Byte}@,System.Int32@)
+  name: GetMessage(out UInt64, out ArraySegment<Byte>, out Int32)
+  href: api/FNNLib.Transports.RufflesTransport.html#FNNLib_Transports_RufflesTransport_GetMessage_System_UInt64__System_ArraySegment_System_Byte___System_Int32__
+  commentId: M:FNNLib.Transports.RufflesTransport.GetMessage(System.UInt64@,System.ArraySegment{System.Byte}@,System.Int32@)
+  name.vb: GetMessage(ByRef UInt64, ByRef ArraySegment(Of Byte), ByRef Int32)
+  fullName: FNNLib.Transports.RufflesTransport.GetMessage(out System.UInt64, out System.ArraySegment<System.Byte>, out System.Int32)
+  fullName.vb: FNNLib.Transports.RufflesTransport.GetMessage(ByRef System.UInt64, ByRef System.ArraySegment(Of System.Byte), ByRef System.Int32)
+  nameWithType: RufflesTransport.GetMessage(out UInt64, out ArraySegment<Byte>, out Int32)
+  nameWithType.vb: RufflesTransport.GetMessage(ByRef UInt64, ByRef ArraySegment(Of Byte), ByRef Int32)
+- uid: FNNLib.Transports.RufflesTransport.GetMessage*
+  name: GetMessage
+  href: api/FNNLib.Transports.RufflesTransport.html#FNNLib_Transports_RufflesTransport_GetMessage_
+  commentId: Overload:FNNLib.Transports.RufflesTransport.GetMessage
+  isSpec: "True"
+  fullName: FNNLib.Transports.RufflesTransport.GetMessage
+  nameWithType: RufflesTransport.GetMessage
 - uid: FNNLib.Transports.RufflesTransport.port
   name: port
   href: api/FNNLib.Transports.RufflesTransport.html#FNNLib_Transports_RufflesTransport_port
@@ -6937,6 +6999,22 @@ references:
   isSpec: "True"
   fullName: FNNLib.Transports.TelepathyTransport.GetFNNClientID
   nameWithType: TelepathyTransport.GetFNNClientID
+- uid: FNNLib.Transports.TelepathyTransport.GetMessage(System.UInt64@,System.ArraySegment{System.Byte}@,System.Int32@)
+  name: GetMessage(out UInt64, out ArraySegment<Byte>, out Int32)
+  href: api/FNNLib.Transports.TelepathyTransport.html#FNNLib_Transports_TelepathyTransport_GetMessage_System_UInt64__System_ArraySegment_System_Byte___System_Int32__
+  commentId: M:FNNLib.Transports.TelepathyTransport.GetMessage(System.UInt64@,System.ArraySegment{System.Byte}@,System.Int32@)
+  name.vb: GetMessage(ByRef UInt64, ByRef ArraySegment(Of Byte), ByRef Int32)
+  fullName: FNNLib.Transports.TelepathyTransport.GetMessage(out System.UInt64, out System.ArraySegment<System.Byte>, out System.Int32)
+  fullName.vb: FNNLib.Transports.TelepathyTransport.GetMessage(ByRef System.UInt64, ByRef System.ArraySegment(Of System.Byte), ByRef System.Int32)
+  nameWithType: TelepathyTransport.GetMessage(out UInt64, out ArraySegment<Byte>, out Int32)
+  nameWithType.vb: TelepathyTransport.GetMessage(ByRef UInt64, ByRef ArraySegment(Of Byte), ByRef Int32)
+- uid: FNNLib.Transports.TelepathyTransport.GetMessage*
+  name: GetMessage
+  href: api/FNNLib.Transports.TelepathyTransport.html#FNNLib_Transports_TelepathyTransport_GetMessage_
+  commentId: Overload:FNNLib.Transports.TelepathyTransport.GetMessage
+  isSpec: "True"
+  fullName: FNNLib.Transports.TelepathyTransport.GetMessage
+  nameWithType: TelepathyTransport.GetMessage
 - uid: FNNLib.Transports.TelepathyTransport.noDelay
   name: noDelay
   href: api/FNNLib.Transports.TelepathyTransport.html#FNNLib_Transports_TelepathyTransport_noDelay
@@ -7125,6 +7203,22 @@ references:
   isSpec: "True"
   fullName: FNNLib.Transports.Transport.ClientSend
   nameWithType: Transport.ClientSend
+- uid: FNNLib.Transports.Transport.GetMessage(System.UInt64@,System.ArraySegment{System.Byte}@,System.Int32@)
+  name: GetMessage(out UInt64, out ArraySegment<Byte>, out Int32)
+  href: api/FNNLib.Transports.Transport.html#FNNLib_Transports_Transport_GetMessage_System_UInt64__System_ArraySegment_System_Byte___System_Int32__
+  commentId: M:FNNLib.Transports.Transport.GetMessage(System.UInt64@,System.ArraySegment{System.Byte}@,System.Int32@)
+  name.vb: GetMessage(ByRef UInt64, ByRef ArraySegment(Of Byte), ByRef Int32)
+  fullName: FNNLib.Transports.Transport.GetMessage(out System.UInt64, out System.ArraySegment<System.Byte>, out System.Int32)
+  fullName.vb: FNNLib.Transports.Transport.GetMessage(ByRef System.UInt64, ByRef System.ArraySegment(Of System.Byte), ByRef System.Int32)
+  nameWithType: Transport.GetMessage(out UInt64, out ArraySegment<Byte>, out Int32)
+  nameWithType.vb: Transport.GetMessage(ByRef UInt64, ByRef ArraySegment(Of Byte), ByRef Int32)
+- uid: FNNLib.Transports.Transport.GetMessage*
+  name: GetMessage
+  href: api/FNNLib.Transports.Transport.html#FNNLib_Transports_Transport_GetMessage_
+  commentId: Overload:FNNLib.Transports.Transport.GetMessage
+  isSpec: "True"
+  fullName: FNNLib.Transports.Transport.GetMessage
+  nameWithType: Transport.GetMessage
 - uid: FNNLib.Transports.Transport.onClientConnected
   name: onClientConnected
   href: api/FNNLib.Transports.Transport.html#FNNLib_Transports_Transport_onClientConnected

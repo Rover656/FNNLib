@@ -700,7 +700,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.NetworkManager.html",
-          "hash": "760aMolG2DrJkFQJAGL2hQ=="
+          "hash": "Hpf5P5Qln7lWZA/8M6S2Qw=="
         }
       },
       "is_incremental": false,
@@ -1060,7 +1060,19 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Transports.MultiplexTransport.html",
-          "hash": "SEdoiVNHZr48BKcck+nnkw=="
+          "hash": "Kpz5LuH9Y+qGP1FRGAsPlA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FNNLib.Transports.NetworkEventType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FNNLib.Transports.NetworkEventType.html",
+          "hash": "tjkgg8yD59g8Dm2jJVfNTQ=="
         }
       },
       "is_incremental": false,
@@ -1072,7 +1084,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Transports.RufflesTransport.html",
-          "hash": "R/47bih9CAihIOhP3wh3oQ=="
+          "hash": "egaIq5RYp/iK0220U4evxA=="
         }
       },
       "is_incremental": false,
@@ -1084,7 +1096,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Transports.TelepathyTransport.html",
-          "hash": "b0fJUeNbS3YhLAr7iS/73w=="
+          "hash": "MxsdF+GLnuPGxrVpkKZ6zA=="
         }
       },
       "is_incremental": false,
@@ -1096,7 +1108,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Transports.Transport.html",
-          "hash": "3pwU+HkDq0TsikodssX8lQ=="
+          "hash": "kD3G3v24SiRb+A5KLzeePA=="
         }
       },
       "is_incremental": false,
@@ -1108,7 +1120,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Transports.html",
-          "hash": "UlJmOm+NiZKEfQ5gqwgqlQ=="
+          "hash": "VvYwYY8ThVT+/zPUfwoGbA=="
         }
       },
       "is_incremental": false,
@@ -1156,7 +1168,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "XEr9e5I8C4+J0XK1/85fLA=="
+          "hash": "xu0Qw0mA5iykX/cWjq/CXQ=="
         }
       },
       "is_incremental": false,
@@ -1265,7 +1277,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 94,
+          "total_file_count": 95,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {

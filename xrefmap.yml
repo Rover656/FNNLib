@@ -7,12 +7,6 @@ references:
   commentId: N:FNNLib
   fullName: FNNLib
   nameWithType: FNNLib
-- uid: FNNLib.ClientPacketDelegate
-  name: ClientPacketDelegate
-  href: api/FNNLib.ClientPacketDelegate.html
-  commentId: T:FNNLib.ClientPacketDelegate
-  fullName: FNNLib.ClientPacketDelegate
-  nameWithType: ClientPacketDelegate
 - uid: FNNLib.Components
   name: FNNLib.Components
   href: api/FNNLib.Components.html
@@ -245,12 +239,12 @@ references:
   commentId: T:FNNLib.Messaging.BufferedPacket
   fullName: FNNLib.Messaging.BufferedPacket
   nameWithType: BufferedPacket
-- uid: FNNLib.Messaging.BufferedPacket.#ctor(FNNLib.Serialization.ISerializable,System.UInt64)
-  name: BufferedPacket(ISerializable, UInt64)
-  href: api/FNNLib.Messaging.BufferedPacket.html#FNNLib_Messaging_BufferedPacket__ctor_FNNLib_Serialization_ISerializable_System_UInt64_
-  commentId: M:FNNLib.Messaging.BufferedPacket.#ctor(FNNLib.Serialization.ISerializable,System.UInt64)
-  fullName: FNNLib.Messaging.BufferedPacket.BufferedPacket(FNNLib.Serialization.ISerializable, System.UInt64)
-  nameWithType: BufferedPacket.BufferedPacket(ISerializable, UInt64)
+- uid: FNNLib.Messaging.BufferedPacket.#ctor(FNNLib.Serialization.ISerializable,System.UInt64,System.Int32)
+  name: BufferedPacket(ISerializable, UInt64, Int32)
+  href: api/FNNLib.Messaging.BufferedPacket.html#FNNLib_Messaging_BufferedPacket__ctor_FNNLib_Serialization_ISerializable_System_UInt64_System_Int32_
+  commentId: M:FNNLib.Messaging.BufferedPacket.#ctor(FNNLib.Serialization.ISerializable,System.UInt64,System.Int32)
+  fullName: FNNLib.Messaging.BufferedPacket.BufferedPacket(FNNLib.Serialization.ISerializable, System.UInt64, System.Int32)
+  nameWithType: BufferedPacket.BufferedPacket(ISerializable, UInt64, Int32)
 - uid: FNNLib.Messaging.BufferedPacket.#ctor*
   name: BufferedPacket
   href: api/FNNLib.Messaging.BufferedPacket.html#FNNLib_Messaging_BufferedPacket__ctor_
@@ -258,6 +252,12 @@ references:
   isSpec: "True"
   fullName: FNNLib.Messaging.BufferedPacket.BufferedPacket
   nameWithType: BufferedPacket.BufferedPacket
+- uid: FNNLib.Messaging.BufferedPacket.channel
+  name: channel
+  href: api/FNNLib.Messaging.BufferedPacket.html#FNNLib_Messaging_BufferedPacket_channel
+  commentId: F:FNNLib.Messaging.BufferedPacket.channel
+  fullName: FNNLib.Messaging.BufferedPacket.channel
+  nameWithType: BufferedPacket.channel
 - uid: FNNLib.Messaging.BufferedPacket.packet
   name: packet
   href: api/FNNLib.Messaging.BufferedPacket.html#FNNLib_Messaging_BufferedPacket_packet
@@ -282,18 +282,24 @@ references:
   commentId: T:FNNLib.Messaging.ClientPacketAttribute
   fullName: FNNLib.Messaging.ClientPacketAttribute
   nameWithType: ClientPacketAttribute
+- uid: FNNLib.Messaging.ClientPacketDelegate
+  name: ClientPacketDelegate
+  href: api/FNNLib.Messaging.ClientPacketDelegate.html
+  commentId: T:FNNLib.Messaging.ClientPacketDelegate
+  fullName: FNNLib.Messaging.ClientPacketDelegate
+  nameWithType: ClientPacketDelegate
 - uid: FNNLib.Messaging.IBufferablePacket
   name: IBufferablePacket
   href: api/FNNLib.Messaging.IBufferablePacket.html
   commentId: T:FNNLib.Messaging.IBufferablePacket
   fullName: FNNLib.Messaging.IBufferablePacket
   nameWithType: IBufferablePacket
-- uid: FNNLib.Messaging.IBufferablePacket.BufferPacket(System.UInt64)
-  name: BufferPacket(UInt64)
-  href: api/FNNLib.Messaging.IBufferablePacket.html#FNNLib_Messaging_IBufferablePacket_BufferPacket_System_UInt64_
-  commentId: M:FNNLib.Messaging.IBufferablePacket.BufferPacket(System.UInt64)
-  fullName: FNNLib.Messaging.IBufferablePacket.BufferPacket(System.UInt64)
-  nameWithType: IBufferablePacket.BufferPacket(UInt64)
+- uid: FNNLib.Messaging.IBufferablePacket.BufferPacket(System.UInt64,System.Int32)
+  name: BufferPacket(UInt64, Int32)
+  href: api/FNNLib.Messaging.IBufferablePacket.html#FNNLib_Messaging_IBufferablePacket_BufferPacket_System_UInt64_System_Int32_
+  commentId: M:FNNLib.Messaging.IBufferablePacket.BufferPacket(System.UInt64,System.Int32)
+  fullName: FNNLib.Messaging.IBufferablePacket.BufferPacket(System.UInt64, System.Int32)
+  nameWithType: IBufferablePacket.BufferPacket(UInt64, Int32)
 - uid: FNNLib.Messaging.IBufferablePacket.BufferPacket*
   name: BufferPacket
   href: api/FNNLib.Messaging.IBufferablePacket.html#FNNLib_Messaging_IBufferablePacket_BufferPacket_
@@ -563,6 +569,12 @@ references:
   commentId: T:FNNLib.Messaging.ServerPacketAttribute
   fullName: FNNLib.Messaging.ServerPacketAttribute
   nameWithType: ServerPacketAttribute
+- uid: FNNLib.Messaging.ServerPacketDelegate
+  name: ServerPacketDelegate
+  href: api/FNNLib.Messaging.ServerPacketDelegate.html
+  commentId: T:FNNLib.Messaging.ServerPacketDelegate
+  fullName: FNNLib.Messaging.ServerPacketDelegate
+  nameWithType: ServerPacketDelegate
 - uid: FNNLib.NetworkBehaviour
   name: NetworkBehaviour
   href: api/FNNLib.NetworkBehaviour.html
@@ -4403,15 +4415,15 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkManager.RegisterClientPacketHandler
   nameWithType: NetworkManager.RegisterClientPacketHandler
-- uid: FNNLib.NetworkManager.RegisterClientPacketHandler``1(System.Action{``0})
-  name: RegisterClientPacketHandler<TPacket>(Action<TPacket>)
-  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_RegisterClientPacketHandler__1_System_Action___0__
-  commentId: M:FNNLib.NetworkManager.RegisterClientPacketHandler``1(System.Action{``0})
-  name.vb: RegisterClientPacketHandler(Of TPacket)(Action(Of TPacket))
-  fullName: FNNLib.NetworkManager.RegisterClientPacketHandler<TPacket>(System.Action<TPacket>)
-  fullName.vb: FNNLib.NetworkManager.RegisterClientPacketHandler(Of TPacket)(System.Action(Of TPacket))
-  nameWithType: NetworkManager.RegisterClientPacketHandler<TPacket>(Action<TPacket>)
-  nameWithType.vb: NetworkManager.RegisterClientPacketHandler(Of TPacket)(Action(Of TPacket))
+- uid: FNNLib.NetworkManager.RegisterClientPacketHandler``1(System.Action{``0,System.Int32})
+  name: RegisterClientPacketHandler<TPacket>(Action<TPacket, Int32>)
+  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_RegisterClientPacketHandler__1_System_Action___0_System_Int32__
+  commentId: M:FNNLib.NetworkManager.RegisterClientPacketHandler``1(System.Action{``0,System.Int32})
+  name.vb: RegisterClientPacketHandler(Of TPacket)(Action(Of TPacket, Int32))
+  fullName: FNNLib.NetworkManager.RegisterClientPacketHandler<TPacket>(System.Action<TPacket, System.Int32>)
+  fullName.vb: FNNLib.NetworkManager.RegisterClientPacketHandler(Of TPacket)(System.Action(Of TPacket, System.Int32))
+  nameWithType: NetworkManager.RegisterClientPacketHandler<TPacket>(Action<TPacket, Int32>)
+  nameWithType.vb: NetworkManager.RegisterClientPacketHandler(Of TPacket)(Action(Of TPacket, Int32))
 - uid: FNNLib.NetworkManager.RegisterServerPacketHandler*
   name: RegisterServerPacketHandler
   href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_RegisterServerPacketHandler_
@@ -4419,15 +4431,15 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkManager.RegisterServerPacketHandler
   nameWithType: NetworkManager.RegisterServerPacketHandler
-- uid: FNNLib.NetworkManager.RegisterServerPacketHandler``1(System.Action{System.UInt64,``0})
-  name: RegisterServerPacketHandler<TPacket>(Action<UInt64, TPacket>)
-  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_RegisterServerPacketHandler__1_System_Action_System_UInt64___0__
-  commentId: M:FNNLib.NetworkManager.RegisterServerPacketHandler``1(System.Action{System.UInt64,``0})
-  name.vb: RegisterServerPacketHandler(Of TPacket)(Action(Of UInt64, TPacket))
-  fullName: FNNLib.NetworkManager.RegisterServerPacketHandler<TPacket>(System.Action<System.UInt64, TPacket>)
-  fullName.vb: FNNLib.NetworkManager.RegisterServerPacketHandler(Of TPacket)(System.Action(Of System.UInt64, TPacket))
-  nameWithType: NetworkManager.RegisterServerPacketHandler<TPacket>(Action<UInt64, TPacket>)
-  nameWithType.vb: NetworkManager.RegisterServerPacketHandler(Of TPacket)(Action(Of UInt64, TPacket))
+- uid: FNNLib.NetworkManager.RegisterServerPacketHandler``1(System.Action{System.UInt64,``0,System.Int32})
+  name: RegisterServerPacketHandler<TPacket>(Action<UInt64, TPacket, Int32>)
+  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_RegisterServerPacketHandler__1_System_Action_System_UInt64___0_System_Int32__
+  commentId: M:FNNLib.NetworkManager.RegisterServerPacketHandler``1(System.Action{System.UInt64,``0,System.Int32})
+  name.vb: RegisterServerPacketHandler(Of TPacket)(Action(Of UInt64, TPacket, Int32))
+  fullName: FNNLib.NetworkManager.RegisterServerPacketHandler<TPacket>(System.Action<System.UInt64, TPacket, System.Int32>)
+  fullName.vb: FNNLib.NetworkManager.RegisterServerPacketHandler(Of TPacket)(System.Action(Of System.UInt64, TPacket, System.Int32))
+  nameWithType: NetworkManager.RegisterServerPacketHandler<TPacket>(Action<UInt64, TPacket, Int32>)
+  nameWithType.vb: NetworkManager.RegisterServerPacketHandler(Of TPacket)(Action(Of UInt64, TPacket, Int32))
 - uid: FNNLib.NetworkManager.runInBackground
   name: runInBackground
   href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_runInBackground
@@ -4707,12 +4719,12 @@ references:
   commentId: F:FNNLib.RPC.RPCPacket.behaviourOrder
   fullName: FNNLib.RPC.RPCPacket.behaviourOrder
   nameWithType: RPCPacket.behaviourOrder
-- uid: FNNLib.RPC.RPCPacket.BufferPacket(System.UInt64)
-  name: BufferPacket(UInt64)
-  href: api/FNNLib.RPC.RPCPacket.html#FNNLib_RPC_RPCPacket_BufferPacket_System_UInt64_
-  commentId: M:FNNLib.RPC.RPCPacket.BufferPacket(System.UInt64)
-  fullName: FNNLib.RPC.RPCPacket.BufferPacket(System.UInt64)
-  nameWithType: RPCPacket.BufferPacket(UInt64)
+- uid: FNNLib.RPC.RPCPacket.BufferPacket(System.UInt64,System.Int32)
+  name: BufferPacket(UInt64, Int32)
+  href: api/FNNLib.RPC.RPCPacket.html#FNNLib_RPC_RPCPacket_BufferPacket_System_UInt64_System_Int32_
+  commentId: M:FNNLib.RPC.RPCPacket.BufferPacket(System.UInt64,System.Int32)
+  fullName: FNNLib.RPC.RPCPacket.BufferPacket(System.UInt64, System.Int32)
+  nameWithType: RPCPacket.BufferPacket(UInt64, Int32)
 - uid: FNNLib.RPC.RPCPacket.BufferPacket*
   name: BufferPacket
   href: api/FNNLib.RPC.RPCPacket.html#FNNLib_RPC_RPCPacket_BufferPacket_
@@ -4782,6 +4794,63 @@ references:
   commentId: N:FNNLib.SceneManagement
   fullName: FNNLib.SceneManagement
   nameWithType: FNNLib.SceneManagement
+- uid: FNNLib.SceneManagement.MoveObjectToScenePacket
+  name: MoveObjectToScenePacket
+  href: api/FNNLib.SceneManagement.MoveObjectToScenePacket.html
+  commentId: T:FNNLib.SceneManagement.MoveObjectToScenePacket
+  fullName: FNNLib.SceneManagement.MoveObjectToScenePacket
+  nameWithType: MoveObjectToScenePacket
+- uid: FNNLib.SceneManagement.MoveObjectToScenePacket.BufferPacket(System.UInt64,System.Int32)
+  name: BufferPacket(UInt64, Int32)
+  href: api/FNNLib.SceneManagement.MoveObjectToScenePacket.html#FNNLib_SceneManagement_MoveObjectToScenePacket_BufferPacket_System_UInt64_System_Int32_
+  commentId: M:FNNLib.SceneManagement.MoveObjectToScenePacket.BufferPacket(System.UInt64,System.Int32)
+  fullName: FNNLib.SceneManagement.MoveObjectToScenePacket.BufferPacket(System.UInt64, System.Int32)
+  nameWithType: MoveObjectToScenePacket.BufferPacket(UInt64, Int32)
+- uid: FNNLib.SceneManagement.MoveObjectToScenePacket.BufferPacket*
+  name: BufferPacket
+  href: api/FNNLib.SceneManagement.MoveObjectToScenePacket.html#FNNLib_SceneManagement_MoveObjectToScenePacket_BufferPacket_
+  commentId: Overload:FNNLib.SceneManagement.MoveObjectToScenePacket.BufferPacket
+  isSpec: "True"
+  fullName: FNNLib.SceneManagement.MoveObjectToScenePacket.BufferPacket
+  nameWithType: MoveObjectToScenePacket.BufferPacket
+- uid: FNNLib.SceneManagement.MoveObjectToScenePacket.DeSerialize(FNNLib.Serialization.NetworkReader)
+  name: DeSerialize(NetworkReader)
+  href: api/FNNLib.SceneManagement.MoveObjectToScenePacket.html#FNNLib_SceneManagement_MoveObjectToScenePacket_DeSerialize_FNNLib_Serialization_NetworkReader_
+  commentId: M:FNNLib.SceneManagement.MoveObjectToScenePacket.DeSerialize(FNNLib.Serialization.NetworkReader)
+  fullName: FNNLib.SceneManagement.MoveObjectToScenePacket.DeSerialize(FNNLib.Serialization.NetworkReader)
+  nameWithType: MoveObjectToScenePacket.DeSerialize(NetworkReader)
+- uid: FNNLib.SceneManagement.MoveObjectToScenePacket.DeSerialize*
+  name: DeSerialize
+  href: api/FNNLib.SceneManagement.MoveObjectToScenePacket.html#FNNLib_SceneManagement_MoveObjectToScenePacket_DeSerialize_
+  commentId: Overload:FNNLib.SceneManagement.MoveObjectToScenePacket.DeSerialize
+  isSpec: "True"
+  fullName: FNNLib.SceneManagement.MoveObjectToScenePacket.DeSerialize
+  nameWithType: MoveObjectToScenePacket.DeSerialize
+- uid: FNNLib.SceneManagement.MoveObjectToScenePacket.destinationScene
+  name: destinationScene
+  href: api/FNNLib.SceneManagement.MoveObjectToScenePacket.html#FNNLib_SceneManagement_MoveObjectToScenePacket_destinationScene
+  commentId: F:FNNLib.SceneManagement.MoveObjectToScenePacket.destinationScene
+  fullName: FNNLib.SceneManagement.MoveObjectToScenePacket.destinationScene
+  nameWithType: MoveObjectToScenePacket.destinationScene
+- uid: FNNLib.SceneManagement.MoveObjectToScenePacket.networkID
+  name: networkID
+  href: api/FNNLib.SceneManagement.MoveObjectToScenePacket.html#FNNLib_SceneManagement_MoveObjectToScenePacket_networkID
+  commentId: F:FNNLib.SceneManagement.MoveObjectToScenePacket.networkID
+  fullName: FNNLib.SceneManagement.MoveObjectToScenePacket.networkID
+  nameWithType: MoveObjectToScenePacket.networkID
+- uid: FNNLib.SceneManagement.MoveObjectToScenePacket.Serialize(FNNLib.Serialization.NetworkWriter)
+  name: Serialize(NetworkWriter)
+  href: api/FNNLib.SceneManagement.MoveObjectToScenePacket.html#FNNLib_SceneManagement_MoveObjectToScenePacket_Serialize_FNNLib_Serialization_NetworkWriter_
+  commentId: M:FNNLib.SceneManagement.MoveObjectToScenePacket.Serialize(FNNLib.Serialization.NetworkWriter)
+  fullName: FNNLib.SceneManagement.MoveObjectToScenePacket.Serialize(FNNLib.Serialization.NetworkWriter)
+  nameWithType: MoveObjectToScenePacket.Serialize(NetworkWriter)
+- uid: FNNLib.SceneManagement.MoveObjectToScenePacket.Serialize*
+  name: Serialize
+  href: api/FNNLib.SceneManagement.MoveObjectToScenePacket.html#FNNLib_SceneManagement_MoveObjectToScenePacket_Serialize_
+  commentId: Overload:FNNLib.SceneManagement.MoveObjectToScenePacket.Serialize
+  isSpec: "True"
+  fullName: FNNLib.SceneManagement.MoveObjectToScenePacket.Serialize
+  nameWithType: MoveObjectToScenePacket.Serialize
 - uid: FNNLib.SceneManagement.NetworkableScene
   name: NetworkableScene
   href: api/FNNLib.SceneManagement.NetworkableScene.html
@@ -4835,6 +4904,12 @@ references:
   fullName.vb: FNNLib.SceneManagement.NetworkScene.FindObjectsOfType(Of T)()
   nameWithType: NetworkScene.FindObjectsOfType<T>()
   nameWithType.vb: NetworkScene.FindObjectsOfType(Of T)()
+- uid: FNNLib.SceneManagement.NetworkScene.Instantiate(GameObject)
+  name: Instantiate(GameObject)
+  href: api/FNNLib.SceneManagement.NetworkScene.html#FNNLib_SceneManagement_NetworkScene_Instantiate_GameObject_
+  commentId: M:FNNLib.SceneManagement.NetworkScene.Instantiate(GameObject)
+  fullName: FNNLib.SceneManagement.NetworkScene.Instantiate(GameObject)
+  nameWithType: NetworkScene.Instantiate(GameObject)
 - uid: FNNLib.SceneManagement.NetworkScene.Instantiate(GameObject,Vector3,Quaternion)
   name: Instantiate(GameObject, Vector3, Quaternion)
   href: api/FNNLib.SceneManagement.NetworkScene.html#FNNLib_SceneManagement_NetworkScene_Instantiate_GameObject_Vector3_Quaternion_
@@ -4951,6 +5026,12 @@ references:
   isSpec: "True"
   fullName: FNNLib.SceneManagement.NetworkSceneManager.GetSceneNetID
   nameWithType: NetworkSceneManager.GetSceneNetID
+- uid: FNNLib.SceneManagement.NetworkSceneManager.LoadScene(System.String)
+  name: LoadScene(String)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_LoadScene_System_String_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.LoadScene(System.String)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.LoadScene(System.String)
+  nameWithType: NetworkSceneManager.LoadScene(String)
 - uid: FNNLib.SceneManagement.NetworkSceneManager.LoadScene(System.String,LoadSceneMode,LoadSceneMode,System.Collections.Generic.List{System.UInt64})
   name: LoadScene(String, LoadSceneMode, LoadSceneMode, List<UInt64>)
   href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_LoadScene_System_String_LoadSceneMode_LoadSceneMode_System_Collections_Generic_List_System_UInt64__
@@ -4996,6 +5077,25 @@ references:
   isSpec: "True"
   fullName: FNNLib.SceneManagement.NetworkSceneManager.LoadSceneOnClients
   nameWithType: NetworkSceneManager.LoadSceneOnClients
+- uid: FNNLib.SceneManagement.NetworkSceneManager.MoveNetworkObjectToScene(FNNLib.NetworkIdentity,FNNLib.SceneManagement.NetworkScene)
+  name: MoveNetworkObjectToScene(NetworkIdentity, NetworkScene)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_MoveNetworkObjectToScene_FNNLib_NetworkIdentity_FNNLib_SceneManagement_NetworkScene_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.MoveNetworkObjectToScene(FNNLib.NetworkIdentity,FNNLib.SceneManagement.NetworkScene)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.MoveNetworkObjectToScene(FNNLib.NetworkIdentity, FNNLib.SceneManagement.NetworkScene)
+  nameWithType: NetworkSceneManager.MoveNetworkObjectToScene(NetworkIdentity, NetworkScene)
+- uid: FNNLib.SceneManagement.NetworkSceneManager.MoveNetworkObjectToScene(FNNLib.NetworkIdentity,System.UInt32)
+  name: MoveNetworkObjectToScene(NetworkIdentity, UInt32)
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_MoveNetworkObjectToScene_FNNLib_NetworkIdentity_System_UInt32_
+  commentId: M:FNNLib.SceneManagement.NetworkSceneManager.MoveNetworkObjectToScene(FNNLib.NetworkIdentity,System.UInt32)
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.MoveNetworkObjectToScene(FNNLib.NetworkIdentity, System.UInt32)
+  nameWithType: NetworkSceneManager.MoveNetworkObjectToScene(NetworkIdentity, UInt32)
+- uid: FNNLib.SceneManagement.NetworkSceneManager.MoveNetworkObjectToScene*
+  name: MoveNetworkObjectToScene
+  href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_MoveNetworkObjectToScene_
+  commentId: Overload:FNNLib.SceneManagement.NetworkSceneManager.MoveNetworkObjectToScene
+  isSpec: "True"
+  fullName: FNNLib.SceneManagement.NetworkSceneManager.MoveNetworkObjectToScene
+  nameWithType: NetworkSceneManager.MoveNetworkObjectToScene
 - uid: FNNLib.SceneManagement.NetworkSceneManager.UnloadSceneAsync(System.UInt32,System.UInt32)
   name: UnloadSceneAsync(UInt32, UInt32)
   href: api/FNNLib.SceneManagement.NetworkSceneManager.html#FNNLib_SceneManagement_NetworkSceneManager_UnloadSceneAsync_System_UInt32_System_UInt32_
@@ -5294,6 +5394,45 @@ references:
   isSpec: "True"
   fullName: FNNLib.Serialization.NetworkReader.ReadBytesWithSize
   nameWithType: NetworkReader.ReadBytesWithSize
+- uid: FNNLib.Serialization.NetworkReader.ReadChar
+  name: ReadChar()
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadChar
+  commentId: M:FNNLib.Serialization.NetworkReader.ReadChar
+  fullName: FNNLib.Serialization.NetworkReader.ReadChar()
+  nameWithType: NetworkReader.ReadChar()
+- uid: FNNLib.Serialization.NetworkReader.ReadChar*
+  name: ReadChar
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadChar_
+  commentId: Overload:FNNLib.Serialization.NetworkReader.ReadChar
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkReader.ReadChar
+  nameWithType: NetworkReader.ReadChar
+- uid: FNNLib.Serialization.NetworkReader.ReadColor
+  name: ReadColor()
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadColor
+  commentId: M:FNNLib.Serialization.NetworkReader.ReadColor
+  fullName: FNNLib.Serialization.NetworkReader.ReadColor()
+  nameWithType: NetworkReader.ReadColor()
+- uid: FNNLib.Serialization.NetworkReader.ReadColor*
+  name: ReadColor
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadColor_
+  commentId: Overload:FNNLib.Serialization.NetworkReader.ReadColor
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkReader.ReadColor
+  nameWithType: NetworkReader.ReadColor
+- uid: FNNLib.Serialization.NetworkReader.ReadColor32
+  name: ReadColor32()
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadColor32
+  commentId: M:FNNLib.Serialization.NetworkReader.ReadColor32
+  fullName: FNNLib.Serialization.NetworkReader.ReadColor32()
+  nameWithType: NetworkReader.ReadColor32()
+- uid: FNNLib.Serialization.NetworkReader.ReadColor32*
+  name: ReadColor32
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadColor32_
+  commentId: Overload:FNNLib.Serialization.NetworkReader.ReadColor32
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkReader.ReadColor32
+  nameWithType: NetworkReader.ReadColor32
 - uid: FNNLib.Serialization.NetworkReader.ReadDecimal
   name: ReadDecimal()
   href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadDecimal
@@ -5463,6 +5602,19 @@ references:
   isSpec: "True"
   fullName: FNNLib.Serialization.NetworkReader.ReadQuaternion
   nameWithType: NetworkReader.ReadQuaternion
+- uid: FNNLib.Serialization.NetworkReader.ReadRay
+  name: ReadRay()
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadRay
+  commentId: M:FNNLib.Serialization.NetworkReader.ReadRay
+  fullName: FNNLib.Serialization.NetworkReader.ReadRay()
+  nameWithType: NetworkReader.ReadRay()
+- uid: FNNLib.Serialization.NetworkReader.ReadRay*
+  name: ReadRay
+  href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadRay_
+  commentId: Overload:FNNLib.Serialization.NetworkReader.ReadRay
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkReader.ReadRay
+  nameWithType: NetworkReader.ReadRay
 - uid: FNNLib.Serialization.NetworkReader.ReadSegmentWithSize
   name: ReadSegmentWithSize()
   href: api/FNNLib.Serialization.NetworkReader.html#FNNLib_Serialization_NetworkReader_ReadSegmentWithSize
@@ -5772,6 +5924,45 @@ references:
   isSpec: "True"
   fullName: FNNLib.Serialization.NetworkWriter.WriteBytesWithSize
   nameWithType: NetworkWriter.WriteBytesWithSize
+- uid: FNNLib.Serialization.NetworkWriter.WriteChar(System.Char)
+  name: WriteChar(Char)
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteChar_System_Char_
+  commentId: M:FNNLib.Serialization.NetworkWriter.WriteChar(System.Char)
+  fullName: FNNLib.Serialization.NetworkWriter.WriteChar(System.Char)
+  nameWithType: NetworkWriter.WriteChar(Char)
+- uid: FNNLib.Serialization.NetworkWriter.WriteChar*
+  name: WriteChar
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteChar_
+  commentId: Overload:FNNLib.Serialization.NetworkWriter.WriteChar
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkWriter.WriteChar
+  nameWithType: NetworkWriter.WriteChar
+- uid: FNNLib.Serialization.NetworkWriter.WriteColor(Color)
+  name: WriteColor(Color)
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteColor_Color_
+  commentId: M:FNNLib.Serialization.NetworkWriter.WriteColor(Color)
+  fullName: FNNLib.Serialization.NetworkWriter.WriteColor(Color)
+  nameWithType: NetworkWriter.WriteColor(Color)
+- uid: FNNLib.Serialization.NetworkWriter.WriteColor*
+  name: WriteColor
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteColor_
+  commentId: Overload:FNNLib.Serialization.NetworkWriter.WriteColor
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkWriter.WriteColor
+  nameWithType: NetworkWriter.WriteColor
+- uid: FNNLib.Serialization.NetworkWriter.WriteColor32(Color32)
+  name: WriteColor32(Color32)
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteColor32_Color32_
+  commentId: M:FNNLib.Serialization.NetworkWriter.WriteColor32(Color32)
+  fullName: FNNLib.Serialization.NetworkWriter.WriteColor32(Color32)
+  nameWithType: NetworkWriter.WriteColor32(Color32)
+- uid: FNNLib.Serialization.NetworkWriter.WriteColor32*
+  name: WriteColor32
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteColor32_
+  commentId: Overload:FNNLib.Serialization.NetworkWriter.WriteColor32
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkWriter.WriteColor32
+  nameWithType: NetworkWriter.WriteColor32
 - uid: FNNLib.Serialization.NetworkWriter.WriteDecimal(System.Decimal)
   name: WriteDecimal(Decimal)
   href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteDecimal_System_Decimal_
@@ -5957,6 +6148,32 @@ references:
   isSpec: "True"
   fullName: FNNLib.Serialization.NetworkWriter.WriteQuaternion
   nameWithType: NetworkWriter.WriteQuaternion
+- uid: FNNLib.Serialization.NetworkWriter.WriteRay(Ray)
+  name: WriteRay(Ray)
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteRay_Ray_
+  commentId: M:FNNLib.Serialization.NetworkWriter.WriteRay(Ray)
+  fullName: FNNLib.Serialization.NetworkWriter.WriteRay(Ray)
+  nameWithType: NetworkWriter.WriteRay(Ray)
+- uid: FNNLib.Serialization.NetworkWriter.WriteRay*
+  name: WriteRay
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteRay_
+  commentId: Overload:FNNLib.Serialization.NetworkWriter.WriteRay
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkWriter.WriteRay
+  nameWithType: NetworkWriter.WriteRay
+- uid: FNNLib.Serialization.NetworkWriter.WriteSByte(System.SByte)
+  name: WriteSByte(SByte)
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteSByte_System_SByte_
+  commentId: M:FNNLib.Serialization.NetworkWriter.WriteSByte(System.SByte)
+  fullName: FNNLib.Serialization.NetworkWriter.WriteSByte(System.SByte)
+  nameWithType: NetworkWriter.WriteSByte(SByte)
+- uid: FNNLib.Serialization.NetworkWriter.WriteSByte*
+  name: WriteSByte
+  href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteSByte_
+  commentId: Overload:FNNLib.Serialization.NetworkWriter.WriteSByte
+  isSpec: "True"
+  fullName: FNNLib.Serialization.NetworkWriter.WriteSByte
+  nameWithType: NetworkWriter.WriteSByte
 - uid: FNNLib.Serialization.NetworkWriter.WriteSegmentWithSize(System.ArraySegment{System.Byte})
   name: WriteSegmentWithSize(ArraySegment<Byte>)
   href: api/FNNLib.Serialization.NetworkWriter.html#FNNLib_Serialization_NetworkWriter_WriteSegmentWithSize_System_ArraySegment_System_Byte__
@@ -6179,12 +6396,6 @@ references:
   isSpec: "True"
   fullName: FNNLib.Serialization.SerializationSystem.CanSerialize
   nameWithType: SerializationSystem.CanSerialize
-- uid: FNNLib.ServerPacketDelegate
-  name: ServerPacketDelegate
-  href: api/FNNLib.ServerPacketDelegate.html
-  commentId: T:FNNLib.ServerPacketDelegate
-  fullName: FNNLib.ServerPacketDelegate
-  nameWithType: ServerPacketDelegate
 - uid: FNNLib.Spawning
   name: FNNLib.Spawning
   href: api/FNNLib.Spawning.html

@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class RPCPacket
+    <title>Class MoveObjectToScenePacket
    | Friday Night Networking Library </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class RPCPacket
+    <meta name="title" content="Class MoveObjectToScenePacket
    | Friday Night Networking Library ">
     <meta name="generator" content="docfx 2.56.2.0">
     
@@ -78,44 +78,44 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="FNNLib.RPC.RPCPacket">
+            <article class="content wrap" id="_content" data-uid="FNNLib.SceneManagement.MoveObjectToScenePacket">
   
   
-  <h1 id="FNNLib_RPC_RPCPacket" data-uid="FNNLib.RPC.RPCPacket" class="text-break">Class RPCPacket
+  <h1 id="FNNLib_SceneManagement_MoveObjectToScenePacket" data-uid="FNNLib.SceneManagement.MoveObjectToScenePacket" class="text-break">Class MoveObjectToScenePacket
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">RPCPacket</span></div>
+    <div class="level1"><span class="xref">MoveObjectToScenePacket</span></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
     <div><a class="xref" href="FNNLib.Serialization.ISerializable.html">ISerializable</a></div>
     <div><a class="xref" href="FNNLib.Messaging.IBufferablePacket.html">IBufferablePacket</a></div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="FNNLib.RPC.html">FNNLib.RPC</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="FNNLib.SceneManagement.html">FNNLib.SceneManagement</a></h6>
   <h6><strong>Assembly</strong>: FNNLib.dll</h6>
-  <h5 id="FNNLib_RPC_RPCPacket_syntax">Syntax</h5>
+  <h5 id="FNNLib_SceneManagement_MoveObjectToScenePacket_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class RPCPacket : ISerializable, IBufferablePacket</code></pre>
+    <pre><code class="lang-csharp hljs">public class MoveObjectToScenePacket : ISerializable, IBufferablePacket</code></pre>
   </div>
   <h3 id="fields">Fields
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket_behaviourOrder.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket.behaviourOrder%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_MoveObjectToScenePacket_destinationScene.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.MoveObjectToScenePacket.destinationScene%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L13">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/MoveObjectToScenePacket.cs/#L9">View Source</a>
   </span>
-  <h4 id="FNNLib_RPC_RPCPacket_behaviourOrder" data-uid="FNNLib.RPC.RPCPacket.behaviourOrder">behaviourOrder</h4>
+  <h4 id="FNNLib_SceneManagement_MoveObjectToScenePacket_destinationScene" data-uid="FNNLib.SceneManagement.MoveObjectToScenePacket.destinationScene">destinationScene</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int behaviourOrder</code></pre>
+    <pre><code class="lang-csharp hljs">public uint destinationScene</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -127,48 +127,19 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket_methodHash.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket.methodHash%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_MoveObjectToScenePacket_networkID.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.MoveObjectToScenePacket.networkID%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L14">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/MoveObjectToScenePacket.cs/#L8">View Source</a>
   </span>
-  <h4 id="FNNLib_RPC_RPCPacket_methodHash" data-uid="FNNLib.RPC.RPCPacket.methodHash">methodHash</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ulong methodHash</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket_networkID.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket.networkID%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L12">View Source</a>
-  </span>
-  <h4 id="FNNLib_RPC_RPCPacket_networkID" data-uid="FNNLib.RPC.RPCPacket.networkID">networkID</h4>
+  <h4 id="FNNLib_SceneManagement_MoveObjectToScenePacket_networkID" data-uid="FNNLib.SceneManagement.MoveObjectToScenePacket.networkID">networkID</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -190,46 +161,17 @@
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket_parameterBuffer.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket.parameterBuffer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L15">View Source</a>
-  </span>
-  <h4 id="FNNLib_RPC_RPCPacket_parameterBuffer" data-uid="FNNLib.RPC.RPCPacket.parameterBuffer">parameterBuffer</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ArraySegment&lt;byte&gt; parameterBuffer</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.arraysegment-1">ArraySegment</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket_BufferPacket_System_UInt64_System_Int32_.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket.BufferPacket(System.UInt64%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_MoveObjectToScenePacket_BufferPacket_System_UInt64_System_Int32_.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.MoveObjectToScenePacket.BufferPacket(System.UInt64%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L62">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/MoveObjectToScenePacket.cs/#L21">View Source</a>
   </span>
-  <a id="FNNLib_RPC_RPCPacket_BufferPacket_" data-uid="FNNLib.RPC.RPCPacket.BufferPacket*"></a>
-  <h4 id="FNNLib_RPC_RPCPacket_BufferPacket_System_UInt64_System_Int32_" data-uid="FNNLib.RPC.RPCPacket.BufferPacket(System.UInt64,System.Int32)">BufferPacket(UInt64, Int32)</h4>
+  <a id="FNNLib_SceneManagement_MoveObjectToScenePacket_BufferPacket_" data-uid="FNNLib.SceneManagement.MoveObjectToScenePacket.BufferPacket*"></a>
+  <h4 id="FNNLib_SceneManagement_MoveObjectToScenePacket_BufferPacket_System_UInt64_System_Int32_" data-uid="FNNLib.SceneManagement.MoveObjectToScenePacket.BufferPacket(System.UInt64,System.Int32)">BufferPacket(UInt64, Int32)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -275,13 +217,13 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket_DeSerialize_FNNLib_Serialization_NetworkReader_.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket.DeSerialize(FNNLib.Serialization.NetworkReader)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_MoveObjectToScenePacket_DeSerialize_FNNLib_Serialization_NetworkReader_.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.MoveObjectToScenePacket.DeSerialize(FNNLib.Serialization.NetworkReader)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L38">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/MoveObjectToScenePacket.cs/#L16">View Source</a>
   </span>
-  <a id="FNNLib_RPC_RPCPacket_DeSerialize_" data-uid="FNNLib.RPC.RPCPacket.DeSerialize*"></a>
-  <h4 id="FNNLib_RPC_RPCPacket_DeSerialize_FNNLib_Serialization_NetworkReader_" data-uid="FNNLib.RPC.RPCPacket.DeSerialize(FNNLib.Serialization.NetworkReader)">DeSerialize(NetworkReader)</h4>
+  <a id="FNNLib_SceneManagement_MoveObjectToScenePacket_DeSerialize_" data-uid="FNNLib.SceneManagement.MoveObjectToScenePacket.DeSerialize*"></a>
+  <h4 id="FNNLib_SceneManagement_MoveObjectToScenePacket_DeSerialize_FNNLib_Serialization_NetworkReader_" data-uid="FNNLib.SceneManagement.MoveObjectToScenePacket.DeSerialize(FNNLib.Serialization.NetworkReader)">DeSerialize(NetworkReader)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -307,13 +249,13 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket_Serialize_FNNLib_Serialization_NetworkWriter_.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket.Serialize(FNNLib.Serialization.NetworkWriter)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_MoveObjectToScenePacket_Serialize_FNNLib_Serialization_NetworkWriter_.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.MoveObjectToScenePacket.Serialize(FNNLib.Serialization.NetworkWriter)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L17">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/MoveObjectToScenePacket.cs/#L11">View Source</a>
   </span>
-  <a id="FNNLib_RPC_RPCPacket_Serialize_" data-uid="FNNLib.RPC.RPCPacket.Serialize*"></a>
-  <h4 id="FNNLib_RPC_RPCPacket_Serialize_FNNLib_Serialization_NetworkWriter_" data-uid="FNNLib.RPC.RPCPacket.Serialize(FNNLib.Serialization.NetworkWriter)">Serialize(NetworkWriter)</h4>
+  <a id="FNNLib_SceneManagement_MoveObjectToScenePacket_Serialize_" data-uid="FNNLib.SceneManagement.MoveObjectToScenePacket.Serialize*"></a>
+  <h4 id="FNNLib_SceneManagement_MoveObjectToScenePacket_Serialize_FNNLib_Serialization_NetworkWriter_" data-uid="FNNLib.SceneManagement.MoveObjectToScenePacket.Serialize(FNNLib.Serialization.NetworkWriter)">Serialize(NetworkWriter)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -352,10 +294,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCPacket.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCPacket%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_SceneManagement_MoveObjectToScenePacket.md&amp;value=---%0Auid%3A%20FNNLib.SceneManagement.MoveObjectToScenePacket%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCPacket.cs/#L10" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/SceneManagement/MoveObjectToScenePacket.cs/#L6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

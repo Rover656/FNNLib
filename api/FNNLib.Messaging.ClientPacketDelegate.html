@@ -78,18 +78,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="FNNLib.ClientPacketDelegate">
+            <article class="content wrap" id="_content" data-uid="FNNLib.Messaging.ClientPacketDelegate">
   
   
-  <h1 id="FNNLib_ClientPacketDelegate" data-uid="FNNLib.ClientPacketDelegate" class="text-break">Delegate ClientPacketDelegate
+  <h1 id="FNNLib_Messaging_ClientPacketDelegate" data-uid="FNNLib.Messaging.ClientPacketDelegate" class="text-break">Delegate ClientPacketDelegate
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="FNNLib.html">FNNLib</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="FNNLib.Messaging.html">FNNLib.Messaging</a></h6>
   <h6><strong>Assembly</strong>: FNNLib.dll</h6>
-  <h5 id="FNNLib_ClientPacketDelegate_syntax">Syntax</h5>
+  <h5 id="FNNLib_Messaging_ClientPacketDelegate_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public delegate void ClientPacketDelegate(NetworkReader reader);</code></pre>
+    <pre><code class="lang-csharp hljs">public delegate void ClientPacketDelegate(NetworkReader reader, int channel);</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -106,6 +106,11 @@
         <td><span class="parametername">reader</span></td>
         <td></td>
       </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">channel</span></td>
+        <td></td>
+      </tr>
     </tbody>
   </table>
 </article>
@@ -116,10 +121,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_ClientPacketDelegate.md&amp;value=---%0Auid%3A%20FNNLib.ClientPacketDelegate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_ClientPacketDelegate.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.ClientPacketDelegate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/NetworkManager.cs/#L19" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/PacketHandlers.cs/#L8" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

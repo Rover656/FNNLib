@@ -4,16 +4,16 @@ namespace FNNLib.Messaging.Internal {
     [ServerPacket]
     internal class ConnectionRequestPacket : ISerializable {
         public ulong verificationHash;
-        public ISerializable connectionData;
+        public byte[] connectionData;
         
         public void Serialize(NetworkWriter writer) {
             writer.WritePackedUInt64(verificationHash);
-            writer.WritePackedObject(connectionData);
+            writer.WriteBytesWithSize(connectionData, 0, connectionData?.Length ?? 0);
         }
 
         public void DeSerialize(NetworkReader reader) {
             verificationHash = reader.ReadPackedUInt64();
-            connectionData = (ISerializable) reader.ReadPackedObject(typeof(ISerializable));
+            connectionData = reader.ReadBytesWithSize();
         }
     }
 }

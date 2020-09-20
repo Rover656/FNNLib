@@ -1,50 +1,34 @@
-﻿using FNNLib;
+﻿using System.Collections;
+using FNNLib;
 using FNNLib.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace DefaultNamespace {
     public class TransportTest : MonoBehaviour {
         public Text running;
 
-        public bool editorIsClient;
+        public bool reverseRoles;
 
         public GameObject testPrefab;
 
         private NetworkScene testScene;
 
         void Start() {
-            if ((editorIsClient && Application.isEditor) || (!editorIsClient && !Application.isEditor)) {
-                NetworkManager.instance.StartClient("127.0.0.1");
-
-                NetworkManager.instance.clientOnConnect.AddListener(() => {
-                                                                   var test = new TestPacket {
-                                                                                  text = "Hello from the client!"
-                                                                              };
-                                                                   NetworkManager.instance.ClientSend(test);
-                                                               });
+            if ((Application.isEditor && !reverseRoles) || (!Application.isEditor && reverseRoles)) {
+                NetworkManager.instance.serverOnClientConnect.AddListener((client) => {
+                                                                              NetworkSceneManager.GetNetScene(1)
+                                                                                 .Instantiate(testPrefab, Vector3.zero,
+                                                                                      Quaternion.identity)
+                                                                                 .GetComponent<NetworkIdentity>()
+                                                                                 .SpawnAsPlayerObject(client);
+                                                                          });
+                
+                NetworkManager.instance.StartHost();
+                NetworkSceneManager.LoadScene("Test", LoadSceneMode.Additive, LoadSceneMode.Additive);
             } else {
-                NetworkManager.instance.StartServer();
-                // NetworkServer.instance.onClientConnected.AddListener((client) => {
-                //                                                          NetworkSceneManager.GetActiveScene()
-                //                                                             .Instantiate(testPrefab, Vector3.zero,
-                //                                                                  Quaternion.identity)
-                //                                                             .GetComponent<NetworkIdentity>()
-                //                                                             .SpawnWithOwnership(client);
-                //                                                      });
-                // testScene = NetworkSceneManager.LoadScene("Test", LoadSceneMode.Additive);
-                // NetworkSceneManager.SetActiveScene(testScene);
-            }
-
-            // Register packet on possible targets.
-            NetworkManager.instance.RegisterServerPacketHandler<TestPacket>(HandleTestPacket);
-        }
-
-        void HandleTestPacket(ulong clientID, TestPacket packet) {
-            if (NetworkManager.instance.isServer) {
-                Debug.Log("Received test packet from " + clientID + "! Text is \"" + packet.text + "\"");
-            } else {
-                Debug.Log("Received test packet from server! Text is \"" + packet.text + "\"");
+                NetworkManager.instance.StartClient("localhost");
             }
         }
 

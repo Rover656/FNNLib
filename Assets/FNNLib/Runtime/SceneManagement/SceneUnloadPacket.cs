@@ -2,16 +2,15 @@
 using FNNLib.Serialization;
 
 namespace FNNLib.SceneManagement {
-    [ServerPacket]
-    internal class SceneChangeCompletedPacket : ISerializable {
-        public uint loadedSceneID;
-
+    [ClientPacket]
+    public class SceneUnloadPacket : ISerializable {
+        public uint sceneNetID;
         public void Serialize(NetworkWriter writer) {
-            writer.WritePackedUInt32(loadedSceneID);
+            writer.WritePackedUInt32(sceneNetID);
         }
 
         public void DeSerialize(NetworkReader reader) {
-            loadedSceneID = reader.ReadPackedUInt32();
+            sceneNetID = reader.ReadPackedUInt32();
         }
     }
 }

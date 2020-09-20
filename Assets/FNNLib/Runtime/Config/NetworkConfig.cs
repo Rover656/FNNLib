@@ -22,6 +22,14 @@ namespace FNNLib.Config {
         /// The transport to use.
         /// </summary>
         public Transport transport;
+
+        /// <summary>
+        /// The maximum age of a buffered packet before it is ignored.
+        /// Default: 2 seconds.
+        ///
+        /// TODO: Actually implement freeing of old packets.
+        /// </summary>
+        public float maxBufferedPacketAge = 10f;
         
         #endregion
         
@@ -64,8 +72,6 @@ namespace FNNLib.Config {
         /// </summary>
         [Tooltip("Dedicated server update frequency. Prevents high CPU usage from an unlocked tickrate.")]
         public int serverTickRate = 30;
-        
-        // TODO: Use these in NetworkServer:
 
         /// <summary>
         /// The number of seconds to wait for a client to request connection before dropping them.
@@ -80,8 +86,6 @@ namespace FNNLib.Config {
         #endregion
         
         #region Hashing
-        
-        // TODO: Implement hashing size differences:
 
         /// <summary>
         /// The hash size used for packet IDs.
@@ -92,6 +96,7 @@ namespace FNNLib.Config {
         /// <summary>
         /// The hash size for rpc method names.
         /// Only change if you are having collision problems.
+        /// TODO: Implement
         /// </summary>
         public HashSize rpcHashSize = HashSize.FourBytes;
 

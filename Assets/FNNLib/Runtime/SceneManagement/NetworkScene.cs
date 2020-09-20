@@ -45,7 +45,7 @@ namespace FNNLib.SceneManagement {
         /// <summary>
         /// This scene's observers.
         /// </summary>
-        internal readonly List<ulong> observers = new List<ulong>();
+        internal List<ulong> observers = new List<ulong>();
 
         #region Observers (scene members)
 
@@ -67,6 +67,7 @@ namespace FNNLib.SceneManagement {
         public GameObject Instantiate(GameObject go, Vector3 position, Quaternion rotation) {
             if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("Only the server may instantiate things inside of a network scene!");
+            // TODO: Ensure that the object has a valid prefab hash!
             var created = Object.Instantiate(go, position, rotation);
             SceneManager.MoveGameObjectToScene(created, scene);
             return created;

@@ -26,6 +26,11 @@ namespace FNNLib {
     [AddComponentMenu("Networking/Network Manager")]
     public class NetworkManager : MonoBehaviour {
         /// <summary>
+        /// The local ID of the server
+        /// </summary>
+        public const ulong ServerLocalID = 0;
+
+        /// <summary>
         /// The game's NetworkManager.
         /// </summary>
         public static NetworkManager instance;
@@ -40,6 +45,8 @@ namespace FNNLib {
         /// </summary>
         public bool isServer { get; private set; }
 
+        public bool isSinglePlayer { get; private set; }
+
         /// <summary>
         /// Whether or not the client is a virtual client.
         /// </summary>
@@ -48,7 +55,7 @@ namespace FNNLib {
         /// <summary>
         /// The local client ID.
         /// </summary>
-        public ulong localClientID => isServer ? 0 : _localClientID;
+        public ulong localClientID => isServer ? ServerLocalID : _localClientID;
 
         private ulong _localClientID;
 
@@ -74,10 +81,9 @@ namespace FNNLib {
         /// </summary>
         [HideInInspector] public NetworkConfig networkConfig;
 
-        private void OnEnable() {
+        private void Awake() {
             // Instance manager
-            if (instance != null && instance == this) {
-                Debug.LogError("Only one NetworkManager may exist. Destroying.");
+            if (instance != null && instance != this) {
                 Destroy(gameObject);
             } else {
                 instance = this;
@@ -87,19 +93,23 @@ namespace FNNLib {
         }
 
         private void OnDestroy() {
+            if (isSinglePlayer)
+                StopSinglePlayer();
             if (isHost)
                 StopHost();
             if (isServer)
                 StopServer();
             if (isClient)
                 StopClient();
+            if (instance == this)
+                instance = null;
         }
 
         #region Server
-        
-        public UnityEvent<ulong> serverOnClientConnect = new UnityEvent<ulong>();
-        
-        public UnityEvent<ulong> serverOnClientDisconnect = new UnityEvent<ulong>();
+
+        [HideInInspector] public UnityEvent<ulong> serverOnClientConnect = new UnityEvent<ulong>();
+
+        [HideInInspector] public UnityEvent<ulong> serverOnClientDisconnect = new UnityEvent<ulong>();
 
         private List<ulong> _pendingClients = new List<ulong>();
         private List<ulong> _clientIDs = new List<ulong>();
@@ -111,7 +121,8 @@ namespace FNNLib {
             // Check that the transport is set.
             if (networkConfig.transport == null)
                 throw new InvalidOperationException("The NetworkManager must be provided with a transport!");
-
+            if (isSinglePlayer)
+                throw new NotSupportedException("The network manager is already running in single player mode!");
             if (isHost)
                 throw new NotSupportedException("The network manager is already running in host mode!");
             if (isClient)
@@ -130,7 +141,7 @@ namespace FNNLib {
             ConfigureServerFramerate();
 
             // Set starting scene.
-            SpawnManager.ServerSpawnSceneObjects(NetworkSceneManager.RegisterActiveScene());
+            SpawnManager.ServerSpawnSceneObjects(NetworkSceneManager.RegisterInitialScene());
         }
 
         /// <summary>
@@ -138,6 +149,9 @@ namespace FNNLib {
         /// </summary>
         /// <exception cref="NotSupportedException"></exception>
         public void StopServer() {
+            if (isSinglePlayer)
+                throw new
+                    NotSupportedException("The network manager is running in single player mode! Use StopSinglePlayer().");
             if (isHost)
                 throw new NotSupportedException("The network manager is running in host mode! Use StopHost() instead.");
             if (isClient)
@@ -163,7 +177,7 @@ namespace FNNLib {
         public void ServerDisconnect(ulong clientID, string disconnectReason) {
             // Send disconnect packet
             ServerSend(clientID, new ClientDisconnectPacket {disconnectReason = disconnectReason});
-            
+
             // Start timeout
             StartCoroutine(ServerClientDisconnectTimeout(clientID));
         }
@@ -301,7 +315,7 @@ namespace FNNLib {
         private void ServerOnClientConnect(ulong clientID) {
             // Add to the pending clients and begin connection request timeout
             _pendingClients.Add(clientID);
-            
+
             // Start disconnect coroutine
             StartCoroutine(ClientConnectionTimeout(clientID));
         }
@@ -309,11 +323,11 @@ namespace FNNLib {
         private void ServerOnDataReceived(ulong clientID, ArraySegment<byte> data, int channel) {
             HandlePacket(clientID, data, channel);
         }
-        
+
         private void ServerOnClientDisconnect(ulong clientID) {
             if (_pendingClients.Contains(clientID))
                 _pendingClients.Remove(clientID);
-            
+
             if (connectedClients.ContainsKey(clientID)) {
                 // Destroy owned objects
                 for (var i = connectedClients[clientID].ownedObjects.Count - 1; i > -1; i--) {
@@ -327,11 +341,11 @@ namespace FNNLib {
                 connectedClientsList.Remove(connectedClients[clientID]);
                 connectedClients.Remove(clientID);
             }
-            
+
             // Fire event
             serverOnClientDisconnect?.Invoke(clientID);
         }
-        
+
         /// <summary>
         /// Ensures that the client responds with a connection request in a timely fashion.
         /// </summary>
@@ -344,7 +358,8 @@ namespace FNNLib {
                 yield return null;
 
             if (_pendingClients.Contains(clientID) && !connectedClients.ContainsKey(clientID)) {
-                Debug.Log("Disconnecting client " + clientID + ". Did not send a connection request in a timely fashion");
+                Debug.Log("Disconnecting client " + clientID +
+                          ". Did not send a connection request in a timely fashion");
                 networkConfig.transport.ServerDisconnect(clientID);
             }
         }
@@ -357,12 +372,13 @@ namespace FNNLib {
         /// <returns></returns>
         private IEnumerator ServerClientDisconnectTimeout(ulong clientID) {
             var timeBegan = Time.unscaledTime;
-            while (Time.unscaledTime - timeBegan < networkConfig.connectionRequestTimeout &&
+            while (Time.unscaledTime - timeBegan < networkConfig.disconnectRequestTimeout &&
                    (_pendingClients.Contains(clientID) || connectedClients.ContainsKey(clientID)))
                 yield return null;
 
             if (_pendingClients.Contains(clientID) || connectedClients.ContainsKey(clientID)) {
-                Debug.Log("Disconnecting client " + clientID + ". Did not send a connection request in a timely fashion");
+                Debug.Log("Disconnecting client " + clientID +
+                          ". Did not send a connection request in a timely fashion");
                 networkConfig.transport.ServerDisconnect(clientID);
             }
         }
@@ -386,18 +402,18 @@ namespace FNNLib {
 
             // Send approval
             ServerSend(clientID, new ConnectionApprovedPacket {localClientID = clientID});
-            
+
             // Add client to connected clients
             connectedClients.Add(clientID, new NetworkedClient {
                                                                    clientID = clientID
                                                                });
             connectedClientsList.Add(connectedClients[clientID]);
             _clientIDs.Add(clientID);
-            
+
             // Fire connection event
             serverOnClientConnect?.Invoke(clientID);
             
-            // TODO: Hook the serverOnClientConnected.
+            // Fire on client connected for scene.
             NetworkSceneManager.OnClientConnected(clientID);
         }
 
@@ -412,9 +428,9 @@ namespace FNNLib {
 
         #region Client
 
-        public UnityEvent clientOnConnect = new UnityEvent();
+        [HideInInspector] public UnityEvent clientOnConnect = new UnityEvent();
 
-        public UnityEvent<string> clientOnDisconnect = new UnityEvent<string>();
+        [HideInInspector] public UnityEvent<string> clientOnDisconnect = new UnityEvent<string>();
 
         /// <summary>
         /// Start the manager in client mode.
@@ -428,6 +444,8 @@ namespace FNNLib {
                 throw new InvalidOperationException("The NetworkManager must be provided with a transport!");
 
             // Ensure manager isn't running.
+            if (isSinglePlayer)
+                throw new NotSupportedException("The network manager is already running in single player mode!");
             if (isHost)
                 throw new NotSupportedException("The network manager is already running in host mode!");
             if (isServer)
@@ -500,9 +518,9 @@ namespace FNNLib {
                           {connectionData = null, verificationHash = networkConfig.GetHash()};
             ClientSend(request);
 
-            StartCoroutine(ClientApprovalTimeout());
+            StartCoroutine(ClientApprovalTimeout()); // TODO: Maybe move this to the initial connect call?
         }
-        
+
         private IEnumerator ClientApprovalTimeout() {
             var timeBegan = Time.unscaledTime;
             while (Time.unscaledTime - timeBegan < networkConfig.connectionRequestTimeout && connectedClients.Count < 1)
@@ -553,6 +571,8 @@ namespace FNNLib {
             if (networkConfig.transport == null)
                 throw new InvalidOperationException("The NetworkManager must be provided with a transport!");
 
+            if (isSinglePlayer)
+                throw new NotSupportedException("The network manager is already running in single player mode!");
             if (isClient && !isServer)
                 throw new NotSupportedException("The network manager is already running in client mode!");
             if (isServer && !isClient)
@@ -560,27 +580,139 @@ namespace FNNLib {
             if (isHost)
                 throw new NotSupportedException("Host mode is already running!");
 
-            // TODO: Host mode implementation
-            // TODO: Host will be able to skip the whole connection approval process... we need to implement this.
+            // Init
+            Init();
+
+            // Start server
+            networkConfig.transport.ServerStart();
+            isServer = true;
+            isClient = true;
+
+            connectedClients.Add(ServerLocalID, new NetworkedClient {
+                                                                        clientID = ServerLocalID
+                                                                    });
+            connectedClientsList.Add(connectedClients[ServerLocalID]);
+
+            // Set starting scene.
+            SpawnManager.ServerSpawnSceneObjects(NetworkSceneManager.RegisterInitialScene());
+
+            // Fire starting events.
+            serverOnClientConnect?.Invoke(ServerLocalID);
+            clientOnConnect?.Invoke();
+            
+            // Fire on client connected for scene.
+            NetworkSceneManager.OnClientConnected(ServerLocalID);
         }
 
         public void StopHost() {
+            if (isSinglePlayer)
+                throw new
+                    NotSupportedException("The network manager is running in single player mode! Use StopSinglePlayer().");
             if (isClient && !isServer)
-                throw new NotSupportedException("The network manager is running in client mode! Use StopHost().");
+                throw new NotSupportedException("The network manager is running in client mode! Use StopClient().");
             if (isServer && !isClient)
                 throw new NotSupportedException("The network manager is running in server mode! Use StopServer().");
             if (!isHost)
                 throw new NotSupportedException("A client is not running!");
 
-            // TODO: Host mode implementation
+            // Fire events
+            serverOnClientDisconnect?.Invoke(ServerLocalID);
+            clientOnDisconnect?.Invoke(null);
+
+            // Shutdown
+            Shutdown();
+
+            // Stop server
+            networkConfig.transport
+                         .ServerShutdown(); // TODO: Thread safe way for transport to send events to the manager.
+            isServer = false;
+            isClient = false;
         }
 
         #endregion
 
         #region Single player
 
-        // TODO: In the future, I could add a single player, which will simply do the same as host, without running a networked server at all.
-        //        It wouldn't take much because host already deals with the propogation of events around the virtual client, we just need to turn off the networked side completely. 
+        /// <summary>
+        /// Runs the game as if there was a server, without running one.
+        /// </summary>
+        public void StartSinglePlayer() {
+            // Prevent incorrect use!
+            if (isSinglePlayer)
+                throw new NotSupportedException("The network manager is already running in single player mode!");
+            if (isClient && !isServer)
+                throw new NotSupportedException("The network manager is already running in client mode!");
+            if (isServer && !isClient)
+                throw new NotSupportedException("The network manager is already running in server mode!");
+            if (isHost)
+                throw new NotSupportedException("The network manager is already running in host mode!");
+
+            // Init
+            Init();
+
+            // "Start" server
+            isServer = true;
+            isClient = true;
+            isSinglePlayer = true;
+
+            // Add local client
+            connectedClients.Add(ServerLocalID, new NetworkedClient {
+                                                                        clientID = ServerLocalID
+                                                                    });
+            connectedClientsList.Add(connectedClients[ServerLocalID]);
+
+            // Set starting scene.
+            SpawnManager.ServerSpawnSceneObjects(NetworkSceneManager.RegisterInitialScene());
+
+            // Fire starting events.
+            clientOnConnect?.Invoke();
+            serverOnClientConnect?.Invoke(ServerLocalID);
+            
+            // Fire on client connected for scene.
+            NetworkSceneManager.OnClientConnected(ServerLocalID);
+        }
+
+        /// <summary>
+        /// Stops running the game in single player mode.
+        /// </summary>
+        public void StopSinglePlayer() {
+            // Prevent incorrect use!
+            if (isClient && !isServer)
+                throw new NotSupportedException("The network manager is running in client mode! Use StopClient().");
+            if (isServer && !isClient)
+                throw new NotSupportedException("The network manager is running in server mode! Use StopServer().");
+            if (isHost && !isSinglePlayer)
+                throw new NotSupportedException("The network manager is running in host mode! Use StopHost().");
+            if (!isSinglePlayer)
+                throw new NotSupportedException("The network manager is not running in single player mode!");
+
+            // Fire events
+            serverOnClientDisconnect?.Invoke(ServerLocalID);
+            clientOnDisconnect?.Invoke(null);
+
+            // Shutdown
+            Shutdown();
+
+            // Stop server
+            isServer = false;
+            isClient = false;
+            isSinglePlayer = false;
+        }
+
+        /// <summary>
+        /// Converts single player game to host game.
+        /// </summary>
+        public void SinglePlayerStartHost() {
+            // Check that the transport is set.
+            if (networkConfig.transport == null)
+                throw new InvalidOperationException("The NetworkManager must be provided with a transport!");
+
+            // Start the server.
+            networkConfig.transport.ServerStart();
+
+            // Mark as host instead
+            isSinglePlayer = false;
+        }
 
         #endregion
 
@@ -592,8 +724,8 @@ namespace FNNLib {
             // Clear all lists and dictionaries
             connectedClients.Clear();
             connectedClientsList.Clear();
-            _serverHandlers.Clear();
-            _clientHandlers.Clear();
+            serverHandlers.Clear();
+            clientHandlers.Clear();
 
             // Clear disconnection reason because
             _disconnectionReason = null;
@@ -622,7 +754,7 @@ namespace FNNLib {
 
             // Reset run in background state. So if player goes into main menu and minimizes the game stops using resources.
             Application.runInBackground = _wasRunningInBackground;
-            
+
             // Unhook transport events
             networkConfig.transport.onClientConnected.RemoveListener(ClientOnConnected);
             networkConfig.transport.onClientDisconnected.RemoveListener(ClientOnDisconnected);
@@ -631,16 +763,16 @@ namespace FNNLib {
             networkConfig.transport.onServerDataReceived.RemoveListener(ServerOnDataReceived);
             networkConfig.transport.onServerDisconnected.RemoveListener(ServerOnClientDisconnect);
         }
-        
+
         #endregion
 
         #region Packets
 
-        private readonly Dictionary<ulong, ClientPacketDelegate> _clientHandlers =
-            new Dictionary<ulong, ClientPacketDelegate>();
+        internal readonly Dictionary<ulong, ClientPacketHandlers> clientHandlers =
+            new Dictionary<ulong, ClientPacketHandlers>();
 
-        private readonly Dictionary<ulong, ServerPacketDelegate> _serverHandlers =
-            new Dictionary<ulong, ServerPacketDelegate>();
+        internal readonly Dictionary<ulong, ServerPacketHandlers> serverHandlers =
+            new Dictionary<ulong, ServerPacketHandlers>();
 
         /// <summary>
         /// Register a client packet's handler.
@@ -650,8 +782,8 @@ namespace FNNLib {
         public void RegisterClientPacketHandler<TPacket>(Action<TPacket> handler)
             where TPacket : ISerializable, new() {
             var packetID = GetPacketID<TPacket>();
-            if (!_clientHandlers.ContainsKey(packetID)) {
-                _clientHandlers.Add(packetID, PacketUtils.GetClientPacketDelegate(handler));
+            if (!clientHandlers.ContainsKey(packetID)) {
+                clientHandlers.Add(packetID, PacketHandlers.GetClientHandlers(handler));
             } else Debug.LogWarning("Client packet handler was not registered as one already exists.");
         }
 
@@ -663,19 +795,37 @@ namespace FNNLib {
         public void RegisterServerPacketHandler<TPacket>(Action<ulong, TPacket> handler)
             where TPacket : ISerializable, new() {
             var packetID = GetPacketID<TPacket>();
-            if (!_serverHandlers.ContainsKey(packetID)) {
-                _serverHandlers.Add(packetID, PacketUtils.GetServerPacketDelegate(handler));
+            if (!serverHandlers.ContainsKey(packetID)) {
+                serverHandlers.Add(packetID, PacketHandlers.GetServerHandlers(handler));
             } else Debug.LogWarning("Server packet handler was not registered as one already exists.");
         }
 
-        private ulong GetPacketID<TPacket>() where TPacket : ISerializable, new() {
+        /// <summary>
+        /// Gets a packet ID.
+        /// Uses the packet ID hash size from the config.
+        /// </summary>
+        /// <typeparam name="TPacket"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        internal ulong GetPacketID<TPacket>() where TPacket : ISerializable, new() {
+            return GetPacketID(typeof(TPacket));
+        }
+        
+        /// <summary>
+        /// Gets a packet ID.
+        /// Uses the packet ID hash size from the config.
+        /// </summary>
+        /// <typeparam name="TPacket"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        internal ulong GetPacketID(Type packetType) {
             switch (networkConfig.packetIDHashSize) {
                 case HashSize.TwoBytes:
-                    return PacketUtils.GetID16<TPacket>();
+                    return PacketUtils.GetID16(packetType);
                 case HashSize.FourBytes:
-                    return PacketUtils.GetID32<TPacket>();
+                    return PacketUtils.GetID32(packetType);
                 case HashSize.EightBytes:
-                    return PacketUtils.GetID64<TPacket>();
+                    return PacketUtils.GetID64(packetType);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -691,8 +841,8 @@ namespace FNNLib {
             RegisterServerPacketHandler<ConnectionRequestPacket>(ServerHandleConnectionRequest);
 
             // Register scene management events.
-            RegisterClientPacketHandler<SceneChangePacket>(NetworkSceneManager.ClientHandleSceneChangePacket);
-            RegisterServerPacketHandler<SceneChangeCompletedPacket>(NetworkSceneManager.SceneChangeCompletedHandler);
+            RegisterClientPacketHandler<SceneLoadPacket>(NetworkSceneManager.ClientHandleSceneLoadPacket);
+            RegisterClientPacketHandler<SceneUnloadPacket>(NetworkSceneManager.ClientHandleSceneUnloadPacket);
 
             // Object spawning
             RegisterClientPacketHandler<SpawnObjectPacket>(SpawnManager.ClientHandleSpawnPacket);
@@ -729,13 +879,13 @@ namespace FNNLib {
 
                 // Fire the handler if present
                 if (isServer) {
-                    if (_serverHandlers.TryGetValue(packetID, out var serverHandler)) {
-                        serverHandler(sender, reader);
+                    if (serverHandlers.TryGetValue(packetID, out var serverHandler)) {
+                        serverHandler.packetDelegate(sender, reader);
                         return;
                     }
                 } else {
-                    if (_clientHandlers.TryGetValue(packetID, out var clientHandler)) {
-                        clientHandler(reader);
+                    if (clientHandlers.TryGetValue(packetID, out var clientHandler)) {
+                        clientHandler.packetDelegate(reader);
                         return;
                     }
                 }

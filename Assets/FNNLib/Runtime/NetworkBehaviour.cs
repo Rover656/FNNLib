@@ -100,9 +100,8 @@ namespace FNNLib {
 
                 if (isHost && identity.observers.Contains(NetworkManager.instance.localClientID) &&
                     clients.Contains(NetworkManager.instance.localClientID))
-                    using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment())) {
+                    using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment()))
                         InvokeClientRPCLocal(hash, reader);
-                    }
 
                 var packet = new RPCPacket {
                                                behaviourOrder = behaviourIndex,

@@ -18,6 +18,7 @@ namespace FNNLib.Editor {
 
         private SerializedProperty _protocolVersionProp;
         private SerializedProperty _transportProp;
+        private SerializedProperty _maxBufferedPacketAgeProp;
         private SerializedProperty _initialSceneProp;
         private SerializedProperty _moveNewClientsToActiveSceneProp;
         private SerializedProperty _permittedScenesProp;
@@ -42,6 +43,7 @@ namespace FNNLib.Editor {
             // NetworkConfig properties
             _protocolVersionProp = _networkConfigProp.FindPropertyRelative("protocolVersion");
             _transportProp = _networkConfigProp.FindPropertyRelative("transport");
+            _maxBufferedPacketAgeProp = _networkConfigProp.FindPropertyRelative("maxBufferedPacketAge");
             _initialSceneProp = _networkConfigProp.FindPropertyRelative("initialScene");
             _serverTickRateProp = _networkConfigProp.FindPropertyRelative("serverTickRate");
             _packetIDHashSizeProp = _networkConfigProp.FindPropertyRelative("packetIDHashSize");
@@ -136,6 +138,7 @@ namespace FNNLib.Editor {
                 EditorGUILayout.LabelField("General", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(_protocolVersionProp);
                 EditorGUILayout.PropertyField(_transportProp);
+                EditorGUILayout.PropertyField(_maxBufferedPacketAgeProp);
 
                 if (_transportProp.objectReferenceValue == null) {
                     EditorGUILayout.HelpBox("You must select a transport before using FNNLib!", MessageType.Warning);

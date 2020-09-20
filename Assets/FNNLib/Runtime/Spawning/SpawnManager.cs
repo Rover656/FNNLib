@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using FNNLib.Messaging;
+using FNNLib.RPC;
 using FNNLib.SceneManagement;
 using FNNLib.Transports;
 using UnityEngine;
@@ -20,6 +22,11 @@ namespace FNNLib.Spawning {
 
         private static readonly Dictionary<ulong, NetworkIdentity> pendingSceneObjects =
             new Dictionary<ulong, NetworkIdentity>();
+        
+        /// <summary>
+        /// Buffered RPC calls.
+        /// </summary>
+        internal static readonly PacketBufferCollection<ulong> networkObjectPacketBuffer = new PacketBufferCollection<ulong>();
 
         #region Spawning
 
@@ -77,16 +84,22 @@ namespace FNNLib.Spawning {
 
             identity.ResetNetStartInvoked();
             identity.InvokeBehaviourNetStart();
+            
+            // Execute pending packets while the object hasn't been destroyed (in case we get a destroy packet)
+            while (networkObjectPacketBuffer.HasPending(networkID) && spawnedObjects.ContainsKey(networkID)) {
+                networkObjectPacketBuffer.ExecutePending(networkID);
+            }
+            networkObjectPacketBuffer.DestroyQueue(networkID);
         }
 
         // Run on client only
-        internal static NetworkIdentity CreateObjectLocal(bool isSceneObject, ulong instanceID, ulong sceneID,
+        internal static NetworkIdentity CreateObjectLocal(bool isSceneObject, ulong instanceID, uint sceneID,
                                                           ulong prefabHash, ulong? parentNetID, Vector3? position,
                                                           Quaternion? rotation) {
             // Check that the scene ID matches the client's current scene.
             if (!NetworkManager.instance.isServer) {
                 var client = NetworkManager.instance.connectedClients[NetworkManager.instance.localClientID];
-                if (client.sceneID != sceneID) {
+                if (!client.loadedScenes.Contains(sceneID)) {
                     Debug.LogWarning("Cannot spawn object from another scene. Ignoring");
                     return null;
                 }
@@ -316,6 +329,15 @@ namespace FNNLib.Spawning {
 
         internal static void DestroyNonSceneObjects() {
             for (var i = spawnedObjectsList.Count - 1; i >= 0; i--) {
+                if (spawnedObjectsList[i].isSceneObject == null || spawnedObjectsList[i].isSceneObject == false) {
+                    OnDestroy(spawnedObjectsList[i].networkID, true);
+                }
+            }
+        }
+        
+        internal static void DestroySceneObjects(uint sceneID) {
+            for (var i = spawnedObjectsList.Count - 1; i >= 0; i--) {
+                if (spawnedObjectsList[i].networkSceneID != sceneID) continue;
                 if (spawnedObjectsList[i].isSceneObject == null || spawnedObjectsList[i].isSceneObject == false) {
                     OnDestroy(spawnedObjectsList[i].networkID, true);
                 }

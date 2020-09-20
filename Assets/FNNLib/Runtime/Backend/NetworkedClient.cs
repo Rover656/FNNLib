@@ -4,7 +4,7 @@ namespace FNNLib {
     public class NetworkedClient {
         public ulong clientID;
 
-        public uint sceneID;
+        public List<uint> loadedScenes = new List<uint>();
 
         public ulong playerObject;
 

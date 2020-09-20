@@ -1,15 +1,17 @@
-﻿using FNNLib.Messaging;
+﻿using System.Collections.Generic;
+using FNNLib.Messaging;
+using FNNLib.SceneManagement;
 using FNNLib.Serialization;
 using UnityEngine;
 
 namespace FNNLib.Spawning {
     [ClientPacket]
-    internal class SpawnObjectPacket : ISerializable {
+    internal class SpawnObjectPacket : ISerializable, IBufferablePacket {
         public bool isPlayerObject;
 
         public ulong networkID;
         public ulong ownerClientID;
-        public ulong sceneID;
+        public uint sceneID;
 
         public bool hasParent;
         public ulong parentNetID;
@@ -29,7 +31,7 @@ namespace FNNLib.Spawning {
 
             writer.WritePackedUInt64(networkID);
             writer.WritePackedUInt64(ownerClientID);
-            writer.WritePackedUInt64(sceneID);
+            writer.WritePackedUInt32(sceneID);
 
             writer.WriteBool(hasParent);
             if (hasParent)
@@ -52,7 +54,7 @@ namespace FNNLib.Spawning {
 
             networkID = reader.ReadPackedUInt64();
             ownerClientID = reader.ReadPackedUInt64();
-            sceneID = reader.ReadPackedUInt64();
+            sceneID = reader.ReadPackedUInt32();
 
             hasParent = reader.ReadBool();
             if (hasParent)
@@ -68,6 +70,14 @@ namespace FNNLib.Spawning {
                 position = reader.ReadVector3();
                 eulerRotation = reader.ReadVector3();
             }
+        }
+
+        public bool BufferPacket(ulong sender) {
+            if (NetworkManager.instance.connectedClients[NetworkManager.instance.localClientID].loadedScenes
+                              .Contains(sceneID))
+                return false;
+            NetworkSceneManager.bufferedScenePackets.Enqueue(sceneID, new BufferedPacket(this, sender));
+            return true;
         }
     }
 }

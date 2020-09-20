@@ -10,7 +10,7 @@ namespace FNNLib.RPC {
         /// All awaiting responses.
         /// </summary>
         private static readonly Dictionary<ulong, BaseRPCResponse> _pending = new Dictionary<ulong, BaseRPCResponse>();
-        
+
         /// <summary>
         /// The times for every response. Used for timeouts.
         /// </summary>
@@ -20,7 +20,7 @@ namespace FNNLib.RPC {
         /// Response ID counter.
         /// </summary>
         private static ulong _idCounter;
-        
+
         /// <summary>
         /// Get a response ID
         /// </summary>
@@ -72,10 +72,9 @@ namespace FNNLib.RPC {
         /// </summary>
         /// <param name="packet"></param>
         /// <param name="channel"></param>
-        internal static void ClientHandleRPCResponse(RPCResponsePacket packet, int channel) {
+        internal static void ClientHandleRPCResponse(RPCResponsePacket packet, int channel) =>
             ServerHandleRPCResponse(NetworkManager.ServerLocalID, packet, channel);
-        }
-        
+
         internal static void ServerHandleRPCResponse(ulong clientID, RPCResponsePacket packet, int channel) {
             // If we have this response, finish it
             if (Contains(packet.responseID)) {

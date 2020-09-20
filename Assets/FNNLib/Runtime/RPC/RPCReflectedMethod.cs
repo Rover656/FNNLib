@@ -55,7 +55,8 @@ namespace FNNLib.RPC {
             if (requireOwnership && target.ownerClientID != sender)
                 return null;
             
-            // TODO: Save invoking sender
+            // Save the invoking sender
+            target._executingRPCSender = sender;
 
             if (reader == null || reader.position == 0) {
                 return useDelegate ? InvokeDelegate(target, sender, reader) : InvokeReflected(target, reader);

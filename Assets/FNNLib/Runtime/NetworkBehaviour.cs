@@ -49,6 +49,13 @@ namespace FNNLib {
         #endregion
 
         /// <summary>
+        /// The client that is current executing an RPC.
+        /// </summary>
+        protected ulong executingRPCSender => _executingRPCSender;
+
+        internal ulong _executingRPCSender;
+
+        /// <summary>
         /// Is running in a server context?
         /// </summary>
         public bool isServer => NetworkManager.instance.isServer;

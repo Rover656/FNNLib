@@ -804,7 +804,7 @@ namespace FNNLib {
             exit:
             
             // Purge all expired but still buffered packets
-            if (Time.unscaledTime - _lastBufferPurge > (1f / networkConfig.bufferPurgesPerSecond)) {
+            if (Time.unscaledTime - _lastBufferPurge > (1f / networkConfig.packetBufferPurgesPerSecond)) {
                 _lastBufferPurge = Time.unscaledTime;
                 BasePacketBufferCollection.PurgeAllOldPackets();
             }

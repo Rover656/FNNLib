@@ -30,12 +30,11 @@ namespace FNNLib.Config {
         /// </summary>
         [Tooltip("The maximum age of a buffered packet before it is ignored.")]
         public float maxBufferedPacketAge = 10f;
-
         /// <summary>
         /// The number of buffer purges to perform per second.
-        /// TODO: Add to editor
         /// </summary>
-        public int bufferPurgesPerSecond = 3;
+        [Tooltip("The number of buffer purges to perform per second.")]
+        public int packetBufferPurgesPerSecond = 3;
         
         #endregion
         

@@ -19,6 +19,7 @@ namespace FNNLib.Editor {
         private SerializedProperty _protocolVersionProp;
         private SerializedProperty _transportProp;
         private SerializedProperty _maxBufferedPacketAgeProp;
+        private SerializedProperty _packetBufferPurgesPerSecondProp;
         private SerializedProperty _initialSceneProp;
         private SerializedProperty _enableHybridScenesProp;
         private SerializedProperty _clientMaxReceivesPerUpdateProp;
@@ -44,6 +45,7 @@ namespace FNNLib.Editor {
             _protocolVersionProp = _networkConfigProp.FindPropertyRelative("protocolVersion");
             _transportProp = _networkConfigProp.FindPropertyRelative("transport");
             _maxBufferedPacketAgeProp = _networkConfigProp.FindPropertyRelative("maxBufferedPacketAge");
+            _packetBufferPurgesPerSecondProp = _networkConfigProp.FindPropertyRelative("packetBufferPurgesPerSecond");
             _initialSceneProp = _networkConfigProp.FindPropertyRelative("initialScene");
             _enableHybridScenesProp = _networkConfigProp.FindPropertyRelative("enableHybridScenes");
             _clientMaxReceivesPerUpdateProp = _networkConfigProp.FindPropertyRelative("clientMaxReceivesPerUpdate");
@@ -147,6 +149,7 @@ namespace FNNLib.Editor {
                 EditorGUILayout.PropertyField(_protocolVersionProp);
                 EditorGUILayout.PropertyField(_transportProp);
                 EditorGUILayout.PropertyField(_maxBufferedPacketAgeProp);
+                EditorGUILayout.PropertyField(_packetBufferPurgesPerSecondProp);
 
                 if (_transportProp.objectReferenceValue == null) {
                     EditorGUILayout.HelpBox("You must select a transport before using FNNLib!", MessageType.Warning);

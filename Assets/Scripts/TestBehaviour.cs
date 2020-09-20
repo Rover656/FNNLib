@@ -14,13 +14,13 @@ namespace DefaultNamespace {
                                                                           StartCoroutine(AwaitResponse(InvokeClientRPCOn(TestResponse, clientID)));
                                                                  });
             if (isClient) {
-                // StartCoroutine(AwaitResponse(InvokeServerRPC(TestResponse)));
+                InvokeServerRPC(ServerTest, "Hello world!");
             }
         }
 
         private IEnumerator AwaitResponse(RPCResponse<bool> response) {
             while (!response.isDone) yield return null;
-            Debug.Log("Received response from server, it was: " + response.value);
+            Debug.Log("Received response from client, it was: " + response.value);
         }
 
         [ClientRPC]
@@ -37,7 +37,7 @@ namespace DefaultNamespace {
 
         [ServerRPC(requireOwnership = false)]
         public void ServerTest(string hello) {
-            Debug.Log("Server RPC called! Client said: " + hello);
+            Debug.Log("Server RPC called by " + executingRPCSender + "! Client said: " + hello);
         }
     }
 }

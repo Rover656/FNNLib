@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Delegate NetworkBehaviour.RPCMethod&lt;T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11&gt;
+    <title>Class RPCResponse&lt;T&gt;
    | Friday Night Networking Library </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Delegate NetworkBehaviour.RPCMethod&lt;T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11&gt;
+    <meta name="title" content="Class RPCResponse&lt;T&gt;
    | Friday Night Networking Library ">
     <meta name="generator" content="docfx 2.56.2.0">
     
@@ -78,91 +78,42 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="FNNLib.NetworkBehaviour.RPCMethod`12">
+            <article class="content wrap" id="_content" data-uid="FNNLib.RPC.RPCResponse`1">
   
   
-  <h1 id="FNNLib_NetworkBehaviour_RPCMethod_12" data-uid="FNNLib.NetworkBehaviour.RPCMethod`12" class="text-break">Delegate NetworkBehaviour.RPCMethod&lt;T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11&gt;
+  <h1 id="FNNLib_RPC_RPCResponse_1" data-uid="FNNLib.RPC.RPCResponse`1" class="text-break">Class RPCResponse&lt;T&gt;
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>A RPC response
+This wraps the base response and casts the result to the desired type.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="FNNLib.html">FNNLib</a></h6>
-  <h6><strong>Assembly</strong>: FNNLib.dll</h6>
-  <h5 id="FNNLib_NetworkBehaviour_RPCMethod_12_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public delegate void RPCMethod&lt;T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11&gt;(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11);</code></pre>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="FNNLib.RPC.BaseRPCResponse.html">BaseRPCResponse</a></div>
+    <div class="level2"><span class="xref">RPCResponse&lt;T&gt;</span></div>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T0</span></td>
-        <td><span class="parametername">t0</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">T1</span></td>
-        <td><span class="parametername">t1</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">T2</span></td>
-        <td><span class="parametername">t2</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">T3</span></td>
-        <td><span class="parametername">t3</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">T4</span></td>
-        <td><span class="parametername">t4</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">T5</span></td>
-        <td><span class="parametername">t5</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">T6</span></td>
-        <td><span class="parametername">t6</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">T7</span></td>
-        <td><span class="parametername">t7</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">T8</span></td>
-        <td><span class="parametername">t8</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">T9</span></td>
-        <td><span class="parametername">t9</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">T10</span></td>
-        <td><span class="parametername">t10</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">T11</span></td>
-        <td><span class="parametername">t11</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="FNNLib.RPC.BaseRPCResponse.html#FNNLib_RPC_BaseRPCResponse_responseID">BaseRPCResponse.responseID</a>
+    </div>
+    <div>
+      <a class="xref" href="FNNLib.RPC.BaseRPCResponse.html#FNNLib_RPC_BaseRPCResponse_isDone">BaseRPCResponse.isDone</a>
+    </div>
+    <div>
+      <a class="xref" href="FNNLib.RPC.BaseRPCResponse.html#FNNLib_RPC_BaseRPCResponse_isSuccessful">BaseRPCResponse.isSuccessful</a>
+    </div>
+    <div>
+      <a class="xref" href="FNNLib.RPC.BaseRPCResponse.html#FNNLib_RPC_BaseRPCResponse_clientID">BaseRPCResponse.clientID</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="FNNLib.RPC.html">FNNLib.RPC</a></h6>
+  <h6><strong>Assembly</strong>: FNNLib.dll</h6>
+  <h5 id="FNNLib_RPC_RPCResponse_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class RPCResponse&lt;T&gt; : BaseRPCResponse</code></pre>
+  </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -173,51 +124,40 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">T0</span></td>
+        <td><span class="parametername">T</span></td>
         <td></td>
       </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCResponse_1_value.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCResponse%601.value%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCResponse.cs/#L11">View Source</a>
+  </span>
+  <a id="FNNLib_RPC_RPCResponse_1_value_" data-uid="FNNLib.RPC.RPCResponse`1.value*"></a>
+  <h4 id="FNNLib_RPC_RPCResponse_1_value" data-uid="FNNLib.RPC.RPCResponse`1.value">value</h4>
+  <div class="markdown level1 summary"><p>The response result.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T value { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
       <tr>
-        <td><span class="parametername">T1</span></td>
-        <td></td>
+        <th>Type</th>
+        <th>Description</th>
       </tr>
+    </thead>
+    <tbody>
       <tr>
-        <td><span class="parametername">T2</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">T3</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">T4</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">T5</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">T6</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">T7</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">T8</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">T9</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">T10</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">T11</span></td>
+        <td><span class="xref">T</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -230,10 +170,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_NetworkBehaviour_RPCMethod_12.md&amp;value=---%0Auid%3A%20FNNLib.NetworkBehaviour.RPCMethod%6012%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_RPC_RPCResponse_1.md&amp;value=---%0Auid%3A%20FNNLib.RPC.RPCResponse%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Generated/NetworkBehaviour.Autogenerated.cs/#L723" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/RPC/RPCResponse.cs/#L7" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

@@ -83,11 +83,7 @@
   
   <h1 id="FNNLib_Transports_Transport" data-uid="FNNLib.Transports.Transport" class="text-break">Class Transport
   </h1>
-  <div class="markdown level0 summary"><p>This is the prototype API for the new style transports.
-Will have channeling support for RUDP transports.</p>
-<p>TODO: Decide if we go down event polling instead of an event when data is recieved.
-TODO: Adding transport doc describing the best practices.</p>
-</div>
+  <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -103,250 +99,6 @@ TODO: Adding transport doc describing the best practices.</p>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public abstract class Transport : MonoBehaviour</code></pre>
   </div>
-  <h3 id="fields">Fields
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_onClientConnected.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.onClientConnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L29">View Source</a>
-  </span>
-  <h4 id="FNNLib_Transports_Transport_onClientConnected" data-uid="FNNLib.Transports.Transport.onClientConnected">onClientConnected</h4>
-  <div class="markdown level1 summary"><p>Fired when the client connects to the server.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UnityEvent onClientConnected</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">UnityEvent</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_onClientDataReceived.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.onClientDataReceived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L36">View Source</a>
-  </span>
-  <h4 id="FNNLib_Transports_Transport_onClientDataReceived" data-uid="FNNLib.Transports.Transport.onClientDataReceived">onClientDataReceived</h4>
-  <div class="markdown level1 summary"><p>Fired when receiving data from the server.
-Parameters: data, channel</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UnityEvent&lt;ArraySegment&lt;byte&gt;, int&gt; onClientDataReceived</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">UnityEvent</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.arraysegment-1">ArraySegment</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>&gt;, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_onClientDisconnected.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.onClientDisconnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L41">View Source</a>
-  </span>
-  <h4 id="FNNLib_Transports_Transport_onClientDisconnected" data-uid="FNNLib.Transports.Transport.onClientDisconnected">onClientDisconnected</h4>
-  <div class="markdown level1 summary"><p>Fired when the client disconnects from the server.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UnityEvent onClientDisconnected</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">UnityEvent</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_onServerConnected.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.onServerConnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L79">View Source</a>
-  </span>
-  <h4 id="FNNLib_Transports_Transport_onServerConnected" data-uid="FNNLib.Transports.Transport.onServerConnected">onServerConnected</h4>
-  <div class="markdown level1 summary"><p>Fired when a client connects to the server.
-Parameters: clientID</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UnityEvent&lt;ulong&gt; onServerConnected</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">UnityEvent</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_onServerDataReceived.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.onServerDataReceived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L92">View Source</a>
-  </span>
-  <h4 id="FNNLib_Transports_Transport_onServerDataReceived" data-uid="FNNLib.Transports.Transport.onServerDataReceived">onServerDataReceived</h4>
-  <div class="markdown level1 summary"><p>Fired when the server recieves data from a client.
-Parameters: clientID, data, channelID</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UnityEvent&lt;ulong, ArraySegment&lt;byte&gt;, int&gt; onServerDataReceived</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">UnityEvent</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.arraysegment-1">ArraySegment</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>&gt;, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_onServerDisconnected.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.onServerDisconnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L85">View Source</a>
-  </span>
-  <h4 id="FNNLib_Transports_Transport_onServerDisconnected" data-uid="FNNLib.Transports.Transport.onServerDisconnected">onServerDisconnected</h4>
-  <div class="markdown level1 summary"><p>Fired when a client disconnects from the server.
-Parameters: clientID</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UnityEvent&lt;ulong&gt; onServerDisconnected</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">UnityEvent</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_onServerStarted.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.onServerStarted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L72">View Source</a>
-  </span>
-  <h4 id="FNNLib_Transports_Transport_onServerStarted" data-uid="FNNLib.Transports.Transport.onServerStarted">onServerStarted</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UnityEvent onServerStarted</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">UnityEvent</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_onServerStopped.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.onServerStopped%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L73">View Source</a>
-  </span>
-  <h4 id="FNNLib_Transports_Transport_onServerStopped" data-uid="FNNLib.Transports.Transport.onServerStopped">onServerStopped</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UnityEvent onServerStopped</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">UnityEvent</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
@@ -354,7 +106,7 @@ Parameters: clientID</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_clientConnected.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.clientConnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L46">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L25">View Source</a>
   </span>
   <a id="FNNLib_Transports_Transport_clientConnected_" data-uid="FNNLib.Transports.Transport.clientConnected*"></a>
   <h4 id="FNNLib_Transports_Transport_clientConnected" data-uid="FNNLib.Transports.Transport.clientConnected">clientConnected</h4>
@@ -385,7 +137,7 @@ Parameters: clientID</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_serverRunning.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.serverRunning%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L97">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L53">View Source</a>
   </span>
   <a id="FNNLib_Transports_Transport_serverRunning_" data-uid="FNNLib.Transports.Transport.serverRunning*"></a>
   <h4 id="FNNLib_Transports_Transport_serverRunning" data-uid="FNNLib.Transports.Transport.serverRunning">serverRunning</h4>
@@ -416,7 +168,7 @@ Parameters: clientID</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_supported.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.supported%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L20">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L16">View Source</a>
   </span>
   <a id="FNNLib_Transports_Transport_supported_" data-uid="FNNLib.Transports.Transport.supported*"></a>
   <h4 id="FNNLib_Transports_Transport_supported" data-uid="FNNLib.Transports.Transport.supported">supported</h4>
@@ -449,7 +201,7 @@ Parameters: clientID</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_ClientConnect_System_String_.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.ClientConnect(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L52">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L31">View Source</a>
   </span>
   <a id="FNNLib_Transports_Transport_ClientConnect_" data-uid="FNNLib.Transports.Transport.ClientConnect*"></a>
   <h4 id="FNNLib_Transports_Transport_ClientConnect_System_String_" data-uid="FNNLib.Transports.Transport.ClientConnect(System.String)">ClientConnect(String)</h4>
@@ -483,7 +235,7 @@ Parameters: clientID</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_ClientDisconnect.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.ClientDisconnect%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L65">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L44">View Source</a>
   </span>
   <a id="FNNLib_Transports_Transport_ClientDisconnect_" data-uid="FNNLib.Transports.Transport.ClientDisconnect*"></a>
   <h4 id="FNNLib_Transports_Transport_ClientDisconnect" data-uid="FNNLib.Transports.Transport.ClientDisconnect">ClientDisconnect()</h4>
@@ -499,7 +251,7 @@ Parameters: clientID</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_ClientSend_System_ArraySegment_System_Byte__System_Int32_.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.ClientSend(System.ArraySegment%7BSystem.Byte%7D%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L60">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L39">View Source</a>
   </span>
   <a id="FNNLib_Transports_Transport_ClientSend_" data-uid="FNNLib.Transports.Transport.ClientSend*"></a>
   <h4 id="FNNLib_Transports_Transport_ClientSend_System_ArraySegment_System_Byte__System_Int32_" data-uid="FNNLib.Transports.Transport.ClientSend(System.ArraySegment{System.Byte},System.Int32)">ClientSend(ArraySegment&lt;Byte&gt;, Int32)</h4>
@@ -555,7 +307,7 @@ Parameters: clientID</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_GetMessage_System_UInt64__System_ArraySegment_System_Byte___System_Int32__.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.GetMessage(System.UInt64%40%2CSystem.ArraySegment%7BSystem.Byte%7D%40%2CSystem.Int32%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L143">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L89">View Source</a>
   </span>
   <a id="FNNLib_Transports_Transport_GetMessage_" data-uid="FNNLib.Transports.Transport.GetMessage*"></a>
   <h4 id="FNNLib_Transports_Transport_GetMessage_System_UInt64__System_ArraySegment_System_Byte___System_Int32__" data-uid="FNNLib.Transports.Transport.GetMessage(System.UInt64@,System.ArraySegment{System.Byte}@,System.Int32@)">GetMessage(out UInt64, out ArraySegment&lt;Byte&gt;, out Int32)</h4>
@@ -612,7 +364,7 @@ Parameters: clientID</p>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_ServerDisconnect_System_UInt64_.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.ServerDisconnect(System.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L132">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L78">View Source</a>
   </span>
   <a id="FNNLib_Transports_Transport_ServerDisconnect_" data-uid="FNNLib.Transports.Transport.ServerDisconnect*"></a>
   <h4 id="FNNLib_Transports_Transport_ServerDisconnect_System_UInt64_" data-uid="FNNLib.Transports.Transport.ServerDisconnect(System.UInt64)">ServerDisconnect(UInt64)</h4>
@@ -650,7 +402,7 @@ This is a last resort which is used by NetworkServer disconnect if the client do
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_ServerSend_System_Collections_Generic_List_System_UInt64__System_ArraySegment_System_Byte__System_Int32_System_UInt64_.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.ServerSend(System.Collections.Generic.List%7BSystem.UInt64%7D%2CSystem.ArraySegment%7BSystem.Byte%7D%2CSystem.Int32%2CSystem.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L122">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L68">View Source</a>
   </span>
   <a id="FNNLib_Transports_Transport_ServerSend_" data-uid="FNNLib.Transports.Transport.ServerSend*"></a>
   <h4 id="FNNLib_Transports_Transport_ServerSend_System_Collections_Generic_List_System_UInt64__System_ArraySegment_System_Byte__System_Int32_System_UInt64_" data-uid="FNNLib.Transports.Transport.ServerSend(System.Collections.Generic.List{System.UInt64},System.ArraySegment{System.Byte},System.Int32,System.UInt64)">ServerSend(List&lt;UInt64&gt;, ArraySegment&lt;Byte&gt;, Int32, UInt64)</h4>
@@ -714,71 +466,10 @@ This is a last resort which is used by NetworkServer disconnect if the client do
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_ServerSend_System_UInt64_System_ArraySegment_System_Byte__System_Int32_.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.ServerSend(System.UInt64%2CSystem.ArraySegment%7BSystem.Byte%7D%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L112">View Source</a>
-  </span>
-  <a id="FNNLib_Transports_Transport_ServerSend_" data-uid="FNNLib.Transports.Transport.ServerSend*"></a>
-  <h4 id="FNNLib_Transports_Transport_ServerSend_System_UInt64_System_ArraySegment_System_Byte__System_Int32_" data-uid="FNNLib.Transports.Transport.ServerSend(System.UInt64,System.ArraySegment{System.Byte},System.Int32)">ServerSend(UInt64, ArraySegment&lt;Byte&gt;, Int32)</h4>
-  <div class="markdown level1 summary"><p>Send data to clients.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract bool ServerSend(ulong clientID, ArraySegment&lt;byte&gt; data, int channel = 0)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
-        <td><span class="parametername">clientID</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.arraysegment-1">ArraySegment</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>&gt;</td>
-        <td><span class="parametername">data</span></td>
-        <td><p>The data to send.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">channel</span></td>
-        <td><p>The channel to send the data down. Ignored on Transports that don&apos;t support channelling.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p>Whether the data could be sent.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_ServerShutdown.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.ServerShutdown%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L137">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L83">View Source</a>
   </span>
   <a id="FNNLib_Transports_Transport_ServerShutdown_" data-uid="FNNLib.Transports.Transport.ServerShutdown*"></a>
   <h4 id="FNNLib_Transports_Transport_ServerShutdown" data-uid="FNNLib.Transports.Transport.ServerShutdown">ServerShutdown()</h4>
@@ -794,7 +485,7 @@ This is a last resort which is used by NetworkServer disconnect if the client do
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_ServerStart.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.ServerStart%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L102">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L58">View Source</a>
   </span>
   <a id="FNNLib_Transports_Transport_ServerStart_" data-uid="FNNLib.Transports.Transport.ServerStart*"></a>
   <h4 id="FNNLib_Transports_Transport_ServerStart" data-uid="FNNLib.Transports.Transport.ServerStart">ServerStart()</h4>
@@ -810,7 +501,7 @@ This is a last resort which is used by NetworkServer disconnect if the client do
     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport_Shutdown.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport.Shutdown%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L148">View Source</a>
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L94">View Source</a>
   </span>
   <a id="FNNLib_Transports_Transport_Shutdown_" data-uid="FNNLib.Transports.Transport.Shutdown*"></a>
   <h4 id="FNNLib_Transports_Transport_Shutdown" data-uid="FNNLib.Transports.Transport.Shutdown">Shutdown()</h4>
@@ -832,7 +523,7 @@ This is a last resort which is used by NetworkServer disconnect if the client do
                     <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Transports_Transport.md&amp;value=---%0Auid%3A%20FNNLib.Transports.Transport%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L14" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Transports/Transport.cs/#L10" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

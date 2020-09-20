@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using FNNLib.Messaging;
+﻿using FNNLib.Messaging;
 using FNNLib.Serialization;
 
 namespace FNNLib.Spawning {
@@ -15,12 +14,12 @@ namespace FNNLib.Spawning {
             networkID = reader.ReadPackedUInt64();
         }
 
-        public bool BufferPacket(ulong sender) {
+        public bool BufferPacket(ulong sender, int channel) {
             if (SpawnManager.spawnedObjects.ContainsKey(networkID))
                 return false;
             
             // Add to spawnmanager buffer so that this event is raised once the object exists (or the 1 minute buffer time expires)
-            SpawnManager.networkObjectPacketBuffer.Enqueue(networkID, new BufferedPacket(this, sender));
+            SpawnManager.networkObjectPacketBuffer.Enqueue(networkID, new BufferedPacket(this, sender, channel));
             return true;
         }
     }

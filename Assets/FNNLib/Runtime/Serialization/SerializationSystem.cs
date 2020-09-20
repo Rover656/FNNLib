@@ -42,11 +42,11 @@ namespace FNNLib.Serialization {
                                                                    typeof(Vector2),
                                                                    typeof(Vector3),
                                                                    typeof(Vector4),
-                                                                   // typeof(Color),
-                                                                   // typeof(Color32),
-                                                                   // typeof(Ray),
+                                                                   typeof(Color),
+                                                                   typeof(Color32),
+                                                                   typeof(Ray),
                                                                    typeof(Quaternion),
-                                                                   // typeof(char),
+                                                                   typeof(char),
                                                                    // typeof(GameObject),
                                                                    // typeof(NetworkIdentity),
                                                                    // typeof(NetworkBehaviour)
@@ -56,7 +56,6 @@ namespace FNNLib.Serialization {
             if (type == typeof(Array))
                 return CanSerialize(type.GetElementType());
             return type.IsEnum || SupportedTypes.Contains(type) || type.HasInterface(typeof(ISerializable));
-            // TODO: Support for custom external serialization
         }
 
         #endregion

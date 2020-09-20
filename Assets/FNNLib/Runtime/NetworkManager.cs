@@ -14,10 +14,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace FNNLib {
-    public delegate void ServerPacketDelegate(ulong clientID, NetworkReader reader);
-
-    public delegate void ClientPacketDelegate(NetworkReader reader);
-
     /// <summary>
     /// The network manager drives the NetworkClient and NetworkServer systems.
     ///
@@ -383,7 +379,7 @@ namespace FNNLib {
             }
         }
 
-        private void ServerHandleConnectionRequest(ulong clientID, ConnectionRequestPacket packet) {
+        private void ServerHandleConnectionRequest(ulong clientID, ConnectionRequestPacket packet, int channel) {
             // Ignore extra approvals.
             if (connectedClients.ContainsKey(clientID))
                 return;
@@ -462,6 +458,9 @@ namespace FNNLib {
 
             // Start client
             isClient = true;
+            
+            // Add connection timeout
+            StartCoroutine(ClientApprovalTimeout());
         }
 
         /// <summary>
@@ -517,8 +516,6 @@ namespace FNNLib {
             var request = new ConnectionRequestPacket
                           {connectionData = null, verificationHash = networkConfig.GetHash()};
             ClientSend(request);
-
-            StartCoroutine(ClientApprovalTimeout()); // TODO: Maybe move this to the initial connect call?
         }
 
         private IEnumerator ClientApprovalTimeout() {
@@ -546,7 +543,7 @@ namespace FNNLib {
             HandlePacket(0, data, channel);
         }
 
-        private void ClientHandleApproval(ConnectionApprovedPacket packet) {
+        private void ClientHandleApproval(ConnectionApprovedPacket packet, int channel) {
             // Save my client ID
             _localClientID = packet.localClientID;
 
@@ -557,7 +554,7 @@ namespace FNNLib {
             clientOnConnect?.Invoke();
         }
 
-        private void ClientHandleDisconnectRequest(ClientDisconnectPacket packet) {
+        private void ClientHandleDisconnectRequest(ClientDisconnectPacket packet, int channel) {
             _disconnectionReason = packet.disconnectReason;
             networkConfig.transport.ClientDisconnect();
         }
@@ -779,7 +776,7 @@ namespace FNNLib {
         /// </summary>
         /// <param name="handler">The handling action</param>
         /// <typeparam name="TPacket">The packet to be handled.</typeparam>
-        public void RegisterClientPacketHandler<TPacket>(Action<TPacket> handler)
+        public void RegisterClientPacketHandler<TPacket>(Action<TPacket, int> handler)
             where TPacket : ISerializable, new() {
             var packetID = GetPacketID<TPacket>();
             if (!clientHandlers.ContainsKey(packetID)) {
@@ -792,7 +789,7 @@ namespace FNNLib {
         /// </summary>
         /// <param name="handler">The handling action</param>
         /// <typeparam name="TPacket">The packet to be handled.</typeparam>
-        public void RegisterServerPacketHandler<TPacket>(Action<ulong, TPacket> handler)
+        public void RegisterServerPacketHandler<TPacket>(Action<ulong, TPacket, int> handler)
             where TPacket : ISerializable, new() {
             var packetID = GetPacketID<TPacket>();
             if (!serverHandlers.ContainsKey(packetID)) {
@@ -843,6 +840,7 @@ namespace FNNLib {
             // Register scene management events.
             RegisterClientPacketHandler<SceneLoadPacket>(NetworkSceneManager.ClientHandleSceneLoadPacket);
             RegisterClientPacketHandler<SceneUnloadPacket>(NetworkSceneManager.ClientHandleSceneUnloadPacket);
+            RegisterClientPacketHandler<MoveObjectToScenePacket>(NetworkSceneManager.ClientHandleMoveObjectPacket);
 
             // Object spawning
             RegisterClientPacketHandler<SpawnObjectPacket>(SpawnManager.ClientHandleSpawnPacket);
@@ -880,12 +878,12 @@ namespace FNNLib {
                 // Fire the handler if present
                 if (isServer) {
                     if (serverHandlers.TryGetValue(packetID, out var serverHandler)) {
-                        serverHandler.packetDelegate(sender, reader);
+                        serverHandler.packetDelegate(sender, reader, channel);
                         return;
                     }
                 } else {
                     if (clientHandlers.TryGetValue(packetID, out var clientHandler)) {
-                        clientHandler.packetDelegate(reader);
+                        clientHandler.packetDelegate(reader, channel);
                         return;
                     }
                 }

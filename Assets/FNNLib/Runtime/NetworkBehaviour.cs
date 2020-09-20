@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using FNNLib.Config;
 using FNNLib.RPC;
 using FNNLib.SceneManagement;
 using FNNLib.Serialization;
@@ -226,7 +227,7 @@ namespace FNNLib {
             return null;
         }
 
-        internal static void ClientRPCCallHandler(RPCPacket packet) {
+        internal static void ClientRPCCallHandler(RPCPacket packet, int channel) {
             if (SpawnManager.spawnedObjects.ContainsKey(packet.networkID)) {
                 var identity = SpawnManager.spawnedObjects[packet.networkID];
                 var behaviour = identity.behaviours[packet.behaviourOrder];
@@ -237,7 +238,7 @@ namespace FNNLib {
             }
         }
         
-        internal static void ServerRPCCallHandler(ulong sender, RPCPacket packet) {
+        internal static void ServerRPCCallHandler(ulong sender, RPCPacket packet, int channel) {
             if (SpawnManager.spawnedObjects.ContainsKey(packet.networkID)) {
                 var identity = SpawnManager.spawnedObjects[packet.networkID];
                 var behaviour = identity.behaviours[packet.behaviourOrder];
@@ -259,8 +260,16 @@ namespace FNNLib {
         }
 
         internal static ulong HashMethodName(string name) {
-            // TODO: Allow changing hash size
-            return name.GetStableHash64();
+            switch (NetworkManager.instance.networkConfig.rpcHashSize) {
+                case HashSize.TwoBytes:
+                    return name.GetStableHash16();
+                case HashSize.FourBytes:
+                    return name.GetStableHash32();
+                case HashSize.EightBytes:
+                    return name.GetStableHash64();
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         internal static ulong HashMethodSignature(MethodInfo info) {

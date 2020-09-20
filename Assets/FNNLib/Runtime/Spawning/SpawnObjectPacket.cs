@@ -72,11 +72,11 @@ namespace FNNLib.Spawning {
             }
         }
 
-        public bool BufferPacket(ulong sender) {
+        public bool BufferPacket(ulong sender, int channel) {
             if (NetworkManager.instance.connectedClients[NetworkManager.instance.localClientID].loadedScenes
                               .Contains(sceneID))
                 return false;
-            NetworkSceneManager.bufferedScenePackets.Enqueue(sceneID, new BufferedPacket(this, sender));
+            NetworkSceneManager.bufferedScenePackets.Enqueue(sceneID, new BufferedPacket(this, sender, channel));
             return true;
         }
     }

@@ -120,6 +120,8 @@ namespace FNNLib.Serialization {
             buffer[_position++] = value;
         }
 
+        public void WriteSByte(sbyte value) => WriteByte((byte) value);
+
         public void WriteBool(bool value) {
             EnsureLength(_position + 1);
             buffer[_position++] = (byte) (value ? 1 : 0);
@@ -314,12 +316,33 @@ namespace FNNLib.Serialization {
             WriteSingle(value.w);
         }
 
+        public void WriteColor(Color value) {
+            WriteSingle(value.r);
+            WriteSingle(value.g);
+            WriteSingle(value.b);
+            WriteSingle(value.a);
+        }
+
+        public void WriteColor32(Color32 value) {
+            WriteByte(value.r);
+            WriteByte(value.g);
+            WriteByte(value.b);
+            WriteByte(value.a);
+        }
+
+        public void WriteRay(Ray value) {
+            WriteVector3(value.origin);
+            WriteVector3(value.direction);
+        }
+
         public void WriteQuaternion(Quaternion value) {
             WriteSingle(value.x);
             WriteSingle(value.y);
             WriteSingle(value.z);
             WriteSingle(value.w);
         }
+
+        public void WriteChar(char value) => WriteByte((byte) value);
 
         public void WritePackedObjects(object[] values) {
             foreach (var value in values)
@@ -347,9 +370,9 @@ namespace FNNLib.Serialization {
                 case byte @byte:
                     WriteByte(@byte);
                     break;
-                // case sbyte SByte:
-                //     // todo
-                //     break;
+                case sbyte @sbyte:
+                    WriteSByte(@sbyte);
+                    break;
                 case ushort @ushort:
                     WritePackedUInt16(@ushort);
                     break;
@@ -392,8 +415,20 @@ namespace FNNLib.Serialization {
                 case Vector4 vector4:
                     WriteVector3(vector4);
                     break;
+                case Color color:
+                    WriteColor(color);
+                    break;
+                case Color32 color32:
+                    WriteColor32(color32);
+                    break;
+                case Ray ray:
+                    WriteRay(ray);
+                    break;
                 case Quaternion quaternion:
                     WriteQuaternion(quaternion);
+                    break;
+                case char @char:
+                    WriteChar(@char);
                     break;
                 case ISerializable serializable:
                     serializable.Serialize(this);

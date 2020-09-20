@@ -63,17 +63,17 @@ namespace FNNLib.SceneManagement {
         #endregion
         
         #region Objects
+
+        public GameObject Instantiate(GameObject go) {
+            return Instantiate(go, Vector3.zero, Quaternion.identity);
+        }
         
         public GameObject Instantiate(GameObject go, Vector3 position, Quaternion rotation) {
-            if (!NetworkManager.instance.isServer)
-                throw new NotSupportedException("Only the server may instantiate things inside of a network scene!");
-            // TODO: Ensure that the object has a valid prefab hash!
+            // NOTE: This can be used on the client to spawn things, but they still cannot be spawned on the server.
             var created = Object.Instantiate(go, position, rotation);
             SceneManager.MoveGameObjectToScene(created, scene);
             return created;
         }
-        
-        // TODO: Moving networked objects...
 
         /// <summary>
         /// Find all objects of type in a scene. Can only search for monobehaviours

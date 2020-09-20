@@ -250,8 +250,18 @@ namespace FNNLib.Serialization {
         public Vector2 ReadVector2() => new Vector2(ReadSingle(), ReadSingle());
 
         public Vector3 ReadVector3() => new Vector3(ReadSingle(), ReadSingle(), ReadSingle());
+        
         public Vector3 ReadVector4() => new Vector4(ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle());
+
+        public Color ReadColor() => new Color(ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle());
+
+        public Color32 ReadColor32() => new Color32(ReadByte(), ReadByte(), ReadByte(), ReadByte());
+
+        public Ray ReadRay() => new Ray(ReadVector3(), ReadVector3());
+        
         public Quaternion ReadQuaternion() => new Quaternion(ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle());
+
+        public char ReadChar() => (char) ReadByte();
 
         public object ReadPackedObject(Type type) {
             if (type.IsNullable()) {
@@ -297,8 +307,16 @@ namespace FNNLib.Serialization {
                 return ReadVector3();
             if (type == typeof(Vector4))
                 return ReadVector4();
+            if (type == typeof(Color))
+                return ReadColor();
+            if (type == typeof(Color32))
+                return ReadColor32();
+            if (type == typeof(Ray))
+                return ReadRay();
             if (type == typeof(Quaternion))
                 return ReadQuaternion();
+            if (type == typeof(char))
+                return ReadChar();
             if (typeof(ISerializable).IsAssignableFrom(type)) {
                 var instance = Activator.CreateInstance(type);
                 ((ISerializable) instance).DeSerialize(this);

@@ -44,18 +44,25 @@ namespace FNNLib.SceneManagement {
         #region Scene Management
 
         /// <summary>
-        /// 
+        /// Load the given scene on the server and all clients.
+        /// </summary>
+        /// <param name="sceneName">Scene to load.</param>
+        /// <returns>The NetworkScene.</returns>
+        public static NetworkScene LoadScene(string sceneName) {
+            return LoadScene(sceneName, LoadSceneMode.Single, LoadSceneMode.Single);
+        }
+
+        /// <summary>
+        /// Load a scene.
         /// </summary>
         /// <remarks>
         /// If a scene is loaded for everybody, new clients will also load this scene on connection.
         /// </remarks>
-        /// <param name="sceneName"></param>
-        /// <param name="serverMode"></param>
-        /// <param name="clientMode"></param>
-        /// <param name="clientsToLoadFor"></param>
-        /// <returns></returns>
-        /// <exception cref="NotSupportedException"></exception>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <param name="sceneName">The scene name.</param>
+        /// <param name="serverMode">The mode to load with on the server.</param>
+        /// <param name="clientMode">he mode to load with on the client.</param>
+        /// <param name="clientsToLoadFor">The clients to load the scene for, or null for all clients.</param>
+        /// <returns>The NetworkScene.</returns>
         public static NetworkScene LoadScene(string sceneName, LoadSceneMode serverMode, LoadSceneMode clientMode,
                                              List<ulong> clientsToLoadFor = null) {
             if (!NetworkManager.instance.isServer)
@@ -244,7 +251,38 @@ namespace FNNLib.SceneManagement {
 
         #endregion
 
-        #region Client and Object Management
+        #region Object Management
+        
+        public static void MoveNetworkObjectToScene(NetworkIdentity identity, NetworkScene scene) {
+            MoveNetworkObjectToScene(identity, scene.netID);
+        }
+        
+        public static void MoveNetworkObjectToScene(NetworkIdentity identity, uint sceneNetworkID) {
+            if (!NetworkManager.instance.isServer)
+                throw new NotSupportedException("Only server may move objects to different scenes!");
+            if (!loadedScenes.ContainsKey(sceneNetworkID))
+                throw new NotSupportedException("Scene is not loaded!");
+            
+            // Move it
+            var originalScene = loadedScenes[identity.networkSceneID];
+            var targetScene = loadedScenes[sceneNetworkID];
+            SceneManager.MoveGameObjectToScene(identity.gameObject, targetScene.scene);
+            
+            // Tell observers of both scenes to move it. If they can only see the 
+            var movePacket = new MoveObjectToScenePacket {
+                                                       networkID = identity.networkID,
+                                                       destinationScene = sceneNetworkID
+                                                   };
+            foreach (var observer in NetworkManager.instance.connectedClientsList.Select(item => item.clientID)) {
+                if (originalScene.observers.Contains(observer) && targetScene.observers.Contains(observer)) {
+                    NetworkManager.instance.ServerSend(observer, movePacket);
+                } else if (originalScene.observers.Contains(observer)) {
+                    identity.RemoveObserver(observer);
+                } else if (targetScene.observers.Contains(observer)) {
+                    identity.AddObserver(observer);
+                }
+            }
+        }
 
         #endregion
 
@@ -266,7 +304,7 @@ namespace FNNLib.SceneManagement {
 
         #region Client Handlers
 
-        internal static void ClientHandleSceneLoadPacket(SceneLoadPacket packet) {
+        internal static void ClientHandleSceneLoadPacket(SceneLoadPacket packet, int channel) {
             // Get the scene to load
             var scene = NetworkManager.instance.networkConfig.networkableScenes[packet.sceneIndex];
 
@@ -300,13 +338,19 @@ namespace FNNLib.SceneManagement {
                                    };
         }
 
-        internal static void ClientHandleSceneUnloadPacket(SceneUnloadPacket packet) {
+        internal static void ClientHandleSceneUnloadPacket(SceneUnloadPacket packet, int channel) {
             // Unload if its loaded
             if (loadedScenes.ContainsKey(packet.sceneNetID)) {
                 SceneManager.UnloadSceneAsync(loadedScenes[packet.sceneNetID].scene);
                 Resources.UnloadUnusedAssets();
                 loadedScenes.TryRemove(packet.sceneNetID, out _);
             }
+        }
+
+        internal static void ClientHandleMoveObjectPacket(MoveObjectToScenePacket packet, int channel) {
+            var obj = SpawnManager.spawnedObjects[packet.networkID];
+            var targetScene = loadedScenes[packet.destinationScene];
+            SceneManager.MoveGameObjectToScene(obj.gameObject, targetScene.scene);
         }
 
         #endregion

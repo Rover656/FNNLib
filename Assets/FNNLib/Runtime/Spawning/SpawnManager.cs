@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using FNNLib.Messaging;
-using FNNLib.RPC;
 using FNNLib.SceneManagement;
 using FNNLib.Transports;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 namespace FNNLib.Spawning {
-    // TODO: Look at https://github.com/MidLevel/MLAPI/blob/88bdf8b372cee16d49a30c5786de8a151b928b2c/MLAPI-Editor/PostProcessScene.cs#L37
-    //       This shows how MLAPI sorts all scene objects to generate unique instance ID's for non-prefab's in a scene.
-
     public static class SpawnManager {
         /// <summary>
         /// Objects that have been spawned
@@ -134,11 +131,13 @@ namespace FNNLib.Spawning {
 
                 var prefab = NetworkManager.instance.networkConfig.networkedPrefabs[prefabIdx].prefab;
 
+                var sceneToCreateIn = NetworkSceneManager.GetNetScene(sceneID);
+
                 var createdObject = (position != null || rotation != null)
-                                        ? Object.Instantiate(prefab, position.GetValueOrDefault(),
-                                                             rotation.GetValueOrDefault())
-                                                .GetComponent<NetworkIdentity>()
-                                        : Object.Instantiate(prefab).GetComponent<NetworkIdentity>();
+                                        ? sceneToCreateIn.Instantiate(prefab, position.GetValueOrDefault(),
+                                                                      rotation.GetValueOrDefault())
+                                                         .GetComponent<NetworkIdentity>()
+                                        : sceneToCreateIn.Instantiate(prefab).GetComponent<NetworkIdentity>();
 
                 if (parent != null)
                     createdObject.transform.SetParent(parent.transform, true);
@@ -200,7 +199,7 @@ namespace FNNLib.Spawning {
 
         #region Client Handlers
 
-        internal static void ClientHandleSpawnPacket(SpawnObjectPacket packet) {
+        internal static void ClientHandleSpawnPacket(SpawnObjectPacket packet, int channel) {
             // Make nullable vars
             ulong? parentNetID = null;
             if (packet.hasParent)
@@ -219,7 +218,7 @@ namespace FNNLib.Spawning {
             SpawnObjectLocally(netObj, packet.networkID, packet.isSceneObject ?? true, packet.isPlayerObject, packet.ownerClientID);
         }
 
-        internal static void ClientHandleDestroy(DestroyObjectPacket packet) {
+        internal static void ClientHandleDestroy(DestroyObjectPacket packet, int channel) {
             OnDestroy(packet.networkID, true);
         }
 

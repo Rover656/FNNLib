@@ -16,7 +16,6 @@ namespace FNNLib.RPC {
             this.method = method;
             this.index = index;
 
-            // TODO: Server RPCs
             if (attribute is ServerRPCAttribute serverRPCAttribute) {
                 serverTarget = true;
                 requireOwnership = serverRPCAttribute.requireOwnership;

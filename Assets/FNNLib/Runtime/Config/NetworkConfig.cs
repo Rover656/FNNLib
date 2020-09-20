@@ -96,7 +96,6 @@ namespace FNNLib.Config {
         /// <summary>
         /// The hash size for rpc method names.
         /// Only change if you are having collision problems.
-        /// TODO: Implement
         /// </summary>
         public HashSize rpcHashSize = HashSize.FourBytes;
 

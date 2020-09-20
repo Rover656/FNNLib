@@ -17,19 +17,27 @@ namespace DefaultNamespace {
 
         void Start() {
             if ((Application.isEditor && !reverseRoles) || (!Application.isEditor && reverseRoles)) {
-                NetworkManager.instance.serverOnClientConnect.AddListener((client) => {
-                                                                              NetworkSceneManager.GetNetScene(1)
-                                                                                 .Instantiate(testPrefab, Vector3.zero,
-                                                                                      Quaternion.identity)
-                                                                                 .GetComponent<NetworkIdentity>()
-                                                                                 .SpawnAsPlayerObject(client);
-                                                                          });
-                
+                NetworkManager.instance.serverOnClientConnect.AddListener(SpawnPlayerObj);
                 NetworkManager.instance.StartHost();
-                NetworkSceneManager.LoadScene("Test", LoadSceneMode.Additive, LoadSceneMode.Additive);
             } else {
                 NetworkManager.instance.StartClient("localhost");
             }
+        }
+
+        private void SpawnPlayerObj(ulong client) {
+            if (testScene == null)
+                testScene = NetworkSceneManager.LoadScene("Test", LoadSceneMode.Additive, LoadSceneMode.Additive);
+            
+            var obj = NetworkSceneManager.GetNetScene(1).Instantiate(testPrefab, Vector3.zero, Quaternion.identity);
+            obj.GetComponent<NetworkIdentity>().SpawnAsPlayerObject(client);
+
+            StartCoroutine(Test(obj));
+        }
+
+        private IEnumerator Test(GameObject obj) {
+            yield return new WaitForSeconds(1f);
+            // Move to test scene (for testing purposes).
+            NetworkSceneManager.MoveNetworkObjectToScene(obj.GetComponent<NetworkIdentity>(), testScene);
         }
 
         void Update() {

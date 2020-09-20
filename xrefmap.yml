@@ -73,12 +73,6 @@ references:
   commentId: T:FNNLib.Config.NetworkConfig
   fullName: FNNLib.Config.NetworkConfig
   nameWithType: NetworkConfig
-- uid: FNNLib.Config.NetworkConfig.bufferPurgesPerSecond
-  name: bufferPurgesPerSecond
-  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_bufferPurgesPerSecond
-  commentId: F:FNNLib.Config.NetworkConfig.bufferPurgesPerSecond
-  fullName: FNNLib.Config.NetworkConfig.bufferPurgesPerSecond
-  nameWithType: NetworkConfig.bufferPurgesPerSecond
 - uid: FNNLib.Config.NetworkConfig.clientMaxReceivesPerUpdate
   name: clientMaxReceivesPerUpdate
   href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_clientMaxReceivesPerUpdate
@@ -140,6 +134,12 @@ references:
   commentId: F:FNNLib.Config.NetworkConfig.networkedPrefabs
   fullName: FNNLib.Config.NetworkConfig.networkedPrefabs
   nameWithType: NetworkConfig.networkedPrefabs
+- uid: FNNLib.Config.NetworkConfig.packetBufferPurgesPerSecond
+  name: packetBufferPurgesPerSecond
+  href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_packetBufferPurgesPerSecond
+  commentId: F:FNNLib.Config.NetworkConfig.packetBufferPurgesPerSecond
+  fullName: FNNLib.Config.NetworkConfig.packetBufferPurgesPerSecond
+  nameWithType: NetworkConfig.packetBufferPurgesPerSecond
 - uid: FNNLib.Config.NetworkConfig.packetIDHashSize
   name: packetIDHashSize
   href: api/FNNLib.Config.NetworkConfig.html#FNNLib_Config_NetworkConfig_packetIDHashSize
@@ -663,6 +663,19 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkBehaviour.behaviourIndex
   nameWithType: NetworkBehaviour.behaviourIndex
+- uid: FNNLib.NetworkBehaviour.executingRPCSender
+  name: executingRPCSender
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_executingRPCSender
+  commentId: P:FNNLib.NetworkBehaviour.executingRPCSender
+  fullName: FNNLib.NetworkBehaviour.executingRPCSender
+  nameWithType: NetworkBehaviour.executingRPCSender
+- uid: FNNLib.NetworkBehaviour.executingRPCSender*
+  name: executingRPCSender
+  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_executingRPCSender_
+  commentId: Overload:FNNLib.NetworkBehaviour.executingRPCSender
+  isSpec: "True"
+  fullName: FNNLib.NetworkBehaviour.executingRPCSender
+  nameWithType: NetworkBehaviour.executingRPCSender
 - uid: FNNLib.NetworkBehaviour.hasIdentity
   name: hasIdentity
   href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_hasIdentity

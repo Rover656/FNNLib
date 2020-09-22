@@ -438,7 +438,7 @@ MonoBehaviour:
   networkConfig:
     protocolVersion: 0
     transport: {fileID: 786270579}
-    maxBufferedPacketAge: 10
+    maxBufferedPacketAge: 5
     packetBufferPurgesPerSecond: 3
     initialScene: SampleScene
     networkableScenes:

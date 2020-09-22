@@ -339,6 +339,9 @@ namespace FNNLib {
                 connectedClientsList.Remove(connectedClients[clientID]);
                 connectedClients.Remove(clientID);
             }
+            
+            if (_clientIDs.Contains(clientID))
+                _clientIDs.Remove(clientID);
 
             // Fire event
             serverOnClientDisconnect?.Invoke(clientID);
@@ -808,6 +811,8 @@ namespace FNNLib {
                 _lastBufferPurge = Time.unscaledTime;
                 BasePacketBufferCollection.PurgeAllOldPackets();
             }
+            
+            // TODO: Move other timeout checks here.
         }
         
         #endregion

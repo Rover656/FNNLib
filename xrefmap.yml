@@ -7511,6 +7511,63 @@ references:
   commentId: N:FNNLib.Spawning
   fullName: FNNLib.Spawning
   nameWithType: FNNLib.Spawning
+- uid: FNNLib.Spawning.OwnerChangedPacket
+  name: OwnerChangedPacket
+  href: api/FNNLib.Spawning.OwnerChangedPacket.html
+  commentId: T:FNNLib.Spawning.OwnerChangedPacket
+  fullName: FNNLib.Spawning.OwnerChangedPacket
+  nameWithType: OwnerChangedPacket
+- uid: FNNLib.Spawning.OwnerChangedPacket.BufferPacket(System.UInt64,System.Int32)
+  name: BufferPacket(UInt64, Int32)
+  href: api/FNNLib.Spawning.OwnerChangedPacket.html#FNNLib_Spawning_OwnerChangedPacket_BufferPacket_System_UInt64_System_Int32_
+  commentId: M:FNNLib.Spawning.OwnerChangedPacket.BufferPacket(System.UInt64,System.Int32)
+  fullName: FNNLib.Spawning.OwnerChangedPacket.BufferPacket(System.UInt64, System.Int32)
+  nameWithType: OwnerChangedPacket.BufferPacket(UInt64, Int32)
+- uid: FNNLib.Spawning.OwnerChangedPacket.BufferPacket*
+  name: BufferPacket
+  href: api/FNNLib.Spawning.OwnerChangedPacket.html#FNNLib_Spawning_OwnerChangedPacket_BufferPacket_
+  commentId: Overload:FNNLib.Spawning.OwnerChangedPacket.BufferPacket
+  isSpec: "True"
+  fullName: FNNLib.Spawning.OwnerChangedPacket.BufferPacket
+  nameWithType: OwnerChangedPacket.BufferPacket
+- uid: FNNLib.Spawning.OwnerChangedPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
+  name: DeSerialize(NetworkReader)
+  href: api/FNNLib.Spawning.OwnerChangedPacket.html#FNNLib_Spawning_OwnerChangedPacket_DeSerialize_FNNLib_Serialization_NetworkReader_
+  commentId: M:FNNLib.Spawning.OwnerChangedPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
+  fullName: FNNLib.Spawning.OwnerChangedPacket.DeSerialize(FNNLib.Serialization.NetworkReader)
+  nameWithType: OwnerChangedPacket.DeSerialize(NetworkReader)
+- uid: FNNLib.Spawning.OwnerChangedPacket.DeSerialize*
+  name: DeSerialize
+  href: api/FNNLib.Spawning.OwnerChangedPacket.html#FNNLib_Spawning_OwnerChangedPacket_DeSerialize_
+  commentId: Overload:FNNLib.Spawning.OwnerChangedPacket.DeSerialize
+  isSpec: "True"
+  fullName: FNNLib.Spawning.OwnerChangedPacket.DeSerialize
+  nameWithType: OwnerChangedPacket.DeSerialize
+- uid: FNNLib.Spawning.OwnerChangedPacket.networkID
+  name: networkID
+  href: api/FNNLib.Spawning.OwnerChangedPacket.html#FNNLib_Spawning_OwnerChangedPacket_networkID
+  commentId: F:FNNLib.Spawning.OwnerChangedPacket.networkID
+  fullName: FNNLib.Spawning.OwnerChangedPacket.networkID
+  nameWithType: OwnerChangedPacket.networkID
+- uid: FNNLib.Spawning.OwnerChangedPacket.newOwnerID
+  name: newOwnerID
+  href: api/FNNLib.Spawning.OwnerChangedPacket.html#FNNLib_Spawning_OwnerChangedPacket_newOwnerID
+  commentId: F:FNNLib.Spawning.OwnerChangedPacket.newOwnerID
+  fullName: FNNLib.Spawning.OwnerChangedPacket.newOwnerID
+  nameWithType: OwnerChangedPacket.newOwnerID
+- uid: FNNLib.Spawning.OwnerChangedPacket.Serialize(FNNLib.Serialization.NetworkWriter)
+  name: Serialize(NetworkWriter)
+  href: api/FNNLib.Spawning.OwnerChangedPacket.html#FNNLib_Spawning_OwnerChangedPacket_Serialize_FNNLib_Serialization_NetworkWriter_
+  commentId: M:FNNLib.Spawning.OwnerChangedPacket.Serialize(FNNLib.Serialization.NetworkWriter)
+  fullName: FNNLib.Spawning.OwnerChangedPacket.Serialize(FNNLib.Serialization.NetworkWriter)
+  nameWithType: OwnerChangedPacket.Serialize(NetworkWriter)
+- uid: FNNLib.Spawning.OwnerChangedPacket.Serialize*
+  name: Serialize
+  href: api/FNNLib.Spawning.OwnerChangedPacket.html#FNNLib_Spawning_OwnerChangedPacket_Serialize_
+  commentId: Overload:FNNLib.Spawning.OwnerChangedPacket.Serialize
+  isSpec: "True"
+  fullName: FNNLib.Spawning.OwnerChangedPacket.Serialize
+  nameWithType: OwnerChangedPacket.Serialize
 - uid: FNNLib.Spawning.SpawnManager
   name: SpawnManager
   href: api/FNNLib.Spawning.SpawnManager.html

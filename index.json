@@ -277,7 +277,12 @@
   "api/FNNLib.Spawning.html": {
     "href": "api/FNNLib.Spawning.html",
     "title": "Namespace FNNLib.Spawning | Friday Night Networking Library",
-    "keywords": "Namespace FNNLib.Spawning Classes SpawnManager"
+    "keywords": "Namespace FNNLib.Spawning Classes OwnerChangedPacket SpawnManager"
+  },
+  "api/FNNLib.Spawning.OwnerChangedPacket.html": {
+    "href": "api/FNNLib.Spawning.OwnerChangedPacket.html",
+    "title": "Class OwnerChangedPacket | Friday Night Networking Library",
+    "keywords": "Class OwnerChangedPacket Inheritance Object OwnerChangedPacket Implements ISerializable IBufferablePacket Namespace : FNNLib.Spawning Assembly : FNNLib.dll Syntax public class OwnerChangedPacket : ISerializable, IBufferablePacket Fields | Improve this Doc View Source networkID Declaration public ulong networkID Field Value Type Description UInt64 | Improve this Doc View Source newOwnerID Declaration public ulong newOwnerID Field Value Type Description UInt64 Methods | Improve this Doc View Source BufferPacket(UInt64, Int32) Declaration public bool BufferPacket(ulong sender, int channel) Parameters Type Name Description UInt64 sender Int32 channel Returns Type Description Boolean | Improve this Doc View Source DeSerialize(NetworkReader) Declaration public void DeSerialize(NetworkReader reader) Parameters Type Name Description NetworkReader reader | Improve this Doc View Source Serialize(NetworkWriter) Declaration public void Serialize(NetworkWriter writer) Parameters Type Name Description NetworkWriter writer Implements ISerializable IBufferablePacket"
   },
   "api/FNNLib.Spawning.SpawnManager.html": {
     "href": "api/FNNLib.Spawning.SpawnManager.html",

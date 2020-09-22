@@ -328,7 +328,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.NetworkManager.html",
-          "hash": "586EP+W+mgRTfYzOqmk3dw=="
+          "hash": "JBSMwHPuYFbC67T4l5t7fw=="
         }
       },
       "is_incremental": false,
@@ -672,6 +672,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/FNNLib.Spawning.OwnerChangedPacket.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FNNLib.Spawning.OwnerChangedPacket.html",
+          "hash": "WujFv+vQYbkqoJ4GAk9Hqw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/FNNLib.Spawning.SpawnManager.yml",
       "output": {
         ".html": {
@@ -688,7 +700,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Spawning.html",
-          "hash": "6TRkiMnE+hWCkXncBJ+7xg=="
+          "hash": "y6xmGoWGVoHL12eb6+5rTQ=="
         }
       },
       "is_incremental": false,
@@ -832,7 +844,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "33rF1vquq63vQqywuBHbgg=="
+          "hash": "9ISRcW/m0hP87xn2Qf/ZZg=="
         }
       },
       "is_incremental": false,
@@ -941,7 +953,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 67,
+          "total_file_count": 68,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {

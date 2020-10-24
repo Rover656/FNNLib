@@ -70,8 +70,6 @@ namespace FNNLib {
         /// </summary>
         public bool runInBackground = true;
 
-        public List<NetworkChannel> channels = new List<NetworkChannel>();
-
         private bool _wasRunningInBackground;
 
         /// <summary>
@@ -80,7 +78,7 @@ namespace FNNLib {
         [HideInInspector] public NetworkConfig networkConfig;
 
         private void OnValidate() {
-            EnsureDefaultChannels();
+            networkConfig.EnsureDefaultChannels();
         }
 
         private void Awake() {
@@ -114,6 +112,8 @@ namespace FNNLib {
         [HideInInspector] public UnityEvent<ulong> serverOnClientDisconnect = new UnityEvent<ulong>();
 
         private List<ulong> _pendingClients = new List<ulong>();
+        
+        [HideInInspector]
         public List<ulong> allClientIDs = new List<ulong>();
 
         /// <summary>
@@ -572,7 +572,7 @@ namespace FNNLib {
             connectedClientsList.Clear();
 
             // Reset channels
-            EnsureDefaultChannels();
+            networkConfig.EnsureDefaultChannels();
             NetworkChannel.Reliable.ResetChannel();
             NetworkChannel.ReliableSequenced.ResetChannel();
             NetworkChannel.Unreliable.ResetChannel();
@@ -622,8 +622,8 @@ namespace FNNLib {
                             ServerOnClientConnect(clientID);
                             break;
                         case NetworkEventType.Data:
-                            if (channel < channels.Count) {
-                                channels[channel].HandleIncoming(clientID, NetworkReaderPool.GetReader(data), true);
+                            if (channel < networkConfig.channels.Count) {
+                                networkConfig.channels[channel].HandleIncoming(clientID, NetworkReaderPool.GetReader(data), true);
                             } else {
                                 Debug.LogWarning("Channel not registered!!");
                             }
@@ -647,9 +647,9 @@ namespace FNNLib {
                             ClientOnConnected();
                             break;
                         case NetworkEventType.Data:
-                            if (channel < channels.Count) {
-                                channels[channel]
-                                   .HandleIncoming(ServerLocalID, NetworkReaderPool.GetReader(data), false);
+                            if (channel < networkConfig.channels.Count) {
+                                networkConfig.channels[channel]
+                                             .HandleIncoming(ServerLocalID, NetworkReaderPool.GetReader(data), false);
                             } else {
                                 Debug.LogWarning("Channel not registered!!");
                             }
@@ -715,21 +715,6 @@ namespace FNNLib {
                           .Consumer<RPCPacket>(NetworkBehaviour.RPCCallHandler).Bufferable().Register();
             NetworkChannel.ReliableSequenced.GetFactory()
                           .Consumer<RPCResponsePacket>(RPCResponseManager.HandleRPCResponse).Register();
-        }
-
-        // Ensure default channels
-        private void EnsureDefaultChannels() {
-            if (channels.Count < 3) {
-                channels = new List<NetworkChannel>
-                           {NetworkChannel.Reliable, NetworkChannel.ReliableSequenced, NetworkChannel.Unreliable};
-            } else {
-                NetworkChannel.Reliable.channelType = ChannelType.Reliable;
-                NetworkChannel.ReliableSequenced.channelType = ChannelType.ReliableSequenced;
-                NetworkChannel.Unreliable.channelType = ChannelType.Unreliable;
-                channels[0] = NetworkChannel.Reliable;
-                channels[1] = NetworkChannel.ReliableSequenced;
-                channels[2] = NetworkChannel.Unreliable;
-            }
         }
 
         #endregion

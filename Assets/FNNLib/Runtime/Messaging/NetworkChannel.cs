@@ -282,7 +282,7 @@ namespace FNNLib.Messaging {
             get {
                 if (NetworkManager.instance == null)
                     return -1;
-                return NetworkManager.instance.channels.IndexOf(this);
+                return NetworkManager.instance.networkConfig.channels.IndexOf(this);
             }
         }
 

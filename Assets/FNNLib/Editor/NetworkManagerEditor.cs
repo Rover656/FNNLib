@@ -25,9 +25,9 @@ namespace FNNLib.Editor {
         private SerializedProperty _clientMaxReceivesPerUpdateProp;
         private SerializedProperty _serverTickRateProp;
         private SerializedProperty _serverMaxReceivesPerUpdateProp;
-        private SerializedProperty _packetIDHashSizeProp;
         private SerializedProperty _rpcHashSizeProp;
 
+        private ReorderableList _channelsList;
         private ReorderableList _networkableScenesList;
         private ReorderableList _networkedPrefabsList;
 
@@ -51,12 +51,38 @@ namespace FNNLib.Editor {
             _clientMaxReceivesPerUpdateProp = _networkConfigProp.FindPropertyRelative("clientMaxReceivesPerUpdate");
             _serverTickRateProp = _networkConfigProp.FindPropertyRelative("serverTickRate");
             _serverMaxReceivesPerUpdateProp = _networkConfigProp.FindPropertyRelative("serverMaxReceivesPerUpdate");
-            _packetIDHashSizeProp = _networkConfigProp.FindPropertyRelative("packetIDHashSize");
             _rpcHashSizeProp = _networkConfigProp.FindPropertyRelative("rpcHashSize");
         }
 
         private void OnEnable() {
             Init();
+            
+            _channelsList = new ReorderableList(serializedObject,
+                                                _networkConfigProp
+                                                   .FindPropertyRelative("channels"),
+                                                true,
+                                                true, true, true);
+            
+            _channelsList.drawElementCallback = (rect, index, isActive, isFocused) => {
+                                                    var element = _channelsList
+                                                                 .serializedProperty
+                                                                 .GetArrayElementAtIndex(index);
+                                                    var firstLabelWidth = 20;
+                                                    var channelType = element.FindPropertyRelative("channelType");
+
+                                                    EditorGUI
+                                                       .LabelField(new Rect(rect.x, rect.y, firstLabelWidth, EditorGUIUtility.singleLineHeight),
+                                                                   index.ToString());
+                                                    EditorGUI.PropertyField(new Rect(rect.x + firstLabelWidth,
+                                                                                rect.y,
+                                                                                rect.width - firstLabelWidth,
+                                                                                EditorGUIUtility.singleLineHeight),
+                                                                            channelType, GUIContent.none);
+                                                };
+
+            _channelsList.drawHeaderCallback = (rect) => { EditorGUI.LabelField(rect, "Channels"); };
+            
+            
 
             _networkableScenesList = new ReorderableList(serializedObject,
                                                          _networkConfigProp
@@ -150,6 +176,7 @@ namespace FNNLib.Editor {
                 EditorGUILayout.PropertyField(_transportProp);
                 EditorGUILayout.PropertyField(_maxBufferedPacketAgeProp);
                 EditorGUILayout.PropertyField(_packetBufferPurgesPerSecondProp);
+                _channelsList.DoLayoutList();
 
                 if (_transportProp.objectReferenceValue == null) {
                     EditorGUILayout.HelpBox("You must select a transport before using FNNLib!", MessageType.Warning);
@@ -177,7 +204,6 @@ namespace FNNLib.Editor {
                 EditorGUILayout.PropertyField(_serverMaxReceivesPerUpdateProp);
 
                 EditorGUILayout.LabelField("Hashing", EditorStyles.boldLabel);
-                EditorGUILayout.PropertyField(_packetIDHashSizeProp);
                 EditorGUILayout.PropertyField(_rpcHashSizeProp);
 
                 serializedObject.ApplyModifiedProperties();

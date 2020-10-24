@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   running: {fileID: 1517152541}
-  reverseRoles: 0
+  reverseRoles: 1
   testPrefab: {fileID: 2814584347881587928, guid: 8ef2c1703d1cdf546be216bc493ac80f, type: 3}
 --- !u!114 &786270579
 MonoBehaviour:
@@ -435,15 +435,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   runInBackground: 1
-  channels:
-  - channelType: 2
-  - channelType: 3
-  - channelType: 0
   networkConfig:
     protocolVersion: 0
     transport: {fileID: 786270579}
     maxBufferedPacketAge: 5
     packetBufferPurgesPerSecond: 3
+    channels:
+    - channelType: 2
+    - channelType: 3
+    - channelType: 0
     initialScene: SampleScene
     networkableScenes:
     - sceneName: SampleScene
@@ -459,7 +459,6 @@ MonoBehaviour:
     serverMaxReceivesPerUpdate: 10000
     connectionRequestTimeout: 15
     disconnectRequestTimeout: 15
-    packetIDHashSize: 1
     rpcHashSize: 1
   serverOnClientConnect:
     m_PersistentCalls:

@@ -73,9 +73,9 @@ namespace FNNLib.RPC {
         /// <param name="packet"></param>
         /// <param name="channel"></param>
         internal static void ClientHandleRPCResponse(RPCResponsePacket packet, int channel) =>
-            ServerHandleRPCResponse(NetworkManager.ServerLocalID, packet, channel);
+            ServerHandleRPCResponse(packet, channel, NetworkManager.ServerLocalID);
 
-        internal static void ServerHandleRPCResponse(ulong clientID, RPCResponsePacket packet, int channel) {
+        internal static void ServerHandleRPCResponse(RPCResponsePacket packet, int channel, ulong clientID) {
             // If we have this response, finish it
             if (Contains(packet.responseID)) {
                 var response = Get(packet.responseID);

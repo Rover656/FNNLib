@@ -135,7 +135,7 @@ namespace FNNLib.Editor {
                 var iterator = serializedObject.GetIterator();
                 for (var enterChildren = true; iterator.NextVisible(enterChildren); enterChildren = false) {
                     using (new EditorGUI.DisabledScope("m_Script" == iterator.propertyPath)) {
-                        EditorGUILayout.PropertyField(iterator, false);
+                        EditorGUILayout.PropertyField(iterator, true);
                     }
                 }
 

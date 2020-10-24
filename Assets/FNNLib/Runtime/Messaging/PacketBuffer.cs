@@ -22,9 +22,6 @@ namespace FNNLib.Messaging {
             if (IsPacketOld(packet))
                 return;
             
-            // Get packet ID
-            var packetID = NetworkManager.instance.GetPacketID(packet.packet.GetType());
-            
             // If this packet still has a buffer problem. See if it needs buffered again.
             // This can happen for example if something is moving scene but the scene doesn't exist *and* the object doesnt exist.
             if (packet.packet is IBufferablePacket bufferablePacket) {
@@ -33,10 +30,10 @@ namespace FNNLib.Messaging {
             }
 
             // Invoke handlers.
-            if (NetworkManager.instance.isClient && NetworkManager.instance.clientHandlers.ContainsKey(packetID))
-                NetworkManager.instance.clientHandlers[packetID].packetAction(packet.packet, packet.channel);
-            if (NetworkManager.instance.isServer && NetworkManager.instance.serverHandlers.ContainsKey(packetID))
-                NetworkManager.instance.serverHandlers[packetID].packetAction(packet.sender, packet.packet, packet.channel);
+            if (NetworkManager.instance.isClient)
+                NetworkManager.instance.channels[packet.channel].HandleBuffered(packet, false);
+            if (NetworkManager.instance.isServer)
+                NetworkManager.instance.channels[packet.channel].HandleBuffered(packet, true);
         }
 
         public void PurgeOldPackets() {

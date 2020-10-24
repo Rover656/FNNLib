@@ -87,15 +87,15 @@ namespace FNNLib {
         public virtual void NetworkStart() { }
 
         internal void InternalNetworkStart() {
-            _rpcReflectionData = RPCReflectionData.GetOrCreate(GetType());
-            rpcDelegates = _rpcReflectionData.CreateTargetDelegates(this);
+            _rpcReflector = RPCReflector.GetOrCreate(GetType());
+            rpcDelegates = _rpcReflector.CreateTargetDelegates(this);
         }
 
         #endregion
 
         #region RPCs
 
-        private RPCReflectionData _rpcReflectionData;
+        private RPCReflector _rpcReflector;
         internal RPCDelegate[] rpcDelegates;
 
         internal void SendClientRPCCall(ulong hash, List<ulong> clients, int channel, params object[] args) {
@@ -328,54 +328,54 @@ namespace FNNLib {
         }
 
         private object InvokeClientRPCLocal(ulong hash, NetworkReader args) {
-            if (_rpcReflectionData.clientMethods.ContainsKey(hash))
-                return _rpcReflectionData.clientMethods[hash].Invoke(this, 0, args);
+            if (_rpcReflector.clientMethods.ContainsKey(hash))
+                return _rpcReflector.clientMethods[hash].Invoke(this, 0, args);
 
             return null;
         }
 
         private object InvokeServerRPCLocal(ulong hash, ulong sender, NetworkReader args) {
-            if (_rpcReflectionData.serverMethods.ContainsKey(hash))
-                return _rpcReflectionData.serverMethods[hash].Invoke(this, sender, args);
+            if (_rpcReflector.serverMethods.ContainsKey(hash))
+                return _rpcReflector.serverMethods[hash].Invoke(this, sender, args);
 
             return null;
         }
 
-        internal static void ClientRPCCallHandler(RPCPacket packet, int channel) {
-            if (SpawnManager.spawnedObjects.ContainsKey(packet.networkID)) {
-                var identity = SpawnManager.spawnedObjects[packet.networkID];
-                var behaviour = identity.behaviours[packet.behaviourOrder];
-                if (behaviour._rpcReflectionData.clientMethods.ContainsKey(packet.methodHash))
-                    using (var paramReader = NetworkReaderPool.GetReader(packet.parameterBuffer)) {
-                        var result = behaviour.InvokeClientRPCLocal(packet.methodHash, paramReader);
+        internal static void RPCCallHandler(RPCPacket packet, int channel, ulong sender, bool isServer) {
+            if (isServer) {
+                if (SpawnManager.spawnedObjects.ContainsKey(packet.networkID)) {
+                    var identity = SpawnManager.spawnedObjects[packet.networkID];
+                    var behaviour = identity.behaviours[packet.behaviourOrder];
+                    if (behaviour._rpcReflector.serverMethods.ContainsKey(packet.methodHash)) {
+                        using (var paramReader = NetworkReaderPool.GetReader(packet.parameterBuffer)) {
+                            var result = behaviour.InvokeServerRPCLocal(packet.methodHash, sender, paramReader);
 
-                        if (packet.expectsResponse) {
-                            var responsePacket = new RPCResponsePacket {
-                                                                           result = result,
-                                                                           responseID = packet.responseID
-                                                                       };
-                            NetworkManager.instance.ClientSend(responsePacket, channel);
+                            if (packet.expectsResponse) {
+                                var responsePacket = new RPCResponsePacket {
+                                                                               result = result,
+                                                                               responseID = packet.responseID
+                                                                           };
+                                NetworkManager.instance.ServerSend(sender, responsePacket, channel);
+                            }
                         }
                     }
-            }
-        }
+                }
+            } else {
+                if (SpawnManager.spawnedObjects.ContainsKey(packet.networkID)) {
+                    var identity = SpawnManager.spawnedObjects[packet.networkID];
+                    var behaviour = identity.behaviours[packet.behaviourOrder];
+                    if (behaviour._rpcReflector.clientMethods.ContainsKey(packet.methodHash))
+                        using (var paramReader = NetworkReaderPool.GetReader(packet.parameterBuffer)) {
+                            var result = behaviour.InvokeClientRPCLocal(packet.methodHash, paramReader);
 
-        internal static void ServerRPCCallHandler(ulong sender, RPCPacket packet, int channel) {
-            if (SpawnManager.spawnedObjects.ContainsKey(packet.networkID)) {
-                var identity = SpawnManager.spawnedObjects[packet.networkID];
-                var behaviour = identity.behaviours[packet.behaviourOrder];
-                if (behaviour._rpcReflectionData.serverMethods.ContainsKey(packet.methodHash)) {
-                    using (var paramReader = NetworkReaderPool.GetReader(packet.parameterBuffer)) {
-                        var result = behaviour.InvokeServerRPCLocal(packet.methodHash, sender, paramReader);
-
-                        if (packet.expectsResponse) {
-                            var responsePacket = new RPCResponsePacket {
-                                                                           result = result,
-                                                                           responseID = packet.responseID
-                                                                       };
-                            NetworkManager.instance.ServerSend(sender, responsePacket, channel);
+                            if (packet.expectsResponse) {
+                                var responsePacket = new RPCResponsePacket {
+                                                                               result = result,
+                                                                               responseID = packet.responseID
+                                                                           };
+                                NetworkManager.instance.ClientSend(responsePacket, channel);
+                            }
                         }
-                    }
                 }
             }
         }

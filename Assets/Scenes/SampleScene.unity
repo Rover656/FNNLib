@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   running: {fileID: 1517152541}
-  reverseRoles: 0
+  reverseRoles: 1
   testPrefab: {fileID: 2814584347881587928, guid: 8ef2c1703d1cdf546be216bc493ac80f, type: 3}
 --- !u!114 &786270579
 MonoBehaviour:
@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 7777
-  noDelay: 1
+  noDelay: 0
   serverMaxMessageSize: 16384
   clientMaxMessageSize: 16384
 --- !u!114 &786270580
@@ -435,6 +435,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   runInBackground: 1
+  channels:
+  - channelType: 2
+  - channelType: 3
+  - channelType: 0
   networkConfig:
     protocolVersion: 0
     transport: {fileID: 786270579}
@@ -463,6 +467,7 @@ MonoBehaviour:
   serverOnClientDisconnect:
     m_PersistentCalls:
       m_Calls: []
+  allClientIDs: 
   clientOnConnect:
     m_PersistentCalls:
       m_Calls: []

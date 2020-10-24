@@ -35,7 +35,7 @@ namespace Telepathy
 
         // send queue
         // => SafeQueue is twice as fast as ConcurrentQueue, see SafeQueue.cs!
-        SafeQueue<byte[]> sendQueue = new SafeQueue<byte[]>();
+        SafeQueue<OutgoingData> sendQueue = new SafeQueue<OutgoingData>();
 
         // ManualResetEvent to wake up the send thread. better than Thread.Sleep
         // -> call Set() if everything was sent
@@ -75,7 +75,7 @@ namespace Telepathy
 
                 // add 'Disconnected' event to message queue so that the caller
                 // knows that the Connect failed. otherwise they will never know
-                receiveQueue.Enqueue(new Message(0, EventType.Disconnected, null));
+                receiveQueue.Enqueue(new Message(0, EventType.Disconnected, null, 0));
             }
             catch (ThreadInterruptedException)
             {
@@ -186,7 +186,7 @@ namespace Telepathy
             }
         }
 
-        public bool Send(byte[] data)
+        public bool Send(byte[] data, int channel)
         {
             if (Connected)
             {
@@ -196,7 +196,7 @@ namespace Telepathy
                     // add to send queue and return immediately.
                     // calling Send here would be blocking (sometimes for long times
                     // if other side lags or wire was disconnected)
-                    sendQueue.Enqueue(data);
+                    sendQueue.Enqueue(new OutgoingData(channel, data));
                     sendPending.Set(); // interrupt SendThread WaitOne()
                     return true;
                 }

@@ -13,8 +13,8 @@ namespace FNNLib.Spawning {
         public void DeSerialize(NetworkReader reader) {
             networkID = reader.ReadPackedUInt64();
         }
-
-        public bool BufferPacket(ulong sender, int channel) {
+        
+        public bool BufferPacket(NetworkChannel channel, ulong sender) {
             if (SpawnManager.spawnedObjects.ContainsKey(networkID))
                 return false;
             

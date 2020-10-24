@@ -38,7 +38,7 @@ namespace FNNLib.Transports {
             throw new ArgumentException("No suitable transport could be found!");
         }
 
-        public override bool ClientSend(ArraySegment<byte> data, int channel = DefaultChannels.Reliable) {
+        public override bool ClientSend(ArraySegment<byte> data, int channel) {
             return _selectedTransport.ClientSend(data, channel);
         }
 

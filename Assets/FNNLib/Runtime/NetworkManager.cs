@@ -177,7 +177,7 @@ namespace FNNLib {
         /// <param name="disconnectReason"></param>
         public void ServerDisconnect(ulong clientID, string disconnectReason) {
             // Send disconnect packet
-            ServerSend(clientID, new ClientDisconnectPacket {disconnectReason = disconnectReason});
+            NetworkChannel.Reliable.ServerSend(clientID, new ClientDisconnectPacket {disconnectReason = disconnectReason});
 
             // Start timeout
             StartCoroutine(ServerClientDisconnectTimeout(clientID));
@@ -190,71 +190,7 @@ namespace FNNLib {
         public void ServerForceDisconnect(ulong clientID) {
             networkConfig.transport.ServerDisconnect(clientID);
         }
-
-        private List<ulong> _singleSenderList = new List<ulong> {0};
-
-        /// <summary>
-        /// Send a packet to the given client.
-        /// </summary>
-        /// <param name="clientID">The client to send to.</param>
-        /// <param name="packet">The packet to send</param>
-        /// <param name="channel">The channel to send with</param>
-        /// <typeparam name="TPacket">The packet type</typeparam>
-        public void ServerSend<TPacket>(ulong clientID, TPacket packet, int channel = DefaultChannels.Reliable)
-            where TPacket : ISerializable, new() {
-            channels[0].ServerSend(clientID, packet);
-        }
-
-        /// <summary>
-        /// Send a packet to all provided clients.
-        /// </summary>
-        /// <param name="clientIDs">The clients to send to.</param>
-        /// <param name="packet">The packet to send</param>
-        /// <param name="channel">The channel to send with</param>
-        /// <typeparam name="TPacket">The packet type</typeparam>
-        public void ServerSend<TPacket>(List<ulong> clientIDs, TPacket packet, int channel = DefaultChannels.Reliable)
-            where TPacket : ISerializable, new() {
-            channels[0].ServerSend(clientIDs, packet);
-        }
-
-        /// <summary>
-        /// Send a packet to all provided clients excluding one.
-        /// </summary>
-        /// <param name="clientIDs">The clients to send to.</param>
-        /// <param name="excludedClientID">The client to exclude.</param>
-        /// <param name="packet">The packet to send</param>
-        /// <param name="channel">The channel to send with</param>
-        /// <typeparam name="TPacket">The packet type</typeparam>
-        public void ServerSendExcluding<TPacket>(List<ulong> clientIDs, ulong excludedClientID, TPacket packet,
-                                                 int channel = DefaultChannels.Reliable)
-            where TPacket : ISerializable, new() {
-            channels[0].ServerSend(clientIDs, packet, excludedClientID);
-        }
-
-        /// <summary>
-        /// Send a packet to all connected clients.
-        /// </summary>
-        /// <param name="packet">The packet to send</param>
-        /// <param name="channel">The channel to send with</param>
-        /// <typeparam name="TPacket">The packet type</typeparam>
-        public void ServerSendToAll<TPacket>(TPacket packet, int channel = DefaultChannels.Reliable)
-            where TPacket : ISerializable, new() {
-            channels[0].ServerSendToAll(packet);
-        }
-
-        /// <summary>
-        /// Send a packet to all connect clients excluding one.
-        /// </summary>
-        /// <param name="excludedClientID">The client to exclude.</param>
-        /// <param name="packet">The packet to send</param>
-        /// <param name="channel">The channel to send with</param>
-        /// <typeparam name="TPacket">The packet type</typeparam>
-        public void ServerSendToAllExcluding<TPacket>(ulong excludedClientID, TPacket packet,
-                                                      int channel = DefaultChannels.Reliable)
-            where TPacket : ISerializable, new() {
-            channels[0].ServerSendToAll(packet, excludedClientID);
-        }
-
+        
         private void ServerOnClientConnect(ulong clientID) {
             // Add to the pending clients and begin connection request timeout
             _pendingClients.Add(clientID);
@@ -325,39 +261,38 @@ namespace FNNLib {
             }
         }
 
-        private void ServerHandleConnectionRequest(ConnectionRequestPacket packet, int channel, ulong clientID) {
+        private void ServerHandleConnectionRequest(NetworkChannel channel, ConnectionRequestPacket packet, ulong sender) {
             // Ignore extra approvals.
-            if (connectedClients.ContainsKey(clientID))
+            if (connectedClients.ContainsKey(sender))
                 return;
 
             // Remove from pending clients list
-            if (_pendingClients.Contains(clientID))
-                _pendingClients.Remove(clientID);
+            if (_pendingClients.Contains(sender))
+                _pendingClients.Remove(sender);
 
             // Check hashes
             if (packet.verificationHash != networkConfig.GetHash()) {
-                ServerDisconnect(clientID, "Client version does not match server!");
+                ServerDisconnect(sender, "Client version does not match server!");
                 return;
             }
 
             // TODO: Delegate to add extra acceptance logic.
 
             // Send approval
-            ServerSend(clientID, new ConnectionApprovedPacket {localClientID = clientID});
-            // NetworkChannel.Reliable.ServerSend(clientID, new ConnectionApprovedPacket{localClientID = clientID});
+            channel.ServerSend(sender, new ConnectionApprovedPacket{localClientID = sender});
 
             // Add client to connected clients
-            connectedClients.Add(clientID, new NetworkedClient {
-                                                                   clientID = clientID
-                                                               });
-            connectedClientsList.Add(connectedClients[clientID]);
-            allClientIDs.Add(clientID);
+            connectedClients.Add(sender, new NetworkedClient {
+                                                                 clientID = sender
+                                                             });
+            connectedClientsList.Add(connectedClients[sender]);
+            allClientIDs.Add(sender);
 
             // Fire connection event
-            serverOnClientConnect?.Invoke(clientID);
+            serverOnClientConnect?.Invoke(sender);
 
             // Fire on client connected for scene.
-            NetworkSceneManager.OnClientConnected(clientID);
+            NetworkSceneManager.OnClientConnected(sender);
         }
 
         protected virtual void ConfigureServerFramerate() {
@@ -430,25 +365,11 @@ namespace FNNLib {
             isClient = false;
         }
 
-        /// <summary>
-        /// Send data to the server as the client.
-        /// </summary>
-        /// <param name="packet">The packet to be sent.</param>
-        /// <param name="channel">The channel to send with.</param>
-        /// <typeparam name="TPacket">The packet type.</typeparam>
-        /// <exception cref="InvalidOperationException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        [Obsolete("Use NetworkChannel.ClientSend instead.")]
-        public void ClientSend<TPacket>(TPacket packet, int channel = DefaultChannels.Reliable)
-            where TPacket : ISerializable, new() {
-            channels[0].ClientSend(packet);
-        }
-
         private void ClientOnConnected() {
             // Send connection request
             var request = new ConnectionRequestPacket
                           {connectionData = null, verificationHash = networkConfig.GetHash()};
-            ClientSend(request);
+            NetworkChannel.Reliable.ClientSend(request);
         }
 
         private IEnumerator ClientApprovalTimeout() {
@@ -472,7 +393,7 @@ namespace FNNLib {
             clientOnDisconnect?.Invoke(_disconnectionReason);
         }
 
-        private void ClientHandleApproval(ConnectionApprovedPacket packet, int channel) {
+        private void ClientHandleApproval(NetworkChannel channel, ConnectionApprovedPacket packet) {
             // Save my client ID
             _localClientID = packet.localClientID;
 
@@ -483,7 +404,7 @@ namespace FNNLib {
             clientOnConnect?.Invoke();
         }
 
-        private void ClientHandleDisconnectRequest(ClientDisconnectPacket packet, int channel) {
+        private void ClientHandleDisconnectRequest(NetworkChannel channel, ClientDisconnectPacket packet) {
             _disconnectionReason = packet.disconnectReason;
             networkConfig.transport.ClientDisconnect();
         }
@@ -769,64 +690,33 @@ namespace FNNLib {
                           .ClientConsumer<ClientDisconnectPacket>(ClientHandleDisconnectRequest).Register();
             NetworkChannel.Reliable.GetFactory()
                           .ServerConsumer<ConnectionRequestPacket>(ServerHandleConnectionRequest).Register();
-
-            // TODO: The below must be sequenced
-
+            
             // Register scene management events.
-            NetworkChannel.Reliable.GetFactory()
+            NetworkChannel.ReliableSequenced.GetFactory()
                           .ClientConsumer<SceneLoadPacket>(NetworkSceneManager
                                                               .ClientHandleSceneLoadPacket).Register();
-            NetworkChannel.Reliable.GetFactory()
+            NetworkChannel.ReliableSequenced.GetFactory()
                           .ClientConsumer<SceneUnloadPacket>(NetworkSceneManager.ClientHandleSceneUnloadPacket)
                           .Register();
-            NetworkChannel.Reliable.GetFactory()
+            NetworkChannel.ReliableSequenced.GetFactory()
                           .ClientConsumer<MoveObjectToScenePacket>(NetworkSceneManager.ClientHandleMoveObjectPacket)
                           .Bufferable().Register();
 
             // Object spawning
-            NetworkChannel.Reliable.GetFactory()
+            NetworkChannel.ReliableSequenced.GetFactory()
                           .ClientConsumer<SpawnObjectPacket>(SpawnManager.ClientHandleSpawnPacket).Bufferable()
                           .Register();
-            NetworkChannel.Reliable.GetFactory()
+            NetworkChannel.ReliableSequenced.GetFactory()
                           .ClientConsumer<DestroyObjectPacket>(SpawnManager.ClientHandleDestroy).Bufferable()
                           .Register();
 
             // RPCs
-            NetworkChannel.Reliable.GetFactory()
+            NetworkChannel.ReliableSequenced.GetFactory()
                           .Consumer<RPCPacket>(NetworkBehaviour.RPCCallHandler).Bufferable().Register();
-            NetworkChannel.Reliable.GetFactory()
-                          .ClientConsumer<RPCResponsePacket>(RPCResponseManager.ClientHandleRPCResponse)
-                          .ServerConsumer<RPCResponsePacket>(RPCResponseManager.ServerHandleRPCResponse).Register();
+            NetworkChannel.ReliableSequenced.GetFactory()
+                          .Consumer<RPCResponsePacket>(RPCResponseManager.HandleRPCResponse).Register();
         }
 
-        /// <summary>
-        /// Writes a packet into the writer stream.
-        /// </summary>
-        /// <param name="packet"></param>
-        /// <param name="writer"></param>
-        /// <typeparam name="TPacket"></typeparam>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void WritePacket<TPacket>(TPacket packet, NetworkWriter writer) where TPacket : ISerializable, new() {
-            // Write ID
-            switch (networkConfig.packetIDHashSize) {
-                case HashSize.TwoBytes:
-                    writer.WritePackedUInt16(PacketUtils.GetID16<TPacket>());
-                    break;
-                case HashSize.FourBytes:
-                    writer.WritePackedUInt32(PacketUtils.GetID32<TPacket>());
-                    break;
-                case HashSize.EightBytes:
-                    writer.WritePackedUInt64(PacketUtils.GetID64<TPacket>());
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            // Write packet.
-            writer.WritePackedObject(packet);
-        }
-        
         // Ensure default channels
         private void EnsureDefaultChannels() {
             if (channels.Count < 3) {

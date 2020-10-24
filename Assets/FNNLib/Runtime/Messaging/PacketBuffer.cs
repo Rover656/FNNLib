@@ -25,15 +25,15 @@ namespace FNNLib.Messaging {
             // If this packet still has a buffer problem. See if it needs buffered again.
             // This can happen for example if something is moving scene but the scene doesn't exist *and* the object doesnt exist.
             if (packet.packet is IBufferablePacket bufferablePacket) {
-                if (bufferablePacket.BufferPacket(packet.sender, packet.channel))
+                if (bufferablePacket.BufferPacket(packet.channel, packet.sender))
                     return;
             }
 
             // Invoke handlers.
             if (NetworkManager.instance.isClient)
-                NetworkManager.instance.channels[packet.channel].HandleBuffered(packet, false);
+                packet.channel.HandleBuffered(packet, false);
             if (NetworkManager.instance.isServer)
-                NetworkManager.instance.channels[packet.channel].HandleBuffered(packet, true);
+                packet.channel.HandleBuffered(packet, true);
         }
 
         public void PurgeOldPackets() {

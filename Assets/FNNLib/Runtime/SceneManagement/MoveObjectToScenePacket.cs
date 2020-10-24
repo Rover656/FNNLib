@@ -18,7 +18,7 @@ namespace FNNLib.SceneManagement {
             destinationScene = reader.ReadPackedUInt32();
         }
 
-        public bool BufferPacket(ulong sender, int channel) {
+        public bool BufferPacket(NetworkChannel channel, ulong sender) {
             // Buffer in spawn manager
             if (!SpawnManager.spawnedObjects.ContainsKey(networkID)) {
                 SpawnManager.networkObjectPacketBuffer.Enqueue(networkID, new BufferedPacket(this, sender, channel));

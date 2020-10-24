@@ -28,10 +28,10 @@ namespace FNNLib.Messaging {
                 SidedReader
             }
             
-            public delegate void ConsumerMethod<in T>(T message, int channelID, ulong clientID, bool isServer) where T : ISerializable;
-            public delegate void ServerConsumerMethod<in T>(T message, int channelID, ulong clientID) where T : ISerializable;
-            public delegate void ClientConsumerMethod<in T>(T message, int channelID) where T : ISerializable;
-            public delegate void ReaderMethod(NetworkReader reader, int channelID, ulong clientID);
+            public delegate void ConsumerMethod<in T>(NetworkChannel channel, T message, ulong sender, bool isServer) where T : ISerializable;
+            public delegate void ServerConsumerMethod<in T>(NetworkChannel channel, T message, ulong sender) where T : ISerializable;
+            public delegate void ClientConsumerMethod<in T>(NetworkChannel channel, T message) where T : ISerializable;
+            public delegate void ReaderMethod(NetworkChannel channel, NetworkReader reader, ulong sender);
 
             private readonly int _id;
             private FactoryState _state;
@@ -62,6 +62,8 @@ namespace FNNLib.Messaging {
                     throw new Exception("Another mode is already enabled!");
                 if (_state == FactoryState.Consumer)
                     Debug.LogWarning("Overwriting message consumer.");
+                if (!SupportClient<T>() && !SupportServer<T>())
+                    throw new Exception("Object based message must be given Client and Server Packet Attributes!");
                 _message = new ConsumableMessage<T>(_id, method);
                 _state = FactoryState.Consumer;
                 _associatedType = typeof(T);
@@ -75,6 +77,8 @@ namespace FNNLib.Messaging {
                     Debug.LogWarning("Overwriting message consumer.");
                 if (_associatedType != null && _associatedType != typeof(T))
                     throw new Exception("Cannot change associated type!");
+                if (!SupportServer<T>())
+                    throw new Exception("Object based message must be given Server Packet Attribute!");
                 if (_state == FactoryState.Invalid) {
                     _message = new SidedConsumableMessage<T>(_id);
                 }
@@ -92,6 +96,8 @@ namespace FNNLib.Messaging {
                     Debug.LogWarning("Overwriting message consumer.");
                 if (_associatedType != null && _associatedType != typeof(T))
                     throw new Exception("Cannot change associated type!");
+                if (!SupportClient<T>())
+                    throw new Exception("Object based message must be given Client Packet Attribute!");
                 
                 if (_state == FactoryState.Invalid) {
                     _message = new SidedConsumableMessage<T>(_id);
@@ -134,7 +140,7 @@ namespace FNNLib.Messaging {
                     throw new Exception("Another mode is already enabled!");
                 if (_state == FactoryState.SidedConsumer && ((SidedReaderMessage) _message).clientMethod != null)
                     Debug.LogWarning("Overwriting message consumer.");
-                
+
                 if (_state == FactoryState.Invalid) {
                     _message = new SidedReaderMessage(_id);
                 }
@@ -161,6 +167,14 @@ namespace FNNLib.Messaging {
                 if (_state == FactoryState.Consumer || _state == FactoryState.SidedConsumer)
                     _channel._typedMessages.Add(_associatedType, _message);
             }
+
+            private static bool SupportClient<T>() {
+                return typeof(T).GetCustomAttributes(typeof(ClientPacketAttribute), false).Length > 0;
+            }
+            
+            public static bool SupportServer<T>() {
+                return typeof(T).GetCustomAttributes(typeof(ServerPacketAttribute), false).Length > 0;
+            }
         }
 
         private abstract class BaseMessage {
@@ -171,7 +185,7 @@ namespace FNNLib.Messaging {
                 this.id = id;
             }
 
-            public abstract void Invoke(int channelID, ulong clientID, NetworkReader reader, bool server);
+            public abstract void Invoke(NetworkChannel channel, ulong sender, NetworkReader reader, bool server);
 
             public virtual void InvokeBuffered(BufferedPacket packet, bool server) {
                 if (bufferable)
@@ -187,21 +201,21 @@ namespace FNNLib.Messaging {
                 _method = method;
             }
             
-            public override void Invoke(int channelID, ulong clientID, NetworkReader reader, bool server) {
+            public override void Invoke(NetworkChannel channel, ulong sender, NetworkReader reader, bool server) {
                 var packet = reader.ReadPackedObject<T>();
 
                 if (bufferable) {
                     if (packet is IBufferablePacket bufferablePacket) {
-                        if (bufferablePacket.BufferPacket(clientID, channelID)) // TODO: move buffering into the channel
+                        if (bufferablePacket.BufferPacket(channel, sender))
                             return;
                     }
                 }
                 
-                _method.Invoke(packet, channelID, clientID, server);
+                _method.Invoke(channel, packet, sender, server);
             }
 
             public override void InvokeBuffered(BufferedPacket packet, bool server) {
-                _method.Invoke((T) packet.packet, packet.channel, packet.sender, server);
+                _method.Invoke(packet.channel, (T) packet.packet, packet.sender, server);
             }
         }
         
@@ -211,24 +225,24 @@ namespace FNNLib.Messaging {
 
             public SidedConsumableMessage(int id) : base(id) { }
 
-            public override void Invoke(int channelID, ulong clientID, NetworkReader reader, bool server) {
+            public override void Invoke(NetworkChannel channel, ulong sender, NetworkReader reader, bool server) {
                 var packet = reader.ReadPackedObject<T>();
 
                 if (bufferable) {
                     if (packet is IBufferablePacket bufferablePacket) {
-                        if (bufferablePacket.BufferPacket(clientID, channelID)) // TODO: move buffering into the channel
+                        if (bufferablePacket.BufferPacket(channel, sender))
                             return;
                     }
                 }
                 if (server)
-                    serverMethod?.Invoke(packet, channelID, clientID);
-                else clientMethod?.Invoke(packet, channelID);
+                    serverMethod?.Invoke(channel, packet, sender);
+                else clientMethod?.Invoke(channel, packet);
             }
             
             public override void InvokeBuffered(BufferedPacket packet, bool server) {
                 if (server)
-                    serverMethod?.Invoke((T) packet.packet, packet.channel, packet.sender);
-                else clientMethod?.Invoke((T) packet.packet, packet.channel);
+                    serverMethod?.Invoke(packet.channel, (T) packet.packet, packet.sender);
+                else clientMethod?.Invoke(packet.channel, (T) packet.packet);
             }
         }
         
@@ -239,8 +253,8 @@ namespace FNNLib.Messaging {
                 _method = method;
             }
             
-            public override void Invoke(int channelID, ulong clientID, NetworkReader reader, bool server) {
-                _method?.Invoke(reader, channelID, clientID);
+            public override void Invoke(NetworkChannel channel, ulong clientID, NetworkReader reader, bool server) {
+                _method?.Invoke(channel, reader, clientID);
             }
         }
         
@@ -250,10 +264,10 @@ namespace FNNLib.Messaging {
 
             public SidedReaderMessage(int id) : base(id) { }
 
-            public override void Invoke(int channelID, ulong clientID, NetworkReader reader, bool server) {
+            public override void Invoke(NetworkChannel channel, ulong sender, NetworkReader reader, bool server) {
                 if (server)
-                    serverMethod.Invoke(reader, channelID, clientID);
-                else clientMethod.Invoke(reader, channelID, clientID);
+                    serverMethod?.Invoke(channel, reader, sender);
+                else clientMethod?.Invoke(channel, reader, sender);
             }
         }
 
@@ -304,7 +318,7 @@ namespace FNNLib.Messaging {
             // Get message ID.
             var messageID = reader.ReadPackedInt32();
             if (_messages.TryGetValue(messageID, out var msg)) {
-                msg.Invoke(ID, clientID, reader, server);
+                msg.Invoke(this, clientID, reader, server);
             } else {
                 Debug.LogWarning("Invalid message received.");
             }
@@ -455,19 +469,19 @@ namespace FNNLib.Messaging {
             }
         }
         
-        public void ServerSendToAll(int messageId, NetworkWriter packetWriter) {
+        public void ServerSend(int messageId, NetworkWriter packetWriter) {
             ServerSend(NetworkManager.instance.allClientIDs, messageId, packetWriter);
         }
 
-        public void ServerSendToAll<T>(T packet) where T : ISerializable {
+        public void ServerSend<T>(T packet) where T : ISerializable {
             ServerSend(NetworkManager.instance.allClientIDs, packet);
         }
         
-        public void ServerSendToAll(int messageId, NetworkWriter packetWriter, ulong excludedClient) {
+        public void ServerSend(int messageId, NetworkWriter packetWriter, ulong excludedClient) {
             ServerSend(NetworkManager.instance.allClientIDs, messageId, packetWriter, excludedClient);
         }
 
-        public void ServerSendToAll<T>(T packet, ulong excludedClient) where T : ISerializable {
+        public void ServerSend<T>(T packet, ulong excludedClient) where T : ISerializable {
             ServerSend(NetworkManager.instance.allClientIDs, packet, excludedClient);
         }
         
@@ -534,5 +548,6 @@ namespace FNNLib.Messaging {
         public static readonly NetworkChannel Reliable = new NetworkChannel(ChannelType.Reliable);
         public static readonly NetworkChannel ReliableSequenced = new NetworkChannel(ChannelType.ReliableSequenced);
         public static readonly NetworkChannel Unreliable = new NetworkChannel(ChannelType.Unreliable);
+        // public static NetworkChannel ReliableSequenced => Reliable; // TODO: Own channel
     }
 }

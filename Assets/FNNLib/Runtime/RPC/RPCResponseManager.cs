@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FNNLib.Messaging;
 using UnityEngine;
 
 namespace FNNLib.RPC {
@@ -66,16 +67,7 @@ namespace FNNLib.RPC {
             return _pending.ContainsKey(id);
         }
 
-        /// <summary>
-        /// Handle a response packet.
-        /// This will pass the response back to the caller.
-        /// </summary>
-        /// <param name="packet"></param>
-        /// <param name="channel"></param>
-        internal static void ClientHandleRPCResponse(RPCResponsePacket packet, int channel) =>
-            ServerHandleRPCResponse(packet, channel, NetworkManager.ServerLocalID);
-
-        internal static void ServerHandleRPCResponse(RPCResponsePacket packet, int channel, ulong clientID) {
+        internal static void HandleRPCResponse(NetworkChannel channel, RPCResponsePacket packet, ulong sender, bool isServer) {
             // If we have this response, finish it
             if (Contains(packet.responseID)) {
                 var response = Get(packet.responseID);

@@ -56,7 +56,7 @@ namespace FNNLib.Transports {
         public override bool ClientSend(ArraySegment<byte> data, int channel) {
             var copy = new byte[data.Count];
             Array.Copy(data.Array, data.Offset, copy, 0, data.Count);
-            return _client.Send(copy);
+            return _client.Send(copy, channel);
         }
 
         public override void ClientDisconnect() => _client.Disconnect();
@@ -76,7 +76,7 @@ namespace FNNLib.Transports {
         }
 
         public override bool ServerSend(List<ulong> clients, ArraySegment<byte> data,
-                                        int channel = DefaultChannels.Reliable, ulong excludedClient = 0) {
+                                        int channel, ulong excludedClient = 0) {
             var copy = new byte[data.Count];
             Array.Copy(data.Array, data.Offset, copy, 0, data.Count);
 
@@ -87,7 +87,7 @@ namespace FNNLib.Transports {
                 }
 
                 var id = GetTelepathyConnectionID(clientID);
-                if (!_server.Send(id, copy))
+                if (!_server.Send(id, copy, channel))
                     return false;
             }
 
@@ -129,6 +129,7 @@ namespace FNNLib.Transports {
                     return NetworkEventType.Connected;
                 case EventType.Data:
                     data = new ArraySegment<byte>(telepathyMessage.data);
+                    channel = telepathyMessage.channel;
                     return NetworkEventType.Data;
                 case EventType.Disconnected:
                     return NetworkEventType.Disconnected;

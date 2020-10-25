@@ -700,19 +700,19 @@ namespace FNNLib {
                           .Register();
             NetworkChannel.ReliableSequenced.GetFactory()
                           .ClientConsumer<MoveObjectToScenePacket>(NetworkSceneManager.ClientHandleMoveObjectPacket)
-                          .Bufferable().Register();
+                          .Buffered().Register();
 
             // Object spawning
             NetworkChannel.ReliableSequenced.GetFactory()
-                          .ClientConsumer<SpawnObjectPacket>(SpawnManager.ClientHandleSpawnPacket).Bufferable()
+                          .ClientConsumer<SpawnObjectPacket>(SpawnManager.ClientHandleSpawnPacket).Buffered()
                           .Register();
             NetworkChannel.ReliableSequenced.GetFactory()
-                          .ClientConsumer<DestroyObjectPacket>(SpawnManager.ClientHandleDestroy).Bufferable()
+                          .ClientConsumer<DestroyObjectPacket>(SpawnManager.ClientHandleDestroy).Buffered()
                           .Register();
 
             // RPCs
             NetworkChannel.ReliableSequenced.GetFactory()
-                          .Consumer<RPCPacket>(NetworkBehaviour.RPCCallHandler).Bufferable().Register();
+                          .Consumer<RPCPacket>(NetworkBehaviour.RPCCallHandler).Buffered().Register();
             NetworkChannel.ReliableSequenced.GetFactory()
                           .Consumer<RPCResponsePacket>(RPCResponseManager.HandleRPCResponse).Register();
         }

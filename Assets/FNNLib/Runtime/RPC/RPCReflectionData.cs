@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using FNNLib.Reflection;
 using FNNLib.Serialization;
 using FNNLib.Utilities;
 
 namespace FNNLib.RPC {
     public delegate void RPCDelegate(ulong sender, NetworkReader reader);
     
-    internal class RPCReflector : Reflector {
-        private static readonly Dictionary<Type, RPCReflector> typeLookup = new Dictionary<Type, RPCReflector>();
+    internal class RPCReflectionData {
+        private static readonly Dictionary<Type, RPCReflectionData> typeLookup = new Dictionary<Type, RPCReflectionData>();
 
-        public static RPCReflector GetOrCreate(Type type) {
+        public static RPCReflectionData GetOrCreate(Type type) {
             if (typeLookup.ContainsKey(type))
                 return typeLookup[type];
-            var data = new RPCReflector(type);
+            var data = new RPCReflectionData(type);
             typeLookup.Add(type, data);
             return data;
         }
@@ -24,9 +23,9 @@ namespace FNNLib.RPC {
         public readonly Dictionary<ulong, RPCReflectedMethod> clientMethods = new Dictionary<ulong, RPCReflectedMethod>();
         private readonly RPCReflectedMethod[] delegateMethods;
         
-        private RPCReflector(Type type) {
+        private RPCReflectionData(Type type) {
             var delegateMethodList = new List<RPCReflectedMethod>();
-            var methods = GetMethodsRecursive(type, typeof(NetworkBehaviour));
+            var methods = GetAllMethods(type, typeof(NetworkBehaviour));
 
             foreach (var method in methods) {
                 var parameters = method.GetParameters();
@@ -58,6 +57,18 @@ namespace FNNLib.RPC {
             delegateMethods = delegateMethodList.ToArray();
         }
         
+        private static List<MethodInfo> GetAllMethods(Type type, Type limitType) {
+            var list = new List<MethodInfo>();
+
+            while (type != null && type != limitType) {
+                list.AddRange(type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance |
+                                              BindingFlags.DeclaredOnly));
+                type = type.BaseType;
+            }
+
+            return list;
+        }
+
         internal RPCDelegate[] CreateTargetDelegates(NetworkBehaviour target) {
             if (delegateMethods.Length == 0)
                 return null;

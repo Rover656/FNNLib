@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FNNLib.Messaging;
 using FNNLib.SceneManagement;
 using FNNLib.Serialization;
 using FNNLib.Transports;
@@ -35,6 +36,8 @@ namespace FNNLib.Config {
         /// </summary>
         [Tooltip("The number of buffer purges to perform per second.")]
         public int packetBufferPurgesPerSecond = 3;
+        
+        public List<NetworkChannel> channels = new List<NetworkChannel>();
         
         #endregion
         
@@ -114,19 +117,31 @@ namespace FNNLib.Config {
         #region Hashing
 
         /// <summary>
-        /// The hash size used for packet IDs.
-        /// Only change if you are having collision problems.
-        /// </summary>
-        [Tooltip("The hash size used for packet IDs. Only change if you are having collision problems.")]
-        public HashSize packetIDHashSize = HashSize.FourBytes;
-        
-        /// <summary>
         /// The hash size for RPC method names/signatures.
         /// Only change if you are having collision problems.
         /// </summary>
         [Tooltip("The hash size for RPC method names/signatures. Only change if you are having collision problems.")]
         public HashSize rpcHashSize = HashSize.FourBytes;
 
+        #endregion
+        
+        #region Config Maintenance
+
+        // Ensure default channels
+        public void EnsureDefaultChannels() {
+            if (channels.Count < 3) {
+                channels = new List<NetworkChannel>
+                           {NetworkChannel.Reliable, NetworkChannel.ReliableSequenced, NetworkChannel.Unreliable};
+            } else {
+                NetworkChannel.Reliable.channelType = ChannelType.Reliable;
+                NetworkChannel.ReliableSequenced.channelType = ChannelType.ReliableSequenced;
+                NetworkChannel.Unreliable.channelType = ChannelType.Unreliable;
+                channels[0] = NetworkChannel.Reliable;
+                channels[1] = NetworkChannel.ReliableSequenced;
+                channels[2] = NetworkChannel.Unreliable;
+            }
+        }
+        
         #endregion
         
         #region Config Comparisons
@@ -137,7 +152,7 @@ namespace FNNLib.Config {
         /// If the are not, serious problems could occur.
         /// This is only incremented if a protocol change is made within FNNLib that will cause incompatibilities.
         /// </summary>
-        internal const ushort FNNLIB_PROTOCOL_VER = 0;
+        internal const ushort FNNLIB_PROTOCOL_VER = 1;
 
         /// <summary>
         /// Cached hash. Nothing should really be changed at runtime anyway.
@@ -162,8 +177,12 @@ namespace FNNLib.Config {
                 writer.WritePackedUInt16(FNNLIB_PROTOCOL_VER);
 
                 // Write config that must be the same across client and server.
-                writer.WriteByte((byte) packetIDHashSize);
                 writer.WriteByte((byte) rpcHashSize);
+
+                // Write channel types.
+                foreach (var channel in channels) {
+                    writer.WriteByte((byte) channel.channelType);
+                }
 
                 if (cache) {
                     _cachedHash = writer.ToArray().GetStableHash64();

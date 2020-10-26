@@ -48,7 +48,7 @@ namespace FNNLib.Transports {
             throw new NotImplementedException();
         }
 
-        public override bool ClientSend(ArraySegment<byte> data, int channel = DefaultChannels.Reliable) {
+        public override bool ClientSend(ArraySegment<byte> data, int channel) {
             throw new NotImplementedException();
         }
 
@@ -62,7 +62,7 @@ namespace FNNLib.Transports {
             throw new NotImplementedException();
         }
 
-        public override bool ServerSend(List<ulong> clients, ArraySegment<byte> data, int channel = DefaultChannels.Reliable, ulong excludedClient = 0) {
+        public override bool ServerSend(List<ulong> clients, ArraySegment<byte> data, int channel, ulong excludedClient = 0) {
             throw new NotImplementedException();
         }
 

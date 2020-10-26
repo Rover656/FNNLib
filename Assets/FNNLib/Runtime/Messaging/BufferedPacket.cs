@@ -6,9 +6,9 @@ namespace FNNLib.Messaging {
         public ISerializable packet;
         public ulong sender;
         public float receiveTime;
-        public int channel;
+        public NetworkChannel channel;
 
-        public BufferedPacket(ISerializable packet, ulong sender, int channel) {
+        public BufferedPacket(ISerializable packet, ulong sender, NetworkChannel channel) {
             this.packet = packet;
             this.sender = sender;
             this.channel = channel;

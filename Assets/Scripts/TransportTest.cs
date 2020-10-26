@@ -20,7 +20,7 @@ namespace DefaultNamespace {
                 NetworkManager.instance.serverOnClientConnect.AddListener(SpawnPlayerObj);
                 NetworkManager.instance.StartHost();
             } else {
-                NetworkManager.instance.StartClient("localhost");
+                NetworkManager.instance.StartClient("127.0.0.1");
             }
         }
 

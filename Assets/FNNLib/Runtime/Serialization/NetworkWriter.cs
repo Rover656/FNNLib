@@ -365,6 +365,7 @@ namespace FNNLib.Serialization {
                         for (int i = 0; i < array.Length; i++)
                             WritePackedObject(array.GetValue(i));
                     }
+
                     break;
                 }
                 case byte @byte:

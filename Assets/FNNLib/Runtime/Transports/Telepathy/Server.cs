@@ -21,7 +21,7 @@ namespace Telepathy
 
             // send queue
             // SafeQueue is twice as fast as ConcurrentQueue, see SafeQueue.cs!
-            public SafeQueue<byte[]> sendQueue = new SafeQueue<byte[]>();
+            public SafeQueue<OutgoingData> sendQueue = new SafeQueue<OutgoingData>();
 
             // ManualResetEvent to wake up the send thread. better than Thread.Sleep
             // -> call Set() if everything was sent
@@ -237,7 +237,7 @@ namespace Telepathy
         }
 
         // send message to client using socket connection.
-        public bool Send(int connectionId, byte[] data)
+        public bool Send(int connectionId, byte[] data, int channel)
         {
             // respect max message size to avoid allocation attacks.
             if (data.Length <= MaxMessageSize)
@@ -249,7 +249,7 @@ namespace Telepathy
                     // add to send queue and return immediately.
                     // calling Send here would be blocking (sometimes for long times
                     // if other side lags or wire was disconnected)
-                    token.sendQueue.Enqueue(data);
+                    token.sendQueue.Enqueue(new OutgoingData(channel, data));
                     token.sendPending.Set(); // interrupt SendThread WaitOne()
                     return true;
                 }

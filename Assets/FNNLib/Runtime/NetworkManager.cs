@@ -112,9 +112,8 @@ namespace FNNLib {
         [HideInInspector] public UnityEvent<ulong> serverOnClientDisconnect = new UnityEvent<ulong>();
 
         private List<ulong> _pendingClients = new List<ulong>();
-        
-        [HideInInspector]
-        public List<ulong> allClientIDs = new List<ulong>();
+
+        [HideInInspector] public List<ulong> allClientIDs = new List<ulong>();
 
         /// <summary>
         /// Starts the manager in server mode.
@@ -177,7 +176,8 @@ namespace FNNLib {
         /// <param name="disconnectReason"></param>
         public void ServerDisconnect(ulong clientID, string disconnectReason) {
             // Send disconnect packet
-            NetworkChannel.Reliable.ServerSend(clientID, new ClientDisconnectPacket {disconnectReason = disconnectReason});
+            NetworkChannel.Reliable.ServerSend(clientID,
+                                               new ClientDisconnectPacket {disconnectReason = disconnectReason});
 
             // Start timeout
             StartCoroutine(ServerClientDisconnectTimeout(clientID));
@@ -190,7 +190,7 @@ namespace FNNLib {
         public void ServerForceDisconnect(ulong clientID) {
             networkConfig.transport.ServerDisconnect(clientID);
         }
-        
+
         private void ServerOnClientConnect(ulong clientID) {
             // Add to the pending clients and begin connection request timeout
             _pendingClients.Add(clientID);
@@ -261,7 +261,8 @@ namespace FNNLib {
             }
         }
 
-        private void ServerHandleConnectionRequest(NetworkChannel channel, ConnectionRequestPacket packet, ulong sender) {
+        private void ServerHandleConnectionRequest(NetworkChannel channel, ConnectionRequestPacket packet,
+                                                   ulong sender) {
             // Ignore extra approvals.
             if (connectedClients.ContainsKey(sender))
                 return;
@@ -279,7 +280,7 @@ namespace FNNLib {
             // TODO: Delegate to add extra acceptance logic.
 
             // Send approval
-            channel.ServerSend(sender, new ConnectionApprovedPacket{localClientID = sender});
+            channel.ServerSend(sender, new ConnectionApprovedPacket {localClientID = sender});
 
             // Add client to connected clients
             connectedClients.Add(sender, new NetworkedClient {
@@ -623,7 +624,8 @@ namespace FNNLib {
                             break;
                         case NetworkEventType.Data:
                             if (channel < networkConfig.channels.Count) {
-                                networkConfig.channels[channel].HandleIncoming(clientID, NetworkReaderPool.GetReader(data), true);
+                                networkConfig.channels[channel]
+                                             .HandleIncoming(clientID, NetworkReaderPool.GetReader(data), true);
                             } else {
                                 Debug.LogWarning("Channel not registered!!");
                             }
@@ -690,7 +692,7 @@ namespace FNNLib {
                           .ClientConsumer<ClientDisconnectPacket>(ClientHandleDisconnectRequest).Register();
             NetworkChannel.Reliable.GetFactory()
                           .ServerConsumer<ConnectionRequestPacket>(ServerHandleConnectionRequest).Register();
-            
+
             // Register scene management events.
             NetworkChannel.ReliableSequenced.GetFactory()
                           .ClientConsumer<SceneLoadPacket>(NetworkSceneManager
@@ -715,6 +717,10 @@ namespace FNNLib {
                           .Consumer<RPCPacket>(NetworkBehaviour.RPCCallHandler).Buffered().Register();
             NetworkChannel.ReliableSequenced.GetFactory()
                           .Consumer<RPCResponsePacket>(RPCResponseManager.HandleRPCResponse).Register();
+
+            // Replicated Vars
+            NetworkChannel.Reliable.GetFactory(NetworkBehaviour.VAR_DELTA_ID).Consumer(NetworkBehaviour.HandleVarDelta)
+                          .Register();
         }
 
         #endregion

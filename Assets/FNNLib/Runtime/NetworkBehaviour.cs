@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text;
 using FNNLib.Config;
 using FNNLib.Messaging;
+using FNNLib.ReplicatedVar;
 using FNNLib.RPC;
 using FNNLib.SceneManagement;
 using FNNLib.Serialization;
@@ -90,6 +91,7 @@ namespace FNNLib {
         internal void InternalNetworkStart() {
             _rpcReflector = RPCReflector.GetOrCreate(GetType());
             rpcDelegates = _rpcReflector.CreateTargetDelegates(this);
+            _varReflector = new VarReflector(GetType(), this);
         }
 
         #endregion
@@ -331,14 +333,12 @@ namespace FNNLib {
         private object InvokeClientRPCLocal(ulong hash, NetworkReader args) {
             if (_rpcReflector.clientMethods.ContainsKey(hash))
                 return _rpcReflector.clientMethods[hash].Invoke(this, 0, args);
-
             return null;
         }
 
         private object InvokeServerRPCLocal(ulong hash, ulong sender, NetworkReader args) {
             if (_rpcReflector.serverMethods.ContainsKey(hash))
                 return _rpcReflector.serverMethods[hash].Invoke(this, sender, args);
-
             return null;
         }
 
@@ -406,6 +406,48 @@ namespace FNNLib {
 
         internal static ulong HashMethodSignature(MethodInfo info) {
             return HashMethodName(GetHashableMethodSignature(info));
+        }
+
+        #endregion
+        
+        #region Replicated Vars
+
+        internal static readonly int VAR_DELTA_ID = 128; // Some arbitrary large number ¯\_(ツ)_/¯
+        
+        private VarReflector _varReflector;
+
+        private void UpdateVars() {
+            // TODO: This will be called each variable poll time.
+
+            if (_varReflector.AnyDirty(isServer, NetworkManager.instance.localClientID)) {
+                using (var writer = NetworkWriterPool.GetWriter()) {
+                    // Write network id and behaviour index
+                    writer.WritePackedUInt64(networkID);
+                    writer.WritePackedInt32(behaviourIndex);
+
+                    // Write all variable deltas
+                    _varReflector.WriteDeltas(writer);
+                    
+                    // Send to all observing clients.
+                    if (isServer)
+                        NetworkChannel.Reliable.ServerSend(identity.observers, VAR_DELTA_ID, writer);
+                    else throw new NotImplementedException();
+                }
+            }
+        }
+
+        internal static void HandleVarDelta(NetworkChannel channel, NetworkReader reader, ulong sender, bool isServer) {
+            var networkID = reader.ReadPackedUInt64();
+            var behaviourIndex = reader.ReadPackedInt32();
+            
+            // TODO: Server security checks!
+
+            if (SpawnManager.spawnedObjects.TryGetValue(networkID, out var identity)) {
+                if (behaviourIndex < identity.behaviours.Count) {
+                    var behaviour = identity.behaviours[behaviourIndex];
+                    behaviour._varReflector.ReadDeltas(reader);
+                }
+            }
         }
 
         #endregion

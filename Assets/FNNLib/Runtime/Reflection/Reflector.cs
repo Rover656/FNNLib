@@ -5,6 +5,10 @@ using System.Reflection;
 using UnityEditor;
 
 namespace FNNLib.Reflection {
+    /// <summary>
+    /// A system that provides intelligent reflection of a class.
+    /// This provides common helper classes.
+    /// </summary>
     public abstract class Reflector {
         protected static List<MethodInfo> GetMethodsRecursive(Type type, Type typeLimit) {
             var methods = new List<MethodInfo>();

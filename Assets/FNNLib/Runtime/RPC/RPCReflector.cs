@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using FNNLib.Reflection;
+using FNNLib.SceneManagement;
 using FNNLib.Serialization;
 using FNNLib.Utilities;
 
 namespace FNNLib.RPC {
     public delegate void RPCDelegate(ulong sender, NetworkReader reader);
     
+    /// <summary>
+    /// RPC Method Reflector.
+    /// Collects and manages any RPC method.
+    /// </summary>
     internal class RPCReflector : Reflector {
         private static readonly Dictionary<Type, RPCReflector> typeLookup = new Dictionary<Type, RPCReflector>();
 
@@ -42,8 +47,7 @@ namespace FNNLib.RPC {
                     lookupTable.Add(hash, rpcMethod);
 
                 if (parameters.Length > 0) {
-                    // TODO: Validate
-                    var sigHash = NetworkBehaviour.HashMethodSignature(method);
+                    var sigHash = HashMethodSignatureAndValidate(method);
 
                     if (!lookupTable.ContainsKey(sigHash)) {
                         lookupTable.Add(sigHash, rpcMethod);
@@ -73,6 +77,11 @@ namespace FNNLib.RPC {
         private static ulong HashMethodNameAndValidate(string name) {
             // TODO: Collision checking
             return NetworkBehaviour.HashMethodName(name);
+        }
+
+        private static ulong HashMethodSignatureAndValidate(MethodInfo method) {
+            // TODO: Collision checking
+            return NetworkBehaviour.HashMethodSignature(method);
         }
     }
 }

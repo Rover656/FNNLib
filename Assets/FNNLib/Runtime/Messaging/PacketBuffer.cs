@@ -4,32 +4,35 @@ using UnityEngine;
 
 namespace FNNLib.Messaging {
     public class PacketBuffer {
-        private List<BufferedPacket> _internalList = new List<BufferedPacket>();
+        private Queue<BufferedPacket> _internalQueue = new Queue<BufferedPacket>();
 
-        public int count => _internalList.Count;
+        public int count => _internalQueue.Count;
 
         public void Enqueue(BufferedPacket packet) {
-            if (_internalList.Contains(packet))
+            if (_internalQueue.Contains(packet))
                 throw new Exception();
-            _internalList.Add(packet);
+            _internalQueue.Enqueue(packet);
         }
 
         public void ExecutePending() {
-            if (_internalList.Count == 0)
-                throw new InvalidOperationException("Queue is empty.");
-            var packet = _internalList[0];
-            _internalList.RemoveAt(0);
+            // Do nothing if the queue is empty
+            if (_internalQueue.Count == 0)
+                return;
+            
+            // Get the back packet.
+            var packet = _internalQueue.Dequeue();
             if (IsPacketOld(packet))
                 return;
             
             // If this packet still has a buffer problem. See if it needs buffered again.
             // This can happen for example if something is moving scene but the scene doesn't exist *and* the object doesnt exist.
+            // TODO: Need to add another age value, adding a limit to the times a packet can be rebuffered.
             if (packet.packet is IBufferablePacket bufferablePacket) {
                 if (bufferablePacket.BufferPacket(packet.channel, packet.sender))
                     return;
             }
 
-            // Invoke handlers.
+            // Process the buffers.
             if (NetworkManager.instance.isClient)
                 packet.channel.HandleBuffered(packet, false);
             if (NetworkManager.instance.isServer)
@@ -37,9 +40,11 @@ namespace FNNLib.Messaging {
         }
 
         public void PurgeOldPackets() {
-            // TODO: The list should be sorted so that the order is correct!
-            for (var i = _internalList.Count - 1; i >= 0 && IsPacketOld(_internalList[i]); i--) {
-                _internalList.Remove(_internalList[i]);
+            // Remove old packets from the buffer
+            var back = _internalQueue.Peek();
+            while (IsPacketOld(back)) {
+                _internalQueue.Dequeue();
+                back = _internalQueue.Peek();
             }
         }
 

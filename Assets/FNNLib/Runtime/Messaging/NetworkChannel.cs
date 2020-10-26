@@ -613,8 +613,6 @@ namespace FNNLib.Messaging {
             public abstract void Invoke(NetworkChannel channel, ulong sender, NetworkReader reader, bool server);
 
             public virtual void InvokeBuffered(BufferedPacket packet, bool server) {
-                if (canBuffer)
-                    throw new NotImplementedException();
                 throw new NotSupportedException();
             }
         }

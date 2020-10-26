@@ -12,11 +12,20 @@ using FNNLib.Utilities;
 using UnityEngine;
 
 namespace FNNLib {
+    /// <summary>
+    /// A behaviour that is network aware.
+    /// </summary>
     public abstract partial class NetworkBehaviour : MonoBehaviour {
         #region Identity Fetch
 
+        /// <summary>
+        /// The cached reference to the network identity.
+        /// </summary>
         private NetworkIdentity _identity;
 
+        /// <summary>
+        /// The identity the behaviour functions under.
+        /// </summary>
         public NetworkIdentity identity {
             get {
                 if (_identity == null)
@@ -24,8 +33,6 @@ namespace FNNLib {
                 return _identity;
             }
         }
-
-        public bool hasIdentity => identity != null;
 
         #endregion
 

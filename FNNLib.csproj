@@ -85,6 +85,7 @@
      <Compile Include="Assets\FNNLib\Runtime\Serialization\AutoSerializer.cs" />
      <Compile Include="Assets\FNNLib\Runtime\NetworkIdentity.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Messaging\BasePacketBufferCollection.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\Messaging\NetworkChannel.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Reflection\TypeExtensions.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Components\NetworkTransform.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Transports\Telepathy\NetworkStreamExtensions.cs" />
@@ -115,7 +116,6 @@
      <Compile Include="Assets\FNNLib\Runtime\Spawning\SpawnManager.cs" />
      <Compile Include="Assets\FNNLib\Runtime\RPC\RPCResponsePacket.cs" />
      <Compile Include="Assets\FNNLib\Runtime\RPC\RPCReflectionData.cs" />
-     <Compile Include="Assets\FNNLib\Runtime\Messaging\NetworkChannel.cs" />
      <None Include="Assets\FNNLib\Runtime\FNNLib.asmdef" />
  <Reference Include="UnityEditor.UI">
  <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>

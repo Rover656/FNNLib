@@ -72,7 +72,7 @@ namespace FNNLib.Spawning {
             }
         }
 
-        public bool BufferPacket(ulong sender, int channel) {
+        public bool BufferPacket(NetworkChannel channel, ulong sender) {
             if (NetworkManager.instance.connectedClients[NetworkManager.instance.localClientID].loadedScenes
                               .Contains(sceneID))
                 return false;

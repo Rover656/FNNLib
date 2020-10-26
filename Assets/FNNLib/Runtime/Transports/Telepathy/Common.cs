@@ -63,7 +63,7 @@ namespace Telepathy
         // send message (via stream) with the <size,content> message structure
         // this function is blocking sometimes!
         // (e.g. if someone has high latency or wire was cut off)
-        protected static bool SendMessagesBlocking(NetworkStream stream, byte[][] messages)
+        protected static bool SendMessagesBlocking(NetworkStream stream, OutgoingData[] messages)
         {
             // stream.Write throws exceptions if client sends with high
             // frequency and the server stops
@@ -73,7 +73,7 @@ namespace Telepathy
                 // packet to avoid TCP overheads and improve performance.
                 int packetSize = 0;
                 for (int i = 0; i < messages.Length; ++i)
-                    packetSize += sizeof(int) + messages[i].Length; // header + content
+                    packetSize += sizeof(int) * 2 + messages[i].data.Length; // header + content
 
                 // create payload buffer if not created yet or previous one is
                 // too small
@@ -87,15 +87,16 @@ namespace Telepathy
                 {
                     // create header buffer if not created yet
                     if (header == null)
-                        header = new byte[4];
+                        header = new byte[8];
 
                     // construct header (size)
-                    Utils.IntToBytesBigEndianNonAlloc(messages[i].Length, header);
+                    Utils.IntToBytesBigEndianNonAlloc(messages[i].data.Length, header);
+                    Utils.IntToBytesBigEndianNonAlloc(messages[i].channel, header, 4);
 
                     // copy header + message into buffer
                     Array.Copy(header, 0, payload, position, header.Length);
-                    Array.Copy(messages[i], 0, payload, position + header.Length, messages[i].Length);
-                    position += header.Length + messages[i].Length;
+                    Array.Copy(messages[i].data, 0, payload, position + header.Length, messages[i].data.Length);
+                    position += header.Length + messages[i].data.Length;
                 }
 
                 // write the whole thing
@@ -112,20 +113,22 @@ namespace Telepathy
         }
 
         // read message (via stream) with the <size,content> message structure
-        protected static bool ReadMessageBlocking(NetworkStream stream, int MaxMessageSize, out byte[] content)
+        protected static bool ReadMessageBlocking(NetworkStream stream, int MaxMessageSize, out byte[] content, out int channel)
         {
             content = null;
+            channel = -1;
 
             // create header buffer if not created yet
             if (header == null)
-                header = new byte[4];
+                header = new byte[8];
 
-            // read exactly 4 bytes for header (blocking)
-            if (!stream.ReadExactly(header, 4))
+            // read exactly 8 bytes for header (blocking)
+            if (!stream.ReadExactly(header, 8))
                 return false;
 
             // convert to int
             int size = Utils.BytesToIntBigEndian(header);
+            channel = Utils.BytesToIntBigEndian(header, 4);
 
             // protect against allocation attacks. an attacker might send
             // multiple fake '2GB header' packets in a row, causing the server
@@ -156,7 +159,7 @@ namespace Telepathy
             {
                 // add connected event to queue with ip address as data in case
                 // it's needed
-                receiveQueue.Enqueue(new Message(connectionId, EventType.Connected, null));
+                receiveQueue.Enqueue(new Message(connectionId, EventType.Connected, null, 0));
 
                 // let's talk about reading data.
                 // -> normally we would read as much as possible and then
@@ -177,12 +180,11 @@ namespace Telepathy
                 while (true)
                 {
                     // read the next message (blocking) or stop if stream closed
-                    byte[] content;
-                    if (!ReadMessageBlocking(stream, MaxMessageSize, out content))
+                    if (!ReadMessageBlocking(stream, MaxMessageSize, out var content, out var channel))
                         break; // break instead of return so stream close still happens!
 
                     // queue it
-                    receiveQueue.Enqueue(new Message(connectionId, EventType.Data, content));
+                    receiveQueue.Enqueue(new Message(connectionId, EventType.Data, content, channel));
 
                     // and show a warning if the queue gets too big
                     // -> we don't want to show a warning every single time,
@@ -219,14 +221,14 @@ namespace Telepathy
                 //    where Disconnected -> Reconnect wouldn't work because
                 //    Connected is still true for a short moment before the stream
                 //    would be closed.
-                receiveQueue.Enqueue(new Message(connectionId, EventType.Disconnected, null));
+                receiveQueue.Enqueue(new Message(connectionId, EventType.Disconnected, null, 0));
             }
         }
 
         // thread send function
         // note: we really do need one per connection, so that if one connection
         //       blocks, the rest will still continue to get sends
-        protected static void SendLoop(int connectionId, TcpClient client, SafeQueue<byte[]> sendQueue, ManualResetEvent sendPending)
+        protected static void SendLoop(int connectionId, TcpClient client, SafeQueue<OutgoingData> sendQueue, ManualResetEvent sendPending)
         {
             // get NetworkStream from client
             NetworkStream stream = client.GetStream();
@@ -246,7 +248,7 @@ namespace Telepathy
                     // dequeue all
                     // SafeQueue.TryDequeueAll is twice as fast as
                     // ConcurrentQueue, see SafeQueue.cs!
-                    byte[][] messages;
+                    OutgoingData[] messages;
                     if (sendQueue.TryDequeueAll(out messages))
                     {
                         // send message (blocking) or stop if stream is closed

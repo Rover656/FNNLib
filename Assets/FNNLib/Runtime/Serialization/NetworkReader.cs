@@ -326,6 +326,10 @@ namespace FNNLib.Serialization {
             throw new InvalidOperationException("This type cannot be deserialized!");
         }
 
+        public T ReadPackedObject<T>() {
+            return (T) ReadPackedObject(typeof(T));
+        }
+
         #endregion
     }
 }

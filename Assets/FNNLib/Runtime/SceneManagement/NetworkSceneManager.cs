@@ -111,7 +111,7 @@ namespace FNNLib.SceneManagement {
                                                      mode = clientMode,
                                                      sceneIndex = GetSceneIndex(sceneName)
                                                  };
-            NetworkManager.instance.ServerSend(netScene.observers, loadPacket, DefaultChannels.ReliableSequenced);
+            NetworkChannel.ReliableSequenced.ServerSend(netScene.observers, loadPacket);
             foreach (var i in netScene.observers) {
                 NetworkManager.instance.connectedClients[i].loadedScenes.Add(netID);
             }
@@ -154,7 +154,7 @@ namespace FNNLib.SceneManagement {
 
             // Send unload to all observers
             var unloadPacket = new SceneUnloadPacket {sceneNetID = netID};
-            NetworkManager.instance.ServerSend(netScene.observers, unloadPacket, DefaultChannels.ReliableSequenced);
+            NetworkChannel.ReliableSequenced.ServerSend(netScene.observers, unloadPacket);
 
             // Unload this scene.
             var op = SceneManager.UnloadSceneAsync(netScene.scene);
@@ -216,7 +216,7 @@ namespace FNNLib.SceneManagement {
                                                      mode = scene.clientMode,
                                                      sceneIndex = GetSceneIndex(scene.name)
                                                  };
-            NetworkManager.instance.ServerSend(clientID, loadPacket, DefaultChannels.ReliableSequenced);
+            NetworkChannel.ReliableSequenced.ServerSend(clientID, loadPacket);
 
             // Add to the loaded scenes list of the client
             NetworkManager.instance.connectedClients[clientID].loadedScenes.Add(networkID);
@@ -238,7 +238,7 @@ namespace FNNLib.SceneManagement {
                                                              mode = scene.clientMode,
                                                              sceneIndex = GetSceneIndex(scene.name)
                                                          };
-            NetworkManager.instance.ServerSend(clientIDs, loadFallbackPacket, DefaultChannels.ReliableSequenced);
+            NetworkChannel.ReliableSequenced.ServerSend(clientIDs, loadFallbackPacket);
 
             foreach (var clientID in clientIDs)
                 // Add to the loaded scenes list of the client
@@ -271,7 +271,7 @@ namespace FNNLib.SceneManagement {
                                                          };
             foreach (var observer in NetworkManager.instance.connectedClientsList.Select(item => item.clientID)) {
                 if (originalScene.observers.Contains(observer) && targetScene.observers.Contains(observer)) {
-                    NetworkManager.instance.ServerSend(observer, movePacket);
+                    NetworkChannel.ReliableSequenced.ServerSend(observer, movePacket);
                 } else if (originalScene.observers.Contains(observer)) {
                     identity.RemoveObserver(observer);
                 } else if (targetScene.observers.Contains(observer)) {
@@ -300,7 +300,7 @@ namespace FNNLib.SceneManagement {
 
         #region Client Handlers
 
-        internal static void ClientHandleSceneLoadPacket(SceneLoadPacket packet, int channel) {
+        internal static void ClientHandleSceneLoadPacket(NetworkChannel channel, SceneLoadPacket packet) {
             // Get the scene to load
             var scene = NetworkManager.instance.networkConfig.networkableScenes[packet.sceneIndex];
 
@@ -334,7 +334,7 @@ namespace FNNLib.SceneManagement {
                                    };
         }
 
-        internal static void ClientHandleSceneUnloadPacket(SceneUnloadPacket packet, int channel) {
+        internal static void ClientHandleSceneUnloadPacket(NetworkChannel channel, SceneUnloadPacket packet) {
             // Unload if its loaded
             if (loadedScenes.ContainsKey(packet.sceneNetID)) {
                 SceneManager.UnloadSceneAsync(loadedScenes[packet.sceneNetID].scene);
@@ -343,7 +343,7 @@ namespace FNNLib.SceneManagement {
             }
         }
 
-        internal static void ClientHandleMoveObjectPacket(MoveObjectToScenePacket packet, int channel) {
+        internal static void ClientHandleMoveObjectPacket(NetworkChannel channel, MoveObjectToScenePacket packet) {
             var obj = SpawnManager.spawnedObjects[packet.networkID];
             var targetScene = loadedScenes[packet.destinationScene];
             SceneManager.MoveGameObjectToScene(obj.gameObject, targetScene.scene);
@@ -364,7 +364,7 @@ namespace FNNLib.SceneManagement {
                                                                      i == 0 ? LoadSceneMode.Single : scene.clientMode,
                                                                  sceneIndex = GetSceneIndex(scene.name)
                                                              };
-                NetworkManager.instance.ServerSend(clientID, loadFallbackPacket, DefaultChannels.ReliableSequenced);
+                NetworkChannel.ReliableSequenced.ServerSend(clientID, loadFallbackPacket);
 
                 // Add to observers list
                 loadedScenes[netID].observers.Add(clientID);

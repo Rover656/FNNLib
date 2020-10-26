@@ -77,6 +77,10 @@ namespace FNNLib {
         /// </summary>
         [HideInInspector] public NetworkConfig networkConfig;
 
+        private void OnValidate() {
+            networkConfig.EnsureDefaultChannels();
+        }
+
         private void Awake() {
             // Instance manager
             if (instance != null && instance != this) {
@@ -108,7 +112,9 @@ namespace FNNLib {
         [HideInInspector] public UnityEvent<ulong> serverOnClientDisconnect = new UnityEvent<ulong>();
 
         private List<ulong> _pendingClients = new List<ulong>();
-        private List<ulong> _clientIDs = new List<ulong>();
+        
+        [HideInInspector]
+        public List<ulong> allClientIDs = new List<ulong>();
 
         /// <summary>
         /// Starts the manager in server mode.
@@ -171,7 +177,7 @@ namespace FNNLib {
         /// <param name="disconnectReason"></param>
         public void ServerDisconnect(ulong clientID, string disconnectReason) {
             // Send disconnect packet
-            ServerSend(clientID, new ClientDisconnectPacket {disconnectReason = disconnectReason});
+            NetworkChannel.Reliable.ServerSend(clientID, new ClientDisconnectPacket {disconnectReason = disconnectReason});
 
             // Start timeout
             StartCoroutine(ServerClientDisconnectTimeout(clientID));
@@ -184,142 +190,13 @@ namespace FNNLib {
         public void ServerForceDisconnect(ulong clientID) {
             networkConfig.transport.ServerDisconnect(clientID);
         }
-
-        private List<ulong> _singleSenderList = new List<ulong> {0};
-
-        /// <summary>
-        /// Send a packet to the given client.
-        /// </summary>
-        /// <param name="clientID">The client to send to.</param>
-        /// <param name="packet">The packet to send</param>
-        /// <param name="channel">The channel to send with</param>
-        /// <typeparam name="TPacket">The packet type</typeparam>
-        public void ServerSend<TPacket>(ulong clientID, TPacket packet, int channel = DefaultChannels.Reliable)
-            where TPacket : ISerializable, new() {
-            // Verify the packet is for the client
-            if (!PacketUtils.IsClientPacket<TPacket>())
-                throw new
-                    InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
-
-            // Write and send
-            using (var writer = NetworkWriterPool.GetWriter()) {
-                // Write packet
-                WritePacket(packet, writer);
-
-                // Send
-                _singleSenderList[0] = clientID;
-                networkConfig.transport.ServerSend(_singleSenderList, writer.ToArraySegment(), channel);
-            }
-        }
-
-        /// <summary>
-        /// Send a packet to all provided clients.
-        /// </summary>
-        /// <param name="clientIDs">The clients to send to.</param>
-        /// <param name="packet">The packet to send</param>
-        /// <param name="channel">The channel to send with</param>
-        /// <typeparam name="TPacket">The packet type</typeparam>
-        public void ServerSend<TPacket>(List<ulong> clientIDs, TPacket packet, int channel = DefaultChannels.Reliable)
-            where TPacket : ISerializable, new() {
-            // Verify the packet is for the client
-            if (!PacketUtils.IsClientPacket<TPacket>())
-                throw new
-                    InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
-
-            // Write and send
-            using (var writer = NetworkWriterPool.GetWriter()) {
-                // Write packet
-                WritePacket(packet, writer);
-
-                // Send
-                networkConfig.transport.ServerSend(clientIDs, writer.ToArraySegment(), channel);
-            }
-        }
-
-        /// <summary>
-        /// Send a packet to all provided clients excluding one.
-        /// </summary>
-        /// <param name="clientIDs">The clients to send to.</param>
-        /// <param name="excludedClientID">The client to exclude.</param>
-        /// <param name="packet">The packet to send</param>
-        /// <param name="channel">The channel to send with</param>
-        /// <typeparam name="TPacket">The packet type</typeparam>
-        public void ServerSendExcluding<TPacket>(List<ulong> clientIDs, ulong excludedClientID, TPacket packet,
-                                                 int channel = DefaultChannels.Reliable)
-            where TPacket : ISerializable, new() {
-            // Verify the packet is for the client
-            if (!PacketUtils.IsClientPacket<TPacket>())
-                throw new
-                    InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
-
-            // Write and send
-            using (var writer = NetworkWriterPool.GetWriter()) {
-                // Write packet
-                WritePacket(packet, writer);
-
-                // Send
-                networkConfig.transport.ServerSend(clientIDs, writer.ToArraySegment(), channel, excludedClientID);
-            }
-        }
-
-        /// <summary>
-        /// Send a packet to all connected clients.
-        /// </summary>
-        /// <param name="packet">The packet to send</param>
-        /// <param name="channel">The channel to send with</param>
-        /// <typeparam name="TPacket">The packet type</typeparam>
-        public void ServerSendToAll<TPacket>(TPacket packet, int channel = DefaultChannels.Reliable)
-            where TPacket : ISerializable, new() {
-            // Verify the packet is for the client
-            if (!PacketUtils.IsClientPacket<TPacket>())
-                throw new
-                    InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
-
-            // Write and send
-            using (var writer = NetworkWriterPool.GetWriter()) {
-                // Write packet
-                WritePacket(packet, writer);
-
-                // Send
-                networkConfig.transport.ServerSend(_clientIDs, writer.ToArraySegment(), channel);
-            }
-        }
-
-        /// <summary>
-        /// Send a packet to all connect clients excluding one.
-        /// </summary>
-        /// <param name="excludedClientID">The client to exclude.</param>
-        /// <param name="packet">The packet to send</param>
-        /// <param name="channel">The channel to send with</param>
-        /// <typeparam name="TPacket">The packet type</typeparam>
-        public void ServerSendToAllExcluding<TPacket>(ulong excludedClientID, TPacket packet,
-                                                      int channel = DefaultChannels.Reliable)
-            where TPacket : ISerializable, new() {
-            // Verify the packet is for the client
-            if (!PacketUtils.IsClientPacket<TPacket>())
-                throw new
-                    InvalidOperationException("Cannot send a packet to a client that isn't marked as a client packet!");
-
-            // Write and send
-            using (var writer = NetworkWriterPool.GetWriter()) {
-                // Write packet
-                WritePacket(packet, writer);
-
-                // Send
-                networkConfig.transport.ServerSend(_clientIDs, writer.ToArraySegment(), channel, excludedClientID);
-            }
-        }
-
+        
         private void ServerOnClientConnect(ulong clientID) {
             // Add to the pending clients and begin connection request timeout
             _pendingClients.Add(clientID);
 
             // Start disconnect coroutine
             StartCoroutine(ClientConnectionTimeout(clientID));
-        }
-
-        private void ServerOnDataReceived(ulong clientID, ArraySegment<byte> data, int channel) {
-            HandlePacket(clientID, data, channel);
         }
 
         private void ServerOnClientDisconnect(ulong clientID) {
@@ -339,9 +216,9 @@ namespace FNNLib {
                 connectedClientsList.Remove(connectedClients[clientID]);
                 connectedClients.Remove(clientID);
             }
-            
-            if (_clientIDs.Contains(clientID))
-                _clientIDs.Remove(clientID);
+
+            if (allClientIDs.Contains(clientID))
+                allClientIDs.Remove(clientID);
 
             // Fire event
             serverOnClientDisconnect?.Invoke(clientID);
@@ -384,38 +261,38 @@ namespace FNNLib {
             }
         }
 
-        private void ServerHandleConnectionRequest(ulong clientID, ConnectionRequestPacket packet, int channel) {
+        private void ServerHandleConnectionRequest(NetworkChannel channel, ConnectionRequestPacket packet, ulong sender) {
             // Ignore extra approvals.
-            if (connectedClients.ContainsKey(clientID))
+            if (connectedClients.ContainsKey(sender))
                 return;
 
             // Remove from pending clients list
-            if (_pendingClients.Contains(clientID))
-                _pendingClients.Remove(clientID);
+            if (_pendingClients.Contains(sender))
+                _pendingClients.Remove(sender);
 
             // Check hashes
             if (packet.verificationHash != networkConfig.GetHash()) {
-                ServerDisconnect(clientID, "Client version does not match server!");
+                ServerDisconnect(sender, "Client version does not match server!");
                 return;
             }
 
             // TODO: Delegate to add extra acceptance logic.
 
             // Send approval
-            ServerSend(clientID, new ConnectionApprovedPacket {localClientID = clientID});
+            channel.ServerSend(sender, new ConnectionApprovedPacket{localClientID = sender});
 
             // Add client to connected clients
-            connectedClients.Add(clientID, new NetworkedClient {
-                                                                   clientID = clientID
-                                                               });
-            connectedClientsList.Add(connectedClients[clientID]);
-            _clientIDs.Add(clientID);
+            connectedClients.Add(sender, new NetworkedClient {
+                                                                 clientID = sender
+                                                             });
+            connectedClientsList.Add(connectedClients[sender]);
+            allClientIDs.Add(sender);
 
             // Fire connection event
-            serverOnClientConnect?.Invoke(clientID);
-            
+            serverOnClientConnect?.Invoke(sender);
+
             // Fire on client connected for scene.
-            NetworkSceneManager.OnClientConnected(clientID);
+            NetworkSceneManager.OnClientConnected(sender);
         }
 
         protected virtual void ConfigureServerFramerate() {
@@ -463,7 +340,7 @@ namespace FNNLib {
 
             // Start client
             isClient = true;
-            
+
             // Add connection timeout
             StartCoroutine(ClientApprovalTimeout());
         }
@@ -488,39 +365,11 @@ namespace FNNLib {
             isClient = false;
         }
 
-        /// <summary>
-        /// Send data to the server as the client.
-        /// </summary>
-        /// <param name="packet">The packet to be sent.</param>
-        /// <param name="channel">The channel to send with.</param>
-        /// <typeparam name="TPacket">The packet type.</typeparam>
-        /// <exception cref="InvalidOperationException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void ClientSend<TPacket>(TPacket packet, int channel = DefaultChannels.Reliable)
-            where TPacket : ISerializable, new() {
-            // Only allow sending of server packets.
-            if (!PacketUtils.IsServerPacket<TPacket>())
-                throw new InvalidOperationException("Attempted to send non-server packet to server!");
-
-            // Host mode will not send data to the server
-            if (isHost)
-                return;
-
-            // Write the data and send it with the transport
-            using (var writer = NetworkWriterPool.GetWriter()) {
-                // Write packet
-                WritePacket(packet, writer);
-
-                // Send with transport
-                networkConfig.transport.ClientSend(writer.ToArraySegment(), channel);
-            }
-        }
-
         private void ClientOnConnected() {
             // Send connection request
             var request = new ConnectionRequestPacket
                           {connectionData = null, verificationHash = networkConfig.GetHash()};
-            ClientSend(request);
+            NetworkChannel.Reliable.ClientSend(request);
         }
 
         private IEnumerator ClientApprovalTimeout() {
@@ -544,11 +393,7 @@ namespace FNNLib {
             clientOnDisconnect?.Invoke(_disconnectionReason);
         }
 
-        private void ClientOnDataReceived(ArraySegment<byte> data, int channel) {
-            HandlePacket(0, data, channel);
-        }
-
-        private void ClientHandleApproval(ConnectionApprovedPacket packet, int channel) {
+        private void ClientHandleApproval(NetworkChannel channel, ConnectionApprovedPacket packet) {
             // Save my client ID
             _localClientID = packet.localClientID;
 
@@ -559,7 +404,7 @@ namespace FNNLib {
             clientOnConnect?.Invoke();
         }
 
-        private void ClientHandleDisconnectRequest(ClientDisconnectPacket packet, int channel) {
+        private void ClientHandleDisconnectRequest(NetworkChannel channel, ClientDisconnectPacket packet) {
             _disconnectionReason = packet.disconnectReason;
             networkConfig.transport.ClientDisconnect();
         }
@@ -601,7 +446,7 @@ namespace FNNLib {
             // Fire starting events.
             serverOnClientConnect?.Invoke(ServerLocalID);
             clientOnConnect?.Invoke();
-            
+
             // Fire on client connected for scene.
             NetworkSceneManager.OnClientConnected(ServerLocalID);
         }
@@ -668,7 +513,7 @@ namespace FNNLib {
             // Fire starting events.
             clientOnConnect?.Invoke();
             serverOnClientConnect?.Invoke(ServerLocalID);
-            
+
             // Fire on client connected for scene.
             NetworkSceneManager.OnClientConnected(ServerLocalID);
         }
@@ -725,8 +570,12 @@ namespace FNNLib {
             // Clear all lists and dictionaries
             connectedClients.Clear();
             connectedClientsList.Clear();
-            serverHandlers.Clear();
-            clientHandlers.Clear();
+
+            // Reset channels
+            networkConfig.EnsureDefaultChannels();
+            NetworkChannel.Reliable.ResetChannel();
+            NetworkChannel.ReliableSequenced.ResetChannel();
+            NetworkChannel.Unreliable.ResetChannel();
 
             // Clear disconnection reason because
             _disconnectionReason = null;
@@ -750,7 +599,7 @@ namespace FNNLib {
         }
 
         #endregion
-        
+
         #region Lifecycle
 
         /// <summary>
@@ -765,7 +614,7 @@ namespace FNNLib {
             if (isServer) {
                 for (var i = 0; i < networkConfig.serverMaxReceivesPerUpdate; i++) {
                     var eventType = networkConfig.transport.GetMessage(out var clientID, out var data, out var channel);
-                
+
                     switch (eventType) {
                         case NetworkEventType.None:
                             goto exit;
@@ -773,7 +622,12 @@ namespace FNNLib {
                             ServerOnClientConnect(clientID);
                             break;
                         case NetworkEventType.Data:
-                            ServerOnDataReceived(clientID, data, channel);
+                            if (channel < networkConfig.channels.Count) {
+                                networkConfig.channels[channel].HandleIncoming(clientID, NetworkReaderPool.GetReader(data), true);
+                            } else {
+                                Debug.LogWarning("Channel not registered!!");
+                            }
+
                             break;
                         case NetworkEventType.Disconnected:
                             ServerOnClientDisconnect(clientID);
@@ -785,7 +639,7 @@ namespace FNNLib {
             } else if (isClient) {
                 for (var i = 0; i < networkConfig.clientMaxReceivesPerUpdate; i++) {
                     var eventType = networkConfig.transport.GetMessage(out var clientID, out var data, out var channel);
-                
+
                     switch (eventType) {
                         case NetworkEventType.None:
                             goto exit;
@@ -793,7 +647,13 @@ namespace FNNLib {
                             ClientOnConnected();
                             break;
                         case NetworkEventType.Data:
-                            ClientOnDataReceived(data, channel);
+                            if (channel < networkConfig.channels.Count) {
+                                networkConfig.channels[channel]
+                                             .HandleIncoming(ServerLocalID, NetworkReaderPool.GetReader(data), false);
+                            } else {
+                                Debug.LogWarning("Channel not registered!!");
+                            }
+
                             break;
                         case NetworkEventType.Disconnected:
                             ClientOnDisconnected();
@@ -803,183 +663,58 @@ namespace FNNLib {
                     }
                 }
             }
-            
+
             exit:
-            
+
             // Purge all expired but still buffered packets
             if (Time.unscaledTime - _lastBufferPurge > (1f / networkConfig.packetBufferPurgesPerSecond)) {
                 _lastBufferPurge = Time.unscaledTime;
                 BasePacketBufferCollection.PurgeAllOldPackets();
             }
-            
+
             // TODO: Move other timeout checks here.
         }
-        
+
         #endregion
 
         #region Packets
-
-        /// <summary>
-        /// All client packet handlers
-        /// </summary>
-        internal readonly Dictionary<ulong, ClientPacketHandlers> clientHandlers =
-            new Dictionary<ulong, ClientPacketHandlers>();
-
-        /// <summary>
-        /// All server packet handlers.
-        /// </summary>
-        internal readonly Dictionary<ulong, ServerPacketHandlers> serverHandlers =
-            new Dictionary<ulong, ServerPacketHandlers>();
-
-        /// <summary>
-        /// Register a client packet's handler.
-        /// </summary>
-        /// <param name="handler">The handling action</param>
-        /// <typeparam name="TPacket">The packet to be handled.</typeparam>
-        public void RegisterClientPacketHandler<TPacket>(Action<TPacket, int> handler)
-            where TPacket : ISerializable, new() {
-            var packetID = GetPacketID<TPacket>();
-            if (!clientHandlers.ContainsKey(packetID)) {
-                clientHandlers.Add(packetID, PacketHandlers.GetClientHandlers(handler));
-            } else Debug.LogWarning("Client packet handler was not registered as one already exists.");
-        }
-
-        /// <summary>
-        /// Register a server packet's handler.
-        /// </summary>
-        /// <param name="handler">The handling action</param>
-        /// <typeparam name="TPacket">The packet to be handled.</typeparam>
-        public void RegisterServerPacketHandler<TPacket>(Action<ulong, TPacket, int> handler)
-            where TPacket : ISerializable, new() {
-            var packetID = GetPacketID<TPacket>();
-            if (!serverHandlers.ContainsKey(packetID)) {
-                serverHandlers.Add(packetID, PacketHandlers.GetServerHandlers(handler));
-            } else Debug.LogWarning("Server packet handler was not registered as one already exists.");
-        }
-
-        /// <summary>
-        /// Gets a packet ID.
-        /// Uses the packet ID hash size from the config.
-        /// </summary>
-        /// <typeparam name="TPacket"></typeparam>
-        /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        internal ulong GetPacketID<TPacket>() where TPacket : ISerializable, new() {
-            return GetPacketID(typeof(TPacket));
-        }
-        
-        /// <summary>
-        /// Gets a packet ID.
-        /// Uses the packet ID hash size from the config.
-        /// </summary>
-        /// <typeparam name="TPacket"></typeparam>
-        /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        internal ulong GetPacketID(Type packetType) {
-            switch (networkConfig.packetIDHashSize) {
-                case HashSize.TwoBytes:
-                    return PacketUtils.GetID16(packetType);
-                case HashSize.FourBytes:
-                    return PacketUtils.GetID32(packetType);
-                case HashSize.EightBytes:
-                    return PacketUtils.GetID64(packetType);
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
 
         /// <summary>
         /// Registers all built in FNNLib packet handlers.
         /// </summary>
         private void RegisterBuiltinPackets() {
             // Protocol
-            RegisterClientPacketHandler<ConnectionApprovedPacket>(ClientHandleApproval);
-            RegisterClientPacketHandler<ClientDisconnectPacket>(ClientHandleDisconnectRequest);
-            RegisterServerPacketHandler<ConnectionRequestPacket>(ServerHandleConnectionRequest);
-
+            NetworkChannel.Reliable.GetFactory()
+                          .ClientConsumer<ConnectionApprovedPacket>(ClientHandleApproval).Register();
+            NetworkChannel.Reliable.GetFactory()
+                          .ClientConsumer<ClientDisconnectPacket>(ClientHandleDisconnectRequest).Register();
+            NetworkChannel.Reliable.GetFactory()
+                          .ServerConsumer<ConnectionRequestPacket>(ServerHandleConnectionRequest).Register();
+            
             // Register scene management events.
-            RegisterClientPacketHandler<SceneLoadPacket>(NetworkSceneManager.ClientHandleSceneLoadPacket);
-            RegisterClientPacketHandler<SceneUnloadPacket>(NetworkSceneManager.ClientHandleSceneUnloadPacket);
-            RegisterClientPacketHandler<MoveObjectToScenePacket>(NetworkSceneManager.ClientHandleMoveObjectPacket);
+            NetworkChannel.ReliableSequenced.GetFactory()
+                          .ClientConsumer<SceneLoadPacket>(NetworkSceneManager
+                                                              .ClientHandleSceneLoadPacket).Register();
+            NetworkChannel.ReliableSequenced.GetFactory()
+                          .ClientConsumer<SceneUnloadPacket>(NetworkSceneManager.ClientHandleSceneUnloadPacket)
+                          .Register();
+            NetworkChannel.ReliableSequenced.GetFactory()
+                          .ClientConsumer<MoveObjectToScenePacket>(NetworkSceneManager.ClientHandleMoveObjectPacket)
+                          .Buffered().Register();
 
             // Object spawning
-            RegisterClientPacketHandler<SpawnObjectPacket>(SpawnManager.ClientHandleSpawnPacket);
-            RegisterClientPacketHandler<DestroyObjectPacket>(SpawnManager.ClientHandleDestroy);
+            NetworkChannel.ReliableSequenced.GetFactory()
+                          .ClientConsumer<SpawnObjectPacket>(SpawnManager.ClientHandleSpawnPacket).Buffered()
+                          .Register();
+            NetworkChannel.ReliableSequenced.GetFactory()
+                          .ClientConsumer<DestroyObjectPacket>(SpawnManager.ClientHandleDestroy).Buffered()
+                          .Register();
 
             // RPCs
-            RegisterClientPacketHandler<RPCPacket>(NetworkBehaviour.ClientRPCCallHandler);
-            RegisterClientPacketHandler<RPCResponsePacket>(RPCResponseManager.ClientHandleRPCResponse);
-            RegisterServerPacketHandler<RPCPacket>(NetworkBehaviour.ServerRPCCallHandler);
-            RegisterServerPacketHandler<RPCResponsePacket>(RPCResponseManager.ServerHandleRPCResponse);
-        }
-
-        /// <summary>
-        /// Handles an incoming data stream by parsing as a packet.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="data"></param>
-        /// <param name="channel"></param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        private void HandlePacket(ulong sender, ArraySegment<byte> data, int channel) {
-            using (var reader = NetworkReaderPool.GetReader(data)) {
-                ulong packetID;
-                switch (networkConfig.packetIDHashSize) {
-                    case HashSize.TwoBytes:
-                        packetID = reader.ReadPackedUInt16();
-                        break;
-                    case HashSize.FourBytes:
-                        packetID = reader.ReadPackedUInt32();
-                        break;
-                    case HashSize.EightBytes:
-                        packetID = reader.ReadPackedUInt64();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                // Fire the handler if present
-                if (isServer) {
-                    if (serverHandlers.TryGetValue(packetID, out var serverHandler)) {
-                        serverHandler.packetDelegate(sender, reader, channel);
-                        return;
-                    }
-                } else {
-                    if (clientHandlers.TryGetValue(packetID, out var clientHandler)) {
-                        clientHandler.packetDelegate(reader, channel);
-                        return;
-                    }
-                }
-
-                Debug.LogWarning("Ignoring unidentified packet.");
-            }
-        }
-
-        /// <summary>
-        /// Writes a packet into the writer stream.
-        /// </summary>
-        /// <param name="packet"></param>
-        /// <param name="writer"></param>
-        /// <typeparam name="TPacket"></typeparam>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void WritePacket<TPacket>(TPacket packet, NetworkWriter writer) where TPacket : ISerializable, new() {
-            // Write ID
-            switch (networkConfig.packetIDHashSize) {
-                case HashSize.TwoBytes:
-                    writer.WritePackedUInt16(PacketUtils.GetID16<TPacket>());
-                    break;
-                case HashSize.FourBytes:
-                    writer.WritePackedUInt32(PacketUtils.GetID32<TPacket>());
-                    break;
-                case HashSize.EightBytes:
-                    writer.WritePackedUInt64(PacketUtils.GetID64<TPacket>());
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            // Write packet.
-            writer.WritePackedObject(packet);
+            NetworkChannel.ReliableSequenced.GetFactory()
+                          .Consumer<RPCPacket>(NetworkBehaviour.RPCCallHandler).Buffered().Register();
+            NetworkChannel.ReliableSequenced.GetFactory()
+                          .Consumer<RPCResponsePacket>(RPCResponseManager.HandleRPCResponse).Register();
         }
 
         #endregion

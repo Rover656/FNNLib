@@ -144,8 +144,6 @@ namespace FNNLib.Spawning {
 
                 return createdObject;
             }
-
-            return null;
         }
 
         #endregion
@@ -182,7 +180,7 @@ namespace FNNLib.Spawning {
                     var destroyPacket = new DestroyObjectPacket {networkID = networkID};
 
                     // Send to all, so that even if someone is instructed to create it, they will destroy it after.
-                    NetworkManager.instance.ServerSendToAll(destroyPacket, DefaultChannels.ReliableSequenced);
+                    NetworkChannel.ReliableSequenced.ServerSend(destroyPacket);
                 }
             }
 
@@ -199,7 +197,7 @@ namespace FNNLib.Spawning {
 
         #region Client Handlers
 
-        internal static void ClientHandleSpawnPacket(SpawnObjectPacket packet, int channel) {
+        internal static void ClientHandleSpawnPacket(NetworkChannel channel, SpawnObjectPacket packet) {
             // Make nullable vars
             ulong? parentNetID = null;
             if (packet.hasParent)
@@ -218,7 +216,7 @@ namespace FNNLib.Spawning {
             SpawnObjectLocally(netObj, packet.networkID, packet.isSceneObject ?? true, packet.isPlayerObject, packet.ownerClientID);
         }
 
-        internal static void ClientHandleDestroy(DestroyObjectPacket packet, int channel) {
+        internal static void ClientHandleDestroy(NetworkChannel channel, DestroyObjectPacket packet) {
             OnDestroy(packet.networkID, true);
         }
 
@@ -227,12 +225,11 @@ namespace FNNLib.Spawning {
         #region Server
 
         internal static void ServerSendSpawnCall(ulong clientID, NetworkIdentity identity) {
-            NetworkManager.instance.ServerSend(clientID, CreateSpawnObjectPacket(identity), DefaultChannels.ReliableSequenced);
+            NetworkChannel.ReliableSequenced.ServerSend(clientID, CreateSpawnObjectPacket(identity));
         }
 
         internal static void ServerSendSpawnCall(List<ulong> observers, NetworkIdentity identity) {
-            NetworkManager.instance.ServerSend(observers, CreateSpawnObjectPacket(identity),
-                                               DefaultChannels.ReliableSequenced);
+            NetworkChannel.ReliableSequenced.ServerSend(observers, CreateSpawnObjectPacket(identity));
         }
 
         private static SpawnObjectPacket CreateSpawnObjectPacket(NetworkIdentity identity) {

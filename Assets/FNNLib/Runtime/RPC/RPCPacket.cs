@@ -67,7 +67,7 @@ namespace FNNLib.RPC {
             parameterBuffer = paramBuf.Value;
         }
 
-        public bool BufferPacket(ulong sender, int channel) {
+        public bool BufferPacket(NetworkChannel channel, ulong sender) {
             if (SpawnManager.spawnedObjects.ContainsKey(networkID))
                 return false;
             

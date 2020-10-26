@@ -7,6 +7,12 @@ references:
   commentId: N:FNNLib
   fullName: FNNLib
   nameWithType: FNNLib
+- uid: FNNLib.ApproveConnectionDelegate
+  name: ApproveConnectionDelegate
+  href: api/FNNLib.ApproveConnectionDelegate.html
+  commentId: T:FNNLib.ApproveConnectionDelegate
+  fullName: FNNLib.ApproveConnectionDelegate
+  nameWithType: ApproveConnectionDelegate
 - uid: FNNLib.Components
   name: FNNLib.Components
   href: api/FNNLib.Components.html
@@ -953,19 +959,6 @@ references:
   isSpec: "True"
   fullName: FNNLib.NetworkBehaviour.executingRPCSender
   nameWithType: NetworkBehaviour.executingRPCSender
-- uid: FNNLib.NetworkBehaviour.hasIdentity
-  name: hasIdentity
-  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_hasIdentity
-  commentId: P:FNNLib.NetworkBehaviour.hasIdentity
-  fullName: FNNLib.NetworkBehaviour.hasIdentity
-  nameWithType: NetworkBehaviour.hasIdentity
-- uid: FNNLib.NetworkBehaviour.hasIdentity*
-  name: hasIdentity
-  href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_hasIdentity_
-  commentId: Overload:FNNLib.NetworkBehaviour.hasIdentity
-  isSpec: "True"
-  fullName: FNNLib.NetworkBehaviour.hasIdentity
-  nameWithType: NetworkBehaviour.hasIdentity
 - uid: FNNLib.NetworkBehaviour.identity
   name: identity
   href: api/FNNLib.NetworkBehaviour.html#FNNLib_NetworkBehaviour_identity
@@ -5541,6 +5534,12 @@ references:
   commentId: F:FNNLib.NetworkManager.connectedClientsList
   fullName: FNNLib.NetworkManager.connectedClientsList
   nameWithType: NetworkManager.connectedClientsList
+- uid: FNNLib.NetworkManager.connectionApprovalCallback
+  name: connectionApprovalCallback
+  href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_connectionApprovalCallback
+  commentId: F:FNNLib.NetworkManager.connectionApprovalCallback
+  fullName: FNNLib.NetworkManager.connectionApprovalCallback
+  nameWithType: NetworkManager.connectionApprovalCallback
 - uid: FNNLib.NetworkManager.dontDestroyOnLoad
   name: dontDestroyOnLoad
   href: api/FNNLib.NetworkManager.html#FNNLib_NetworkManager_dontDestroyOnLoad

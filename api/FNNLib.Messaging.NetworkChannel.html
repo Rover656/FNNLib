@@ -1,0 +1,1258 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class NetworkChannel
+   | Friday Night Networking Library </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class NetworkChannel
+   | Friday Night Networking Library ">
+    <meta name="generator" content="docfx 2.56.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="FNNLib.Messaging.NetworkChannel">
+  
+  
+  <h1 id="FNNLib_Messaging_NetworkChannel" data-uid="FNNLib.Messaging.NetworkChannel" class="text-break">Class NetworkChannel
+  </h1>
+  <div class="markdown level0 summary"><p>Represents a channel in the network which has a registry of packets it recognises.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">NetworkChannel</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="FNNLib.Messaging.html">FNNLib.Messaging</a></h6>
+  <h6><strong>Assembly</strong>: FNNLib.dll</h6>
+  <h5 id="FNNLib_Messaging_NetworkChannel_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Serializable]
+public sealed class NetworkChannel</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel__ctor_FNNLib_Transports_ChannelType_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.%23ctor(FNNLib.Transports.ChannelType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L278">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel__ctor_" data-uid="FNNLib.Messaging.NetworkChannel.#ctor*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel__ctor_FNNLib_Transports_ChannelType_" data-uid="FNNLib.Messaging.NetworkChannel.#ctor(FNNLib.Transports.ChannelType)">NetworkChannel(ChannelType)</h4>
+  <div class="markdown level1 summary"><p>Create a new network channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NetworkChannel(ChannelType type)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FNNLib.Transports.ChannelType.html">ChannelType</a></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>Network channel type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_channelType.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.channelType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L255">View Source</a>
+  </span>
+  <h4 id="FNNLib_Messaging_NetworkChannel_channelType" data-uid="FNNLib.Messaging.NetworkChannel.channelType">channelType</h4>
+  <div class="markdown level1 summary"><p>The channel type.
+Used for URDP transports.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ChannelType channelType</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FNNLib.Transports.ChannelType.html">ChannelType</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_Reliable.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.Reliable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L239">View Source</a>
+  </span>
+  <h4 id="FNNLib_Messaging_NetworkChannel_Reliable" data-uid="FNNLib.Messaging.NetworkChannel.Reliable">Reliable</h4>
+  <div class="markdown level1 summary"><p>Default reliable channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly NetworkChannel Reliable</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FNNLib.Messaging.NetworkChannel.html">NetworkChannel</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ReliableSequenced.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ReliableSequenced%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L244">View Source</a>
+  </span>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ReliableSequenced" data-uid="FNNLib.Messaging.NetworkChannel.ReliableSequenced">ReliableSequenced</h4>
+  <div class="markdown level1 summary"><p>Default reliable sequenced channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly NetworkChannel ReliableSequenced</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FNNLib.Messaging.NetworkChannel.html">NetworkChannel</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_Unreliable.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.Unreliable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L249">View Source</a>
+  </span>
+  <h4 id="FNNLib_Messaging_NetworkChannel_Unreliable" data-uid="FNNLib.Messaging.NetworkChannel.Unreliable">Unreliable</h4>
+  <div class="markdown level1 summary"><p>Default unreliable channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly NetworkChannel Unreliable</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FNNLib.Messaging.NetworkChannel.html">NetworkChannel</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ID.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ID%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L266">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_ID_" data-uid="FNNLib.Messaging.NetworkChannel.ID*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ID" data-uid="FNNLib.Messaging.NetworkChannel.ID">ID</h4>
+  <div class="markdown level1 summary"><p>Get the channel ID.
+Mostly for internal use.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ID { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ClientSend_System_Int32_FNNLib_Serialization_NetworkWriter_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ClientSend(System.Int32%2CFNNLib.Serialization.NetworkWriter)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L546">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_ClientSend_" data-uid="FNNLib.Messaging.NetworkChannel.ClientSend*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ClientSend_System_Int32_FNNLib_Serialization_NetworkWriter_" data-uid="FNNLib.Messaging.NetworkChannel.ClientSend(System.Int32,FNNLib.Serialization.NetworkWriter)">ClientSend(Int32, NetworkWriter)</h4>
+  <div class="markdown level1 summary"><p>Send a generic message to the server.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClientSend(int messageId, NetworkWriter packetWriter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">messageId</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FNNLib.Serialization.NetworkWriter.html">NetworkWriter</a></td>
+        <td><span class="parametername">packetWriter</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ClientSend__1___0_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ClientSend%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L574">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_ClientSend_" data-uid="FNNLib.Messaging.NetworkChannel.ClientSend*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ClientSend__1___0_" data-uid="FNNLib.Messaging.NetworkChannel.ClientSend``1(``0)">ClientSend&lt;T&gt;(T)</h4>
+  <div class="markdown level1 summary"><p>Send a typed message to the server.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClientSend&lt;T&gt;(T packet)
+    where T : ISerializable</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">packet</span></td>
+        <td><p>The message to send.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the message.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td><p>The type was not found in the registry.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_GetFactory.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.GetFactory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L333">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_GetFactory_" data-uid="FNNLib.Messaging.NetworkChannel.GetFactory*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_GetFactory" data-uid="FNNLib.Messaging.NetworkChannel.GetFactory">GetFactory()</h4>
+  <div class="markdown level1 summary"><p>Get a factory for the next message ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NetworkChannel.MessageFactory GetFactory()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FNNLib.Messaging.NetworkChannel.MessageFactory.html">NetworkChannel.MessageFactory</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_GetFactory_System_Int32_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.GetFactory(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L342">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_GetFactory_" data-uid="FNNLib.Messaging.NetworkChannel.GetFactory*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_GetFactory_System_Int32_" data-uid="FNNLib.Messaging.NetworkChannel.GetFactory(System.Int32)">GetFactory(Int32)</h4>
+  <div class="markdown level1 summary"><p>Get a factory for the current ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NetworkChannel.MessageFactory GetFactory(int id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FNNLib.Messaging.NetworkChannel.MessageFactory.html">NetworkChannel.MessageFactory</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_GetNextID.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.GetNextID%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L296">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_GetNextID_" data-uid="FNNLib.Messaging.NetworkChannel.GetNextID*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_GetNextID" data-uid="FNNLib.Messaging.NetworkChannel.GetNextID">GetNextID()</h4>
+  <div class="markdown level1 summary"><p>Get the next available ID from the internal counter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetNextID()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>The next available ID</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_HandleBuffered_FNNLib_Messaging_BufferedPacket_System_Boolean_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.HandleBuffered(FNNLib.Messaging.BufferedPacket%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L321">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_HandleBuffered_" data-uid="FNNLib.Messaging.NetworkChannel.HandleBuffered*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_HandleBuffered_FNNLib_Messaging_BufferedPacket_System_Boolean_" data-uid="FNNLib.Messaging.NetworkChannel.HandleBuffered(FNNLib.Messaging.BufferedPacket,System.Boolean)">HandleBuffered(BufferedPacket, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Handle a buffered packet.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void HandleBuffered(BufferedPacket packet, bool server)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FNNLib.Messaging.BufferedPacket.html">BufferedPacket</a></td>
+        <td><span class="parametername">packet</span></td>
+        <td><p>The buffered packet</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">server</span></td>
+        <td><p>Whether or not this is handled on serverside.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_HandleIncoming_System_UInt64_FNNLib_Serialization_NetworkReader_System_Boolean_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.HandleIncoming(System.UInt64%2CFNNLib.Serialization.NetworkReader%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L306">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_HandleIncoming_" data-uid="FNNLib.Messaging.NetworkChannel.HandleIncoming*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_HandleIncoming_System_UInt64_FNNLib_Serialization_NetworkReader_System_Boolean_" data-uid="FNNLib.Messaging.NetworkChannel.HandleIncoming(System.UInt64,FNNLib.Serialization.NetworkReader,System.Boolean)">HandleIncoming(UInt64, NetworkReader, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Handle an incoming packet.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void HandleIncoming(ulong clientID, NetworkReader reader, bool server)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">clientID</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FNNLib.Serialization.NetworkReader.html">NetworkReader</a></td>
+        <td><span class="parametername">reader</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">server</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ResetChannel.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ResetChannel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L599">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_ResetChannel_" data-uid="FNNLib.Messaging.NetworkChannel.ResetChannel*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ResetChannel" data-uid="FNNLib.Messaging.NetworkChannel.ResetChannel">ResetChannel()</h4>
+  <div class="markdown level1 summary"><p>Fully reset channel, clearing registries.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ResetChannel()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ServerSend_System_Collections_Generic_List_System_UInt64__System_Int32_FNNLib_Serialization_NetworkWriter_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ServerSend(System.Collections.Generic.List%7BSystem.UInt64%7D%2CSystem.Int32%2CFNNLib.Serialization.NetworkWriter)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L416">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_ServerSend_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ServerSend_System_Collections_Generic_List_System_UInt64__System_Int32_FNNLib_Serialization_NetworkWriter_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend(System.Collections.Generic.List{System.UInt64},System.Int32,FNNLib.Serialization.NetworkWriter)">ServerSend(List&lt;UInt64&gt;, Int32, NetworkWriter)</h4>
+  <div class="markdown level1 summary"><p>Send a generic message to a list of clients.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ServerSend(List&lt;ulong&gt; clientIds, int messageId, NetworkWriter packetWriter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</td>
+        <td><span class="parametername">clientIds</span></td>
+        <td><p>The clients to send to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">messageId</span></td>
+        <td><p>The message ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FNNLib.Serialization.NetworkWriter.html">NetworkWriter</a></td>
+        <td><span class="parametername">packetWriter</span></td>
+        <td><p>Writer containing message information.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ServerSend_System_Collections_Generic_List_System_UInt64__System_Int32_FNNLib_Serialization_NetworkWriter_System_UInt64_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ServerSend(System.Collections.Generic.List%7BSystem.UInt64%7D%2CSystem.Int32%2CFNNLib.Serialization.NetworkWriter%2CSystem.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L463">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_ServerSend_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ServerSend_System_Collections_Generic_List_System_UInt64__System_Int32_FNNLib_Serialization_NetworkWriter_System_UInt64_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend(System.Collections.Generic.List{System.UInt64},System.Int32,FNNLib.Serialization.NetworkWriter,System.UInt64)">ServerSend(List&lt;UInt64&gt;, Int32, NetworkWriter, UInt64)</h4>
+  <div class="markdown level1 summary"><p>Send a generic message to a list of clients, excluding one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ServerSend(List&lt;ulong&gt; clientIds, int messageId, NetworkWriter packetWriter, ulong excludedClient)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</td>
+        <td><span class="parametername">clientIds</span></td>
+        <td><p>The clients to send to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">messageId</span></td>
+        <td><p>The message ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FNNLib.Serialization.NetworkWriter.html">NetworkWriter</a></td>
+        <td><span class="parametername">packetWriter</span></td>
+        <td><p>Writer containing message information.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">excludedClient</span></td>
+        <td><p>The client to exclude.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ServerSend_System_Int32_FNNLib_Serialization_NetworkWriter_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ServerSend(System.Int32%2CFNNLib.Serialization.NetworkWriter)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L508">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_ServerSend_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ServerSend_System_Int32_FNNLib_Serialization_NetworkWriter_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend(System.Int32,FNNLib.Serialization.NetworkWriter)">ServerSend(Int32, NetworkWriter)</h4>
+  <div class="markdown level1 summary"><p>Send a generic message to all clients.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ServerSend(int messageId, NetworkWriter packetWriter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">messageId</span></td>
+        <td><p>The message ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FNNLib.Serialization.NetworkWriter.html">NetworkWriter</a></td>
+        <td><span class="parametername">packetWriter</span></td>
+        <td><p>Writer containing message information</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ServerSend_System_Int32_FNNLib_Serialization_NetworkWriter_System_UInt64_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ServerSend(System.Int32%2CFNNLib.Serialization.NetworkWriter%2CSystem.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L527">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_ServerSend_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ServerSend_System_Int32_FNNLib_Serialization_NetworkWriter_System_UInt64_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend(System.Int32,FNNLib.Serialization.NetworkWriter,System.UInt64)">ServerSend(Int32, NetworkWriter, UInt64)</h4>
+  <div class="markdown level1 summary"><p>Send a generic message to all clients excluding one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ServerSend(int messageId, NetworkWriter packetWriter, ulong excludedClient)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">messageId</span></td>
+        <td><p>The message ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FNNLib.Serialization.NetworkWriter.html">NetworkWriter</a></td>
+        <td><span class="parametername">packetWriter</span></td>
+        <td><p>Writer containing message information</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">excludedClient</span></td>
+        <td><p>Client to exclude.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ServerSend_System_UInt64_System_Int32_FNNLib_Serialization_NetworkWriter_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ServerSend(System.UInt64%2CSystem.Int32%2CFNNLib.Serialization.NetworkWriter)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L369">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_ServerSend_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ServerSend_System_UInt64_System_Int32_FNNLib_Serialization_NetworkWriter_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend(System.UInt64,System.Int32,FNNLib.Serialization.NetworkWriter)">ServerSend(UInt64, Int32, NetworkWriter)</h4>
+  <div class="markdown level1 summary"><p>Send a generic message to a client.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ServerSend(ulong clientId, int messageId, NetworkWriter packetWriter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">clientId</span></td>
+        <td><p>The client to send to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">messageId</span></td>
+        <td><p>The message ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FNNLib.Serialization.NetworkWriter.html">NetworkWriter</a></td>
+        <td><span class="parametername">packetWriter</span></td>
+        <td><p>Writer containing message information.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ServerSend__1___0_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ServerSend%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L517">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_ServerSend_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ServerSend__1___0_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend``1(``0)">ServerSend&lt;T&gt;(T)</h4>
+  <div class="markdown level1 summary"><p>Send a typed message to all clients.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ServerSend&lt;T&gt;(T packet)
+    where T : ISerializable</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">packet</span></td>
+        <td><p>The message to send.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the message</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ServerSend__1___0_System_UInt64_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ServerSend%60%601(%60%600%2CSystem.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L537">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_ServerSend_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ServerSend__1___0_System_UInt64_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend``1(``0,System.UInt64)">ServerSend&lt;T&gt;(T, UInt64)</h4>
+  <div class="markdown level1 summary"><p>Send a typed message to all clients excluding one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ServerSend&lt;T&gt;(T packet, ulong excludedClient)
+    where T : ISerializable</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">packet</span></td>
+        <td><p>The message to send.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">excludedClient</span></td>
+        <td><p>Client to exclude</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the message</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ServerSend__1_System_Collections_Generic_List_System_UInt64____0_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ServerSend%60%601(System.Collections.Generic.List%7BSystem.UInt64%7D%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L439">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_ServerSend_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ServerSend__1_System_Collections_Generic_List_System_UInt64____0_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend``1(System.Collections.Generic.List{System.UInt64},``0)">ServerSend&lt;T&gt;(List&lt;UInt64&gt;, T)</h4>
+  <div class="markdown level1 summary"><p>Send a typed message to a list of clients.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ServerSend&lt;T&gt;(List&lt;ulong&gt; clientIds, T packet)
+    where T : ISerializable</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</td>
+        <td><span class="parametername">clientIds</span></td>
+        <td><p>The clients to send to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">packet</span></td>
+        <td><p>The message to send.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the message.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ServerSend__1_System_Collections_Generic_List_System_UInt64____0_System_UInt64_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ServerSend%60%601(System.Collections.Generic.List%7BSystem.UInt64%7D%2C%60%600%2CSystem.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L487">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_ServerSend_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ServerSend__1_System_Collections_Generic_List_System_UInt64____0_System_UInt64_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend``1(System.Collections.Generic.List{System.UInt64},``0,System.UInt64)">ServerSend&lt;T&gt;(List&lt;UInt64&gt;, T, UInt64)</h4>
+  <div class="markdown level1 summary"><p>Sends a typed message to a list of clients, excluding one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ServerSend&lt;T&gt;(List&lt;ulong&gt; clientIds, T packet, ulong excludedClient)
+    where T : ISerializable</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</td>
+        <td><span class="parametername">clientIds</span></td>
+        <td><p>The clients to send to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">packet</span></td>
+        <td><p>The message to send.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">excludedClient</span></td>
+        <td><p>The client to exclude.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the message</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_ServerSend__1_System_UInt64___0_.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.ServerSend%60%601(System.UInt64%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L392">View Source</a>
+  </span>
+  <a id="FNNLib_Messaging_NetworkChannel_ServerSend_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend*"></a>
+  <h4 id="FNNLib_Messaging_NetworkChannel_ServerSend__1_System_UInt64___0_" data-uid="FNNLib.Messaging.NetworkChannel.ServerSend``1(System.UInt64,``0)">ServerSend&lt;T&gt;(UInt64, T)</h4>
+  <div class="markdown level1 summary"><p>Send a typed message to a client.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ServerSend&lt;T&gt;(ulong clientId, T packet)
+    where T : ISerializable</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">clientId</span></td>
+        <td><p>The client to send to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">packet</span></td>
+        <td><p>The message to send.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the message.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td><p>Message type not in the registry.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L13" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            (C) 2020 Reece Mackie. Released under the MIT License.
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

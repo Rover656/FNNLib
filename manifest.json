@@ -28,7 +28,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Components.NetworkRigidbody.html",
-          "hash": "+PXIA0CZnlNPneVhRM90GQ=="
+          "hash": "WuwabLwKR7q302e+0FpB+g=="
         }
       },
       "is_incremental": false,
@@ -40,7 +40,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Components.NetworkTransform.html",
-          "hash": "8xy4UzWizHXObxQdfNsOQA=="
+          "hash": "7IS7fTaXU3sVeLIUF+Bfig=="
         }
       },
       "is_incremental": false,
@@ -88,7 +88,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Config.NetworkConfig.html",
-          "hash": "VkEY+dbjtOVT+2RPMTf2FQ=="
+          "hash": "Ft0j9OmmGAqDzt0NvpCx2A=="
         }
       },
       "is_incremental": false,
@@ -136,7 +136,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Editor.NetworkManagerEditor.html",
-          "hash": "ilBXHFlstlMsrzRUxE+Kiw=="
+          "hash": "qb01dV7m4sDNXIIk7QO3Xg=="
         }
       },
       "is_incremental": false,
@@ -184,7 +184,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Messaging.BufferedPacket.html",
-          "hash": "Mz1GuKlFbOlfgV6TlHV80g=="
+          "hash": "pVtBRod+vx5olUx4BZ+q2A=="
         }
       },
       "is_incremental": false,
@@ -204,11 +204,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/FNNLib.Messaging.ClientPacketDelegate.yml",
+      "source_relative_path": "api/FNNLib.Messaging.IBufferablePacket.yml",
       "output": {
         ".html": {
-          "relative_path": "api/FNNLib.Messaging.ClientPacketDelegate.html",
-          "hash": "WLkRVpb6RhFlhxs9MyLfew=="
+          "relative_path": "api/FNNLib.Messaging.IBufferablePacket.html",
+          "hash": "D4zi0jVSpsRJ9bsZRn+rJQ=="
         }
       },
       "is_incremental": false,
@@ -216,11 +216,95 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/FNNLib.Messaging.IBufferablePacket.yml",
+      "source_relative_path": "api/FNNLib.Messaging.NetworkChannel.MessageFactory.ReaderClientConsumerMethod.yml",
       "output": {
         ".html": {
-          "relative_path": "api/FNNLib.Messaging.IBufferablePacket.html",
-          "hash": "JXcfdTdIdwzwKHLaEm27Bg=="
+          "relative_path": "api/FNNLib.Messaging.NetworkChannel.MessageFactory.ReaderClientConsumerMethod.html",
+          "hash": "eotG/pvRDoqaujl2xhWCMQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FNNLib.Messaging.NetworkChannel.MessageFactory.ReaderConsumerMethod.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FNNLib.Messaging.NetworkChannel.MessageFactory.ReaderConsumerMethod.html",
+          "hash": "tBWZ+/jApa+ziM7su1G5JA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FNNLib.Messaging.NetworkChannel.MessageFactory.ReaderServerConsumerMethod.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FNNLib.Messaging.NetworkChannel.MessageFactory.ReaderServerConsumerMethod.html",
+          "hash": "/lDZYumn4+h0mO1Ktpdb6w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FNNLib.Messaging.NetworkChannel.MessageFactory.TypedClientConsumerMethod-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FNNLib.Messaging.NetworkChannel.MessageFactory.TypedClientConsumerMethod-1.html",
+          "hash": "UNCyMSaT44IS5iU0A2Zstw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FNNLib.Messaging.NetworkChannel.MessageFactory.TypedConsumerMethod-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FNNLib.Messaging.NetworkChannel.MessageFactory.TypedConsumerMethod-1.html",
+          "hash": "G7CzsecRnFWiH2stFPtxJA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FNNLib.Messaging.NetworkChannel.MessageFactory.TypedServerConsumerMethod-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FNNLib.Messaging.NetworkChannel.MessageFactory.TypedServerConsumerMethod-1.html",
+          "hash": "Bom+vm163ivZVe2snvxjog=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FNNLib.Messaging.NetworkChannel.MessageFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FNNLib.Messaging.NetworkChannel.MessageFactory.html",
+          "hash": "Eqno/DEMInnCcTqjc+jmMw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FNNLib.Messaging.NetworkChannel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FNNLib.Messaging.NetworkChannel.html",
+          "hash": "WB++jZVG+o3V3RTYKgAt3g=="
         }
       },
       "is_incremental": false,
@@ -232,7 +316,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Messaging.PacketBuffer.html",
-          "hash": "TOKeEujxQQJrl2ZVGfLkLg=="
+          "hash": "ZIOA9NmTHhRf6FiNjA0n1Q=="
         }
       },
       "is_incremental": false,
@@ -252,18 +336,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/FNNLib.Messaging.PacketUtils.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/FNNLib.Messaging.PacketUtils.html",
-          "hash": "7g0D990ryd+d35U2+bbc/A=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/FNNLib.Messaging.ServerPacketAttribute.yml",
       "output": {
         ".html": {
@@ -276,23 +348,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/FNNLib.Messaging.ServerPacketDelegate.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/FNNLib.Messaging.ServerPacketDelegate.html",
-          "hash": "Li11aVf+HUx6/h6ASEzGGA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/FNNLib.Messaging.yml",
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Messaging.html",
-          "hash": "zo8Wf+8LYUeCzKHPe1eSdA=="
+          "hash": "K8WOqMXXfgGhz0qNRIKK6Q=="
         }
       },
       "is_incremental": false,
@@ -304,7 +364,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.NetworkBehaviour.html",
-          "hash": "JNmF80s4nQhQVkjv9L+VQQ=="
+          "hash": "rEs8wsoVuXkwTz+6MxTYOw=="
         }
       },
       "is_incremental": false,
@@ -316,7 +376,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.NetworkIdentity.html",
-          "hash": "4m2Drpc3FUe8bFPSym8TqQ=="
+          "hash": "hovwpxaqXGc0d1/Ee4wKkw=="
         }
       },
       "is_incremental": false,
@@ -328,7 +388,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.NetworkManager.html",
-          "hash": "JBSMwHPuYFbC67T4l5t7fw=="
+          "hash": "se32WcjBMnUb5q5SEipyuA=="
         }
       },
       "is_incremental": false,
@@ -400,7 +460,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.RPC.RPCPacket.html",
-          "hash": "MQ1vkw0ZyISLqpFBrT8YbA=="
+          "hash": "9jppLRba/ZNeQpoDGNrkcw=="
         }
       },
       "is_incremental": false,
@@ -460,7 +520,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.SceneManagement.MoveObjectToScenePacket.html",
-          "hash": "5xzD9O6T5oy3eN/slnlxpw=="
+          "hash": "tzImIXRXq+B3WvgEKpDA4g=="
         }
       },
       "is_incremental": false,
@@ -580,7 +640,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Serialization.NetworkReader.html",
-          "hash": "e6kKTEKQBqtsJEn7JpwAfw=="
+          "hash": "TIOCtcdwbt5elSojmXzSWg=="
         }
       },
       "is_incremental": false,
@@ -628,7 +688,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Serialization.PooledNetworkReader.html",
-          "hash": "5EfOdPkBKrAPf6D55u/UCg=="
+          "hash": "cfHYQQYmm6sFEtJwvMe/Bw=="
         }
       },
       "is_incremental": false,
@@ -676,7 +736,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Spawning.OwnerChangedPacket.html",
-          "hash": "WujFv+vQYbkqoJ4GAk9Hqw=="
+          "hash": "CgxTjFhxqM/hBGywbIL1/g=="
         }
       },
       "is_incremental": false,
@@ -688,7 +748,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Spawning.SpawnManager.html",
-          "hash": "xyX4UxjO8oDg7YPf9HmNDQ=="
+          "hash": "LP3grUbnnq+aOXJyO83McA=="
         }
       },
       "is_incremental": false,
@@ -712,19 +772,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Transports.ChannelType.html",
-          "hash": "YamkprPERkYQETZdHsLBOA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/FNNLib.Transports.DefaultChannels.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/FNNLib.Transports.DefaultChannels.html",
-          "hash": "5MgeyBn5jGt0Me5ZlotCkg=="
+          "hash": "tvxWCnksGgP6ldkJo/tdvA=="
         }
       },
       "is_incremental": false,
@@ -736,7 +784,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Transports.MultiplexTransport.html",
-          "hash": "hDpNXdXKywO0ct6H8whNvg=="
+          "hash": "OTFYQAPl4thDKLzSdvI02Q=="
         }
       },
       "is_incremental": false,
@@ -760,7 +808,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Transports.RufflesTransport.html",
-          "hash": "J53RUkcUI0+UdIcWOvXoHg=="
+          "hash": "NxCdj15OClzywqqoFCaLDw=="
         }
       },
       "is_incremental": false,
@@ -772,7 +820,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Transports.TelepathyTransport.html",
-          "hash": "y8xForAaDv+gvaAYlvt4YA=="
+          "hash": "GFHS8Dpiv6jMAoQ3FG/YcQ=="
         }
       },
       "is_incremental": false,
@@ -784,7 +832,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Transports.Transport.html",
-          "hash": "BAm6h2+K46Bj/ksym6sVQw=="
+          "hash": "InCXR3pc0EmmdIfb11axTA=="
         }
       },
       "is_incremental": false,
@@ -796,7 +844,7 @@
       "output": {
         ".html": {
           "relative_path": "api/FNNLib.Transports.html",
-          "hash": "YwYtpridJSs2iSF+Q4in8A=="
+          "hash": "QblXJdJsdbgaF+ymcwWh1Q=="
         }
       },
       "is_incremental": false,
@@ -844,7 +892,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "9ISRcW/m0hP87xn2Qf/ZZg=="
+          "hash": "lDvHPzLYgKJ2K7OAwmZuBA=="
         }
       },
       "is_incremental": false,
@@ -953,7 +1001,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 68,
+          "total_file_count": 72,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {

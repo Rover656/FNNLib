@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace FNNLib.Transports
+    <title>Delegate NetworkChannel.MessageFactory.ReaderClientConsumerMethod
    | Friday Night Networking Library </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace FNNLib.Transports
+    <meta name="title" content="Delegate NetworkChannel.MessageFactory.ReaderClientConsumerMethod
    | Friday Night Networking Library ">
     <meta name="generator" content="docfx 2.56.2.0">
     
@@ -78,32 +78,41 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="FNNLib.Transports">
+            <article class="content wrap" id="_content" data-uid="FNNLib.Messaging.NetworkChannel.MessageFactory.ReaderClientConsumerMethod">
   
-  <h1 id="FNNLib_Transports" data-uid="FNNLib.Transports" class="text-break">Namespace FNNLib.Transports
+  
+  <h1 id="FNNLib_Messaging_NetworkChannel_MessageFactory_ReaderClientConsumerMethod" data-uid="FNNLib.Messaging.NetworkChannel.MessageFactory.ReaderClientConsumerMethod" class="text-break">Delegate NetworkChannel.MessageFactory.ReaderClientConsumerMethod
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
-  </h3>
-      <h4><a class="xref" href="FNNLib.Transports.MultiplexTransport.html">MultiplexTransport</a></h4>
-      <section></section>
-      <h4><a class="xref" href="FNNLib.Transports.RufflesTransport.html">RufflesTransport</a></h4>
-      <section><p>TODO: Actually implement. This is simply an example of how a RUDP transport would work.</p>
-</section>
-      <h4><a class="xref" href="FNNLib.Transports.TelepathyTransport.html">TelepathyTransport</a></h4>
-      <section><p>Transport using vis2k&apos;s Telepathy library.
-Currently the default transport for FNNLib. I want to write my own, however to get off the ground, using an existing lib is simpler and more supported.</p>
-</section>
-      <h4><a class="xref" href="FNNLib.Transports.Transport.html">Transport</a></h4>
-      <section></section>
-    <h3 id="enums">Enums
-  </h3>
-      <h4><a class="xref" href="FNNLib.Transports.ChannelType.html">ChannelType</a></h4>
-      <section></section>
-      <h4><a class="xref" href="FNNLib.Transports.NetworkEventType.html">NetworkEventType</a></h4>
-      <section></section>
+  <h6><strong>Namespace</strong>: <a class="xref" href="FNNLib.Messaging.html">FNNLib.Messaging</a></h6>
+  <h6><strong>Assembly</strong>: FNNLib.dll</h6>
+  <h5 id="FNNLib_Messaging_NetworkChannel_MessageFactory_ReaderClientConsumerMethod_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public delegate void ReaderClientConsumerMethod(NetworkChannel channel, NetworkReader reader);</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FNNLib.Messaging.NetworkChannel.html">NetworkChannel</a></td>
+        <td><span class="parametername">channel</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FNNLib.Serialization.NetworkReader.html">NetworkReader</a></td>
+        <td><span class="parametername">reader</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           
@@ -111,6 +120,12 @@ Currently the default transport for FNNLib. I want to write my own, however to g
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Rover656/FNNLib/new/master/apiSpec/new?filename=FNNLib_Messaging_NetworkChannel_MessageFactory_ReaderClientConsumerMethod.md&amp;value=---%0Auid%3A%20FNNLib.Messaging.NetworkChannel.MessageFactory.ReaderClientConsumerMethod%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/Rover656/FNNLib/blob/master/Assets/FNNLib/Runtime/Messaging/NetworkChannel.cs/#L36" class="contribution-link">View Source</a>
+                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

@@ -8,7 +8,7 @@ namespace FNNLib.RPC {
     [ClientPacket, ServerPacket]
     public class RPCPacket : ISerializable, IBufferablePacket {
         public ulong networkID;
-        public int behaviourOrder;
+        public int behaviourIndex;
         public ulong methodHash;
         public bool expectsResponse;
         public ulong responseID;
@@ -16,7 +16,7 @@ namespace FNNLib.RPC {
 
         public void Serialize(NetworkWriter writer) {
             writer.WritePackedUInt64(networkID);
-            writer.WritePackedInt32(behaviourOrder);
+            writer.WritePackedInt32(behaviourIndex);
 
             switch (NetworkManager.instance.networkConfig.rpcHashSize) {
                 case HashSize.TwoBytes:
@@ -41,7 +41,7 @@ namespace FNNLib.RPC {
 
         public void DeSerialize(NetworkReader reader) {
             networkID = reader.ReadPackedUInt64();
-            behaviourOrder = reader.ReadPackedInt32();
+            behaviourIndex = reader.ReadPackedInt32();
 
             switch (NetworkManager.instance.networkConfig.rpcHashSize) {
                 case HashSize.TwoBytes:

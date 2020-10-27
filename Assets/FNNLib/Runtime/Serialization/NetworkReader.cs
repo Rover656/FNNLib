@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using FNNLib.Reflection;
-using UnityEditor;
 using UnityEngine;
 
 namespace FNNLib.Serialization {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using FNNLib.Config;
 using FNNLib.Messaging;
 using FNNLib.Messaging.Internal;
@@ -95,6 +94,10 @@ namespace FNNLib {
         /// </summary>
         [HideInInspector] public NetworkConfig networkConfig;
 
+        /// <summary>
+        /// Connection approval callback.
+        /// Used for adding extra logic to connection acceptance.
+        /// </summary>
         public ApproveConnectionDelegate connectionApprovalCallback = null;
 
         #region Editor
@@ -156,7 +159,6 @@ namespace FNNLib {
         /// <summary>
         /// List of all client IDs
         /// </summary>
-        // TODO: Move this?
         [HideInInspector]
         public List<ulong> allClientIDs = new List<ulong>();
 
@@ -800,6 +802,8 @@ namespace FNNLib {
             NetworkChannel.ReliableSequenced.GetFactory()
                           .ClientConsumer<DestroyObjectPacket>(SpawnManager.ClientHandleDestroy).Buffered()
                           .Register();
+            NetworkChannel.ReliableSequenced.GetFactory()
+                          .ClientConsumer<OwnerChangedPacket>(NetworkIdentity.OnOwnershipChanged).Buffered();
 
             // RPCs
             NetworkChannel.ReliableSequenced.GetFactory()

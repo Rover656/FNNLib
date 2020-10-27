@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using FNNLib.Config;
 using FNNLib.Serialization;
 using FNNLib.Transports;
 using UnityEngine;

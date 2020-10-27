@@ -5881,12 +5881,12 @@ references:
   commentId: T:FNNLib.RPC.RPCPacket
   fullName: FNNLib.RPC.RPCPacket
   nameWithType: RPCPacket
-- uid: FNNLib.RPC.RPCPacket.behaviourOrder
-  name: behaviourOrder
-  href: api/FNNLib.RPC.RPCPacket.html#FNNLib_RPC_RPCPacket_behaviourOrder
-  commentId: F:FNNLib.RPC.RPCPacket.behaviourOrder
-  fullName: FNNLib.RPC.RPCPacket.behaviourOrder
-  nameWithType: RPCPacket.behaviourOrder
+- uid: FNNLib.RPC.RPCPacket.behaviourIndex
+  name: behaviourIndex
+  href: api/FNNLib.RPC.RPCPacket.html#FNNLib_RPC_RPCPacket_behaviourIndex
+  commentId: F:FNNLib.RPC.RPCPacket.behaviourIndex
+  fullName: FNNLib.RPC.RPCPacket.behaviourIndex
+  nameWithType: RPCPacket.behaviourIndex
 - uid: FNNLib.RPC.RPCPacket.BufferPacket(FNNLib.Messaging.NetworkChannel,System.UInt64)
   name: BufferPacket(NetworkChannel, UInt64)
   href: api/FNNLib.RPC.RPCPacket.html#FNNLib_RPC_RPCPacket_BufferPacket_FNNLib_Messaging_NetworkChannel_System_UInt64_

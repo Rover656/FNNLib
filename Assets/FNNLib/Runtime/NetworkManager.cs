@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using FNNLib.Config;
 using FNNLib.Messaging;
 using FNNLib.Messaging.Internal;
@@ -14,6 +13,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace FNNLib {
+    public delegate bool ApproveConnectionDelegate(ulong clientID, byte[] connectionData);
+    
     /// <summary>
     /// The network manager drives the NetworkClient and NetworkServer systems.
     ///
@@ -41,6 +42,9 @@ namespace FNNLib {
         /// </summary>
         public bool isServer { get; private set; }
 
+        /// <summary>
+        /// Whether or not the game is running in single player mode.
+        /// </summary>
         public bool isSinglePlayer { get; private set; }
 
         /// <summary>
@@ -53,10 +57,20 @@ namespace FNNLib {
         /// </summary>
         public ulong localClientID => isServer ? ServerLocalID : _localClientID;
 
+        /// <summary>
+        /// The underlying client ID.
+        /// </summary>
         private ulong _localClientID;
 
+        /// <summary>
+        /// Dictionary containing all connected clients.
+        /// Key is client ID.
+        /// </summary>
         public readonly Dictionary<ulong, NetworkedClient> connectedClients = new Dictionary<ulong, NetworkedClient>();
 
+        /// <summary>
+        /// List of all connected clients.
+        /// </summary>
         public readonly List<NetworkedClient> connectedClientsList = new List<NetworkedClient>();
 
         /// <summary>
@@ -70,6 +84,9 @@ namespace FNNLib {
         /// </summary>
         public bool runInBackground = true;
 
+        /// <summary>
+        /// Previous value of runInBackground so it can be reset once the manager is finished.
+        /// </summary>
         private bool _wasRunningInBackground;
 
         /// <summary>
@@ -77,9 +94,24 @@ namespace FNNLib {
         /// </summary>
         [HideInInspector] public NetworkConfig networkConfig;
 
+        /// <summary>
+        /// Connection approval callback.
+        /// Used for adding extra logic to connection acceptance.
+        /// </summary>
+        public ApproveConnectionDelegate connectionApprovalCallback = null;
+
+        #region Editor
+        
+        /// <summary>
+        /// Ensure the default channels are maintained
+        /// </summary>
         private void OnValidate() {
             networkConfig.EnsureDefaultChannels();
         }
+        
+        #endregion
+        
+        #region Engine Management
 
         private void Awake() {
             // Instance manager
@@ -104,16 +136,31 @@ namespace FNNLib {
             if (instance == this)
                 instance = null;
         }
+        
+        #endregion
 
         #region Server
 
+        /// <summary>
+        /// On client connect to server.
+        /// </summary>
         [HideInInspector] public UnityEvent<ulong> serverOnClientConnect = new UnityEvent<ulong>();
 
+        /// <summary>
+        /// On client disconnect from server.
+        /// </summary>
         [HideInInspector] public UnityEvent<ulong> serverOnClientDisconnect = new UnityEvent<ulong>();
 
+        /// <summary>
+        /// List of all clients pending connection approvals.
+        /// </summary>
         private List<ulong> _pendingClients = new List<ulong>();
-
-        [HideInInspector] public List<ulong> allClientIDs = new List<ulong>();
+        
+        /// <summary>
+        /// List of all client IDs
+        /// </summary>
+        [HideInInspector]
+        public List<ulong> allClientIDs = new List<ulong>();
 
         /// <summary>
         /// Starts the manager in server mode.
@@ -190,7 +237,11 @@ namespace FNNLib {
         public void ServerForceDisconnect(ulong clientID) {
             networkConfig.transport.ServerDisconnect(clientID);
         }
-
+        
+        /// <summary>
+        /// Handles a client connection.
+        /// </summary>
+        /// <param name="clientID">The client that connected</param>
         private void ServerOnClientConnect(ulong clientID) {
             // Add to the pending clients and begin connection request timeout
             _pendingClients.Add(clientID);
@@ -199,6 +250,10 @@ namespace FNNLib {
             StartCoroutine(ClientConnectionTimeout(clientID));
         }
 
+        /// <summary>
+        /// Handles a client disconnection.
+        /// </summary>
+        /// <param name="clientID"></param>
         private void ServerOnClientDisconnect(ulong clientID) {
             if (_pendingClients.Contains(clientID))
                 _pendingClients.Remove(clientID);
@@ -261,9 +316,14 @@ namespace FNNLib {
             }
         }
 
-        private void ServerHandleConnectionRequest(NetworkChannel channel, ConnectionRequestPacket packet,
-                                                   ulong sender) {
-            // Ignore extra approvals.
+        /// <summary>
+        /// Handle a connection request packet.
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <param name="packet"></param>
+        /// <param name="sender"></param>
+        private void ServerHandleConnectionRequest(NetworkChannel channel, ConnectionRequestPacket packet, ulong sender) {
+            // Ignore extra requests.
             if (connectedClients.ContainsKey(sender))
                 return;
 
@@ -276,8 +336,14 @@ namespace FNNLib {
                 ServerDisconnect(sender, "Client version does not match server!");
                 return;
             }
-
-            // TODO: Delegate to add extra acceptance logic.
+            
+            // Check custom callback
+            if (connectionApprovalCallback != null) {
+                if (!connectionApprovalCallback(sender, packet.connectionData)) {
+                    ServerDisconnect(sender, "Connection approval callback rejected client.");
+                    return;
+                }
+            }
 
             // Send approval
             channel.ServerSend(sender, new ConnectionApprovedPacket {localClientID = sender});
@@ -296,6 +362,9 @@ namespace FNNLib {
             NetworkSceneManager.OnClientConnected(sender);
         }
 
+        /// <summary>
+        /// Configure the server's framerate to prevent high CPU usage.
+        /// </summary>
         protected virtual void ConfigureServerFramerate() {
             // Unity server, unless stopped uses a stupidly high framerate
             #if UNITY_SERVER
@@ -310,6 +379,8 @@ namespace FNNLib {
         [HideInInspector] public UnityEvent clientOnConnect = new UnityEvent();
 
         [HideInInspector] public UnityEvent<string> clientOnDisconnect = new UnityEvent<string>();
+
+        private byte[] _connectionRequestData;
 
         /// <summary>
         /// Start the manager in client mode.
@@ -336,8 +407,8 @@ namespace FNNLib {
             Init();
 
             // Connect to the server
+            _connectionRequestData = connectionRequestData;
             networkConfig.transport.ClientConnect(hostname);
-            // TODO: save the connection request data.
 
             // Start client
             isClient = true;
@@ -366,13 +437,16 @@ namespace FNNLib {
             isClient = false;
         }
 
+        /// <summary>
+        /// Handle client connection.
+        /// </summary>
         private void ClientOnConnected() {
             // Send connection request
             var request = new ConnectionRequestPacket
-                          {connectionData = null, verificationHash = networkConfig.GetHash()};
+                          {connectionData = _connectionRequestData, verificationHash = networkConfig.GetHash()};
             NetworkChannel.Reliable.ClientSend(request);
         }
-
+        
         private IEnumerator ClientApprovalTimeout() {
             var timeBegan = Time.unscaledTime;
             while (Time.unscaledTime - timeBegan < networkConfig.connectionRequestTimeout && connectedClients.Count < 1)
@@ -384,8 +458,14 @@ namespace FNNLib {
             }
         }
 
+        /// <summary>
+        /// The reason we have been provided for our disconnection.
+        /// </summary>
         private string _disconnectionReason;
 
+        /// <summary>
+        /// Handle client disconnection
+        /// </summary>
         private void ClientOnDisconnected() {
             // Remove from connected clients list
             connectedClients.Remove(localClientID);
@@ -565,6 +645,9 @@ namespace FNNLib {
 
         #region Common Initialization
 
+        /// <summary>
+        /// Initialize the network manager.
+        /// </summary>
         private void Init() {
             // TODO: Make this do more, such as look for prefab hash collisions etc.
 
@@ -572,7 +655,7 @@ namespace FNNLib {
             connectedClients.Clear();
             connectedClientsList.Clear();
 
-            // Reset channels
+            // Reset networking channels
             networkConfig.EnsureDefaultChannels();
             NetworkChannel.Reliable.ResetChannel();
             NetworkChannel.ReliableSequenced.ResetChannel();
@@ -586,10 +669,14 @@ namespace FNNLib {
             Application.runInBackground = runInBackground;
 
             // Initial protocols
-            RegisterBuiltinPackets();
+            InternalRegisterMessages();
         }
 
+        /// <summary>
+        /// Shutdown all of the manager.
+        /// </summary>
         private void Shutdown() {
+            // Shut down spawn manager.
             SpawnManager.DestroyNonSceneObjects();
             if (isServer) {
                 SpawnManager.ServerUnspawnAllSceneObjects();
@@ -608,11 +695,16 @@ namespace FNNLib {
         /// </summary>
         private float _lastBufferPurge;
 
+        /// <summary>
+        /// Run network events.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private void LateUpdate() {
             if (!enabled) return;
 
             // Prioritise server. Host mode will take precedence (obviously).
             if (isServer) {
+                // Process server events
                 for (var i = 0; i < networkConfig.serverMaxReceivesPerUpdate; i++) {
                     var eventType = networkConfig.transport.GetMessage(out var clientID, out var data, out var channel);
 
@@ -627,7 +719,7 @@ namespace FNNLib {
                                 networkConfig.channels[channel]
                                              .HandleIncoming(clientID, NetworkReaderPool.GetReader(data), true);
                             } else {
-                                Debug.LogWarning("Channel not registered!!");
+                                Debug.LogWarning("Channel not registered!");
                             }
 
                             break;
@@ -640,7 +732,7 @@ namespace FNNLib {
                 }
             } else if (isClient) {
                 for (var i = 0; i < networkConfig.clientMaxReceivesPerUpdate; i++) {
-                    var eventType = networkConfig.transport.GetMessage(out var clientID, out var data, out var channel);
+                    var eventType = networkConfig.transport.GetMessage(out _, out var data, out var channel);
 
                     switch (eventType) {
                         case NetworkEventType.None:
@@ -650,10 +742,11 @@ namespace FNNLib {
                             break;
                         case NetworkEventType.Data:
                             if (channel < networkConfig.channels.Count) {
-                                networkConfig.channels[channel]
-                                             .HandleIncoming(ServerLocalID, NetworkReaderPool.GetReader(data), false);
+                                networkConfig.channels[channel].HandleIncoming(ServerLocalID,
+                                                                               NetworkReaderPool.GetReader(data), 
+                                                                               false);
                             } else {
-                                Debug.LogWarning("Channel not registered!!");
+                                Debug.LogWarning("Channel not registered!");
                             }
 
                             break;
@@ -679,12 +772,12 @@ namespace FNNLib {
 
         #endregion
 
-        #region Packets
+        #region Messages
 
         /// <summary>
         /// Registers all built in FNNLib packet handlers.
         /// </summary>
-        private void RegisterBuiltinPackets() {
+        private void InternalRegisterMessages() {
             // Protocol
             NetworkChannel.Reliable.GetFactory()
                           .ClientConsumer<ConnectionApprovedPacket>(ClientHandleApproval).Register();
@@ -711,6 +804,8 @@ namespace FNNLib {
             NetworkChannel.ReliableSequenced.GetFactory()
                           .ClientConsumer<DestroyObjectPacket>(SpawnManager.ClientHandleDestroy).Buffered()
                           .Register();
+            NetworkChannel.ReliableSequenced.GetFactory()
+                          .ClientConsumer<OwnerChangedPacket>(NetworkIdentity.OnOwnershipChanged).Buffered();
 
             // RPCs
             NetworkChannel.ReliableSequenced.GetFactory()

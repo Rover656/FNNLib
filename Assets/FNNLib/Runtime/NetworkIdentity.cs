@@ -8,6 +8,10 @@ using FNNLib.Utilities;
 using UnityEngine;
 
 namespace FNNLib {
+    /// <summary>
+    /// A Network Identity.
+    /// This manages the attached object's (and it's children) network presence.
+    /// </summary>
     [AddComponentMenu("Networking/Network Identity")]
     public class NetworkIdentity : MonoBehaviour {
         /// <summary>
@@ -148,10 +152,8 @@ namespace FNNLib {
             if (observers.Contains(clientID))
                 observers.Remove(clientID);
             
-            var destroyPacket = new DestroyObjectPacket {networkID = networkID};
-                    
-            // Send to all, so that even if someone is instructed to create it, they will destroy it after.
-            NetworkChannel.ReliableSequenced.ServerSend(clientID, destroyPacket);
+            // Send destroy to the client so it is removed.
+            NetworkChannel.ReliableSequenced.ServerSend(clientID, new DestroyObjectPacket {networkID = networkID});
         }
 
         public bool IsObserving(ulong clientID) {
@@ -171,21 +173,21 @@ namespace FNNLib {
 
         public void SpawnWithOwnership(ulong clientID) {
             if (!NetworkManager.instance.isServer)
-                throw new NotSupportedException("Spawn may only be called by the server!");
+                throw new NotSupportedException("SpawnWithOwnership may only be called by the server!");
             SpawnManager.SpawnObjectLocally(this, SpawnManager.GetNetworkID(), false, false, clientID);
             SpawnManager.ServerSendSpawnCall(observers, this);
         }
 
         public void SpawnAsPlayerObject(ulong clientID) {
             if (!NetworkManager.instance.isServer)
-                throw new NotSupportedException("Spawn may only be called by the server!");
+                throw new NotSupportedException("SpawnAsPlayerObject may only be called by the server!");
             SpawnManager.SpawnObjectLocally(this, SpawnManager.GetNetworkID(), false, true, clientID);
             SpawnManager.ServerSendSpawnCall(observers, this);
         }
 
         public void UnSpawn() {
             if (!NetworkManager.instance.isServer)
-                throw new NotSupportedException("Spawn may only be called by the server!");
+                throw new NotSupportedException("UnSpawn may only be called by the server!");
             if (isSpawned)
                 SpawnManager.OnDestroy(networkID, false);
         }
@@ -197,13 +199,55 @@ namespace FNNLib {
         public void ChangeOwnership(ulong newOwnerClientID) {
             if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("ChangeOwnership may only be called by the server!");
-            //todo
+            if (!isSpawned)
+                throw new Exception();
+            
+            if (NetworkManager.instance.connectedClients.TryGetValue(ownerClientID, out var owner)) {
+                owner.ownedObjects.Remove(networkID);
+            }
+            
+            // Add to new owner
+            NetworkManager.instance.connectedClients[newOwnerClientID].ownedObjects.Add(networkID);
+            ownerClientID = newOwnerClientID;
+            
+            // Fire packet to observers
+            var packet = new OwnerChangedPacket {
+                                                    networkID = networkID,
+                                                    newOwnerID = newOwnerClientID
+                                                };
+            NetworkChannel.ReliableSequenced.ServerSend(observers, packet);
         }
         
         public void RemoveOwnership() {
             if (!NetworkManager.instance.isServer)
                 throw new NotSupportedException("RemoveOwnership may only be called by the server!");
-            //todo
+            
+            if (!isSpawned)
+                throw new Exception();
+            
+            if (NetworkManager.instance.connectedClients.TryGetValue(ownerClientID, out var owner)) {
+                owner.ownedObjects.Remove(networkID);
+            }
+            
+            // Add to new owner
+            ownerClientID = NetworkManager.ServerLocalID;
+            
+            // Fire packet to observers
+            var packet = new OwnerChangedPacket {
+                                                    networkID = networkID,
+                                                    newOwnerID = NetworkManager.ServerLocalID
+                                                };
+            NetworkChannel.ReliableSequenced.ServerSend(observers, packet);
+        }
+
+        /// <summary>
+        /// Client handler for ownership changes
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <param name="packet"></param>
+        internal static void OnOwnershipChanged(NetworkChannel channel, OwnerChangedPacket packet) {
+            // TODO: Identity ownership events
+            SpawnManager.spawnedObjects[packet.networkID].ownerClientID = packet.newOwnerID;
         }
 
         #endregion
@@ -234,6 +278,9 @@ namespace FNNLib {
         
         #region Lifecycle
 
+        /// <summary>
+        /// Handle object destruction.
+        /// </summary>
         private void OnDestroy() {
             if (NetworkManager.instance != null) {
                 SpawnManager.OnDestroy(networkID, false);

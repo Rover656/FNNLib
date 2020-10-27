@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using FNNLib.Config;
 using FNNLib.Serialization;
 using FNNLib.Transports;
 using UnityEngine;
@@ -613,8 +611,6 @@ namespace FNNLib.Messaging {
             public abstract void Invoke(NetworkChannel channel, ulong sender, NetworkReader reader, bool server);
 
             public virtual void InvokeBuffered(BufferedPacket packet, bool server) {
-                if (canBuffer)
-                    throw new NotImplementedException();
                 throw new NotSupportedException();
             }
         }

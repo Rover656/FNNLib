@@ -3,22 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace FNNLib.Messaging {
+    /// <summary>
+    /// A packet buffer.
+    /// This stores packets that are queued for later execution.
+    /// </summary>
     public class PacketBuffer {
-        private List<BufferedPacket> _internalList = new List<BufferedPacket>();
+        /// <summary>
+        /// The queue containing all buffered packets.
+        /// </summary>
+        private Queue<BufferedPacket> _internalQueue = new Queue<BufferedPacket>();
 
-        public int count => _internalList.Count;
+        /// <summary>
+        /// Number of packets in the queue.
+        /// </summary>
+        public int count => _internalQueue.Count;
 
+        /// <summary>
+        /// Enqueue a buffered packet.
+        /// </summary>
+        /// <param name="packet">The buffered packet.</param>
         public void Enqueue(BufferedPacket packet) {
-            if (_internalList.Contains(packet))
-                throw new Exception();
-            _internalList.Add(packet);
+            _internalQueue.Enqueue(packet);
         }
 
+        /// <summary>
+        /// Execute the oldest packet in the buffer.
+        /// </summary>
         public void ExecutePending() {
-            if (_internalList.Count == 0)
-                throw new InvalidOperationException("Queue is empty.");
-            var packet = _internalList[0];
-            _internalList.RemoveAt(0);
+            // Do nothing if the queue is empty
+            if (_internalQueue.Count == 0)
+                return;
+            
+            // Get the back packet.
+            var packet = _internalQueue.Dequeue();
             if (IsPacketOld(packet))
                 return;
             
@@ -29,20 +46,30 @@ namespace FNNLib.Messaging {
                     return;
             }
 
-            // Invoke handlers.
+            // Process the buffers.
             if (NetworkManager.instance.isClient)
                 packet.channel.HandleBuffered(packet, false);
             if (NetworkManager.instance.isServer)
                 packet.channel.HandleBuffered(packet, true);
         }
 
+        /// <summary>
+        /// Purge all old packets.
+        /// </summary>
         public void PurgeOldPackets() {
-            // TODO: The list should be sorted so that the order is correct!
-            for (var i = _internalList.Count - 1; i >= 0 && IsPacketOld(_internalList[i]); i--) {
-                _internalList.Remove(_internalList[i]);
+            // Remove old packets from the buffer
+            var back = _internalQueue.Peek();
+            while (IsPacketOld(back)) {
+                _internalQueue.Dequeue();
+                back = _internalQueue.Peek();
             }
         }
 
+        /// <summary>
+        /// Determine if a packet is old.
+        /// </summary>
+        /// <param name="packet">The packet to check</param>
+        /// <returns>Whether the packet is too old.</returns>
         private bool IsPacketOld(BufferedPacket packet) {
             return Time.unscaledTime - packet.receiveTime >= NetworkManager.instance.networkConfig.maxBufferedPacketAge;
         }

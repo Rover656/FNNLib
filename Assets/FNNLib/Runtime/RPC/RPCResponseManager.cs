@@ -67,6 +67,13 @@ namespace FNNLib.RPC {
             return _pending.ContainsKey(id);
         }
 
+        /// <summary>
+        /// Handle an incoming RPC response.
+        /// </summary>
+        /// <param name="channel">The channel the packet was received on.</param>
+        /// <param name="packet">The packet received.</param>
+        /// <param name="sender">The packet sender.</param>
+        /// <param name="isServer">Whether we are the server.</param>
         internal static void HandleRPCResponse(NetworkChannel channel, RPCResponsePacket packet, ulong sender, bool isServer) {
             // If we have this response, finish it
             if (Contains(packet.responseID)) {

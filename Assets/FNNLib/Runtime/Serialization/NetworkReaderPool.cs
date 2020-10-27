@@ -55,7 +55,12 @@ namespace FNNLib.Serialization {
         }
 
         public static void Recycle(PooledNetworkReader reader) {
-            
+            // Add to pool if there is space
+            if (_nextReader < _pool.Length) {
+                _nextReader++;
+                _pool[_nextReader] = reader;
+            }
+            // If no space, leave for garbage collection
         }
 
         private static void SetBuffer(NetworkReader reader, byte[] bytes) {

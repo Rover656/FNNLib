@@ -7,7 +7,14 @@ namespace FNNLib.RPC {
     /// </summary>
     [ClientPacket, ServerPacket]
     public class RPCResponsePacket : ISerializable {
+        /// <summary>
+        /// The response ID this result is for.
+        /// </summary>
         public ulong responseID;
+        
+        /// <summary>
+        /// The result object.
+        /// </summary>
         public object result;
 
         public void Serialize(NetworkWriter writer) {

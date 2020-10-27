@@ -13,11 +13,20 @@ using FNNLib.Utilities;
 using UnityEngine;
 
 namespace FNNLib {
+    /// <summary>
+    /// A behaviour that is network aware.
+    /// </summary>
     public abstract partial class NetworkBehaviour : MonoBehaviour {
         #region Identity Fetch
 
+        /// <summary>
+        /// The cached reference to the network identity.
+        /// </summary>
         private NetworkIdentity _identity;
 
+        /// <summary>
+        /// The identity the behaviour functions under.
+        /// </summary>
         public NetworkIdentity identity {
             get {
                 if (_identity == null)
@@ -25,8 +34,6 @@ namespace FNNLib {
                 return _identity;
             }
         }
-
-        public bool hasIdentity => identity != null;
 
         #endregion
 
@@ -67,10 +74,17 @@ namespace FNNLib {
         /// </summary>
         public bool isClient => NetworkManager.instance.isClient;
 
+        /// <summary>
+        /// Is running in a host context?
+        /// </summary>
         public bool isHost => NetworkManager.instance.isHost;
 
         #region Behaviour Identification
 
+        /// <summary>
+        /// This behaviour's index within the identity.
+        /// Using this with the identity network ID provides a unique identifier to this behaviour anywhere on the network.
+        /// </summary>
         public int behaviourIndex {
             get {
                 if (identity == null)
@@ -99,9 +113,15 @@ namespace FNNLib {
         #region RPCs
 
         private RPCReflector _rpcReflector;
+        /// <summary>
+        /// List of RPC delegates for this behaviour.
+        /// </summary>
+        /// <summary>
+        /// RPC method reflection data.
+        /// </summary>
         internal RPCDelegate[] rpcDelegates;
 
-        internal void SendClientRPCCall(ulong hash, List<ulong> clients, params object[] args) {
+        private void SendClientRPCCall(ulong hash, List<ulong> clients, params object[] args) {
             // Block non-server calls
             if (!isServer)
                 throw new NotSupportedException("Only the server may invoke RPCs on clients.");
@@ -113,10 +133,10 @@ namespace FNNLib {
                 if (isHost && identity.observers.Contains(NetworkManager.instance.localClientID) &&
                     clients.Contains(NetworkManager.instance.localClientID))
                     using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment()))
-                        InvokeClientRPCLocal(hash, reader);
+                        InvokeRPCLocal(hash, NetworkManager.ServerLocalID, reader, false);
 
                 var packet = new RPCPacket {
-                                               behaviourOrder = behaviourIndex,
+                                               behaviourIndex = behaviourIndex,
                                                methodHash = hash,
                                                networkID = networkID,
                                                parameterBuffer = writer.ToArraySegment()
@@ -125,7 +145,7 @@ namespace FNNLib {
             }
         }
 
-        internal void SendClientRPCCallOn(ulong hash, ulong client, params object[] args) {
+        private void SendClientRPCCallOn(ulong hash, ulong client, params object[] args) {
             // Block non-server calls
             if (!isServer)
                 throw new NotSupportedException("Only the server may invoke RPCs on clients.");
@@ -137,11 +157,11 @@ namespace FNNLib {
                 // If we're the host, ignore sending the packet.
                 if (isHost && client == NetworkManager.instance.localClientID)
                     using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment())) {
-                        InvokeClientRPCLocal(hash, reader);
+                        InvokeRPCLocal(hash, NetworkManager.ServerLocalID, reader, false);
                     }
                 else {
                     var packet = new RPCPacket {
-                                                   behaviourOrder = behaviourIndex,
+                                                   behaviourIndex = behaviourIndex,
                                                    methodHash = hash,
                                                    networkID = networkID,
                                                    parameterBuffer = writer.ToArraySegment()
@@ -151,7 +171,7 @@ namespace FNNLib {
             }
         }
         
-        internal RPCResponse<T> SendClientRPCCallOnResponse<T>(ulong hash, ulong client, params object[] args) {
+        private RPCResponse<T> SendClientRPCCallOnResponse<T>(ulong hash, ulong client, params object[] args) {
             // Block non-server calls
             if (!isServer)
                 throw new NotSupportedException("Only the server may invoke RPCs on clients.");
@@ -166,7 +186,7 @@ namespace FNNLib {
                 // If we're the host, ignore sending the packet.
                 if (isHost && client == NetworkManager.instance.localClientID)
                     using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment())) {
-                        var result = InvokeClientRPCLocal(hash, reader);
+                        var result = InvokeRPCLocal(hash, NetworkManager.ServerLocalID, reader, false);
                         return new RPCResponse<T> {
                                                       clientID = NetworkManager.instance.localClientID,
                                                       isDone = true,
@@ -178,7 +198,7 @@ namespace FNNLib {
                 
                 // Construct packet
                 var packet = new RPCPacket {
-                                               behaviourOrder = behaviourIndex,
+                                               behaviourIndex = behaviourIndex,
                                                methodHash = hash,
                                                networkID = networkID,
                                                parameterBuffer = writer.ToArraySegment(),
@@ -204,7 +224,7 @@ namespace FNNLib {
             }
         }
 
-        internal void SendClientRPCCallAll(ulong hash, params object[] args) {
+        private void SendClientRPCCallAll(ulong hash, params object[] args) {
             // Block non-server calls
             if (!isServer)
                 throw new NotSupportedException("Only the server may invoke RPCs on clients.");
@@ -215,11 +235,11 @@ namespace FNNLib {
 
                 if (isHost && identity.observers.Contains(NetworkManager.instance.localClientID))
                     using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment())) {
-                        InvokeClientRPCLocal(hash, reader);
+                        InvokeRPCLocal(hash, NetworkManager.ServerLocalID, reader, false);
                     }
 
                 var packet = new RPCPacket {
-                                               behaviourOrder = behaviourIndex,
+                                               behaviourIndex = behaviourIndex,
                                                methodHash = hash,
                                                networkID = networkID,
                                                parameterBuffer = writer.ToArraySegment()
@@ -228,7 +248,7 @@ namespace FNNLib {
             }
         }
 
-        internal void SendClientRPCCallAllExcept(ulong hash, ulong excludedClient, params object[] args) {
+        private void SendClientRPCCallAllExcept(ulong hash, ulong excludedClient, params object[] args) {
             // Block non-server calls
             if (!isServer)
                 throw new NotSupportedException("Only the server may invoke RPCs on clients.");
@@ -239,11 +259,11 @@ namespace FNNLib {
 
                 if (isHost && identity.observers.Contains(NetworkManager.instance.localClientID))
                     using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment())) {
-                        InvokeClientRPCLocal(hash, reader);
+                        InvokeRPCLocal(hash, NetworkManager.ServerLocalID, reader, false);
                     }
 
                 var packet = new RPCPacket {
-                                               behaviourOrder = behaviourIndex,
+                                               behaviourIndex = behaviourIndex,
                                                methodHash = hash,
                                                networkID = networkID,
                                                parameterBuffer = writer.ToArraySegment()
@@ -252,7 +272,7 @@ namespace FNNLib {
             }
         }
 
-        internal void SendServerRPCCall(ulong hash, params object[] args) {
+        private void SendServerRPCCall(ulong hash, params object[] args) {
             // Block non-client calls
             if (!isClient)
                 throw new NotSupportedException("Only the client may invoke RPCs on the server.");
@@ -263,11 +283,11 @@ namespace FNNLib {
 
                 if (isHost)
                     using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment())) {
-                        InvokeServerRPCLocal(hash, NetworkManager.instance.localClientID, reader);
+                        InvokeRPCLocal(hash, NetworkManager.instance.localClientID, reader, true);
                     }
                 else {
                     var packet = new RPCPacket {
-                                                   behaviourOrder = behaviourIndex,
+                                                   behaviourIndex = behaviourIndex,
                                                    methodHash = hash,
                                                    networkID = networkID,
                                                    parameterBuffer = writer.ToArraySegment()
@@ -277,7 +297,7 @@ namespace FNNLib {
             }
         }
         
-        internal RPCResponse<T> SendServerRPCCallResponse<T>(ulong hash, params object[] args) {
+        private RPCResponse<T> SendServerRPCCallResponse<T>(ulong hash, params object[] args) {
             // Block non-client calls
             if (!isClient)
                 throw new NotSupportedException("Only the client may invoke RPCs on the server.");
@@ -291,7 +311,7 @@ namespace FNNLib {
 
                 if (isHost) {
                     using (var reader = NetworkReaderPool.GetReader(writer.ToArraySegment())) {
-                        var result = InvokeServerRPCLocal(hash, NetworkManager.instance.localClientID, reader);
+                        var result = InvokeRPCLocal(hash, NetworkManager.instance.localClientID, reader, true);
                         return new RPCResponse<T> {
                                                       clientID = NetworkManager.instance.localClientID,
                                                       isDone = true,
@@ -304,7 +324,7 @@ namespace FNNLib {
 
                 // Construct call packet
                 var packet = new RPCPacket {
-                                               behaviourOrder = behaviourIndex,
+                                               behaviourIndex = behaviourIndex,
                                                methodHash = hash,
                                                networkID = networkID,
                                                parameterBuffer = writer.ToArraySegment(),
@@ -330,59 +350,94 @@ namespace FNNLib {
             }
         }
 
-        private object InvokeClientRPCLocal(ulong hash, NetworkReader args) {
-            if (_rpcReflector.clientMethods.ContainsKey(hash))
-                return _rpcReflector.clientMethods[hash].Invoke(this, 0, args);
-            return null;
-        }
-
-        private object InvokeServerRPCLocal(ulong hash, ulong sender, NetworkReader args) {
-            if (_rpcReflector.serverMethods.ContainsKey(hash))
-                return _rpcReflector.serverMethods[hash].Invoke(this, sender, args);
-            return null;
-        }
-
-        internal static void RPCCallHandler(NetworkChannel channel, RPCPacket packet, ulong sender, bool isServer) {
+        /// <summary>
+        /// Invoke a local RPC method.
+        /// </summary>
+        /// <param name="hash">The method hash.</param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The arguments in the form of a reader.</param>
+        /// <param name="isServer">Whether or not we are the server.</param>
+        /// <returns>The return value of the method or null.</returns>
+        private object InvokeRPCLocal(ulong hash, ulong sender, NetworkReader args, bool isServer) {
             if (isServer) {
-                if (SpawnManager.spawnedObjects.ContainsKey(packet.networkID)) {
-                    var identity = SpawnManager.spawnedObjects[packet.networkID];
-                    var behaviour = identity.behaviours[packet.behaviourOrder];
-                    if (behaviour._rpcReflector.serverMethods.ContainsKey(packet.methodHash)) {
+                if (_rpcReflector.serverMethods.ContainsKey(hash))
+                    return _rpcReflector.serverMethods[hash].Invoke(this, sender, args);
+
+                return null;
+            }
+            if (_rpcReflector.clientMethods.ContainsKey(hash))
+                return _rpcReflector.clientMethods[hash].Invoke(this, sender, args);
+
+            return null;
+        }
+
+        /// <summary>
+        /// Handle an RPC call packet.
+        /// </summary>
+        /// <param name="channel">Channel the packet was received on.</param>
+        /// <param name="packet">The packet received.</param>
+        /// <param name="sender">The packet sender.</param>
+        /// <param name="isServer">Whether or not we are the server.</param>
+        internal static void RPCCallHandler(NetworkChannel channel, RPCPacket packet, ulong sender, bool isServer) {
+            // Find the object
+            if (SpawnManager.spawnedObjects.ContainsKey(packet.networkID)) {
+                // Get the identity and locate the behaviour
+                var identity = SpawnManager.spawnedObjects[packet.networkID];
+
+                // Ensure behaviour index is in range
+                if (packet.behaviourIndex < identity.behaviours.Count) {
+                    // Get the behaviour and try to find the method
+                    var behaviour = identity.behaviours[packet.behaviourIndex];
+                    
+                    bool hasMethod;
+                    if (isServer) {
+                        hasMethod = behaviour._rpcReflector.serverMethods.ContainsKey(packet.methodHash);
+                    } else {
+                        hasMethod = behaviour._rpcReflector.clientMethods.ContainsKey(packet.methodHash);
+                    }
+                    
+                    // If we have the method, call it
+                    if (hasMethod) {
                         using (var paramReader = NetworkReaderPool.GetReader(packet.parameterBuffer)) {
-                            var result = behaviour.InvokeServerRPCLocal(packet.methodHash, sender, paramReader);
+                            // Invoke the RPC method
+                            var result = behaviour.InvokeRPCLocal(packet.methodHash, sender, paramReader, isServer);
 
                             if (packet.expectsResponse) {
+                                // Build the RPC response.
                                 var responsePacket = new RPCResponsePacket {
                                                                                result = result,
                                                                                responseID = packet.responseID
                                                                            };
-                                channel.ServerSend(sender, responsePacket);
+
+                                // Send the response
+                                if (isServer) {
+                                    channel.ServerSend(sender, responsePacket);
+                                } else {
+                                    channel.ClientSend(responsePacket);
+                                }
                             }
                         }
+                    } else {
+                        Debug.LogWarning("Attempted RPC call to non-existing method.");
                     }
+                } else {
+                    Debug.LogWarning("Attempted RPC call to non-existing behaviour.");
                 }
             } else {
-                if (SpawnManager.spawnedObjects.ContainsKey(packet.networkID)) {
-                    var identity = SpawnManager.spawnedObjects[packet.networkID];
-                    var behaviour = identity.behaviours[packet.behaviourOrder];
-                    if (behaviour._rpcReflector.clientMethods.ContainsKey(packet.methodHash))
-                        using (var paramReader = NetworkReaderPool.GetReader(packet.parameterBuffer)) {
-                            var result = behaviour.InvokeClientRPCLocal(packet.methodHash, paramReader);
-
-                            if (packet.expectsResponse) {
-                                var responsePacket = new RPCResponsePacket {
-                                                                               result = result,
-                                                                               responseID = packet.responseID
-                                                                           };
-                                channel.ClientSend(responsePacket);
-                            }
-                        }
-                }
+                Debug.LogWarning("Attempted RPC call to non-existing identity.");
             }
         }
 
+        /// <summary>
+        /// String builder used for creating method signature strings.
+        /// </summary>
         private static StringBuilder _hashBuilder = new StringBuilder();
 
+        /// <summary>
+        /// Convert a method signature to a string for hashing.
+        /// </summary>
+        /// <param name="info">The method signature.</param>
+        /// <returns>A hashable string.</returns>
         private static string GetHashableMethodSignature(MethodInfo info) {
             _hashBuilder.Length = 0;
             _hashBuilder.Append(info.Name);
@@ -391,6 +446,13 @@ namespace FNNLib {
             return _hashBuilder.ToString();
         }
         
+        /// <summary>
+        /// Hash a method name.
+        /// Used for identifying a method (not guaranteed to be unique).
+        /// </summary>
+        /// <param name="name">Name of the method</param>
+        /// <returns>The hash.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         internal static ulong HashMethodName(string name) {
             switch (NetworkManager.instance.networkConfig.rpcHashSize) {
                 case HashSize.TwoBytes:
@@ -404,6 +466,12 @@ namespace FNNLib {
             }
         }
 
+        /// <summary>
+        /// Hash a method signature.
+        /// Used for uniquely identifying a method.
+        /// </summary>
+        /// <param name="info">The method signature to be hashed.</param>
+        /// <returns>The hash.</returns>
         internal static ulong HashMethodSignature(MethodInfo info) {
             return HashMethodName(GetHashableMethodSignature(info));
         }

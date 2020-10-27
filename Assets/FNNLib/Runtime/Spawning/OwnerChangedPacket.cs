@@ -21,7 +21,7 @@ namespace FNNLib.Spawning {
             if (SpawnManager.spawnedObjects.ContainsKey(networkID))
                 return false;
             
-            // Add to spawnmanager buffer so that this event is raised once the object exists (or the 1 minute buffer time expires)
+            // Add to spawnmanager buffer so that this event is raised once the object exists
             SpawnManager.networkObjectPacketBuffer.Enqueue(networkID, new BufferedPacket(this, sender, channel));
             return true;
         }

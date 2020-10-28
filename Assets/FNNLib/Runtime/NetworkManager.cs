@@ -376,10 +376,19 @@ namespace FNNLib {
 
         #region Client
 
+        /// <summary>
+        /// On client connects to server.
+        /// </summary>
         [HideInInspector] public UnityEvent clientOnConnect = new UnityEvent();
 
+        /// <summary>
+        /// On client disconnects from server.
+        /// </summary>
         [HideInInspector] public UnityEvent<string> clientOnDisconnect = new UnityEvent<string>();
 
+        /// <summary>
+        /// Connection request data to be sent.
+        /// </summary>
         private byte[] _connectionRequestData;
 
         /// <summary>
@@ -494,6 +503,12 @@ namespace FNNLib {
 
         #region Host
 
+        /// <summary>
+        /// Start the manager in host mode.
+        /// This runs a virtual client on top of the server.
+        /// </summary>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="NotSupportedException"></exception>
         public void StartHost() {
             // Check that the transport is set.
             if (networkConfig.transport == null)
@@ -532,6 +547,10 @@ namespace FNNLib {
             NetworkSceneManager.OnClientConnected(ServerLocalID);
         }
 
+        /// <summary>
+        /// Stop host mode, closing the server and disconnecting remote users.
+        /// </summary>
+        /// <exception cref="NotSupportedException"></exception>
         public void StopHost() {
             if (isSinglePlayer)
                 throw new
@@ -633,6 +652,8 @@ namespace FNNLib {
             // Check that the transport is set.
             if (networkConfig.transport == null)
                 throw new InvalidOperationException("The NetworkManager must be provided with a transport!");
+            if (!isSinglePlayer)
+                throw new InvalidOperationException("Not running in single player mode!");
 
             // Start the server.
             networkConfig.transport.ServerStart();

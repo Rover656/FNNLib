@@ -95,7 +95,7 @@ namespace FNNLib {
 
         #endregion
 
-        #region Network Lifecycle
+        #region Lifecycle
 
         internal bool netStartInvoked;
         internal bool internalNetStartInvoked;
@@ -484,8 +484,9 @@ namespace FNNLib {
         
         private VarReflector _varReflector;
 
-        private void UpdateVars() {
+        internal void UpdateVars() {
             // TODO: This will be called each variable poll time.
+            // TODO: Return if there are no networked vars.
 
             if (_varReflector.AnyDirty(isServer, NetworkManager.instance.localClientID)) {
                 using (var writer = NetworkWriterPool.GetWriter()) {
@@ -496,11 +497,33 @@ namespace FNNLib {
                     // Write all variable deltas
                     _varReflector.WriteDeltas(writer);
                     
-                    // Send to all observing clients.
+                    // Send to all observing clients. TODO: this will need done differently once read protection is configured.
                     if (isServer)
                         NetworkChannel.Reliable.ServerSend(identity.observers, VAR_DELTA_ID, writer);
                     else throw new NotImplementedException();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Send all variables to a client.
+        /// This is used when a new client connects as existing clients will receive all updates.
+        /// </summary>
+        /// <param name="clientId"></param>
+        internal void SendVars(ulong clientId) {
+            if (!isServer)
+                throw new Exception("This can only be called from the server.");
+            // TODO: Return if there are no networked vars.
+            using (var writer = NetworkWriterPool.GetWriter()) {
+                // Write network id and behaviour index
+                writer.WritePackedUInt64(networkID);
+                writer.WritePackedInt32(behaviourIndex);
+
+                // Write all variable deltas
+                _varReflector.WriteValues(writer);
+                    
+                // Send to all observing clients. TODO: this will need done differently once read protection is configured.
+                NetworkChannel.Reliable.ServerSend(clientId, VAR_DELTA_ID, writer);
             }
         }
 

@@ -11,6 +11,7 @@ using FNNLib.Spawning;
 using FNNLib.Transports;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 namespace FNNLib {
     public delegate bool ApproveConnectionDelegate(ulong clientID, byte[] connectionData);
@@ -189,7 +190,8 @@ namespace FNNLib {
             ConfigureServerFramerate();
 
             // Set starting scene.
-            SpawnManager.ServerSpawnSceneObjects(NetworkSceneManager.RegisterInitialScene());
+            SceneManager.sceneLoaded += ServerSpawnOnSceneLoad;
+            NetworkSceneManager.RegisterInitialScene();
         }
 
         /// <summary>
@@ -372,6 +374,11 @@ namespace FNNLib {
             #endif
         }
 
+        private void ServerSpawnOnSceneLoad(Scene arg0, LoadSceneMode arg1)
+        {
+            SpawnManager.ServerSpawnSceneObjects(NetworkSceneManager.GetNetScene(arg0).netID);
+        }
+
         #endregion
 
         #region Client
@@ -537,7 +544,8 @@ namespace FNNLib {
             connectedClientsList.Add(connectedClients[ServerLocalID]);
 
             // Set starting scene.
-            SpawnManager.ServerSpawnSceneObjects(NetworkSceneManager.RegisterInitialScene());
+            SceneManager.sceneLoaded += ServerSpawnOnSceneLoad;
+            NetworkSceneManager.RegisterInitialScene();
 
             // Fire starting events.
             serverOnClientConnect?.Invoke(ServerLocalID);

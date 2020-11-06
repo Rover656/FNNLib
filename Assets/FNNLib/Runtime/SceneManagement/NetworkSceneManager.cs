@@ -165,15 +165,18 @@ namespace FNNLib.SceneManagement {
         internal static uint RegisterInitialScene() {
             // Change scene if the default scene is different
             var initialScene = NetworkManager.instance.networkConfig.initialScene;
+            bool sceneChanged = false;
             if (!string.IsNullOrEmpty(initialScene)) {
                 if (!CanSendClientTo(initialScene))
                     throw new NotSupportedException("Initial scene is not on the networkable scenes list!");
-                if (SceneManager.GetActiveScene().name != initialScene)
+                if (SceneManager.GetActiveScene().name != initialScene){
                     SceneManager.LoadScene(initialScene);
+                    sceneChanged = true;
+                }
             }
 
             // Get active scene
-            var scene = SceneManager.GetActiveScene();
+            var scene = SceneManager.GetSceneByName(initialScene);
 
             // Get existing ID if it is there.
             foreach (var subScene in loadedScenes) {
@@ -192,6 +195,9 @@ namespace FNNLib.SceneManagement {
 
             // Add to main scenes
             _mainScenes.Add(netScene);
+            
+            if(!sceneChanged) SpawnManager.ServerSpawnSceneObjects(netID);
+
             return netID;
         }
 

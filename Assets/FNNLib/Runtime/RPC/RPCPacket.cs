@@ -5,6 +5,9 @@ using FNNLib.Serialization;
 using FNNLib.Spawning;
 
 namespace FNNLib.RPC {
+    /// <summary>
+    /// RPC call packet.
+    /// </summary>
     [ClientPacket, ServerPacket]
     public class RPCPacket : ISerializable, IBufferablePacket {
         public ulong networkID;

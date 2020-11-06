@@ -439,6 +439,14 @@ namespace FNNLib.Serialization {
             }
         }
 
+        /// <summary>
+        /// Copy the contents of the writer into another writer.
+        /// </summary>
+        /// <param name="writer">The writer to copy into.</param>
+        public void CopyTo(NetworkWriter writer) {
+            writer.WriteSegmentWithSize(ToArraySegment());
+        }
+
         #endregion
     }
 }

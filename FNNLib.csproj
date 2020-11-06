@@ -80,7 +80,7 @@
      <Compile Include="Assets\FNNLib\Runtime\Config\NetworkConfig.cs" />
      <Compile Include="Assets\FNNLib\Runtime\RPC\RPCAttribute.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Transports\ChannelType.cs" />
-     <Compile Include="Assets\FNNLib\Runtime\RPC\RPCReflectedMethod.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\RPC\RPCMethod.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Messaging\Internal\ClientDisconnectPacket.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Serialization\AutoSerializer.cs" />
      <Compile Include="Assets\FNNLib\Runtime\NetworkIdentity.cs" />
@@ -116,10 +116,10 @@
      <Compile Include="Assets\FNNLib\Runtime\Spawning\SpawnManager.cs" />
      <Compile Include="Assets\FNNLib\Runtime\RPC\RPCResponsePacket.cs" />
      <Compile Include="Assets\FNNLib\Runtime\Reflection\Reflector.cs" />
-     <Compile Include="Assets\FNNLib\Runtime\ReplicatedVar\ReplicatedVar.cs" />
-     <Compile Include="Assets\FNNLib\Runtime\RPC\RPCReflector.cs" />
      <Compile Include="Assets\FNNLib\Runtime\ReplicatedVar\VarReflector.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\RPC\RPCReflector.cs" />
      <Compile Include="Assets\FNNLib\Runtime\ReplicatedVar\IReplicatedVar.cs" />
+     <Compile Include="Assets\FNNLib\Runtime\ReplicatedVar\ReplicatedVar.cs" />
      <None Include="Assets\FNNLib\Runtime\FNNLib.asmdef" />
  <Reference Include="UnityEditor.UI">
  <HintPath>A:/Documents/Development/NetLib/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>

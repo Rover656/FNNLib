@@ -328,6 +328,14 @@ namespace FNNLib.Serialization {
         public T ReadPackedObject<T>() {
             return (T) ReadPackedObject(typeof(T));
         }
+        
+        /// <summary>
+        /// Copy the contents of the reader into a writer.
+        /// </summary>
+        /// <param name="writer">The writer to copy into.</param>
+        public void CopyTo(NetworkWriter writer) {
+            writer.WriteSegmentWithSize(buffer);
+        }
 
         #endregion
     }

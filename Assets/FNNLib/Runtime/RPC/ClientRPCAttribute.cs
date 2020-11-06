@@ -1,6 +1,6 @@
 ﻿using System;
 
 namespace FNNLib.RPC {
-    [AttributeUsage(AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method)]
     public class ClientRPCAttribute : RPCAttribute { }
 }

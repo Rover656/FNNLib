@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 namespace FNNLib.Spawning {
+    [Obsolete]
     public static class SpawnManager {
         /// <summary>
         /// Objects that have been spawned
@@ -89,7 +90,17 @@ namespace FNNLib.Spawning {
             networkObjectPacketBuffer.DestroyQueue(networkID);
         }
 
-        // Run on client only
+        /// <summary>
+        /// Create a network object locally.
+        /// </summary>
+        /// <param name="isSceneObject"></param>
+        /// <param name="instanceID"></param>
+        /// <param name="sceneID"></param>
+        /// <param name="prefabHash"></param>
+        /// <param name="parentNetID"></param>
+        /// <param name="position"></param>
+        /// <param name="rotation"></param>
+        /// <returns></returns>
         internal static NetworkIdentity CreateObjectLocal(bool isSceneObject, ulong instanceID, uint sceneID,
                                                           ulong prefabHash, ulong? parentNetID, Vector3? position,
                                                           Quaternion? rotation) {
@@ -124,26 +135,26 @@ namespace FNNLib.Spawning {
                     obj.transform.SetParent(parent.transform, true);
 
                 return obj;
-            } else {
-                int prefabIdx = GetNetworkedPrefabIndex(prefabHash);
-                if (prefabIdx < 0)
-                    return null;
-
-                var prefab = NetworkManager.instance.networkConfig.networkedPrefabs[prefabIdx].prefab;
-
-                var sceneToCreateIn = NetworkSceneManager.GetNetScene(sceneID);
-
-                var createdObject = (position != null || rotation != null)
-                                        ? sceneToCreateIn.Instantiate(prefab, position.GetValueOrDefault(),
-                                                                      rotation.GetValueOrDefault())
-                                                         .GetComponent<NetworkIdentity>()
-                                        : sceneToCreateIn.Instantiate(prefab).GetComponent<NetworkIdentity>();
-
-                if (parent != null)
-                    createdObject.transform.SetParent(parent.transform, true);
-
-                return createdObject;
             }
+
+            var prefabIdx = GetNetworkedPrefabIndex(prefabHash);
+            if (prefabIdx < 0)
+                return null;
+
+            var prefab = NetworkManager.instance.networkConfig.networkedPrefabs[prefabIdx].prefab;
+
+            var sceneToCreateIn = NetworkSceneManager.GetNetScene(sceneID);
+
+            var createdObject = (position != null || rotation != null)
+                                    ? sceneToCreateIn.Instantiate(prefab, position.GetValueOrDefault(),
+                                                                  rotation.GetValueOrDefault())
+                                                     .GetComponent<NetworkIdentity>()
+                                    : sceneToCreateIn.Instantiate(prefab).GetComponent<NetworkIdentity>();
+
+            if (parent != null)
+                createdObject.transform.SetParent(parent.transform, true);
+
+            return createdObject;
         }
 
         #endregion
@@ -162,8 +173,7 @@ namespace FNNLib.Spawning {
             if (!spawnedObjects[networkID].isOwnedByServer &&
                 NetworkManager.instance.connectedClients.ContainsKey(spawnedObjects[networkID].ownerClientID)) {
                 if (spawnedObjects[networkID].isPlayerObject) {
-                    NetworkManager.instance.connectedClients[spawnedObjects[networkID].ownerClientID].playerObject =
-                        0;
+                    NetworkManager.instance.connectedClients[spawnedObjects[networkID].ownerClientID].playerObject = 0;
                 }
                 else {
                     NetworkManager.instance.connectedClients[spawnedObjects[networkID].ownerClientID].ownedObjects
@@ -197,6 +207,11 @@ namespace FNNLib.Spawning {
 
         #region Client Handlers
 
+        /// <summary>
+        /// Handle a client spawn packet.
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <param name="packet"></param>
         internal static void ClientHandleSpawnPacket(NetworkChannel channel, SpawnObjectPacket packet) {
             // Make nullable vars
             ulong? parentNetID = null;
@@ -216,6 +231,11 @@ namespace FNNLib.Spawning {
             SpawnObjectLocally(netObj, packet.networkID, packet.isSceneObject ?? true, packet.isPlayerObject, packet.ownerClientID);
         }
 
+        /// <summary>
+        /// Handle client destroy packet.
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <param name="packet"></param>
         internal static void ClientHandleDestroy(NetworkChannel channel, DestroyObjectPacket packet) {
             OnDestroy(packet.networkID, true);
         }
@@ -233,33 +253,7 @@ namespace FNNLib.Spawning {
         }
 
         private static SpawnObjectPacket CreateSpawnObjectPacket(NetworkIdentity identity) {
-            // Create and write packet data
-            var packet = new SpawnObjectPacket();
-
-            packet.isPlayerObject = identity.isPlayerObject;
-
-            packet.networkID = identity.networkID;
-            packet.ownerClientID = identity.ownerClientID;
-            packet.sceneID = identity.networkSceneID;
-
-            if (identity.transform.parent != null) {
-                var parent = identity.transform.parent.GetComponent<NetworkIdentity>();
-                packet.hasParent = parent != null;
-                if (packet.hasParent)
-                    packet.parentNetID = parent.networkID;
-            }
-            else packet.hasParent = false;
-
-            packet.isSceneObject = identity.isSceneObject;
-            packet.networkedInstanceID = identity.sceneInstanceID;
-            packet.prefabHash = identity.prefabHash;
-
-            // TODO: Allow not sending transform on spawn
-
-            packet.includesTransform = true;
-            packet.position = identity.transform.position;
-            packet.eulerRotation = identity.transform.rotation.eulerAngles;
-            return packet;
+            return SpawnObjectPacket.Create(identity);
         }
 
         #endregion
@@ -379,17 +373,8 @@ namespace FNNLib.Spawning {
             }
         }
 
-        /// <summary>
-        /// Removes anything the client owned in this scene.
-        /// </summary>
-        /// <param name="clientID"></param>
-        internal static void OnClientChangeScene(ulong clientID) {
-            // Destroy's anything the client owned and removes the client from every observer list.
-            foreach (var obj in spawnedObjectsList) {
-                obj.observers.Remove(clientID);
-                if (obj.ownerClientID == clientID)
-                    OnDestroy(obj.networkID, true);
-            }
+        internal static void OnClientLeaveScene(ulong clientID, uint sceneID) {
+            
         }
 
         #endregion

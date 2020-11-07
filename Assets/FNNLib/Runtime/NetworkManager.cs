@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using FNNLib.Config;
+using FNNLib.Exceptions;
 using FNNLib.Messaging;
 using FNNLib.Messaging.Internal;
 using FNNLib.RPC;
@@ -12,6 +14,7 @@ using FNNLib.Transports;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
 
 namespace FNNLib {
     public delegate bool ApproveConnectionDelegate(ulong clientID, byte[] connectionData);
@@ -179,19 +182,17 @@ namespace FNNLib {
             if (isServer)
                 throw new NotSupportedException("A server is already running!");
 
+            // Config
+            isServer = true;
+            
             // Init
             Init();
 
             // Start server.
             networkConfig.transport.ServerStart();
-            isServer = true;
 
             // Server fps fix
             ConfigureServerFramerate();
-
-            // Set starting scene.
-            SceneManager.sceneLoaded += ServerSpawnOnSceneLoad;
-            NetworkSceneManager.RegisterInitialScene();
         }
 
         /// <summary>
@@ -224,6 +225,9 @@ namespace FNNLib {
         /// <param name="clientID"></param>
         /// <param name="disconnectReason"></param>
         public void ServerDisconnect(ulong clientID, string disconnectReason) {
+            if (!isServer)
+                throw new NotServerException();
+            
             // Send disconnect packet
             NetworkChannel.Reliable.ServerSend(clientID, new ClientDisconnectPacket {disconnectReason = disconnectReason});
 
@@ -236,6 +240,8 @@ namespace FNNLib {
         /// </summary>
         /// <param name="clientID">Client to disconnect.</param>
         public void ServerForceDisconnect(ulong clientID) {
+            if (!isServer)
+                throw new NotServerException();
             networkConfig.transport.ServerDisconnect(clientID);
         }
         
@@ -262,12 +268,12 @@ namespace FNNLib {
             if (connectedClients.ContainsKey(clientID)) {
                 // Destroy owned objects
                 for (var i = connectedClients[clientID].ownedObjects.Count - 1; i > -1; i--) {
-                    SpawnManager.OnDestroy(connectedClients[clientID].ownedObjects[i], true);
+                    NewSpawnManager.DestroyIdentity(connectedClients[clientID].ownedObjects[i], true);
                 }
 
                 // Destroy player object
                 if (connectedClients[clientID].playerObject > 0)
-                    SpawnManager.OnDestroy(connectedClients[clientID].playerObject, true);
+                    NewSpawnManager.DestroyIdentity(connectedClients[clientID].playerObject, true);
 
                 connectedClientsList.Remove(connectedClients[clientID]);
                 connectedClients.Remove(clientID);
@@ -373,11 +379,6 @@ namespace FNNLib {
             #endif
         }
 
-        private void ServerSpawnOnSceneLoad(Scene arg0, LoadSceneMode arg1)
-        {
-            SpawnManager.ServerSpawnSceneObjects(NetworkSceneManager.GetNetScene(arg0).netID);
-        }
-
         #endregion
 
         #region Client
@@ -418,15 +419,15 @@ namespace FNNLib {
             if (isClient)
                 throw new NotSupportedException("A client is already running!");
 
+            // Config
+            isClient = true;
+            
             // Init
             Init();
 
             // Connect to the server
             _connectionRequestData = connectionRequestData;
             networkConfig.transport.ClientConnect(hostname);
-
-            // Start client
-            isClient = true;
 
             // Add connection timeout
             StartCoroutine(ClientApprovalTimeout());
@@ -529,22 +530,20 @@ namespace FNNLib {
             if (isHost)
                 throw new NotSupportedException("Host mode is already running!");
 
+            // Config
+            isServer = true;
+            isClient = true;
+            
             // Init
             Init();
 
             // Start server
             networkConfig.transport.ServerStart();
-            isServer = true;
-            isClient = true;
 
             connectedClients.Add(ServerLocalID, new NetworkedClient {
                                                                         clientID = ServerLocalID
                                                                     });
             connectedClientsList.Add(connectedClients[ServerLocalID]);
-
-            // Set starting scene.
-            SceneManager.sceneLoaded += ServerSpawnOnSceneLoad;
-            NetworkSceneManager.RegisterInitialScene();
 
             // Fire starting events.
             serverOnClientConnect?.Invoke(ServerLocalID);
@@ -600,22 +599,19 @@ namespace FNNLib {
             if (isHost)
                 throw new NotSupportedException("The network manager is already running in host mode!");
 
-            // Init
-            Init();
-
-            // "Start" server
+            // Config
             isServer = true;
             isClient = true;
             isSinglePlayer = true;
+            
+            // Init
+            Init();
 
             // Add local client
             connectedClients.Add(ServerLocalID, new NetworkedClient {
                                                                         clientID = ServerLocalID
                                                                     });
             connectedClientsList.Add(connectedClients[ServerLocalID]);
-
-            // Set starting scene.
-            SpawnManager.ServerSpawnSceneObjects(NetworkSceneManager.RegisterInitialScene());
 
             // Fire starting events.
             clientOnConnect?.Invoke();
@@ -698,16 +694,23 @@ namespace FNNLib {
 
             // Initial protocols
             InternalRegisterMessages();
+            
+            // Init scene manager
+            NetworkSceneManager.Init();
+            NetworkSceneManager.RegisterInitialScene(); // TODO: I wanna remove this so bad.
         }
 
         /// <summary>
         /// Shutdown all of the manager.
         /// </summary>
         private void Shutdown() {
+            // Shut down scene manager
+            NetworkSceneManager.Shutdown();
+
             // Shut down spawn manager.
-            SpawnManager.DestroyNonSceneObjects();
+            NewSpawnManager.DestroyNonSceneObjects();
             if (isServer) {
-                SpawnManager.ServerUnspawnAllSceneObjects();
+                NewSpawnManager.ServerUnspawnAllSceneObjects();
             }
 
             // Reset run in background state. So if player goes into main menu and minimizes the game stops using resources.
@@ -826,10 +829,10 @@ namespace FNNLib {
 
             // Object spawning
             NetworkChannel.ReliableSequenced.GetFactory()
-                          .ClientConsumer<SpawnObjectPacket>(SpawnManager.ClientHandleSpawnPacket).Buffered()
+                          .ClientConsumer<SpawnObjectPacket>(NewSpawnManager.ClientHandleSpawnPacket).Buffered()
                           .Register();
             NetworkChannel.ReliableSequenced.GetFactory()
-                          .ClientConsumer<DestroyObjectPacket>(SpawnManager.ClientHandleDestroy).Buffered()
+                          .ClientConsumer<DestroyObjectPacket>(NewSpawnManager.ClientHandleDestroyPacket).Buffered()
                           .Register();
             NetworkChannel.ReliableSequenced.GetFactory()
                           .ClientConsumer<OwnerChangedPacket>(NetworkIdentity.OnOwnershipChanged).Buffered();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FNNLib.Exceptions;
 using FNNLib.Messaging;
 using FNNLib.SceneManagement;
 using FNNLib.Spawning;
@@ -134,21 +135,21 @@ namespace FNNLib {
         internal List<ulong> observers = new List<ulong>();
 
         public void AddObserver(ulong clientID) {
+            if (!NetworkManager.instance.isServer)
+                throw new NotServerException();
             if (!isSpawned)
                 throw new Exception("Must be spawned before observers can be added!");
-            if (!NetworkManager.instance.isServer)
-                throw new Exception("Only the server can add observers!");
             if (!observers.Contains(clientID)) {
                 observers.Add(clientID);
-                SpawnManager.ServerSendSpawnCall(clientID, this);
+                NewSpawnManager.ServerSendSpawn(clientID, this);
             }
         }
 
         public void RemoveObserver(ulong clientID) {
+            if (!NetworkManager.instance.isServer)
+                throw new NotServerException();
             if (!isSpawned)
                 throw new Exception("Must be spawned before observers can be removed!");
-            if (!NetworkManager.instance.isServer)
-                throw new Exception("Only the server can remove observers!");
             if (observers.Contains(clientID))
                 observers.Remove(clientID);
             
@@ -166,30 +167,30 @@ namespace FNNLib {
 
         public void Spawn() {
             if (!NetworkManager.instance.isServer)
-                throw new NotSupportedException("Spawn may only be called by the server!");
-            SpawnManager.SpawnObjectLocally(this, SpawnManager.GetNetworkID(), false, false, null);
-            SpawnManager.ServerSendSpawnCall(observers, this);
+                throw new NotServerException();
+            NewSpawnManager.SpawnIdentityLocal(this, NewSpawnManager.GetNetworkID(), false, false, null);
+            NewSpawnManager.ServerSendSpawn(observers, this);
         }
 
         public void SpawnWithOwnership(ulong clientID) {
             if (!NetworkManager.instance.isServer)
-                throw new NotSupportedException("SpawnWithOwnership may only be called by the server!");
-            SpawnManager.SpawnObjectLocally(this, SpawnManager.GetNetworkID(), false, false, clientID);
-            SpawnManager.ServerSendSpawnCall(observers, this);
+                throw new NotServerException();
+            NewSpawnManager.SpawnIdentityLocal(this, NewSpawnManager.GetNetworkID(), false, false, clientID);
+            NewSpawnManager.ServerSendSpawn(observers, this);
         }
 
         public void SpawnAsPlayerObject(ulong clientID) {
             if (!NetworkManager.instance.isServer)
-                throw new NotSupportedException("SpawnAsPlayerObject may only be called by the server!");
-            SpawnManager.SpawnObjectLocally(this, SpawnManager.GetNetworkID(), false, true, clientID);
-            SpawnManager.ServerSendSpawnCall(observers, this);
+                throw new NotServerException();
+            NewSpawnManager.SpawnIdentityLocal(this, NewSpawnManager.GetNetworkID(), false, true, clientID);
+            NewSpawnManager.ServerSendSpawn(observers, this);
         }
 
         public void UnSpawn() {
             if (!NetworkManager.instance.isServer)
-                throw new NotSupportedException("UnSpawn may only be called by the server!");
+                throw new NotServerException();
             if (isSpawned)
-                SpawnManager.OnDestroy(networkID, false);
+                NewSpawnManager.DestroyIdentity(networkID, false);
         }
 
         #endregion
@@ -198,7 +199,7 @@ namespace FNNLib {
 
         public void ChangeOwnership(ulong newOwnerClientID) {
             if (!NetworkManager.instance.isServer)
-                throw new NotSupportedException("ChangeOwnership may only be called by the server!");
+                throw new NotServerException();
             if (!isSpawned)
                 throw new Exception();
             
@@ -220,7 +221,7 @@ namespace FNNLib {
         
         public void RemoveOwnership() {
             if (!NetworkManager.instance.isServer)
-                throw new NotSupportedException("RemoveOwnership may only be called by the server!");
+                throw new NotServerException();
             
             if (!isSpawned)
                 throw new Exception();
@@ -247,7 +248,7 @@ namespace FNNLib {
         /// <param name="packet"></param>
         internal static void OnOwnershipChanged(NetworkChannel channel, OwnerChangedPacket packet) {
             // TODO: Identity ownership events
-            SpawnManager.spawnedObjects[packet.networkID].ownerClientID = packet.newOwnerID;
+            NewSpawnManager.spawnedIdentities[packet.networkID].ownerClientID = packet.newOwnerID;
         }
 
         #endregion
@@ -282,8 +283,8 @@ namespace FNNLib {
         /// Handle object destruction.
         /// </summary>
         private void OnDestroy() {
-            if (NetworkManager.instance != null) {
-                SpawnManager.OnDestroy(networkID, false);
+            if (NetworkManager.instance != null && isSpawned) {
+                NewSpawnManager.DestroyIdentity(this, false);
             }
         }
 

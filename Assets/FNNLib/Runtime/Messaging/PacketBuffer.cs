@@ -58,9 +58,11 @@ namespace FNNLib.Messaging {
         /// </summary>
         public void PurgeOldPackets() {
             // Remove old packets from the buffer
+            if (_internalQueue.Count == 0) return;
             var back = _internalQueue.Peek();
             while (IsPacketOld(back)) {
                 _internalQueue.Dequeue();
+                if (_internalQueue.Count == 0) return;
                 back = _internalQueue.Peek();
             }
         }

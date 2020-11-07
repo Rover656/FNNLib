@@ -2,9 +2,19 @@
 using FNNLib.Serialization;
 
 namespace FNNLib.Spawning {
+    /// <summary>
+    /// Change the owner of an object on clients.
+    /// </summary>
     [ClientPacket]
     public class OwnerChangedPacket : ISerializable, IBufferablePacket {
+        /// <summary>
+        /// The network ID of the changed object.
+        /// </summary>
         public ulong networkID;
+        
+        /// <summary>
+        /// The new owner ID.
+        /// </summary>
         public ulong newOwnerID;
         
         public void Serialize(NetworkWriter writer) {
@@ -18,11 +28,11 @@ namespace FNNLib.Spawning {
         }
 
         public bool BufferPacket(NetworkChannel channel, ulong sender) {
-            if (SpawnManager.spawnedObjects.ContainsKey(networkID))
+            if (NewSpawnManager.spawnedIdentities.ContainsKey(networkID))
                 return false;
             
             // Add to spawnmanager buffer so that this event is raised once the object exists
-            SpawnManager.networkObjectPacketBuffer.Enqueue(networkID, new BufferedPacket(this, sender, channel));
+            NewSpawnManager.identityPacketBuffer.Enqueue(networkID, new BufferedPacket(this, sender, channel));
             return true;
         }
     }

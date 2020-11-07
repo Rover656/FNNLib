@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using FNNLib.Config;
+using FNNLib.Exceptions;
 using FNNLib.Messaging;
 using FNNLib.RPC;
 using FNNLib.SceneManagement;
@@ -123,7 +124,7 @@ namespace FNNLib {
         private void SendClientRPCCall(ulong hash, List<ulong> clients, params object[] args) {
             // Block non-server calls
             if (!isServer)
-                throw new NotSupportedException("Only the server may invoke RPCs on clients.");
+                throw new NotServerException();
 
             // Write parameters
             using (var writer = NetworkWriterPool.GetWriter()) {
@@ -380,9 +381,9 @@ namespace FNNLib {
         /// <param name="isServer">Whether or not we are the server.</param>
         internal static void RPCCallHandler(NetworkChannel channel, RPCPacket packet, ulong sender, bool isServer) {
             // Find the object
-            if (SpawnManager.spawnedObjects.ContainsKey(packet.networkID)) {
+            if (NewSpawnManager.spawnedIdentities.ContainsKey(packet.networkID)) {
                 // Get the identity and locate the behaviour
-                var identity = SpawnManager.spawnedObjects[packet.networkID];
+                var identity = NewSpawnManager.spawnedIdentities[packet.networkID];
 
                 // Ensure behaviour index is in range
                 if (packet.behaviourIndex < identity.behaviours.Count) {

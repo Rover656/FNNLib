@@ -20,8 +20,8 @@ namespace FNNLib.SceneManagement {
 
         public bool BufferPacket(NetworkChannel channel, ulong sender) {
             // Buffer in spawn manager
-            if (!SpawnManager.spawnedObjects.ContainsKey(networkID)) {
-                SpawnManager.networkObjectPacketBuffer.Enqueue(networkID, new BufferedPacket(this, sender, channel));
+            if (!NewSpawnManager.spawnedIdentities.ContainsKey(networkID)) {
+                NewSpawnManager.identityPacketBuffer.Enqueue(networkID, new BufferedPacket(this, sender, channel));
                 return true;
             }
             

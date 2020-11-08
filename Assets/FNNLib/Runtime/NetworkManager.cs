@@ -11,6 +11,7 @@ using FNNLib.SceneManagement;
 using FNNLib.Serialization;
 using FNNLib.Spawning;
 using FNNLib.Transports;
+using FNNLib.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -141,6 +142,16 @@ namespace FNNLib {
                 instance = null;
         }
 
+        #endregion
+        
+        #region Common
+
+        public NetworkClient GetClient(ulong clientID) {
+            if (connectedClients.ContainsKey(clientID))
+                return connectedClients[clientID];
+            return null;
+        }
+        
         #endregion
 
         #region Server
@@ -281,6 +292,9 @@ namespace FNNLib {
 
             if (allClientIDs.Contains(clientID))
                 allClientIDs.Remove(clientID);
+            
+            // Mark observation lists as dirty.
+            ObservationManager.MarkConnectionsDirty();
 
             // Fire event
             serverOnClientDisconnect?.Invoke(clientID);
@@ -358,7 +372,7 @@ namespace FNNLib {
 
             // Add client to connected clients
             connectedClients.Add(sender, new NetworkClient {
-                                                               ID = sender
+                                                               clientID = sender
                                                            });
             connectedClientsList.Add(connectedClients[sender]);
             allClientIDs.Add(sender);
@@ -496,7 +510,7 @@ namespace FNNLib {
             _localClientID = packet.localClientID;
 
             // Add to connections list
-            connectedClients.Add(localClientID, new NetworkClient {ID = localClientID});
+            connectedClients.Add(localClientID, new NetworkClient {clientID = localClientID});
 
             // Fire connection event.
             clientOnConnect?.Invoke();
@@ -542,7 +556,7 @@ namespace FNNLib {
             networkConfig.transport.ServerStart();
 
             connectedClients.Add(ServerLocalID, new NetworkClient {
-                                                                      ID = ServerLocalID
+                                                                      clientID = ServerLocalID
                                                                   });
             connectedClientsList.Add(connectedClients[ServerLocalID]);
 
@@ -610,7 +624,7 @@ namespace FNNLib {
 
             // Add local client
             connectedClients.Add(ServerLocalID, new NetworkClient {
-                                                                      ID = ServerLocalID
+                                                                      clientID = ServerLocalID
                                                                   });
             connectedClientsList.Add(connectedClients[ServerLocalID]);
 

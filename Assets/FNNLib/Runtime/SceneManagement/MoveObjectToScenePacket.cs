@@ -20,14 +20,13 @@ namespace FNNLib.SceneManagement {
 
         public bool BufferPacket(NetworkChannel channel, ulong sender) {
             // Buffer in spawn manager
-            if (!SpawnManager.spawnedIdentities.ContainsKey(networkID)) {
+            if (!SpawnManager.IsSpawned(networkID)) {
                 SpawnManager.identityPacketBuffer.Enqueue(networkID, new BufferedPacket(this, sender, channel));
                 return true;
             }
             
             // Buffer in the scene manager
-            var scene = NetworkSceneManager.GetScene(destinationScene);
-            if (scene == null || !scene.isLoaded) {
+            if (NetworkSceneManager.IsSceneLoaded(destinationScene)) {
                 NetworkSceneManager.bufferedScenePackets.Enqueue(destinationScene, new BufferedPacket(this, sender, channel));
                 return true;
             }

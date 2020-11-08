@@ -48,8 +48,8 @@ namespace FNNLib.Components {
 
         [ServerRPC]
         private void SubmitTransform(Vector3 position, Quaternion rotation) {
-            // Apply the transform if we are a dedicated server.
-            if (!isClient)
+            // Apply the transform if we aren't the owner
+            if (!isOwner)
                 ApplyTransform(position, rotation);
             
             InvokeClientRPCOnAllExcept(ApplyTransform, ownerClientID, position, rotation);

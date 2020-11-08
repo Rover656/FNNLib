@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Linq;
 using FNNLib.Exceptions;
 using FNNLib.Messaging;
@@ -80,8 +81,8 @@ namespace FNNLib.SceneManagement {
             var initialScene = NetworkManager.instance.networkConfig.initialScene;
             var sceneChanged = false;
             if (!string.IsNullOrEmpty(initialScene)) {
-                // TODO: Security
-
+                if (!NetworkScene.CanSendClientTo(initialScene))
+                    throw new Exception();
                 if (SceneManager.GetActiveScene().name != initialScene) {
                     SceneManager.LoadScene(initialScene);
                     sceneChanged = true;
@@ -236,6 +237,8 @@ namespace FNNLib.SceneManagement {
 
             return netScene;
         }
+        
+        // TODO: Async scene loading where we wait for all clients to load the scene.
 
         public static AsyncOperation UnloadSceneAsync(NetworkScene scene, NetworkScene fallbackScene) {
             if (!NetworkManager.instance.isServer)
@@ -255,7 +258,8 @@ namespace FNNLib.SceneManagement {
             loadedScenes.TryRemove(scene.ID, out _);
             
             // Deal with the observers
-            foreach (var observer in scene.observers) {
+            var observers = scene.GetObservers();
+            foreach (var observer in observers) {
                 // Tell the observers to load the fallback if it isn't
                 if (!NetworkManager.instance.connectedClients[observer].loadedScenes.Contains(fallbackScene)) {
                     fallbackScene.LoadFor(observer);
@@ -267,7 +271,7 @@ namespace FNNLib.SceneManagement {
             
             // Send unload to all observers
             var unloadPacket = new SceneUnloadPacket {sceneID = scene.ID};
-            NetworkChannel.ReliableSequenced.ServerSend(scene.observers, unloadPacket);
+            NetworkChannel.ReliableSequenced.ServerSend(observers, unloadPacket);
 
             // Unload scene objects
             SpawnManager.ServerUnloadScene(scene);
@@ -284,6 +288,12 @@ namespace FNNLib.SceneManagement {
 
         public static NetworkScene GetScene(Scene scene) {
             return (from subScene in loadedScenes where subScene.Value.scene == scene select subScene.Value).FirstOrDefault();
+        }
+
+        public static bool IsSceneLoaded(uint sceneID) {
+            if (loadedScenes.ContainsKey(sceneID))
+                return true;
+            return false;
         }
         
         #endregion
@@ -309,7 +319,7 @@ namespace FNNLib.SceneManagement {
             for (var i = identity.observers.Count - 1; i >= 0; i--) {
                 var observer = identity.observers[i];
                 
-                if (scene.observers.Contains(observer)) {
+                if (scene.IsObserving(observer)) {
                     NetworkChannel.ReliableSequenced.ServerSend(observer, movePacket);
                 } else {
                     identity.RemoveObserver(observer);
@@ -317,7 +327,7 @@ namespace FNNLib.SceneManagement {
             }
             
             // Send spawn packets to people in the scene that have not yet seen it
-            foreach (var observer in scene.observers) {
+            foreach (var observer in scene.GetObservers()) {
                 if (!identity.observers.Contains(observer))
                     identity.AddObserver(observer);
             }
@@ -394,19 +404,14 @@ namespace FNNLib.SceneManagement {
         #region Server
 
         internal static void ServerOnClientConnected(ulong clientID) {
+            if (clientID == NetworkManager.ServerLocalID) return;
             // Load all main scenes on the client.
             for (var i = 0; i < _mainScenes.Count; i++) {
+                // Get scene.
                 var scene = _mainScenes[i];
-                var loadFallbackPacket = new SceneLoadPacket {
-                                                                 sceneNetworkID = scene.ID,
-                                                                 mode =
-                                                                     i == 0 ? LoadSceneMode.Single : scene.clientLoadMode,
-                                                                 sceneIndex = NetworkScene.GetSceneIndex(scene.sceneName)
-                                                             };
-                NetworkChannel.ReliableSequenced.ServerSend(clientID, loadFallbackPacket);
-
+                
                 // Add to observers list
-                scene.observers.Add(clientID);
+                scene.LoadFor(clientID);
 
                 // Add to the loaded scenes list of the client
                 NetworkManager.instance.connectedClients[clientID].loadedScenes.Add(scene);

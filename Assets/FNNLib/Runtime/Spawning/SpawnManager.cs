@@ -12,7 +12,27 @@ namespace FNNLib.Spawning {
     /// The spawn manager controls the sync of network identities across the network.
     /// </summary>
     public static class SpawnManager {
-        #region Identity Spawn Management
+        #region Public API
+
+        public static NetworkIdentity GetSpawned(ulong id) {
+            if (spawnedIdentities.ContainsKey(id))
+                return spawnedIdentities[id];
+            return null;
+        }
+
+        public static NetworkIdentity GetPlayerObject(ulong clientID) {
+            return GetSpawned(NetworkManager.instance.connectedClients[clientID].playerObject);
+        }
+
+        public static bool IsSpawned(ulong id) {
+            if (spawnedIdentities.ContainsKey(id))
+                return true;
+            return false;
+        }
+        
+        #endregion
+        
+        #region Backend
 
         /// <summary>
         /// Dictionary containing every spawned object.
@@ -62,12 +82,12 @@ namespace FNNLib.Spawning {
             if (NetworkManager.instance.isServer) {
                 var scene = identity.networkScene;
                 foreach (var client in NetworkManager.instance.connectedClientsList) {
-                    if (!scene.observers.Contains(client.ID))
+                    if (!scene.IsObserving(client.clientID))
                         continue;
 
                     // TODO: Custom IsVisible delegate
                     
-                    identity.observers.Add(client.ID);
+                    identity.observers.Add(client.clientID);
                 }
             }
             
@@ -126,6 +146,10 @@ namespace FNNLib.Spawning {
         /// <param name="identity"></param>
         internal static void ServerSendSpawn(List<ulong> observers, NetworkIdentity identity) {
             NetworkChannel.ReliableSequenced.ServerSend(observers, SpawnObjectPacket.Create(identity));
+        }
+
+        internal static void ServerOnClientDisconnect() {
+            
         }
         
         #endregion
@@ -270,7 +294,7 @@ namespace FNNLib.Spawning {
         /// <exception cref="Exception"></exception>
         internal static void ServerOnClientJoinScene(ulong client, NetworkScene scene) {
             // Ensure the client is in this scene
-            if (!scene.observers.Contains(client))
+            if (!scene.IsObserving(client))
                 throw new Exception();
             
             // TODO: IsVisible delegate here too

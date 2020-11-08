@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FNNLib.Exceptions;
 using FNNLib.Messaging;
+using FNNLib.Utilities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,26 +13,26 @@ namespace FNNLib.SceneManagement {
     /// This takes more control over scene control.
     /// </summary>
     public class NetworkScene {
-        public Scene scene { get; internal set; }
+        public Scene scene { get; }
 
         public string sceneName => scene.name;
         
         /// <summary>
         /// The scene's network ID
         /// </summary>
-        public uint ID { get; internal set; }
+        public uint ID { get; }
 
         /// <summary>
         /// The client loading mode.
         /// If this is single and server mode is additive, this will be offset in space.
         /// </summary>
-        public LoadSceneMode serverLoadMode { get; internal set; }
+        public LoadSceneMode serverLoadMode { get; }
 
         /// <summary>
         /// The client loading mode.
         /// If this is single and server mode is additive, this will be offset in space.
         /// </summary>
-        public LoadSceneMode clientLoadMode { get; internal set; }
+        public LoadSceneMode clientLoadMode { get; }
         
         /// <summary>
         /// Whether the scene is still loaded in the network scene manager.
@@ -45,12 +46,12 @@ namespace FNNLib.SceneManagement {
             this.clientLoadMode = clientLoad;
         }
 
-        #region Networked Loads
+        #region Observation and Loading
 
         /// <summary>
         /// The list of observing clients.
         /// </summary>
-        internal List<ulong> observers = new List<ulong>();
+        private ObservationManager _observationManager = new ObservationManager();
 
         /// <summary>
         /// Tell the client to load this scene.
@@ -60,11 +61,11 @@ namespace FNNLib.SceneManagement {
             if (!NetworkManager.instance.isServer)
                 throw new NotServerException();
             // TODO: This should never happen:
-            if (NetworkSceneManager.loadedScenes.ContainsKey(ID))
+            if (!NetworkSceneManager.loadedScenes.ContainsKey(ID))
                 throw new Exception("This scene is no longer loaded in the scene manager...");
             
             // Add to observers
-            observers.Add(clientID);
+            _observationManager.Add(clientID);
             
             // Send the load packet
             var loadPacket = new SceneLoadPacket {
@@ -90,7 +91,7 @@ namespace FNNLib.SceneManagement {
                 throw new Exception("This scene is no longer loaded in the scene manager...");
             
             // Add to observers
-            observers.AddRange(clientIDs);
+            _observationManager.AddRange(clientIDs);
             
             // Send the load packet
             var loadPacket = new SceneLoadPacket {
@@ -114,6 +115,14 @@ namespace FNNLib.SceneManagement {
         public void UnloadFor(List<ulong> clientIDs) {
             if (!NetworkManager.instance.isServer)
                 throw new NotServerException();
+        }
+
+        public bool IsObserving(ulong clientID) {
+            return _observationManager.IsObserving(clientID);
+        }
+
+        public List<ulong> GetObservers() {
+            return _observationManager.GetObservers();
         }
         
         #endregion

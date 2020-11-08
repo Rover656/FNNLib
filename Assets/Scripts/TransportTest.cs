@@ -26,7 +26,7 @@ namespace DefaultNamespace {
 
         private void SpawnPlayerObj(ulong client) {
             if (testScene == null)
-                testScene = NetworkSceneManager.LoadScene("Test", LoadSceneMode.Additive, LoadSceneMode.Additive);
+                testScene = NetworkSceneManager.LoadScene("Test", LoadSceneMode.Additive);
             
             var obj = NetworkSceneManager.GetScene(1).Instantiate(testPrefab, Vector3.zero, Quaternion.identity);
             obj.GetComponent<NetworkIdentity>().SpawnAsPlayerObject(client);

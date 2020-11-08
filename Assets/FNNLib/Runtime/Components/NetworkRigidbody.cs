@@ -62,8 +62,8 @@ namespace FNNLib.Components {
 
         [ServerRPC]
         private void SubmitRigidbody(Vector3 position, Quaternion rotation, Vector3 velocity, Vector3 angularVelocity) {
-            // Apply the transform if we are a dedicated server.
-            if (!isClient)
+            // Apply the transform if we aren't the owner
+            if (!isOwner)
                 ApplyRigidBody(position, rotation, velocity, angularVelocity);
             
             InvokeClientRPCOnAllExcept(ApplyRigidBody, ownerClientID, position, rotation, velocity, angularVelocity);

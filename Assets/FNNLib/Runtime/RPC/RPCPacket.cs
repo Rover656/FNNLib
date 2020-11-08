@@ -68,7 +68,7 @@ namespace FNNLib.RPC {
         }
 
         public bool BufferPacket(NetworkChannel channel, ulong sender) {
-            if (SpawnManager.spawnedIdentities.ContainsKey(networkID))
+            if (SpawnManager.IsSpawned(networkID))
                 return false;
             
             // Add to spawnmanager buffer so that this event is raised once the object exists (or the 1 minute buffer time expires)

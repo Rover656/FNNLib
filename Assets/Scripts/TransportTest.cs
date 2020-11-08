@@ -28,7 +28,7 @@ namespace DefaultNamespace {
             if (testScene == null)
                 testScene = NetworkSceneManager.LoadScene("Test", LoadSceneMode.Additive, LoadSceneMode.Additive);
             
-            var obj = NetworkSceneManager.GetNetScene(1).Instantiate(testPrefab, Vector3.zero, Quaternion.identity);
+            var obj = NetworkSceneManager.GetScene(1).Instantiate(testPrefab, Vector3.zero, Quaternion.identity);
             obj.GetComponent<NetworkIdentity>().SpawnAsPlayerObject(client);
 
             StartCoroutine(Test(obj));

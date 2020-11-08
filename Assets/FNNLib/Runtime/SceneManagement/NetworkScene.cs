@@ -1,68 +1,142 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FNNLib.Exceptions;
+using FNNLib.Messaging;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Object = UnityEngine.Object;
 
 namespace FNNLib.SceneManagement {
     /// <summary>
-    /// NetworkScene controls the scene's network presence, and the presence of its network objects.
+    /// The new network scene class.
+    /// This takes more control over scene control.
     /// </summary>
     public class NetworkScene {
-        /// <summary>
-        /// The name of the scene
-        /// </summary>
-        public string name { get; internal set; }
-        
-        /// <summary>
-        /// This scene's ID.
-        /// </summary>
-        public uint netID { get; internal set; }
-        
-        /// <summary>
-        /// The client loading mode.
-        /// If this is single and server mode is additive, this will be offset in space.
-        /// </summary>
-        public LoadSceneMode serverMode { get; internal set; }
-
-        /// <summary>
-        /// The client loading mode.
-        /// If this is single and server mode is additive, this will be offset in space.
-        /// </summary>
-        public LoadSceneMode clientMode { get; internal set; }
-
-        /// <summary>
-        /// The scene that we are controlling.
-        /// </summary>
         public Scene scene { get; internal set; }
+
+        public string sceneName => scene.name;
         
         /// <summary>
-        /// The packing offset given to this scene by the NetworkSceneManager.
+        /// The scene's network ID
         /// </summary>
-        public Vector3 packingOffset { get; internal set; }
+        public uint ID { get; internal set; }
 
         /// <summary>
-        /// This scene's observers.
+        /// The client loading mode.
+        /// If this is single and server mode is additive, this will be offset in space.
+        /// </summary>
+        public LoadSceneMode serverLoadMode { get; internal set; }
+
+        /// <summary>
+        /// The client loading mode.
+        /// If this is single and server mode is additive, this will be offset in space.
+        /// </summary>
+        public LoadSceneMode clientLoadMode { get; internal set; }
+        
+        /// <summary>
+        /// Whether the scene is still loaded in the network scene manager.
+        /// </summary>
+        public bool isLoaded => NetworkSceneManager.loadedScenes.ContainsKey(ID);
+
+        internal NetworkScene(Scene scene, uint id, LoadSceneMode serverLoad, LoadSceneMode clientLoad) {
+            this.scene = scene;
+            this.ID = id;
+            this.serverLoadMode = serverLoad;
+            this.clientLoadMode = clientLoad;
+        }
+
+        #region Networked Loads
+
+        /// <summary>
+        /// The list of observing clients.
         /// </summary>
         internal List<ulong> observers = new List<ulong>();
 
-        #region Observers (scene members)
-
-        internal void AddObserver(ulong clientID) {
-            // Add to observer list and spawn all current objects for the client (if they can see them)
+        /// <summary>
+        /// Tell the client to load this scene.
+        /// </summary>
+        /// <param name="clientID"></param>
+        public void LoadFor(ulong clientID) {
+            if (!NetworkManager.instance.isServer)
+                throw new NotServerException();
+            // TODO: This should never happen:
+            if (NetworkSceneManager.loadedScenes.ContainsKey(ID))
+                throw new Exception("This scene is no longer loaded in the scene manager...");
+            
+            // Add to observers
             observers.Add(clientID);
+            
+            // Send the load packet
+            var loadPacket = new SceneLoadPacket {
+                                                     sceneNetworkID = ID,
+                                                     mode = clientLoadMode,
+                                                     sceneIndex = GetSceneIndex(scene.name)
+                                                 };
+            NetworkChannel.ReliableSequenced.ServerSend(clientID, loadPacket);
+            
+            // Add to loaded scenes list
+            NetworkManager.instance.connectedClients[clientID].loadedScenes.Add(this);
         }
 
-        internal void RemoveObserver(ulong clientID) {
-            // Remove from observer list, they no longer recieve updates.
-            // We don't tell the client to despawn objects however, as this function is only called if they disconnect or load a different scene.
-            observers.Remove(clientID);
+        /// <summary>
+        /// Tell these clients to load this scene.
+        /// </summary>
+        /// <param name="clientIDs"></param>
+        public void LoadFor(List<ulong> clientIDs) {
+            if (!NetworkManager.instance.isServer)
+                throw new NotServerException();
+            // TODO: This should never happen:
+            if (!NetworkSceneManager.loadedScenes.ContainsKey(ID))
+                throw new Exception("This scene is no longer loaded in the scene manager...");
+            
+            // Add to observers
+            observers.AddRange(clientIDs);
+            
+            // Send the load packet
+            var loadPacket = new SceneLoadPacket {
+                                                     sceneNetworkID = ID,
+                                                     mode = clientLoadMode,
+                                                     sceneIndex = GetSceneIndex(scene.name)
+                                                 };
+            NetworkChannel.ReliableSequenced.ServerSend(clientIDs, loadPacket);
+            
+            // Add to loaded scenes list
+            foreach (var clientID in clientIDs)
+                NetworkManager.instance.connectedClients[clientID].loadedScenes.Add(this);
+        }
+
+        // TODO: We probably need fallback scenes for these:
+        public void UnloadFor(ulong clientID) {
+            if (!NetworkManager.instance.isServer)
+                throw new NotServerException();
+        }
+
+        public void UnloadFor(List<ulong> clientIDs) {
+            if (!NetworkManager.instance.isServer)
+                throw new NotServerException();
         }
         
         #endregion
         
-        #region Objects
+        #region Identities
+        
+        #endregion
+        
+        #region Security
+
+        internal static bool CanSendClientTo(string sceneName) {
+            return NetworkManager.instance.networkConfig.networkableScenes.FindIndex((networkableScene) =>
+                       networkableScene.sceneName == sceneName) != -1;
+        }
+
+        internal static int GetSceneIndex(string sceneName) {
+            return NetworkManager.instance.networkConfig.networkableScenes.FindIndex((networkableScene) =>
+                networkableScene.sceneName == sceneName);
+        }
+        
+        #endregion
+        
+        #region Old compat
 
         public GameObject Instantiate(GameObject go) {
             return Instantiate(go, Vector3.zero, Quaternion.identity);
@@ -70,7 +144,7 @@ namespace FNNLib.SceneManagement {
         
         public GameObject Instantiate(GameObject go, Vector3 position, Quaternion rotation) {
             // NOTE: This can be used on the client to spawn things, but they still cannot be spawned on the server.
-            var created = Object.Instantiate(go, position, rotation);
+            var created = UnityEngine.Object.Instantiate(go, position, rotation);
             SceneManager.MoveGameObjectToScene(created, scene);
             return created;
         }
@@ -84,7 +158,7 @@ namespace FNNLib.SceneManagement {
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public T[] FindObjectsOfType<T>() where T : MonoBehaviour {
-            var allObjects = Object.FindObjectsOfType<T>().ToList();
+            var allObjects = UnityEngine.Object.FindObjectsOfType<T>().ToList();
             var sceneObjects = new List<T>();
             foreach (var obj in allObjects) {
                 if (obj.gameObject.scene == scene)

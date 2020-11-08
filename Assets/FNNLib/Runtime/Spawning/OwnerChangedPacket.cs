@@ -28,11 +28,11 @@ namespace FNNLib.Spawning {
         }
 
         public bool BufferPacket(NetworkChannel channel, ulong sender) {
-            if (NewSpawnManager.spawnedIdentities.ContainsKey(networkID))
+            if (SpawnManager.spawnedIdentities.ContainsKey(networkID))
                 return false;
             
             // Add to spawnmanager buffer so that this event is raised once the object exists
-            NewSpawnManager.identityPacketBuffer.Enqueue(networkID, new BufferedPacket(this, sender, channel));
+            SpawnManager.identityPacketBuffer.Enqueue(networkID, new BufferedPacket(this, sender, channel));
             return true;
         }
     }

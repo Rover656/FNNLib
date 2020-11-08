@@ -381,9 +381,9 @@ namespace FNNLib {
         /// <param name="isServer">Whether or not we are the server.</param>
         internal static void RPCCallHandler(NetworkChannel channel, RPCPacket packet, ulong sender, bool isServer) {
             // Find the object
-            if (NewSpawnManager.spawnedIdentities.ContainsKey(packet.networkID)) {
+            if (SpawnManager.spawnedIdentities.ContainsKey(packet.networkID)) {
                 // Get the identity and locate the behaviour
-                var identity = NewSpawnManager.spawnedIdentities[packet.networkID];
+                var identity = SpawnManager.spawnedIdentities[packet.networkID];
 
                 // Ensure behaviour index is in range
                 if (packet.behaviourIndex < identity.behaviours.Count) {

@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   running: {fileID: 1517152541}
-  reverseRoles: 1
+  reverseRoles: 0
   testPrefab: {fileID: 2814584347881587928, guid: 8ef2c1703d1cdf546be216bc493ac80f, type: 3}
 --- !u!114 &786270579
 MonoBehaviour:

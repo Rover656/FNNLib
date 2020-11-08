@@ -18,7 +18,7 @@ namespace FNNLib {
         /// <summary>
         /// The scene that this object is in.
         /// </summary>
-        public uint networkSceneID => networkScene.netID;
+        public uint networkSceneID => networkScene.ID;
 
         /// <summary>
         /// The network scene this object resides in.
@@ -27,7 +27,7 @@ namespace FNNLib {
             get {
                 if (NetworkManager.instance == null)
                     return null;
-                return NetworkSceneManager.GetNetScene(gameObject.scene);
+                return NetworkSceneManager.GetScene(gameObject.scene);
             }
         }
         
@@ -141,7 +141,7 @@ namespace FNNLib {
                 throw new Exception("Must be spawned before observers can be added!");
             if (!observers.Contains(clientID)) {
                 observers.Add(clientID);
-                NewSpawnManager.ServerSendSpawn(clientID, this);
+                SpawnManager.ServerSendSpawn(clientID, this);
             }
         }
 
@@ -168,29 +168,29 @@ namespace FNNLib {
         public void Spawn() {
             if (!NetworkManager.instance.isServer)
                 throw new NotServerException();
-            NewSpawnManager.SpawnIdentityLocal(this, NewSpawnManager.GetNetworkID(), false, false, null);
-            NewSpawnManager.ServerSendSpawn(observers, this);
+            SpawnManager.SpawnIdentityLocal(this, SpawnManager.GetNetworkID(), false, false, null);
+            SpawnManager.ServerSendSpawn(observers, this);
         }
 
         public void SpawnWithOwnership(ulong clientID) {
             if (!NetworkManager.instance.isServer)
                 throw new NotServerException();
-            NewSpawnManager.SpawnIdentityLocal(this, NewSpawnManager.GetNetworkID(), false, false, clientID);
-            NewSpawnManager.ServerSendSpawn(observers, this);
+            SpawnManager.SpawnIdentityLocal(this, SpawnManager.GetNetworkID(), false, false, clientID);
+            SpawnManager.ServerSendSpawn(observers, this);
         }
 
         public void SpawnAsPlayerObject(ulong clientID) {
             if (!NetworkManager.instance.isServer)
                 throw new NotServerException();
-            NewSpawnManager.SpawnIdentityLocal(this, NewSpawnManager.GetNetworkID(), false, true, clientID);
-            NewSpawnManager.ServerSendSpawn(observers, this);
+            SpawnManager.SpawnIdentityLocal(this, SpawnManager.GetNetworkID(), false, true, clientID);
+            SpawnManager.ServerSendSpawn(observers, this);
         }
 
         public void UnSpawn() {
             if (!NetworkManager.instance.isServer)
                 throw new NotServerException();
             if (isSpawned)
-                NewSpawnManager.DestroyIdentity(networkID, false);
+                SpawnManager.DestroyIdentity(networkID, false);
         }
 
         #endregion
@@ -248,7 +248,7 @@ namespace FNNLib {
         /// <param name="packet"></param>
         internal static void OnOwnershipChanged(NetworkChannel channel, OwnerChangedPacket packet) {
             // TODO: Identity ownership events
-            NewSpawnManager.spawnedIdentities[packet.networkID].ownerClientID = packet.newOwnerID;
+            SpawnManager.spawnedIdentities[packet.networkID].ownerClientID = packet.newOwnerID;
         }
 
         #endregion
@@ -284,7 +284,7 @@ namespace FNNLib {
         /// </summary>
         private void OnDestroy() {
             if (NetworkManager.instance != null && isSpawned) {
-                NewSpawnManager.DestroyIdentity(this, false);
+                SpawnManager.DestroyIdentity(this, false);
             }
         }
 

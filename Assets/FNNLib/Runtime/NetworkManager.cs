@@ -18,7 +18,7 @@ using Debug = UnityEngine.Debug;
 
 namespace FNNLib {
     public delegate bool ApproveConnectionDelegate(ulong clientID, byte[] connectionData);
-    
+
     /// <summary>
     /// The network manager drives the NetworkClient and NetworkServer systems.
     ///
@@ -70,12 +70,12 @@ namespace FNNLib {
         /// Dictionary containing all connected clients.
         /// Key is client ID.
         /// </summary>
-        public readonly Dictionary<ulong, NetworkedClient> connectedClients = new Dictionary<ulong, NetworkedClient>();
+        public readonly Dictionary<ulong, NetworkClient> connectedClients = new Dictionary<ulong, NetworkClient>();
 
         /// <summary>
         /// List of all connected clients.
         /// </summary>
-        public readonly List<NetworkedClient> connectedClientsList = new List<NetworkedClient>();
+        public readonly List<NetworkClient> connectedClientsList = new List<NetworkClient>();
 
         /// <summary>
         /// Whether or not to move the manager to the DontDestroyOnLoad Scene.
@@ -105,16 +105,16 @@ namespace FNNLib {
         public ApproveConnectionDelegate connectionApprovalCallback = null;
 
         #region Editor
-        
+
         /// <summary>
         /// Ensure the default channels are maintained
         /// </summary>
         private void OnValidate() {
             networkConfig.EnsureDefaultChannels();
         }
-        
+
         #endregion
-        
+
         #region Engine Management
 
         private void Awake() {
@@ -140,7 +140,7 @@ namespace FNNLib {
             if (instance == this)
                 instance = null;
         }
-        
+
         #endregion
 
         #region Server
@@ -159,12 +159,11 @@ namespace FNNLib {
         /// List of all clients pending connection approvals.
         /// </summary>
         private List<ulong> _pendingClients = new List<ulong>();
-        
+
         /// <summary>
         /// List of all client IDs
         /// </summary>
-        [HideInInspector]
-        public List<ulong> allClientIDs = new List<ulong>();
+        [HideInInspector] public List<ulong> allClientIDs = new List<ulong>();
 
         /// <summary>
         /// Starts the manager in server mode.
@@ -184,7 +183,7 @@ namespace FNNLib {
 
             // Config
             isServer = true;
-            
+
             // Init
             Init();
 
@@ -227,9 +226,10 @@ namespace FNNLib {
         public void ServerDisconnect(ulong clientID, string disconnectReason) {
             if (!isServer)
                 throw new NotServerException();
-            
+
             // Send disconnect packet
-            NetworkChannel.Reliable.ServerSend(clientID, new ClientDisconnectPacket {disconnectReason = disconnectReason});
+            NetworkChannel.Reliable.ServerSend(clientID,
+                                               new ClientDisconnectPacket {disconnectReason = disconnectReason});
 
             // Start timeout
             StartCoroutine(ServerClientDisconnectTimeout(clientID));
@@ -244,7 +244,7 @@ namespace FNNLib {
                 throw new NotServerException();
             networkConfig.transport.ServerDisconnect(clientID);
         }
-        
+
         /// <summary>
         /// Handles a client connection.
         /// </summary>
@@ -268,12 +268,12 @@ namespace FNNLib {
             if (connectedClients.ContainsKey(clientID)) {
                 // Destroy owned objects
                 for (var i = connectedClients[clientID].ownedObjects.Count - 1; i > -1; i--) {
-                    NewSpawnManager.DestroyIdentity(connectedClients[clientID].ownedObjects[i], true);
+                    SpawnManager.DestroyIdentity(connectedClients[clientID].ownedObjects[i], true);
                 }
 
                 // Destroy player object
                 if (connectedClients[clientID].playerObject > 0)
-                    NewSpawnManager.DestroyIdentity(connectedClients[clientID].playerObject, true);
+                    SpawnManager.DestroyIdentity(connectedClients[clientID].playerObject, true);
 
                 connectedClientsList.Remove(connectedClients[clientID]);
                 connectedClients.Remove(clientID);
@@ -329,7 +329,8 @@ namespace FNNLib {
         /// <param name="channel"></param>
         /// <param name="packet"></param>
         /// <param name="sender"></param>
-        private void ServerHandleConnectionRequest(NetworkChannel channel, ConnectionRequestPacket packet, ulong sender) {
+        private void ServerHandleConnectionRequest(NetworkChannel channel, ConnectionRequestPacket packet,
+                                                   ulong sender) {
             // Ignore extra requests.
             if (connectedClients.ContainsKey(sender))
                 return;
@@ -343,7 +344,7 @@ namespace FNNLib {
                 ServerDisconnect(sender, "Client version does not match server!");
                 return;
             }
-            
+
             // Check custom callback
             if (connectionApprovalCallback != null) {
                 if (!connectionApprovalCallback(sender, packet.connectionData)) {
@@ -353,12 +354,12 @@ namespace FNNLib {
             }
 
             // Send approval
-            channel.ServerSend(sender, new ConnectionApprovedPacket{localClientID = sender});
+            channel.ServerSend(sender, new ConnectionApprovedPacket {localClientID = sender});
 
             // Add client to connected clients
-            connectedClients.Add(sender, new NetworkedClient {
-                                                                 clientID = sender
-                                                             });
+            connectedClients.Add(sender, new NetworkClient {
+                                                               ID = sender
+                                                           });
             connectedClientsList.Add(connectedClients[sender]);
             allClientIDs.Add(sender);
 
@@ -366,7 +367,7 @@ namespace FNNLib {
             serverOnClientConnect?.Invoke(sender);
 
             // Fire on client connected for scene.
-            NetworkSceneManager.OnClientConnected(sender);
+            NetworkSceneManager.ServerOnClientConnected(sender);
         }
 
         /// <summary>
@@ -421,7 +422,7 @@ namespace FNNLib {
 
             // Config
             isClient = true;
-            
+
             // Init
             Init();
 
@@ -462,7 +463,7 @@ namespace FNNLib {
                           {connectionData = _connectionRequestData, verificationHash = networkConfig.GetHash()};
             NetworkChannel.Reliable.ClientSend(request);
         }
-        
+
         private IEnumerator ClientApprovalTimeout() {
             var timeBegan = Time.unscaledTime;
             while (Time.unscaledTime - timeBegan < networkConfig.connectionRequestTimeout && connectedClients.Count < 1)
@@ -495,7 +496,7 @@ namespace FNNLib {
             _localClientID = packet.localClientID;
 
             // Add to connections list
-            connectedClients.Add(localClientID, new NetworkedClient {clientID = localClientID});
+            connectedClients.Add(localClientID, new NetworkClient {ID = localClientID});
 
             // Fire connection event.
             clientOnConnect?.Invoke();
@@ -533,16 +534,16 @@ namespace FNNLib {
             // Config
             isServer = true;
             isClient = true;
-            
+
             // Init
             Init();
 
             // Start server
             networkConfig.transport.ServerStart();
 
-            connectedClients.Add(ServerLocalID, new NetworkedClient {
-                                                                        clientID = ServerLocalID
-                                                                    });
+            connectedClients.Add(ServerLocalID, new NetworkClient {
+                                                                      ID = ServerLocalID
+                                                                  });
             connectedClientsList.Add(connectedClients[ServerLocalID]);
 
             // Fire starting events.
@@ -550,7 +551,7 @@ namespace FNNLib {
             clientOnConnect?.Invoke();
 
             // Fire on client connected for scene.
-            NetworkSceneManager.OnClientConnected(ServerLocalID);
+            NetworkSceneManager.ServerOnClientConnected(ServerLocalID);
         }
 
         /// <summary>
@@ -603,14 +604,14 @@ namespace FNNLib {
             isServer = true;
             isClient = true;
             isSinglePlayer = true;
-            
+
             // Init
             Init();
 
             // Add local client
-            connectedClients.Add(ServerLocalID, new NetworkedClient {
-                                                                        clientID = ServerLocalID
-                                                                    });
+            connectedClients.Add(ServerLocalID, new NetworkClient {
+                                                                      ID = ServerLocalID
+                                                                  });
             connectedClientsList.Add(connectedClients[ServerLocalID]);
 
             // Fire starting events.
@@ -618,7 +619,7 @@ namespace FNNLib {
             serverOnClientConnect?.Invoke(ServerLocalID);
 
             // Fire on client connected for scene.
-            NetworkSceneManager.OnClientConnected(ServerLocalID);
+            NetworkSceneManager.ServerOnClientConnected(ServerLocalID);
         }
 
         /// <summary>
@@ -694,10 +695,9 @@ namespace FNNLib {
 
             // Initial protocols
             InternalRegisterMessages();
-            
+
             // Init scene manager
             NetworkSceneManager.Init();
-            NetworkSceneManager.RegisterInitialScene(); // TODO: I wanna remove this so bad.
         }
 
         /// <summary>
@@ -708,9 +708,9 @@ namespace FNNLib {
             NetworkSceneManager.Shutdown();
 
             // Shut down spawn manager.
-            NewSpawnManager.DestroyNonSceneObjects();
+            SpawnManager.DestroyNonSceneObjects();
             if (isServer) {
-                NewSpawnManager.ServerUnspawnAllSceneObjects();
+                SpawnManager.ServerUnspawnAllSceneObjects();
             }
 
             // Reset run in background state. So if player goes into main menu and minimizes the game stops using resources.
@@ -747,7 +747,8 @@ namespace FNNLib {
                             break;
                         case NetworkEventType.Data:
                             if (channel < networkConfig.channels.Count) {
-                                networkConfig.channels[channel].HandleIncoming(clientID, NetworkReaderPool.GetReader(data), true);
+                                networkConfig.channels[channel]
+                                             .HandleIncoming(clientID, NetworkReaderPool.GetReader(data), true);
                             } else {
                                 Debug.LogWarning("Channel not registered!");
                             }
@@ -773,7 +774,7 @@ namespace FNNLib {
                         case NetworkEventType.Data:
                             if (channel < networkConfig.channels.Count) {
                                 networkConfig.channels[channel].HandleIncoming(ServerLocalID,
-                                                                               NetworkReaderPool.GetReader(data), 
+                                                                               NetworkReaderPool.GetReader(data),
                                                                                false);
                             } else {
                                 Debug.LogWarning("Channel not registered!");
@@ -815,7 +816,7 @@ namespace FNNLib {
                           .ClientConsumer<ClientDisconnectPacket>(ClientHandleDisconnectRequest).Register();
             NetworkChannel.Reliable.GetFactory()
                           .ServerConsumer<ConnectionRequestPacket>(ServerHandleConnectionRequest).Register();
-            
+
             // Register scene management events.
             NetworkChannel.ReliableSequenced.GetFactory()
                           .ClientConsumer<SceneLoadPacket>(NetworkSceneManager
@@ -829,10 +830,10 @@ namespace FNNLib {
 
             // Object spawning
             NetworkChannel.ReliableSequenced.GetFactory()
-                          .ClientConsumer<SpawnObjectPacket>(NewSpawnManager.ClientHandleSpawnPacket).Buffered()
+                          .ClientConsumer<SpawnObjectPacket>(SpawnManager.ClientHandleSpawnPacket).Buffered()
                           .Register();
             NetworkChannel.ReliableSequenced.GetFactory()
-                          .ClientConsumer<DestroyObjectPacket>(NewSpawnManager.ClientHandleDestroyPacket).Buffered()
+                          .ClientConsumer<DestroyObjectPacket>(SpawnManager.ClientHandleDestroyPacket).Buffered()
                           .Register();
             NetworkChannel.ReliableSequenced.GetFactory()
                           .ClientConsumer<OwnerChangedPacket>(NetworkIdentity.OnOwnershipChanged).Buffered();

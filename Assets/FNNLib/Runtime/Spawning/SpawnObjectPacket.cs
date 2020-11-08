@@ -149,8 +149,8 @@ namespace FNNLib.Spawning {
 
         public bool BufferPacket(NetworkChannel channel, ulong sender) {
             // BIG TODO: Also buffer if parent is not yet spawned!
-            if (NetworkManager.instance.connectedClients[NetworkManager.instance.localClientID].loadedScenes
-                              .Contains(sceneID))
+            var scene = NetworkSceneManager.GetScene(sceneID);
+            if (scene != null && scene.isLoaded)
                 return false;
             NetworkSceneManager.bufferedScenePackets.Enqueue(sceneID, new BufferedPacket(this, sender, channel));
             return true;

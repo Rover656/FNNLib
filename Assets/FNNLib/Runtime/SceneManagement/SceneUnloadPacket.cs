@@ -4,13 +4,13 @@ using FNNLib.Serialization;
 namespace FNNLib.SceneManagement {
     [ClientPacket]
     public class SceneUnloadPacket : ISerializable {
-        public uint sceneNetID;
+        public NetworkScene scene;
         public void Serialize(NetworkWriter writer) {
-            writer.WritePackedUInt32(sceneNetID);
+            writer.WritePackedUInt32(scene.ID);
         }
 
         public void DeSerialize(NetworkReader reader) {
-            sceneNetID = reader.ReadPackedUInt32();
+            scene = NetworkSceneManager.GetScene(reader.ReadPackedUInt32());
         }
     }
 }

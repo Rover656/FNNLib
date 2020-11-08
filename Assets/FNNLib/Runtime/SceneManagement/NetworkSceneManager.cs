@@ -254,19 +254,21 @@ namespace FNNLib.SceneManagement {
             // Remove from dictionary
             loadedScenes.TryRemove(scene.ID, out _);
             
-            // Load the fallback scene on all observers that aren't on it
+            // Deal with the observers
             foreach (var observer in scene.observers) {
+                // Tell the observers to load the fallback if it isn't
                 if (!NetworkManager.instance.connectedClients[observer].loadedScenes.Contains(fallbackScene)) {
                     fallbackScene.LoadFor(observer);
                 }
+                
+                // Remove this scene from the observer's lists
+                NetworkManager.instance.connectedClients[observer].loadedScenes.Remove(scene);
             }
             
             // Send unload to all observers
-            var unloadPacket = new SceneUnloadPacket {scene = scene};
+            var unloadPacket = new SceneUnloadPacket {sceneID = scene.ID};
             NetworkChannel.ReliableSequenced.ServerSend(scene.observers, unloadPacket);
-            
-            // TODO: Remove from loadedScenes list for clients.
-            
+
             // Unload scene objects
             SpawnManager.ServerUnloadScene(scene);
             
@@ -300,7 +302,7 @@ namespace FNNLib.SceneManagement {
             // Tell observers to move the object
             var movePacket = new MoveObjectToScenePacket {
                                                              networkID = identity.networkID,
-                                                             destinationScene = scene
+                                                             destinationScene = scene.ID
                                                          };
             
             // Send an appropriate packet to each observer
@@ -325,7 +327,7 @@ namespace FNNLib.SceneManagement {
         
         #region Networking
         
-        internal static PacketBufferCollection<uint> bufferedScenePackets = new PacketBufferCollection<uint>();
+        internal static readonly PacketBufferCollection<uint> bufferedScenePackets = new PacketBufferCollection<uint>();
         
         #region Client
 
@@ -362,23 +364,29 @@ namespace FNNLib.SceneManagement {
         }
 
         internal static void ClientHandleSceneUnloadPacket(NetworkChannel channel, SceneUnloadPacket packet) {
-            if (packet.scene != null) {
-                clientUnloadedScene?.Invoke(packet.scene);
+            if (loadedScenes.ContainsKey(packet.sceneID)) {
+                // Get scene
+                var scene = GetScene(packet.sceneID);
                 
-                var op = SceneManager.UnloadSceneAsync(packet.scene.scene);
-                op.completed += _ => {
-                                    Resources.UnloadUnusedAssets();
-                                };
-                loadedScenes.TryRemove(packet.scene.ID, out _);
+                // Invoke event
+                clientUnloadedScene?.Invoke(scene);
                 
-                // TODO: Remove from NetworkClient?
+                // Remove from the loaded scenes list of the client
+                NetworkManager.instance.connectedClients[NetworkManager.instance.localClientID]
+                              .loadedScenes.Remove(scene);
+                loadedScenes.TryRemove(packet.sceneID, out _);
+                
+                // Perform the unload
+                var op = SceneManager.UnloadSceneAsync(scene.scene);
+                op.completed += _ => Resources.UnloadUnusedAssets();
             }
         }
 
         internal static void ClientHandleMoveObjectPacket(NetworkChannel channel, MoveObjectToScenePacket packet) {
             // Get the object and scene
             var identity = SpawnManager.spawnedIdentities[packet.networkID];
-            SceneManager.MoveGameObjectToScene(identity.gameObject, packet.destinationScene.scene);
+            var scene = GetScene(packet.destinationScene);
+            SceneManager.MoveGameObjectToScene(identity.gameObject, scene.scene);
         }
 
         #endregion

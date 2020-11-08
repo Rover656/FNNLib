@@ -6,16 +6,16 @@ namespace FNNLib.SceneManagement {
     [ClientPacket]
     public class MoveObjectToScenePacket : ISerializable, IBufferablePacket {
         public ulong networkID;
-        public NetworkScene destinationScene;
+        public uint destinationScene;
         
         public void Serialize(NetworkWriter writer) {
             writer.WritePackedUInt64(networkID);
-            writer.WritePackedUInt32(destinationScene.ID);
+            writer.WritePackedUInt32(destinationScene);
         }
 
         public void DeSerialize(NetworkReader reader) {
             networkID = reader.ReadPackedUInt64();
-            destinationScene = NetworkSceneManager.GetScene(reader.ReadPackedUInt32());
+            destinationScene = reader.ReadPackedUInt32();
         }
 
         public bool BufferPacket(NetworkChannel channel, ulong sender) {
@@ -26,9 +26,9 @@ namespace FNNLib.SceneManagement {
             }
             
             // Buffer in the scene manager
-            if (!NetworkManager.instance.connectedClients[NetworkManager.instance.localClientID].loadedScenes
-                               .Contains(destinationScene)) {
-                NetworkSceneManager.bufferedScenePackets.Enqueue(destinationScene.ID, new BufferedPacket(this, sender, channel));
+            var scene = NetworkSceneManager.GetScene(destinationScene);
+            if (scene == null || !scene.isLoaded) {
+                NetworkSceneManager.bufferedScenePackets.Enqueue(destinationScene, new BufferedPacket(this, sender, channel));
                 return true;
             }
             
